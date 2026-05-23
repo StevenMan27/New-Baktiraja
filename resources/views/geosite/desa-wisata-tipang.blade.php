@@ -278,7 +278,7 @@
     <a href="#berita" class="mobile-link">Berita</a>
 </div>
 
-<section class="hero"><div data-aos="fade-up"><h1 class="hero-title">DESA WISATA TIPANG</h1><p class="hero-subtitle">Tipang Â· Kec. Baktiraja Â· Kearifan Lokal Batak</p></div></section>
+<section class="hero"><div data-aos="fade-up"><h1 class="hero-title">DESA WISATA TIPANG</h1><p class="hero-subtitle">Tipang · Kec. Baktiraja · Kearifan Lokal Batak</p></div></section>
 
 <section id="sejarah" class="section">
     <div class="container">
@@ -314,7 +314,7 @@
     @endforelse
 </div></div></section>
 
-<!-- UMKM â€” CRUD Read dari database via $umkm (injected dari TUKTUK.txt) -->
+<!-- UMKM — CRUD Read dari database via $umkm (injected dari TUKTUK.txt) -->
 <section id="umkm" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>UMKM Lokal</h2><div class="divider"></div></div>
 <div class="umkm-grid">
     @forelse($umkm as $item)
@@ -328,10 +328,10 @@
             <h4>{{ $item->nama }}</h4>
             <p class="desc">{{ $item->deskripsi }}</p>
             @if($item->lokasi)
-            <div class="card-location">ðŸ“ {{ $item->lokasi }}</div>
+            <div class="card-location">📍 {{ $item->lokasi }}</div>
             @endif
             @if($item->kontak)
-            <div class="card-contact">ðŸ“ž {{ $item->kontak }}</div>
+            <div class="card-contact">📞 {{ $item->kontak }}</div>
             @endif
         </div>
     </div>
@@ -342,7 +342,7 @@
     @endforelse
 </div></div></section>
 
-<!-- PENGINAPAN â€” CRUD Read dari database via $penginapan (injected dari TUKTUK.txt) -->
+<!-- PENGINAPAN — CRUD Read dari database via $penginapan (injected dari TUKTUK.txt) -->
 <section id="penginapan" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Penginapan & Homestay</h2><div class="divider"></div></div>
 <div class="penginapan-grid">
     @forelse($penginapan as $item)
@@ -356,10 +356,10 @@
             <h4>{{ $item->nama }}</h4>
             <p class="desc">{{ $item->deskripsi }}</p>
             @if($item->harga)
-            <div class="card-price">ðŸ’° {{ $item->harga }}</div>
+            <div class="card-price">💰 {{ $item->harga }}</div>
             @endif
             @if($item->kontak)
-            <div class="card-contact">ðŸ“ž {{ $item->kontak }}</div>
+            <div class="card-contact">📞 {{ $item->kontak }}</div>
             @endif
         </div>
     </div>
@@ -370,7 +370,7 @@
     @endforelse
 </div></div></section>
 
-<!-- FASILITAS â€” CRUD Read dari database via $fasilitas (injected dari TUKTUK.txt) -->
+<!-- FASILITAS — CRUD Read dari database via $fasilitas (injected dari TUKTUK.txt) -->
 <section id="fasilitas" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Fasilitas & Layanan</h2><div class="divider"></div></div>
 <div class="fasilitas-grid">
     @forelse($fasilitas as $item)
@@ -393,7 +393,7 @@
     @endforelse
 </div></div></section>
 
-<!-- BERITA â€” CRUD Read dari database via $berita (model Berita, status aktif) -->
+<!-- BERITA — CRUD Read dari database via $berita (model Berita, status aktif) -->
 <section id="berita" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Berita & Informasi Terkini</h2><div class="divider"></div></div>
 @if($berita->count() == 0 && $informasi_dinamis->count() == 0)
     <div style="text-align:center;padding:2rem;color:#888;">
@@ -410,7 +410,7 @@
         </div>
         @endif
         <div class="berita-content">
-            <div class="berita-meta">{{ $item->penulis }} Â· {{ $item->created_at->format('d M Y') }}</div>
+            <div class="berita-meta">{{ $item->penulis }} · {{ $item->created_at->format('d M Y') }}</div>
             <h4>{{ $item->judul }}</h4>
             <p class="berita-excerpt">{{ strip_tags($item->konten) }}</p>
         </div>
