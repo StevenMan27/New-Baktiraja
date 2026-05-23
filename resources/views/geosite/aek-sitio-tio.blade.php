@@ -352,6 +352,20 @@
                 <span class="tag">Mata Air</span><span class="tag">Air Jernih</span><span class="tag">Penyegaran</span><span class="tag">Alam</span><span class="tag">Tipang</span>
             </div>
         </div>
+
+@if($informasi_dinamis->count() > 0)
+<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+    @foreach($informasi_dinamis as $item)
+    <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); padding: 20px;">
+        @if($item->gambar)
+            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+        @endif
+        <h4 style="color: var(--bi-blue); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">{{ $item->judul }}</h4>
+        <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">{!! $item->konten !!}</div>
+    </div>
+    @endforeach
+</div>
+@endif
     </div>
 </section>
 
@@ -487,19 +501,16 @@
     </div>
 </section>
 
-<section id="maps" class="section">
-    <div class="container">
-        <div class="section-title" data-aos="fade-up"><h2>Lokasi Kami</h2><div class="divider"></div><p>Temukan rute menuju Aek Sitio-tio</p></div>
-        <div class="maps-container" data-aos="zoom-in">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255193.1325813422!2d98.69644291915316!3d2.470043988424604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0057d16c05ff%3A0xee8ecfd05118386e!2sBakara%2C%20Kec.%20Baktiraja%2C%20Kabupaten%20Humbang%20Hasundutan%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
-            <div class="maps-info"><p><i class="fas fa-map-marker-alt"></i> Aek Sitio-tio, Tipang, Kecamatan Baktiraja, Kabupaten Humbang Hasundutan</p></div>
-        </div>
+<section class="cta" id="footer-trigger">
+    <div class="container" data-aos="fade-up" data-aos-anchor="#footer-trigger">
+        <h3>Saksikan Keindahan Danau Toba dari Ketinggian</h3>
+        <div class="divider"></div>
+        <p>Panorama spektakuler yang akan membuat Anda terpukau</p>
+        <a href="{{ url('/destinasi') }}" class="cta-btn">Lihat Semua Destinasi</a>
     </div>
 </section>
-
-<section class="cta">
-    <div class="container" data-aos="fade-up"><h3>Rasakan Kesegaran Aek Sitio-tio</h3><div class="divider"></div><p>Mata air abadi yang jernih, menyegarkan tubuh dan jiwa</p><a href="{{ url('/destinasi') }}" class="cta-btn">Lihat Semua Destinasi</a></div>
-</section>
+@include('layouts.footer-css')
+@include('layouts.footer')
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()"><div class="lightbox-close">×</div><img id="lightboxImg"></div>
 
@@ -507,17 +518,27 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script>
     AOS.init({ duration: 700, once: true, offset: 50 });
+
     const hamburger = document.getElementById('hamburger');
     const mobileOverlay = document.getElementById('mobileOverlay');
     const mobileClose = document.getElementById('mobileClose');
-    hamburger.addEventListener('click', () => { mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
-    const closeMenu = () => { mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; };
+    
+    hamburger.addEventListener('click', () => {
+        mobileOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+    
+    const closeMenu = () => {
+        mobileOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+    
     mobileClose.addEventListener('click', closeMenu);
-    document.querySelectorAll('.mobile-link').forEach(link => { link.addEventListener('click', closeMenu); });
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-link:not(.home-btn), .mobile-link:not(.mobile-home)');
+
     window.addEventListener('scroll', () => {
         let current = '';
+        const sections = document.querySelectorAll('.section');
+        const navLinks = document.querySelectorAll('.nav-link');
         sections.forEach(section => { const top = section.offsetTop - 100; if (scrollY >= top) current = section.getAttribute('id'); });
         navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === `#${current}`) link.classList.add('active'); });
     });

@@ -26,6 +26,8 @@
                         <th width="50">No</th>
                         <th width="80">Gambar</th>
                         <th>Judul</th>
+                        <th width="80">Urutan</th>
+                        <th width="120">Lokasi Geosite</th>
                         <th width="80">Status</th>
                         <th width="120">Aksi</th>
                     </tr>
@@ -47,6 +49,8 @@
                             <strong>{{ $item->judul }}</strong>
                             <br><small class="text-muted">{{ $item->created_at->format('d M Y') }}</small>
                         </td>
+                        <td>{{ $item->urutan }}</td>
+                        <td><span class="badge bg-info text-dark">{{ ucwords(str_replace('-', ' ', $item->geosite)) }}</span></td>
                         <td>
                             <span class="badge {{ $item->status ? 'bg-success' : 'bg-danger' }}">
                                 {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}
@@ -69,7 +73,7 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="5" class="text-center py-4">
+                        <td colspan="7" class="text-center py-4">
                             <i class="fas fa-database fa-2x text-muted mb-2 d-block"></i>
                             Belum ada data informasi. Silakan tambah data baru.
                         </span>

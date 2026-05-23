@@ -372,6 +372,20 @@
                 <span class="tag">Wisata Keluarga</span>
             </div>
         </div>
+
+@if($informasi_dinamis->count() > 0)
+<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+    @foreach($informasi_dinamis as $item)
+    <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); padding: 20px;">
+        @if($item->gambar)
+            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+        @endif
+        <h4 style="color: var(--bi-blue); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">{{ $item->judul }}</h4>
+        <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">{!! $item->konten !!}</div>
+    </div>
+    @endforeach
+</div>
+@endif
     </div>
 </section>
 
@@ -561,15 +575,16 @@
     </div>
 </section>
 
-<!-- CTA -->
-<section class="cta">
-    <div class="container" data-aos="fade-up">
-        <h3>Jelajahi Seluruh Kawasan Wisata</h3>
+<section class="cta" id="footer-trigger">
+    <div class="container" data-aos="fade-up" data-aos-anchor="#footer-trigger">
+        <h3>Saksikan Keindahan Danau Toba dari Ketinggian</h3>
         <div class="divider"></div>
-        <p>Temukan keindahan lain di Bakara - Tipang - Baktiraja</p>
+        <p>Panorama spektakuler yang akan membuat Anda terpukau</p>
         <a href="{{ url('/destinasi') }}" class="cta-btn">Lihat Semua Destinasi</a>
     </div>
 </section>
+@include('layouts.footer-css')
+@include('layouts.footer')
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">

@@ -19,6 +19,7 @@ class GeositeController extends Controller
             'penginapan' => Penginapan::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
             'berita' => Berita::where('status', true)->where('geosite', $slug)->latest()->take(6)->get(),
             'galeri' => Galeri::where('status', 1)->where('geosite', $slug)->latest()->get(),
+            'informasi_dinamis' => \App\Models\Informasi::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
         ];
     }
 

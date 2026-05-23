@@ -22,6 +22,7 @@
                     <th>No</th>
                     <th>Gambar</th>
                     <th>Judul</th>
+                    <th width="120">Lokasi Geosite</th>
                     <th>Penulis</th>
                     <th>Status</th>
                     <th>Aksi</th>
@@ -39,6 +40,7 @@
                         @endif
                     </td>
                     <td>{{ $item->judul }}</td>
+                    <td><span class="badge bg-info text-dark">{{ ucwords(str_replace('-', ' ', $item->geosite)) }}</span></td>
                     <td>{{ $item->penulis ?? '-' }}</td>
                     <td>
                         <span class="badge {{ $item->status ? 'bg-success' : 'bg-danger' }}">
@@ -54,7 +56,7 @@
                     </td>
                 </tr>
                 @empty
-                <tr><td colspan="6" class="text-center">Belum ada berita</td></tr>
+                <tr><td colspan="7" class="text-center">Belum ada berita</td></tr>
                 @endforelse
             </tbody>
         </table>

@@ -9,6 +9,16 @@ use Illuminate\Support\Str;
 
 class InformasiController extends Controller
 {
+    private array $geositeList = [
+        'aek-sipangolu' => 'Aek Sipangolu',
+        'aek-sitio-tio' => 'Aek Sitio-tio',
+        'air-terjun-janji' => 'Air Terjun Janji',
+        'desa-wisata-tipang' => 'Desa Tipang',
+        'gonting' => 'Gonting',
+        'istana-sisingamangaraja' => 'Istana Sisingamangaraja',
+        'panatapan-bakara' => 'Panatapan Bakara',
+        'tombak-sulu-sulu' => 'Tombak Sulu-sulu'
+    ];
     public function index()
     {
         $informasi = Informasi::orderBy('urutan', 'asc')->paginate(10);
@@ -17,7 +27,8 @@ class InformasiController extends Controller
 
     public function create()
     {
-        return view('admin.informasi.create');
+        $geositeList = $this->geositeList;
+        return view('admin.informasi.create', compact('geositeList'));
     }
 
     public function store(Request $request)
@@ -27,6 +38,7 @@ class InformasiController extends Controller
             'konten' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', // 4MB
             'urutan' => 'required|integer|unique:informasi,urutan',
+            'geosite' => 'required|string',
             'status' => 'nullable|boolean'
         ]);
 
@@ -34,6 +46,7 @@ class InformasiController extends Controller
             'judul' => $request->judul,
             'konten' => $request->konten,
             'urutan' => $request->urutan,
+            'geosite' => $request->geosite,
             'status' => $request->has('status') ? 1 : 0
         ];
 
@@ -54,7 +67,8 @@ class InformasiController extends Controller
     public function edit($id)
     {
         $informasi = Informasi::findOrFail($id);
-        return view('admin.informasi.edit', compact('informasi'));
+        $geositeList = $this->geositeList;
+        return view('admin.informasi.edit', compact('informasi', 'geositeList'));
     }
 
     public function update(Request $request, $id)
@@ -66,6 +80,7 @@ class InformasiController extends Controller
             'konten' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', // 4MB
             'urutan' => 'required|integer|unique:informasi,urutan,' . $id,
+            'geosite' => 'required|string',
             'status' => 'nullable|boolean'
         ]);
 
@@ -73,6 +88,7 @@ class InformasiController extends Controller
             'judul' => $request->judul,
             'konten' => $request->konten,
             'urutan' => $request->urutan,
+            'geosite' => $request->geosite,
             'status' => $request->has('status') ? 1 : 0
         ];
 

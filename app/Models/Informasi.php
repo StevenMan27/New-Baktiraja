@@ -14,7 +14,8 @@ class Informasi extends Model
         'slug',
         'konten',
         'gambar',
-        'status'
+        'status',
+        'geosite'
     ];
 
     protected $casts = [
