@@ -16,6 +16,15 @@
                 <label class="form-label">Nama UMKM</label>
                 <input type="text" name="nama" class="form-control" value="{{ $data->nama }}" required>
             </div>
+            <div class="mb-3">
+                <label>Pilih Geosite</label>
+                <select name="geosite" class="form-control" required>
+                    <option value="">-- Pilih Geosite --</option>
+                    @foreach($geositeList as $slug => $label)
+                        <option value="{{ $slug }}" {{ (isset($data) && $data->geosite == $slug) || (isset($berita) && $berita->geosite == $slug) ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
+            </div>
             
             <div class="mb-3">
                 <label class="form-label">Deskripsi</label>

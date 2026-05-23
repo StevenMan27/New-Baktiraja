@@ -5,39 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\Umkm;
 use App\Models\Fasilitas;
 use App\Models\Penginapan;
+use App\Models\Berita;
 
 class GeositeController extends Controller
 {
+    // Helper: ambil semua data CRUD untuk geosite
+    private function getGeositeData($slug)
+    {
+        return [
+            'umkm' => Umkm::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
+            'fasilitas' => Fasilitas::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
+            'penginapan' => Penginapan::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
+            'berita' => Berita::where('status', true)->where('geosite', $slug)->latest()->take(6)->get(),
+        ];
+    }
+
     // ==================== DESTINASI ALAM ====================
     
     // 1. Air Terjun Janji
     public function airTerjunJanji()
     {
-        $umkm = Umkm::where('status', 1)->orderBy('urutan')->get();
-        $fasilitas = Fasilitas::where('status', 1)->orderBy('urutan')->get();
-        $penginapan = Penginapan::where('status', 1)->orderBy('urutan')->get();
-        
-        return view('geosite.air-terjun-janji', compact('umkm', 'fasilitas', 'penginapan'));
+        return view('geosite.air-terjun-janji', $this->getGeositeData('air-terjun-janji'));
     }
     
     // 2. Aek Sitio-tio
     public function aekSitioTio()
     {
-        $umkm = Umkm::where('status', 1)->orderBy('urutan')->get();
-        $fasilitas = Fasilitas::where('status', 1)->orderBy('urutan')->get();
-        $penginapan = Penginapan::where('status', 1)->orderBy('urutan')->get();
-        
-        return view('geosite.aek-sitio-tio', compact('umkm', 'fasilitas', 'penginapan'));
+        return view('geosite.aek-sitio-tio', $this->getGeositeData('aek-sitio-tio'));
     }
     
     // 3. Desa Wisata Tipang
     public function desaWisataTipang()
     {
-        $umkm = Umkm::where('status', 1)->orderBy('urutan')->get();
-        $fasilitas = Fasilitas::where('status', 1)->orderBy('urutan')->get();
-        $penginapan = Penginapan::where('status', 1)->orderBy('urutan')->get();
-        
-        return view('geosite.desa-wisata-tipang', compact('umkm', 'fasilitas', 'penginapan'));
+        return view('geosite.desa-wisata-tipang', $this->getGeositeData('desa-wisata-tipang'));
     }
     
     // ==================== DESTINASI BUATAN ====================
@@ -45,21 +45,13 @@ class GeositeController extends Controller
     // 4. Panatapan Bakara
     public function panatapanBakara()
     {
-        $umkm = Umkm::where('status', 1)->orderBy('urutan')->get();
-        $fasilitas = Fasilitas::where('status', 1)->orderBy('urutan')->get();
-        $penginapan = Penginapan::where('status', 1)->orderBy('urutan')->get();
-        
-        return view('geosite.panatapan-bakara', compact('umkm', 'fasilitas', 'penginapan'));
+        return view('geosite.panatapan-bakara', $this->getGeositeData('panatapan-bakara'));
     }
     
     // 5. Gonting
     public function gonting()
     {
-        $umkm = Umkm::where('status', 1)->orderBy('urutan')->get();
-        $fasilitas = Fasilitas::where('status', 1)->orderBy('urutan')->get();
-        $penginapan = Penginapan::where('status', 1)->orderBy('urutan')->get();
-        
-        return view('geosite.gonting', compact('umkm', 'fasilitas', 'penginapan'));
+        return view('geosite.gonting', $this->getGeositeData('gonting'));
     }
     
     // ==================== DESTINASI BUDAYA ====================
@@ -67,30 +59,18 @@ class GeositeController extends Controller
     // 6. Istana Sisingamangaraja
     public function istanaSisingamangaraja()
     {
-        $umkm = Umkm::where('status', 1)->orderBy('urutan')->get();
-        $fasilitas = Fasilitas::where('status', 1)->orderBy('urutan')->get();
-        $penginapan = Penginapan::where('status', 1)->orderBy('urutan')->get();
-        
-        return view('geosite.istana-sisingamangaraja', compact('umkm', 'fasilitas', 'penginapan'));
+        return view('geosite.istana-sisingamangaraja', $this->getGeositeData('istana-sisingamangaraja'));
     }
     
     // 7. Tombak Sulu-sulu
     public function tombakSuluSulu()
     {
-        $umkm = Umkm::where('status', 1)->orderBy('urutan')->get();
-        $fasilitas = Fasilitas::where('status', 1)->orderBy('urutan')->get();
-        $penginapan = Penginapan::where('status', 1)->orderBy('urutan')->get();
-        
-        return view('geosite.tombak-sulu-sulu', compact('umkm', 'fasilitas', 'penginapan'));
+        return view('geosite.tombak-sulu-sulu', $this->getGeositeData('tombak-sulu-sulu'));
     }
     
     // 8. Aek Sipangolu
     public function aekSipangolu()
     {
-        $umkm = Umkm::where('status', 1)->orderBy('urutan')->get();
-        $fasilitas = Fasilitas::where('status', 1)->orderBy('urutan')->get();
-        $penginapan = Penginapan::where('status', 1)->orderBy('urutan')->get();
-        
-        return view('geosite.aek-sipangolu', compact('umkm', 'fasilitas', 'penginapan'));
+        return view('geosite.aek-sipangolu', $this->getGeositeData('aek-sipangolu'));
     }
 }

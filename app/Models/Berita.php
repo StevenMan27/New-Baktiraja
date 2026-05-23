@@ -16,7 +16,8 @@ class Berita extends Model
         'gambar',
         'penulis',
         'views',
-        'status'
+        'status',
+        'geosite'
     ];
 
     protected $casts = [

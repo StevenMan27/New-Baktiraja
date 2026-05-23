@@ -15,6 +15,15 @@
                 <label>Judul</label>
                 <input type="text" name="judul" class="form-control" required>
             </div>
+            <div class="mb-3">
+                <label>Pilih Geosite</label>
+                <select name="geosite" class="form-control" required>
+                    <option value="">-- Pilih Geosite --</option>
+                    @foreach($geositeList as $slug => $label)
+                        <option value="{{ $slug }}" {{ (isset($data) && $data->geosite == $slug) || (isset($berita) && $berita->geosite == $slug) ? 'selected' : '' }}>{{ $label }}</option>
+                    @endforeach
+                </select>
+            </div>
             
             <div class="mb-3">
                 <label>Penulis</label>

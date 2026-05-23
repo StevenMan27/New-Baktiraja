@@ -163,6 +163,44 @@
         .penginapan-content .price { font-size: 0.75rem; color: var(--bi-gold); font-weight: 600; margin-bottom: 8px; }
         .penginapan-content .desc { font-size: 0.7rem; color: #666; }
         
+        .card-location { font-size: 0.72rem; color: #555; margin-top: 6px; }
+        .card-contact { font-size: 0.72rem; color: #555; margin-top: 4px; }
+
+        /* Penginapan Cards (CRUD-driven) */
+        .penginapan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .penginapan-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .penginapan-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .penginapan-img { height: 180px; overflow: hidden; }
+        .penginapan-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .penginapan-card:hover .penginapan-img img { transform: scale(1.05); }
+        .penginapan-content { padding: 20px; }
+        .penginapan-content h4 { font-size: 1rem; color: var(--bi-blue); margin-bottom: 5px; }
+        .penginapan-content .price { font-size: 0.75rem; color: var(--bi-gold); font-weight: 600; margin-bottom: 8px; }
+        .penginapan-content .desc { font-size: 0.7rem; color: #666; }
+        .card-price { font-size: 0.75rem; color: var(--bi-gold); font-weight: 600; margin-top: 6px; }
+
+        /* Fasilitas (CRUD-driven) */
+        .fasilitas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .fasilitas-item { display: flex; gap: 18px; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .fasilitas-item:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); }
+        .fasilitas-img { width: 130px; height: 130px; object-fit: cover; flex-shrink: 0; }
+        .fasilitas-content { padding: 18px 18px 18px 0; display: flex; flex-direction: column; justify-content: center; }
+        .fasilitas-content h4 { font-size: 0.95rem; color: var(--bi-blue); margin-bottom: 6px; }
+        .fasilitas-content p { font-size: 0.75rem; color: #666; line-height: 1.5; }
+        .fasilitas-price { font-size: 0.72rem; color: var(--bi-gold); font-weight: 600; margin-top: 6px; }
+
+        /* Berita Cards (CRUD-driven) */
+        .berita-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .berita-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .berita-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
+        .berita-img { height: 200px; overflow: hidden; }
+        .berita-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .berita-card:hover .berita-img img { transform: scale(1.05); }
+        .berita-content { padding: 20px; }
+        .berita-content h4 { font-size: 1rem; color: var(--bi-blue); margin-bottom: 8px; font-family: 'Cormorant Garamond', serif; line-height: 1.4; }
+        .berita-content .berita-meta { font-size: 0.65rem; color: var(--bi-gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
+        .berita-content .berita-excerpt { font-size: 0.75rem; color: #666; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
         .rekomendasi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .rekomendasi-card { background: white; border-radius: 16px; overflow: hidden; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .rekomendasi-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
@@ -191,13 +229,14 @@
         .lightbox-close { position: absolute; top: 20px; right: 30px; color: white; font-size: 32px; cursor: pointer; }
         .lightbox-close:hover { color: var(--bi-gold); }
         
-        @media (max-width: 992px) { .umkm-grid, .penginapan-grid { grid-template-columns: repeat(2, 1fr); } .rekomendasi-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 992px) { .umkm-grid, .penginapan-grid, .fasilitas-grid, .berita-grid { grid-template-columns: repeat(2, 1fr); } .rekomendasi-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) {
             .nav-menu { display: none; } .hamburger { display: block; }
             .hero { margin-top: 65px; min-height: 350px; } .hero-title { font-size: 2rem; }
             .section { padding: 40px 0; } .galeri-grid { grid-template-columns: repeat(2, 1fr); }
             .sejarah-item, .sejarah-item.reverse { flex-direction: column; text-align: center; }
-            .umkm-grid, .penginapan-grid { grid-template-columns: 1fr; } .rekomendasi-grid { grid-template-columns: 1fr; }
+            .umkm-grid, .penginapan-grid, .fasilitas-grid, .berita-grid { grid-template-columns: 1fr; }
+            .fasilitas-item { flex-direction: column; } .fasilitas-img { width: 100%; height: 180px; } .rekomendasi-grid { grid-template-columns: 1fr; }
             .maps-container iframe { height: 280px; }
         }
         @media (max-width: 576px) { .hero-title { font-size: 1.6rem; } .galeri-grid { grid-template-columns: 1fr; } .hero { min-height: 300px; } }
@@ -220,6 +259,8 @@
             <a href="#galeri" class="nav-link">Galeri</a>
             <a href="#umkm" class="nav-link">UMKM</a>
             <a href="#penginapan" class="nav-link">Penginapan</a>
+        <a href="#fasilitas" class="nav-link">Fasilitas</a>
+            <a href="#berita" class="nav-link">Berita</a>
         </div>
         <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
     </div>
@@ -233,6 +274,8 @@
     <a href="#galeri" class="mobile-link">Galeri</a>
     <a href="#umkm" class="mobile-link">UMKM</a>
     <a href="#penginapan" class="mobile-link">Penginapan</a>
+<a href="#fasilitas" class="mobile-link">Fasilitas</a>
+    <a href="#berita" class="mobile-link">Berita</a>
 </div>
 
 <section class="hero"><div data-aos="fade-up"><h1 class="hero-title">PANATAPAN BAKARA</h1><p class="hero-subtitle">Desa Bakara · Kec. Baktiraja · Panorama Danau Toba</p></div></section>
@@ -262,21 +305,107 @@
     <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/gonting.jpg') }}')"><img src="{{ asset('image/bakara/gonting.jpg') }}" alt="Gonting"></div>
 </div></div></section>
 
+<!-- UMKM — CRUD Read dari database via $umkm (injected dari TUKTUK.txt) -->
 <section id="umkm" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>UMKM Lokal</h2><div class="divider"></div></div>
 <div class="umkm-grid">
-    <div class="umkm-card"><div class="umkm-img"><img src="{{ asset('image/bakara/umkm/ulos.jpg') }}" alt="Ulos"></div><div class="umkm-content"><h4>Tenun Ulos Bakara</h4><p>✧ Sentra Tenun Bakara</p><p class="desc">Kain tradisional Batak dengan motif khas.</p></div></div>
-    <div class="umkm-card"><div class="umkm-img"><img src="{{ asset('image/bakara/umkm/kopi.jpg') }}" alt="Kopi"></div><div class="umkm-content"><h4>Kopi Arabika Bakara</h4><p>✧ Perkebunan Kopi Bakara</p><p class="desc">Kopi arabika dengan cita rasa khas.</p></div></div>
-    <div class="umkm-card"><div class="umkm-img"><img src="{{ asset('image/bakara/umkm/anyaman.jpg') }}" alt="Anyaman"></div><div class="umkm-content"><h4>Kerajinan Anyaman</h4><p>✧ Kerajinan Bakara</p><p class="desc">Anyaman bambu berkualitas.</p></div></div>
+    @forelse($umkm as $item)
+    <div class="umkm-card" data-aos="zoom-in">
+        @if($item->gambar)
+        <div class="umkm-img">
+            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->nama }}">
+        </div>
+        @endif
+        <div class="umkm-content">
+            <h4>{{ $item->nama }}</h4>
+            <p class="desc">{{ $item->deskripsi }}</p>
+            @if($item->lokasi)
+            <div class="card-location">📍 {{ $item->lokasi }}</div>
+            @endif
+            @if($item->kontak)
+            <div class="card-contact">📞 {{ $item->kontak }}</div>
+            @endif
+        </div>
+    </div>
+    @empty
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
+        <p>Belum ada data UMKM untuk geosite ini.</p>
+    </div>
+    @endforelse
 </div></div></section>
 
+<!-- PENGINAPAN — CRUD Read dari database via $penginapan (injected dari TUKTUK.txt) -->
 <section id="penginapan" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Penginapan & Homestay</h2><div class="divider"></div></div>
 <div class="penginapan-grid">
-    <div class="penginapan-card"><div class="penginapan-img"><img src="{{ asset('image/bakara/penginapan/homestay-bakara.jpg') }}" alt="Homestay"></div><div class="penginapan-content"><h4>Homestay Bakara</h4><p class="price">Rp 150.000 - Rp 250.000/malam</p><p class="desc">Menginap dengan pemandangan Danau Toba.</p></div></div>
-    <div class="penginapan-card"><div class="penginapan-img"><img src="{{ asset('image/bakara/penginapan/tipang-hill.jpg') }}" alt="Resort"></div><div class="penginapan-content"><h4>Bakara Hill Resort</h4><p class="price">Rp 350.000 - Rp 500.000/malam</p><p class="desc">Resort dengan pemandangan spektakuler.</p></div></div>
-    <div class="penginapan-card"><div class="penginapan-img"><img src="{{ asset('image/bakara/penginapan/camping-gonting.jpg') }}" alt="Camping"></div><div class="penginapan-content"><h4>Camping Ground Bakara</h4><p class="price">Rp 50.000 - Rp 100.000/malam</p><p class="desc">Area camping dengan pemandangan alam.</p></div></div>
+    @forelse($penginapan as $item)
+    <div class="penginapan-card" data-aos="zoom-in">
+        @if($item->gambar)
+        <div class="penginapan-img">
+            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->nama }}">
+        </div>
+        @endif
+        <div class="penginapan-content">
+            <h4>{{ $item->nama }}</h4>
+            <p class="desc">{{ $item->deskripsi }}</p>
+            @if($item->harga)
+            <div class="card-price">💰 {{ $item->harga }}</div>
+            @endif
+            @if($item->kontak)
+            <div class="card-contact">📞 {{ $item->kontak }}</div>
+            @endif
+        </div>
+    </div>
+    @empty
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
+        <p>Belum ada data penginapan untuk geosite ini.</p>
+    </div>
+    @endforelse
 </div></div></section>
 
-<section id="rekomendasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Destinasi Lain di Sekitar</h2><div class="divider"></div></div>
+<!-- FASILITAS — CRUD Read dari database via $fasilitas (injected dari TUKTUK.txt) -->
+<section id="fasilitas" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Fasilitas & Layanan</h2><div class="divider"></div></div>
+<div class="fasilitas-grid">
+    @forelse($fasilitas as $item)
+    <div class="fasilitas-item" data-aos="zoom-in">
+        @if($item->gambar)
+        <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" class="fasilitas-img" alt="{{ $item->nama }}">
+        @endif
+        <div class="fasilitas-content">
+            <h4>{{ $item->nama }}</h4>
+            <p>{{ $item->deskripsi }}</p>
+            @if($item->harga)
+            <div class="fasilitas-price">{{ $item->harga }}</div>
+            @endif
+        </div>
+    </div>
+    @empty
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
+        <p>Belum ada data fasilitas untuk geosite ini.</p>
+    </div>
+    @endforelse
+</div></div></section>
+
+<!-- BERITA — CRUD Read dari database via $berita (model Berita, status aktif) -->
+<section id="berita" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Berita & Informasi Terkini</h2><div class="divider"></div></div>
+<div class="berita-grid">
+    @forelse($berita as $item)
+    <div class="berita-card" data-aos="zoom-in">
+        @if($item->gambar)
+        <div class="berita-img">
+            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->judul }}">
+        </div>
+        @endif
+        <div class="berita-content">
+            <div class="berita-meta">{{ $item->penulis }} · {{ $item->created_at->format('d M Y') }}</div>
+            <h4>{{ $item->judul }}</h4>
+            <p class="berita-excerpt">{{ strip_tags($item->konten) }}</p>
+        </div>
+    </div>
+    @empty
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
+        <p>Belum ada berita untuk geosite ini.</p>
+    </div>
+    @endforelse
+</div></div></section><section id="rekomendasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Destinasi Lain di Sekitar</h2><div class="divider"></div></div>
 <div class="rekomendasi-grid">
     <div class="rekomendasi-card" onclick="window.location.href='{{ url('/geosite/air-terjun-janji') }}'"><div class="rekomendasi-img"><img src="{{ asset('image/bakara/air-terjun-janji.jpg') }}" alt="Air Terjun"></div><div class="rekomendasi-content"><h4>Air Terjun Janji</h4><p>Air Terjun Mitos</p></div></div>
     <div class="rekomendasi-card" onclick="window.location.href='{{ url('/geosite/gonting') }}'"><div class="rekomendasi-img"><img src="{{ asset('image/bakara/gonting.jpg') }}" alt="Gonting"></div><div class="rekomendasi-content"><h4>Gonting</h4><p>Bukit Trekking</p></div></div>

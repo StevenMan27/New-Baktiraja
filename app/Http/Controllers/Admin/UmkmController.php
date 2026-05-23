@@ -10,7 +10,16 @@ use Illuminate\Support\Facades\Storage;
 class UmkmController extends Controller
 {
     // Daftar geosite yang valid
-    private array $geositeList = ['ambarita', 'tuktuk', 'tomok'];
+    private array $geositeList = [
+        'aek-sipangolu' => 'Aek Sipangolu',
+        'aek-sitio-tio' => 'Aek Sitio-tio',
+        'air-terjun-janji' => 'Air Terjun Janji',
+        'desa-wisata-tipang' => 'Desa Tipang',
+        'gonting' => 'Gonting',
+        'istana-sisingamangaraja' => 'Istana Sisingamangaraja',
+        'panatapan-bakara' => 'Panatapan Bakara',
+        'tombak-sulu-sulu' => 'Tombak Sulu-sulu'
+    ];
 
     public function index()
     {
@@ -35,7 +44,7 @@ class UmkmController extends Controller
             'urutan'    => 'required|integer',
             'lokasi'    => 'nullable|string|max:255',
             'kontak'    => 'nullable|string|max:255',
-            'geosite'   => 'required|in:ambarita,tuktuk,tomok',
+            'geosite'   => 'required|string',
             'status'    => 'nullable|boolean',
         ]);
 
@@ -79,7 +88,7 @@ class UmkmController extends Controller
             'urutan'    => 'required|integer',
             'lokasi'    => 'nullable|string|max:255',
             'kontak'    => 'nullable|string|max:255',
-            'geosite'   => 'required|in:ambarita,tuktuk,tomok',
+            'geosite'   => 'required|string',
             'status'    => 'nullable|boolean',
         ]);
 

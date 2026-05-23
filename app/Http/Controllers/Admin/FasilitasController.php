@@ -10,7 +10,16 @@ use Illuminate\Support\Facades\Storage;
 class FasilitasController extends Controller
 {
     // Daftar geosite yang valid
-    private array $geositeList = ['ambarita', 'tuktuk', 'tomok'];
+    private array $geositeList = [
+        'aek-sipangolu' => 'Aek Sipangolu',
+        'aek-sitio-tio' => 'Aek Sitio-tio',
+        'air-terjun-janji' => 'Air Terjun Janji',
+        'desa-wisata-tipang' => 'Desa Tipang',
+        'gonting' => 'Gonting',
+        'istana-sisingamangaraja' => 'Istana Sisingamangaraja',
+        'panatapan-bakara' => 'Panatapan Bakara',
+        'tombak-sulu-sulu' => 'Tombak Sulu-sulu'
+    ];
 
     public function index()
     {
@@ -34,7 +43,7 @@ class FasilitasController extends Controller
             'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6144',
             'urutan'    => 'required|integer',
             'harga'     => 'nullable|string|max:100',
-            'geosite'   => 'required|in:ambarita,tuktuk,tomok',
+            'geosite'   => 'required|string',
             'status'    => 'nullable|boolean',
         ]);
 
@@ -76,7 +85,7 @@ class FasilitasController extends Controller
             'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6144',
             'urutan'    => 'required|integer',
             'harga'     => 'nullable|string|max:100',
-            'geosite'   => 'required|in:ambarita,tuktuk,tomok',
+            'geosite'   => 'required|string',
             'status'    => 'nullable|boolean',
         ]);
 

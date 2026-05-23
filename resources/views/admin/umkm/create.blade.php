@@ -15,6 +15,15 @@
                 <input type="text" name="nama" class="form-control" required>
             </div>
             <div class="mb-3">
+                <label>Pilih Geosite</label>
+                <select name="geosite" class="form-control" required>
+                    <option value="">-- Pilih Geosite --</option>
+                    @foreach($geositeList as $slug => $label)
+                        <option value="{{ $slug }}">{{ $label }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label>Deskripsi</label>
                 <textarea name="deskripsi" class="form-control" rows="4" required></textarea>
             </div>
