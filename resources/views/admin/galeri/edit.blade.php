@@ -35,15 +35,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label>Kategori</label>
-                    <select name="kategori" class="form-control">
-                        <option value="Balige" {{ $galeri->kategori=='Balige'?'selected':'' }}>Balige</option>
-                        <option value="Meat" {{ $galeri->kategori=='Meat'?'selected':'' }}>Meat</option>
-                        <option value="Batu Bahisan" {{ $galeri->kategori=='Batu Bahisan'?'selected':'' }}>Batu Bahisan</option>
-                        <option value="Liang Sipege" {{ $galeri->kategori=='Liang Sipege'?'selected':'' }}>Liang Sipege</option>
-                    </select>
-                </div>
+
 
                 <div class="col-md-12 mb-3">
                     <label>Deskripsi</label>

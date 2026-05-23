@@ -54,21 +54,7 @@
                     @enderror
                 </div>
                 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label required">Kategori</label>
-                    <select name="kategori" class="form-control @error('kategori') is-invalid @enderror" required>
-                        <option value="">-- Pilih Kategori --</option>
-                        <option value="Balige" {{ old('kategori') == 'Balige' ? 'selected' : '' }}> Balige</option>
-                        <option value="Meat" {{ old('kategori') == 'Meat' ? 'selected' : '' }}> Meat</option>
-                        <option value="Batu Bahisan" {{ old('kategori') == 'Batu Bahisan' ? 'selected' : '' }}> Batu Bahisan</option>
-                        <option value="Liang Sipege" {{ old('kategori') == 'Liang Sipege' ? 'selected' : '' }}> Liang Sipege</option>
-                    </select>
-                    <small class="text-muted">Pilih kategori untuk menentukan folder penyimpanan gambar</small>
-                    @error('kategori')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-                
+
                 <div class="col-md-12 mb-3">
                     <label class="form-label required">Deskripsi</label>
                     <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" 

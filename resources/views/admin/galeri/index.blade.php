@@ -19,7 +19,7 @@
                 <th>No</th>
                 <th>Gambar</th>
                 <th>Judul</th>
-                <th>Kategori</th>
+                
                 <th>Aksi</th>
             </tr>
 
