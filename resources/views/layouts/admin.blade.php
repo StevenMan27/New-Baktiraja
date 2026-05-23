@@ -471,16 +471,26 @@
             flex-wrap: wrap;
         }
 
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: fit-content;
+        }
+
         .btn-edit, .btn-warning {
             background: #eab308;
             color: white;
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 500;
             text-decoration: none;
             transition: all 0.2s;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: 85px;
             border: none;
             cursor: pointer;
         }
@@ -493,14 +503,17 @@
         .btn-delete, .btn-danger {
             background: #ef4444;
             color: white;
-            padding: 5px 12px;
+            padding: 6px 12px;
             border-radius: 6px;
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             font-weight: 500;
             border: none;
             cursor: pointer;
             transition: all 0.2s;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            width: 85px;
             text-decoration: none;
         }
 

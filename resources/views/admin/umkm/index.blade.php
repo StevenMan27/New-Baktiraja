@@ -59,16 +59,14 @@
                         </td>
                         <td>
                             <div class="btn-group" role="group">
-                                <a href="{{ route('admin.umkm.edit', $item->id) }}" class="btn btn-sm btn-warning" title="Edit">
-                                    <i class="fas fa-edit"></i> Edit
-                                </a>
+                                <div class="action-buttons">
+                                <a href="{{ route('admin.umkm.edit', $item->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>
                                 <form action="{{ route('admin.umkm.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus UMKM {{ $item->nama }}?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" title="Hapus">
-                                        <i class="fas fa-trash"></i> Hapus
-                                    </button>
+                                    <button type="submit" class="btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
                                 </form>
+                            </div>
                             </div>
                         </td>
                     </tr>

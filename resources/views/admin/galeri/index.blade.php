@@ -33,15 +33,14 @@
                 <td>{{ $g->judul }}</td>
                 <td>{{ $g->kategori }}</td>
                 <td>
-                    <a href="{{ route('admin.galeri.edit', $g->id) }}" class="btn btn-warning btn-sm">Edit</a>
-
-                    <form action="{{ route('admin.galeri.destroy', $g->id) }}" method="POST" style="display:inline">
-                        @csrf
-                        @method('DELETE')
-                        <button onclick="return confirm('Hapus?')" class="btn btn-danger btn-sm">
-                            Hapus
-                        </button>
-                    </form>
+                    <div class="action-buttons">
+                        <a href="{{ route('admin.galeri.edit', $g->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>
+                        <form action="{{ route('admin.galeri.destroy', $g->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Hapus?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-delete"><i class="fas fa-trash-alt"></i> Hapus</button>
+                        </form>
+                    </div>
                 </td>
             </tr>
             @endforeach
