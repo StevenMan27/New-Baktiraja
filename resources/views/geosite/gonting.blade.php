@@ -432,16 +432,15 @@
     <div class="maps-info"><p><i class="fas fa-map-marker-alt"></i> Istana Sisingamangaraja, Tipang, Kecamatan Baktiraja, Kabupaten Humbang Hasundutan</p></div>
 </div></div></section>
 
-<section class="cta" id="footer-trigger">
-    <div class="container" data-aos="fade-up" data-aos-anchor="#footer-trigger">
+<!-- CTA -->
+<section class="cta">
+    <div class="container" data-aos="fade-up">
         <h3>Saksikan Keindahan Danau Toba dari Ketinggian</h3>
         <div class="divider"></div>
         <p>Panorama spektakuler yang akan membuat Anda terpukau</p>
         <a href="{{ url('/destinasi') }}" class="cta-btn">Lihat Semua Destinasi</a>
     </div>
 </section>
-@include('layouts.footer-css')
-@include('layouts.footer')
 
 <div class="lightbox" id="lightbox" onclick="closeLightbox()"><div class="lightbox-close">×</div><img id="lightboxImg"></div>
 
