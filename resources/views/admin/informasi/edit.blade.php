@@ -101,13 +101,13 @@
                 </div>
             </div>
             
-            <hr>
+            
             
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary">
                     <i class="fas fa-save me-2"></i> Update
                 </button>
-                <a href="{{ route('admin.informasi.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.informasi.index') }}" class="btn-cancel">
                     <i class="fas fa-arrow-left me-2"></i> Batal
                 </a>
             </div>

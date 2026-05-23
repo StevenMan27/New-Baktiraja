@@ -58,8 +58,12 @@
                 <input type="checkbox" name="status" value="1" {{ $data->status ? 'checked' : '' }}> Aktifkan
             </div>
             
-            <button type="submit" class="btn btn-primary">Update</button>
-            <a href="{{ route('admin.fasilitas.index') }}" class="btn btn-secondary">Batal</a>
+            <button type="submit" class="btn-submit">
+                    <i class="fas fa-save"></i> Update
+                </button>
+            <a href="{{ route('admin.fasilitas.index') }}" class="btn-cancel">
+                    <i class="fas fa-arrow-left"></i> Batal
+                </a>
         </form>
     </div>
 </div>

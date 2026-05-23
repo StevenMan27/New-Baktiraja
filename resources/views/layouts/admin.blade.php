@@ -279,6 +279,12 @@
             border: none;
             cursor: pointer;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 115px;
+            margin-right: 8px;
         }
 
         .btn-submit:hover {
@@ -286,18 +292,24 @@
         }
 
         .btn-cancel {
-            background: #f1f5f9;
-            color: #475569;
+            background: #ef4444;
+            color: white;
             padding: 10px 24px;
             border-radius: 10px;
             font-size: 0.85rem;
             font-weight: 600;
             text-decoration: none;
             transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 115px;
         }
 
         .btn-cancel:hover {
-            background: #e2e8f0;
+            background: #dc2626;
+            color: white;
         }
 
         /* ========== FORM STYLES ========== */

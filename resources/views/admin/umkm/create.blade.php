@@ -53,8 +53,12 @@
             <div class="mb-3">
                 <input type="checkbox" name="status" value="1" checked> Aktifkan
             </div>
-            <button type="submit" class="btn btn-primary">Simpan</button>
-            <a href="{{ route('admin.umkm.index') }}" class="btn btn-secondary">Batal</a>
+            <button type="submit" class="btn-submit">
+                    <i class="fas fa-save"></i> Simpan
+                </button>
+            <a href="{{ route('admin.umkm.index') }}" class="btn-cancel">
+                    <i class="fas fa-arrow-left"></i> Batal
+                </a>
         </form>
     </div>
 </div>

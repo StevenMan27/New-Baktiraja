@@ -70,8 +70,12 @@
                 </div>
             </div>
 
-            <button class="btn btn-warning">Update</button>
-            <a href="{{ route('admin.galeri.index') }}" class="btn btn-secondary">Kembali</a>
+            <button class="btn-submit">
+                    <i class="fas fa-save"></i> Update
+                </button>
+            <a href="{{ route('admin.galeri.index') }}" class="btn-cancel">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
         </form>
     </div>
 </div>

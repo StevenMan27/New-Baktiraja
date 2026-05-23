@@ -108,13 +108,13 @@
                 </div>
             </div>
             
-            <hr>
+            
             
             <div class="d-flex gap-2">
-                <button type="submit" class="btn" style="background: #c6a43b; border: none; color: white;">
+                <button type="submit" class="btn-submit">
                     <i class="fas fa-save me-2"></i> Simpan
                 </button>
-                <a href="{{ route('admin.galeri.index') }}" class="btn btn-secondary">
+                <a href="{{ route('admin.galeri.index') }}" class="btn-cancel">
                     <i class="fas fa-arrow-left me-2"></i> Batal
                 </a>
             </div>
