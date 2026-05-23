@@ -26,6 +26,16 @@
                 </div>
 
                 <div class="col-md-6 mb-3">
+                    <label>Geosite</label>
+                    <select name="geosite" class="form-control" required>
+                        <option value="">-- Pilih Geosite --</option>
+                        @foreach($geositeList as $slug => $label)
+                            <option value="{{ $slug }}" {{ (old('geosite', $galeri->geosite) == $slug) ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
                     <label>Kategori</label>
                     <select name="kategori" class="form-control">
                         <option value="Balige" {{ $galeri->kategori=='Balige'?'selected':'' }}>Balige</option>

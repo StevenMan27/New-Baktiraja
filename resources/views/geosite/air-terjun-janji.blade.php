@@ -384,19 +384,16 @@
             <p>Dokumentasi keindahan Air Terjun Janji</p>
         </div>
         <div class="galeri-grid" id="galeriGrid">
-            <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/air-terjun-janji.jpg') }}')">
-                <img src="{{ asset('image/bakara/air-terjun-janji.jpg') }}" alt="Air Terjun Janji 1">
-            </div>
-            <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/air-terjun-janji-detail.jpg') }}')">
-                <img src="{{ asset('image/bakara/air-terjun-janji-detail.jpg') }}" alt="Air Terjun Janji 2">
-            </div>
-            <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/aek-sitio-tio.jpg') }}')">
-                <img src="{{ asset('image/bakara/aek-sitio-tio.jpg') }}" alt="Air Terjun Janji 3">
-            </div>
-            <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/panatapan-bakara.jpg') }}')">
-                <img src="{{ asset('image/bakara/panatapan-bakara.jpg') }}" alt="Air Terjun Janji 4">
-            </div>
-        </div>
+    @forelse($galeri as $item)
+    <div class="galeri-item" onclick="openLightbox('{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}')">
+        <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->judul }}">
+    </div>
+    @empty
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
+        <p>Belum ada foto galeri untuk geosite ini.</p>
+    </div>
+    @endforelse
+</div>
     </div>
 </section>
 

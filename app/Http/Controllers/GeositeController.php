@@ -6,6 +6,7 @@ use App\Models\Umkm;
 use App\Models\Fasilitas;
 use App\Models\Penginapan;
 use App\Models\Berita;
+use App\Models\Galeri;
 
 class GeositeController extends Controller
 {
@@ -17,6 +18,7 @@ class GeositeController extends Controller
             'fasilitas' => Fasilitas::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
             'penginapan' => Penginapan::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
             'berita' => Berita::where('status', true)->where('geosite', $slug)->latest()->take(6)->get(),
+            'galeri' => Galeri::where('status', 1)->where('geosite', $slug)->latest()->get(),
         ];
     }
 

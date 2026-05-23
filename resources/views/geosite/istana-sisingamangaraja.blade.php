@@ -290,10 +290,15 @@
 
 <section id="galeri" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Galeri Foto</h2><div class="divider"></div></div>
 <div class="galeri-grid" id="galeriGrid">
-    <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/istana-sisingamangaraja.jpg') }}')"><img src="{{ asset('image/bakara/istana-sisingamangaraja.jpg') }}" alt="Istana 1"></div>
-    <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/istana-sisingamangaraja-detail.jpg') }}')"><img src="{{ asset('image/bakara/istana-sisingamangaraja-detail.jpg') }}" alt="Detail Istana"></div>
-    <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/tombak-sulu-sulu.jpg') }}')"><img src="{{ asset('image/bakara/tombak-sulu-sulu.jpg') }}" alt="Tombak Sulu-sulu"></div>
-    <div class="galeri-item" onclick="openLightbox('{{ asset('image/bakara/panatapan-bakara.jpg') }}')"><img src="{{ asset('image/bakara/panatapan-bakara.jpg') }}" alt="Panorama"></div>
+    @forelse($galeri as $item)
+    <div class="galeri-item" onclick="openLightbox('{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}')">
+        <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->judul }}">
+    </div>
+    @empty
+    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
+        <p>Belum ada foto galeri untuk geosite ini.</p>
+    </div>
+    @endforelse
 </div></div></section>
 
 <!-- UMKM — CRUD Read dari database via $umkm (injected dari TUKTUK.txt) -->
