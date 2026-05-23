@@ -94,7 +94,7 @@
             
             
             <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn-submit">
                     <i class="fas fa-save me-2"></i> Simpan
                 </button>
                 <a href="{{ route('admin.informasi.index') }}" class="btn-cancel">

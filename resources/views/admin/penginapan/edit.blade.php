@@ -113,7 +113,7 @@
             
 
             <div class="d-flex gap-2">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn-submit">
                     <i class="fas fa-save me-2"></i> Update
                 </button>
                 <a href="{{ route('admin.penginapan.index') }}" class="btn-cancel">
