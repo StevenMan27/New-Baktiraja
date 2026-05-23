@@ -235,7 +235,7 @@
 
         /* ========== BUTTONS ========== */
         .btn-primary {
-            background: #003366;
+            background: #22c55e;
             color: white;
             padding: 8px 16px;
             border-radius: 8px;
@@ -251,7 +251,7 @@
         }
 
         .btn-primary:hover {
-            background: #1a4a7a;
+            background: #16a34a;
         }
 
         .btn-back {
@@ -270,7 +270,7 @@
         }
 
         .btn-submit {
-            background: #003366;
+            background: #22c55e;
             color: white;
             padding: 10px 24px;
             border-radius: 10px;
@@ -282,7 +282,7 @@
         }
 
         .btn-submit:hover {
-            background: #1a4a7a;
+            background: #16a34a;
         }
 
         .btn-cancel {
@@ -471,9 +471,9 @@
             flex-wrap: wrap;
         }
 
-        .btn-edit {
-            background: #e0e7ff;
-            color: #3730a3;
+        .btn-edit, .btn-warning {
+            background: #eab308;
+            color: white;
             padding: 5px 12px;
             border-radius: 6px;
             font-size: 0.7rem;
@@ -481,15 +481,18 @@
             text-decoration: none;
             transition: all 0.2s;
             display: inline-block;
+            border: none;
+            cursor: pointer;
         }
 
-        .btn-edit:hover {
-            background: #c7d2fe;
+        .btn-edit:hover, .btn-warning:hover {
+            background: #ca8a04;
+            color: white;
         }
 
-        .btn-delete {
-            background: #fee2e2;
-            color: #991b1b;
+        .btn-delete, .btn-danger {
+            background: #ef4444;
+            color: white;
             padding: 5px 12px;
             border-radius: 6px;
             font-size: 0.7rem;
@@ -497,10 +500,13 @@
             border: none;
             cursor: pointer;
             transition: all 0.2s;
+            display: inline-block;
+            text-decoration: none;
         }
 
-        .btn-delete:hover {
-            background: #fecaca;
+        .btn-delete:hover, .btn-danger:hover {
+            background: #dc2626;
+            color: white;
         }
 
         /* ========== IMAGE PREVIEW ========== */
@@ -694,7 +700,6 @@
             <i class="fas fa-info-circle"></i> Informasi
         </a>
         
-        <div class="menu-title">Desa Meat</div>
         <a href="{{ route('admin.umkm.index') }}" class="{{ request()->routeIs('admin.umkm.*') ? 'active' : '' }}">
             <i class="fas fa-store"></i> UMKM
         </a>
