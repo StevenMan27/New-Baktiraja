@@ -373,19 +373,7 @@
             </div>
         </div>
 
-@if($informasi_dinamis->count() > 0)
-<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-    @foreach($informasi_dinamis as $item)
-    <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); padding: 20px;">
-        @if($item->gambar)
-            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
-        @endif
-        <h4 style="color: var(--bi-blue); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">{{ $item->judul }}</h4>
-        <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">{!! $item->konten !!}</div>
-    </div>
-    @endforeach
-</div>
-@endif
+
     </div>
 </section>
 
@@ -511,7 +499,22 @@
         <p>Belum ada berita untuk geosite ini.</p>
     </div>
     @endforelse
-</div></div></section>
+</div>
+
+@if($informasi_dinamis->count() > 0)
+<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+    @foreach($informasi_dinamis as $item)
+    <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); padding: 20px;">
+        @if($item->gambar)
+            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+        @endif
+        <h4 style="color: var(--bi-blue); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">{{ $item->judul }}</h4>
+        <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">{!! $item->konten !!}</div>
+    </div>
+    @endforeach
+</div>
+@endif
+</div></section>
 
 <!-- REKOMENDASI DESTINASI LAIN -->
 <section id="rekomendasi" class="section bg-light">

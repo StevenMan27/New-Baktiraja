@@ -288,19 +288,7 @@
 <section id="informasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Informasi Praktis</h2><div class="divider"></div></div>
 <div class="info-praktis"><div class="info-praktis-grid"><div class="info-praktis-item"><h4>LOKASI</h4><p>Baktiraja</p></div><div class="info-praktis-item"><h4>JAM OPERASIONAL</h4><p>07:00 - 18:00 WIB</p></div><div class="info-praktis-item"><h4>HARGA TIKET</h4><p>Rp 10.000 - Rp 20.000</p></div></div><div class="tags"><span class="tag">Mata Air Panas</span><span class="tag">Pengobatan Tradisional</span><span class="tag">Wisata Spiritual</span><span class="tag">Belerang</span></div></div>
 
-@if($informasi_dinamis->count() > 0)
-<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
-    @foreach($informasi_dinamis as $item)
-    <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); padding: 20px;">
-        @if($item->gambar)
-            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
-        @endif
-        <h4 style="color: var(--bi-blue); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">{{ $item->judul }}</h4>
-        <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">{!! $item->konten !!}</div>
-    </div>
-    @endforeach
-</div>
-@endif
+
 </div></section>
 
 <section id="galeri" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Galeri Foto</h2><div class="divider"></div></div>
@@ -416,7 +404,22 @@
         <p>Belum ada berita untuk geosite ini.</p>
     </div>
     @endforelse
-</div></div></section>
+</div>
+
+@if($informasi_dinamis->count() > 0)
+<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+    @foreach($informasi_dinamis as $item)
+    <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); padding: 20px;">
+        @if($item->gambar)
+            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+        @endif
+        <h4 style="color: var(--bi-blue); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">{{ $item->judul }}</h4>
+        <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">{!! $item->konten !!}</div>
+    </div>
+    @endforeach
+</div>
+@endif
+</div></section>
 
 <section id="rekomendasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Destinasi Lain di Sekitar</h2><div class="divider"></div></div>
 <div class="rekomendasi-grid">
