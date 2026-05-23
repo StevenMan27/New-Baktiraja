@@ -27,6 +27,19 @@
                 </div>
 
                 <div class="col-md-6 mb-3">
+                    <label class="form-label required">Pilih Geosite</label>
+                    <select name="geosite" class="form-control @error('geosite') is-invalid @enderror" required>
+                        <option value="">-- Pilih Geosite --</option>
+                        @foreach($geositeList as $value => $label)
+                            <option value="{{ $value }}" {{ old('geosite', $data->geosite) == $value ? 'selected' : '' }}>{{ $label }}</option>
+                        @endforeach
+                    </select>
+                    @error('geosite')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6 mb-3">
                     <label class="form-label">Urutan</label>
                     <input type="number" name="urutan" class="form-control @error('urutan') is-invalid @enderror" 
                            value="{{ old('urutan', $data->urutan) }}" required>

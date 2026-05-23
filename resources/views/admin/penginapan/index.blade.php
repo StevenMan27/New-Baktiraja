@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Manajemen Penginapan Meat')
+@section('title', 'Manajemen Penginapan')
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="mb-0">🏨 Penginapan Meat</h5>
+    <h5 class="mb-0">🏨 Penginapan Geosite</h5>
     <a href="{{ route('admin.penginapan.create') }}" class="btn btn-primary">
         <i class="fas fa-plus"></i> Tambah Penginapan
     </a>
@@ -28,6 +28,7 @@
                         <th>Nama</th>
                         <th>Harga</th>
                         <th>Kontak</th>
+                        <th width="120">Lokasi Geosite</th>
                         <th width="80">Urutan</th>
                         <th width="80">Status</th>
                         <th width="150">Aksi</th>
@@ -49,6 +50,7 @@
                         <td><strong>{{ $item->nama }}</strong></td>
                         <td>{{ $item->harga ?? '-' }}</td>
                         <td>{{ $item->kontak ?? '-' }}</td>
+                        <td><span class="badge bg-info text-dark">{{ ucwords(str_replace('-', ' ', $item->geosite)) }}</span></td>
                         <td>{{ $item->urutan }}</td>
                         <td>
                             @if($item->status)
@@ -74,7 +76,7 @@
                     </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center py-4">
+                            <td colspan="9" class="text-center py-4">
                                 <i class="fas fa-hotel fa-2x text-muted mb-2 d-block"></i>
                                 Belum ada data Penginapan
                             </td>

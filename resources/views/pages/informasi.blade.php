@@ -158,7 +158,7 @@
                     @if($item->gambar)
                         <img src="{{ $item->gambar }}" alt="{{ $item->judul }}">
                     @else
-                        <img src="{{ asset('image/default.jpg') }}" alt="{{ $item->judul }}">
+                        <img src="https://via.placeholder.com/400x500?text=No+Image" alt="{{ $item->judul }}">
                     @endif
                 </div>
                 <div class="info-text">

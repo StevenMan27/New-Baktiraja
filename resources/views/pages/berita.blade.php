@@ -607,7 +607,7 @@
                             $imageSrc = asset('storage/' . $item->gambar);
                         }
                     } else {
-                        $imageSrc = asset('image/default.jpg');
+                        $imageSrc = 'https://via.placeholder.com/400x500?text=No+Image';
                     }
                     
                     // Excerpt untuk preview
@@ -620,7 +620,7 @@
                         <img src="{{ $imageSrc }}" 
                              alt="{{ $item->judul }}" 
                              loading="lazy" 
-                             onerror="this.src='{{ asset('image/default.jpg') }}'">
+                             onerror="this.onerror=null;this.src='https://via.placeholder.com/400x500?text=No+Image'">
                         <div class="slip-overlay">
                             <span class="slip-category">BERITA</span>
                             <div class="slip-title-overlay">{{ Str::limit($item->judul, 35) }}</div>
@@ -698,7 +698,7 @@
         if(!item) return;
 
         // Handle gambar untuk reader
-        let imgSrc = '{{ asset("image/default.jpg") }}';
+        let imgSrc = 'https://via.placeholder.com/400x500?text=No+Image';
         
         if (item.gambar && item.gambar.trim() !== '') {
             if (item.gambar.length > 500 && !item.gambar.startsWith('http')) {
