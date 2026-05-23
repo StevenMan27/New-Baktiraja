@@ -1,0 +1,9 @@
+/node_modules
+/vendor
+/storage
+/public/video
+/public/storage
+/public/build
+*.mp4
+.env
+.env.*

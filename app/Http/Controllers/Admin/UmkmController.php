@@ -1,0 +1,124 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Umkm;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
+class UmkmController extends Controller
+{
+    // Daftar geosite yang valid
+    private array $geositeList = ['ambarita', 'tuktuk', 'tomok'];
+
+    public function index()
+    {
+        // Urutkan berdasarkan geosite lalu urutan tampil
+        $data = Umkm::orderBy('geosite')->orderBy('urutan')->paginate(10);
+        return view('admin.umkm.index', compact('data'));
+    }
+
+    public function create()
+    {
+        $geositeList = $this->geositeList;
+        return view('admin.umkm.create', compact('geositeList'));
+    }
+
+    public function store(Request $request)
+    {
+        // Validasi input form tambah UMKM
+        $request->validate([
+            'nama'      => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6144',
+            'urutan'    => 'required|integer',
+            'lokasi'    => 'nullable|string|max:255',
+            'kontak'    => 'nullable|string|max:255',
+            'geosite'   => 'required|in:ambarita,tuktuk,tomok',
+            'status'    => 'nullable|boolean',
+        ]);
+
+        $data = [
+            'nama'      => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'lokasi'    => $request->lokasi,
+            'kontak'    => $request->kontak,
+            'urutan'    => $request->urutan,
+            'geosite'   => $request->geosite,
+            'status'    => $request->has('status') ? 1 : 0,
+        ];
+
+        // Simpan file gambar ke storage/app/public/umkm
+        if ($request->hasFile('gambar')) {
+            $data['gambar'] = $request->file('gambar')->store('umkm', 'public');
+        }
+
+        Umkm::create($data);
+
+        return redirect()->route('admin.umkm.index')
+            ->with('success', 'UMKM berhasil ditambahkan!');
+    }
+
+    public function edit($id)
+    {
+        $data        = Umkm::findOrFail($id);
+        $geositeList = $this->geositeList;
+        return view('admin.umkm.edit', compact('data', 'geositeList'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $data = Umkm::findOrFail($id);
+
+        // Validasi input form edit UMKM
+        $request->validate([
+            'nama'      => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6144',
+            'urutan'    => 'required|integer',
+            'lokasi'    => 'nullable|string|max:255',
+            'kontak'    => 'nullable|string|max:255',
+            'geosite'   => 'required|in:ambarita,tuktuk,tomok',
+            'status'    => 'nullable|boolean',
+        ]);
+
+        $input = [
+            'nama'      => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'lokasi'    => $request->lokasi,
+            'kontak'    => $request->kontak,
+            'urutan'    => $request->urutan,
+            'geosite'   => $request->geosite,
+            'status'    => $request->has('status') ? 1 : 0,
+        ];
+
+        // Ganti file gambar lama jika ada upload baru
+        if ($request->hasFile('gambar')) {
+            if ($data->gambar && !str_starts_with($data->gambar, 'data:')) {
+                Storage::disk('public')->delete($data->gambar);
+            }
+            $input['gambar'] = $request->file('gambar')->store('umkm', 'public');
+        }
+
+        $data->update($input);
+
+        return redirect()->route('admin.umkm.index')
+            ->with('success', 'UMKM berhasil diupdate!');
+    }
+
+    public function destroy($id)
+    {
+        $data = Umkm::findOrFail($id);
+
+        // Hapus file gambar dari storage jika bukan base64
+        if ($data->gambar && !str_starts_with($data->gambar, 'data:')) {
+            Storage::disk('public')->delete($data->gambar);
+        }
+
+        $data->delete();
+
+        return redirect()->route('admin.umkm.index')
+            ->with('success', 'UMKM berhasil dihapus!');
+    }
+}
