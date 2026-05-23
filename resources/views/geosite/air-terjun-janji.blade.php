@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -187,10 +187,10 @@
         .fasilitas-price { font-size: 0.72rem; color: var(--bi-gold); font-weight: 600; margin-top: 6px; }
 
         /* Berita Cards (CRUD-driven) */
-        .berita-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .berita-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
         .berita-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
         .berita-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
-        .berita-img { height: 200px; overflow: hidden; }
+        .berita-img { height: 160px; overflow: hidden; }
         .berita-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
         .berita-card:hover .berita-img img { transform: scale(1.05); }
         .berita-content { padding: 20px; }
@@ -287,7 +287,7 @@
 
 <!-- MOBILE MENU -->
 <div class="mobile-overlay" id="mobileOverlay">
-    <div class="mobile-close" id="mobileClose">×</div>
+    <div class="mobile-close" id="mobileClose">Ã—</div>
     <a href="{{ url('/') }}" class="mobile-link mobile-home">Home</a>
     <a href="#sejarah" class="mobile-link">Tentang</a>
     <a href="#informasi" class="mobile-link">Informasi</a>
@@ -302,7 +302,7 @@
 <section class="hero">
     <div data-aos="fade-up">
         <h1 class="hero-title">AIR TERJUN JANJI</h1>
-        <p class="hero-subtitle">Baktiraja · Kab. Humbang Hasundutan · Wisata Alam</p>
+        <p class="hero-subtitle">Baktiraja Â· Kab. Humbang Hasundutan Â· Wisata Alam</p>
     </div>
 </section>
 
@@ -399,7 +399,7 @@
     </div>
 </section>
 
-<!-- UMKM — CRUD Read dari database via $umkm -->
+<!-- UMKM â€” CRUD Read dari database via $umkm -->
 <section id="umkm" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>UMKM Lokal</h2><div class="divider"></div></div>
 <div class="umkm-grid">
     @forelse($umkm as $item)
@@ -413,10 +413,10 @@
             <h4>{{ $item->nama }}</h4>
             <p class="desc">{{ $item->deskripsi }}</p>
             @if($item->lokasi)
-            <div class="card-location">📍 {{ $item->lokasi }}</div>
+            <div class="card-location">ðŸ“ {{ $item->lokasi }}</div>
             @endif
             @if($item->kontak)
-            <div class="card-contact">📞 {{ $item->kontak }}</div>
+            <div class="card-contact">ðŸ“ž {{ $item->kontak }}</div>
             @endif
         </div>
     </div>
@@ -427,7 +427,7 @@
     @endforelse
 </div></div></section>
 
-<!-- PENGINAPAN — CRUD Read dari database via $penginapan -->
+<!-- PENGINAPAN â€” CRUD Read dari database via $penginapan -->
 <section id="penginapan" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Penginapan &amp; Homestay</h2><div class="divider"></div></div>
 <div class="penginapan-grid">
     @forelse($penginapan as $item)
@@ -441,10 +441,10 @@
             <h4>{{ $item->nama }}</h4>
             <p class="desc">{{ $item->deskripsi }}</p>
             @if($item->harga)
-            <div class="card-price">💰 {{ $item->harga }}</div>
+            <div class="card-price">ðŸ’° {{ $item->harga }}</div>
             @endif
             @if($item->kontak)
-            <div class="card-contact">📞 {{ $item->kontak }}</div>
+            <div class="card-contact">ðŸ“ž {{ $item->kontak }}</div>
             @endif
         </div>
     </div>
@@ -455,7 +455,7 @@
     @endforelse
 </div></div></section>
 
-<!-- FASILITAS — CRUD Read dari database via $fasilitas -->
+<!-- FASILITAS â€” CRUD Read dari database via $fasilitas -->
 <section id="fasilitas" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Fasilitas &amp; Layanan</h2><div class="divider"></div></div>
 <div class="fasilitas-grid">
     @forelse($fasilitas as $item)
@@ -478,10 +478,16 @@
     @endforelse
 </div></div></section>
 
-<!-- BERITA — CRUD Read dari database via $berita -->
+<!-- BERITA â€” CRUD Read dari database via $berita -->
 <section id="berita" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Berita &amp; Informasi Terkini</h2><div class="divider"></div></div>
-<div class="berita-grid">
-    @forelse($berita as $item)
+@if($berita->count() == 0 && $informasi_dinamis->count() == 0)
+    <div style="text-align:center;padding:2rem;color:#888;">
+        <p>Belum ada Berita & Informasi untuk geosite ini.</p>
+    </div>
+@else
+    @if($berita->count() > 0)
+    <div class="berita-grid">
+        @foreach($berita as $item)
     <div class="berita-card" data-aos="zoom-in">
         @if($item->gambar)
         <div class="berita-img">
@@ -489,30 +495,32 @@
         </div>
         @endif
         <div class="berita-content">
-            <div class="berita-meta">{{ $item->penulis }} · {{ $item->created_at->format('d M Y') }}</div>
+            <div class="berita-meta">{{ $item->penulis }} Â· {{ $item->created_at->format('d M Y') }}</div>
             <h4>{{ $item->judul }}</h4>
             <p class="berita-excerpt">{{ strip_tags($item->konten) }}</p>
         </div>
     </div>
-    @empty
-    <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
-        <p>Belum ada berita untuk geosite ini.</p>
+        @endforeach
     </div>
-    @endforelse
-</div>
+    @endif
 
 @if($informasi_dinamis->count() > 0)
-<div style="margin-top: 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+<div class="berita-grid" style="margin-top: 25px;">
     @foreach($informasi_dinamis as $item)
-    <div style="background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); padding: 20px;">
+    <div class="berita-card" data-aos="zoom-in">
         @if($item->gambar)
-            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" style="width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 15px;">
+        <div class="berita-img">
+            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->judul }}">
+        </div>
         @endif
-        <h4 style="color: var(--bi-blue); margin-bottom: 10px; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem;">{{ $item->judul }}</h4>
-        <div style="font-size: 0.85rem; color: #555; line-height: 1.6;">{!! $item->konten !!}</div>
+        <div class="berita-content">
+            <h4>{{ $item->judul }}</h4>
+            <div class="berita-excerpt">{!! $item->konten !!}</div>
+        </div>
     </div>
     @endforeach
 </div>
+@endif
 @endif
 </div></section>
 
@@ -590,7 +598,7 @@
 
 <!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-    <div class="lightbox-close">×</div>
+    <div class="lightbox-close">Ã—</div>
     <img id="lightboxImg">
 </div>
 
@@ -654,3 +662,5 @@
 </script>
 </body>
 </html>
+
+
