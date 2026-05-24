@@ -515,34 +515,28 @@
             @php $counter = 1; @endphp
             @foreach($galeriByKategori as $kategori => $items)
                 @foreach($items as $item)
-                    @php
-                        if (str_starts_with($item->gambar, 'data:')) {
-                            // Sudah berupa data URI lengkap, langsung pakai
-                            $src = $item->gambar;
-                        } else {
-                            $src = asset('storage/' . $item->gambar);
-                        }
-                    @endphp
-                    
-                    <div class="slip-card" onclick="openPhoto('{{ $src }}', '{{ $item->judul }}', '{{ addslashes($item->deskripsi) }}', '{{ strtoupper($kategori) }}')">
-                        <div class="slip-image">
-                            <img src="{{ $src }}" alt="{{ $item->judul }}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x500?text=No+Image'">
-                            <div class="slip-overlay">
-                                <span class="slip-category">{{ strtoupper($kategori) }}</span>
-                                <div class="slip-title-overlay">{{ Str::limit($item->judul, 35) }}</div>
+                    @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
+                    @foreach($images as $img)
+                        <div class="slip-card" onclick="openPhoto('{{ $img }}', '{{ $item->judul }}', '{{ addslashes($item->deskripsi) }}', '{{ strtoupper($kategori) }}')">
+                            <div class="slip-image">
+                                <img src="{{ $img }}" alt="{{ $item->judul }}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x500?text=No+Image'">
+                                <div class="slip-overlay">
+                                    <span class="slip-category">{{ strtoupper($kategori) }}</span>
+                                    <div class="slip-title-overlay">{{ Str::limit($item->judul, 35) }}</div>
+                                </div>
+                            </div>
+                            <div class="slip-info">
+                                <div class="slip-line"></div>
+                                <div class="slip-title">{{ Str::limit($item->judul, 30) }}</div>
+                                <div class="slip-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>{{ $item->lokasi ?? 'Danau Toba' }}</span>
+                                </div>
+                                <div class="slip-number">#{{ str_pad($counter, 3, '0', STR_PAD_LEFT) }}</div>
                             </div>
                         </div>
-                        <div class="slip-info">
-                            <div class="slip-line"></div>
-                            <div class="slip-title">{{ Str::limit($item->judul, 30) }}</div>
-                            <div class="slip-location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span>{{ $item->lokasi ?? 'Danau Toba' }}</span>
-                            </div>
-                            <div class="slip-number">#{{ str_pad($counter, 3, '0', STR_PAD_LEFT) }}</div>
-                        </div>
-                    </div>
-                    @php $counter++; @endphp
+                        @php $counter++; @endphp
+                    @endforeach
                 @endforeach
             @endforeach
         </div>
