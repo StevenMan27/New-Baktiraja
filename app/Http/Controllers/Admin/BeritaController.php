@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class BeritaController extends Controller
 {
@@ -19,6 +19,7 @@ class BeritaController extends Controller
         'panatapan-bakara' => 'Panatapan Bakara',
         'tombak-sulu-sulu' => 'Tombak Sulu-sulu'
     ];
+
     public function index()
     {
         $berita = Berita::latest()->paginate(10);
@@ -36,7 +37,8 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', // 4MB
+            'gambar' => 'nullable|array|max:10',
+            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             'penulis' => 'nullable|string|max:100',
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
@@ -51,17 +53,17 @@ class BeritaController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageData = file_get_contents($image->getRealPath());
-            $base64 = base64_encode($imageData);
-            $mimeType = $image->getMimeType();
-            $data['gambar'] = 'data:' . $mimeType . ';base64,' . $base64;
+            $paths = [];
+            foreach ($request->file('gambar') as $image) {
+                $paths[] = $image->store('berita', 'public');
+            }
+            $data['gambar'] = json_encode($paths);
         }
 
         Berita::create($data);
 
         return redirect()->route('admin.berita.index')
-            ->with('success', 'Berita berhasil ditambahkan! (Gambar max 4MB)');
+            ->with('success', 'Berita berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -78,7 +80,8 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', // 4MB
+            'gambar' => 'nullable|array|max:10',
+            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             'penulis' => 'nullable|string|max:100',
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
@@ -93,11 +96,22 @@ class BeritaController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageData = file_get_contents($image->getRealPath());
-            $base64 = base64_encode($imageData);
-            $mimeType = $image->getMimeType();
-            $data['gambar'] = 'data:' . $mimeType . ';base64,' . $base64;
+            // Delete old files from storage
+            $oldGambar = json_decode($berita->gambar, true);
+            if (is_array($oldGambar)) {
+                foreach ($oldGambar as $oldPath) {
+                    if ($oldPath && !str_starts_with($oldPath, 'data:')) {
+                        Storage::disk('public')->delete($oldPath);
+                    }
+                }
+            }
+
+            // Store new files
+            $paths = [];
+            foreach ($request->file('gambar') as $image) {
+                $paths[] = $image->store('berita', 'public');
+            }
+            $data['gambar'] = json_encode($paths);
         }
 
         $berita->update($data);
@@ -109,6 +123,17 @@ class BeritaController extends Controller
     public function destroy($id)
     {
         $berita = Berita::findOrFail($id);
+
+        // Delete all image files from storage
+        $oldGambar = json_decode($berita->gambar, true);
+        if (is_array($oldGambar)) {
+            foreach ($oldGambar as $oldPath) {
+                if ($oldPath && !str_starts_with($oldPath, 'data:')) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+        }
+
         $berita->delete();
 
         return redirect()->route('admin.berita.index')

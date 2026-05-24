@@ -3,6 +3,11 @@
 @section('title', 'Tambah Fasilitas')
 
 @section('content')
+<style>
+    .preview-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .preview-item img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+</style>
+
 <div class="card">
     <div class="card-header">
         <h5>Tambah Fasilitas</h5>
@@ -20,7 +25,7 @@
                 <select name="geosite" class="form-control" required>
                     <option value="">-- Pilih Geosite --</option>
                     @foreach($geositeList as $slug => $label)
-                        <option value="{{ $slug }}" {{ (isset($data) && $data->geosite == $slug) || (isset($berita) && $berita->geosite == $slug) ? 'selected' : '' }}>{{ $label }}</option>
+                        <option value="{{ $slug }}">{{ $label }}</option>
                     @endforeach
                 </select>
             </div>
@@ -42,39 +47,44 @@
             
             <div class="mb-3">
                 <label>Gambar</label>
-                <input type="file" name="gambar" class="form-control" accept="image/*" id="inputGambar">
-                <div class="mt-2" id="previewContainer" style="display: none;">
-                    <img id="previewImage" style="max-width: 150px; border-radius: 8px;">
-                </div>
+                <input type="file" name="gambar[]" class="form-control" accept="image/*" id="inputGambar" multiple>
+                <small class="text-muted">Format: JPG, PNG, WEBP. Max: 4MB per gambar. Maksimal 10 gambar.</small>
+                <div class="preview-grid" id="previewGrid"></div>
             </div>
             
             <div class="mb-3">
                 <input type="checkbox" name="status" value="1" checked> Aktifkan
             </div>
             
-            <button type="submit" class="btn-submit">
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn-submit">
                     <i class="fas fa-save"></i> Simpan
                 </button>
-            <a href="{{ route('admin.fasilitas.index') }}" class="btn-cancel">
+                <a href="{{ route('admin.fasilitas.index') }}" class="btn-cancel">
                     <i class="fas fa-arrow-left"></i> Batal
                 </a>
+            </div>
         </form>
     </div>
 </div>
 
 <script>
-    document.getElementById('inputGambar')?.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        const preview = document.getElementById('previewContainer');
-        const previewImg = document.getElementById('previewImage');
-        if (file) {
+    document.getElementById('inputGambar').addEventListener('change', function(e) {
+        const grid = document.getElementById('previewGrid');
+        grid.innerHTML = '';
+        const files = e.target.files;
+        if (files.length > 10) { alert('Maksimal 10 gambar!'); this.value = ''; return; }
+        Array.from(files).forEach(file => {
+            if (file.size > 4 * 1024 * 1024) { alert('Gambar "' + file.name + '" melebihi 4MB!'); return; }
             const reader = new FileReader();
-            reader.onload = function(e) {
-                previewImg.src = e.target.result;
-                preview.style.display = 'block';
+            reader.onload = function(ev) {
+                const item = document.createElement('div');
+                item.className = 'preview-item';
+                item.innerHTML = '<img src="' + ev.target.result + '" alt="Preview">';
+                grid.appendChild(item);
             }
             reader.readAsDataURL(file);
-        }
+        });
     });
 </script>
 @endsection

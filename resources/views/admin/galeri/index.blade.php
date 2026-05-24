@@ -27,7 +27,8 @@
             <tr>
                 <td>{{ $i+1 }}</td>
                 <td>
-                    <img src="{{ $g->gambar }}"
+                    @php $imgs = json_decode($g->gambar, true); $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $g->gambar; @endphp
+                    <img src="{{ $firstImg && str_starts_with($firstImg, 'data:') ? $firstImg : ($firstImg ? asset('storage/' . $firstImg) : '') }}"
                          width="60">
                 </td>
                 <td>{{ $g->judul }}</td>

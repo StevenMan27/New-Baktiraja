@@ -3,6 +3,13 @@
 @section('title', 'Edit Berita')
 
 @section('content')
+<style>
+    .preview-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .preview-item img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .current-images { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .current-images img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #c6a43b; }
+</style>
+
 <div class="card">
     <div class="card-header">
         <h5>Edit Berita</h5>
@@ -21,7 +28,7 @@
                 <select name="geosite" class="form-control" required>
                     <option value="">-- Pilih Geosite --</option>
                     @foreach($geositeList as $slug => $label)
-                        <option value="{{ $slug }}" {{ (isset($data) && $data->geosite == $slug) || (isset($berita) && $berita->geosite == $slug) ? 'selected' : '' }}>{{ $label }}</option>
+                        <option value="{{ $slug }}" {{ $berita->geosite == $slug ? 'selected' : '' }}>{{ $label }}</option>
                     @endforeach
                 </select>
             </div>
@@ -37,26 +44,57 @@
             </div>
             
             <div class="mb-3">
-                <label>Gambar Saat Ini</label><br>
-                @if($berita->gambar)
-                    <img src="{{ $berita->gambar }}" width="100">
-                @else
-                    <span class="text-muted">Tidak ada gambar</span>
-                @endif
-                <input type="file" name="gambar" class="form-control mt-2" accept="image/*">
+                <label>Gambar Saat Ini</label>
+                <div class="current-images">
+                    @php
+                        $images = json_decode($berita->gambar, true);
+                        if (!is_array($images)) $images = $berita->gambar ? [$berita->gambar] : [];
+                    @endphp
+                    @forelse($images as $img)
+                        <img src="{{ str_starts_with($img, 'data:') ? $img : asset('storage/' . $img) }}" alt="Gambar">
+                    @empty
+                        <span class="text-muted">Tidak ada gambar</span>
+                    @endforelse
+                </div>
+                <label class="mt-3">Upload Gambar Baru (kosongkan jika tidak ingin mengubah)</label>
+                <input type="file" name="gambar[]" class="form-control mt-2" accept="image/*" id="inputGambar" multiple>
+                <small class="text-muted">Format: JPG, PNG, WEBP. Max: 4MB per gambar. Maksimal 10 gambar.</small>
+                <div class="preview-grid" id="previewGrid"></div>
             </div>
             
             <div class="mb-3">
                 <input type="checkbox" name="status" value="1" {{ $berita->status ? 'checked' : '' }}> Aktifkan
             </div>
             
-            <button type="submit" class="btn-submit">
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn-submit">
                     <i class="fas fa-save"></i> Update
                 </button>
-            <a href="{{ route('admin.berita.index') }}" class="btn-cancel">
+                <a href="{{ route('admin.berita.index') }}" class="btn-cancel">
                     <i class="fas fa-arrow-left"></i> Batal
                 </a>
+            </div>
         </form>
     </div>
 </div>
+
+<script>
+    document.getElementById('inputGambar').addEventListener('change', function(e) {
+        const grid = document.getElementById('previewGrid');
+        grid.innerHTML = '';
+        const files = e.target.files;
+        if (files.length > 10) { alert('Maksimal 10 gambar!'); this.value = ''; return; }
+        Array.from(files).forEach(file => {
+            if (file.size > 4 * 1024 * 1024) { alert('Gambar "' + file.name + '" melebihi 4MB!'); return; }
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const item = document.createElement('div');
+                item.className = 'preview-item';
+                item.innerHTML = '<img src="' + ev.target.result + '" alt="Preview">';
+                grid.appendChild(item);
+            }
+            reader.readAsDataURL(file);
+        });
+    });
+</script>
 @endsection

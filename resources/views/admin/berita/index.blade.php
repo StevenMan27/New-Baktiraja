@@ -33,8 +33,9 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>
-                        @if($item->gambar)
-                            <img src="{{ $item->gambar }}" width="50" height="50" style="object-fit: cover;">
+                        @php $imgs = json_decode($item->gambar, true); $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $item->gambar; @endphp
+                        @if($firstImg)
+                            <img src="{{ str_starts_with($firstImg, 'data:') ? $firstImg : asset('storage/' . $firstImg) }}" width="50" height="50" style="object-fit: cover;">
                         @else
                             <span class="text-muted">-</span>
                         @endif

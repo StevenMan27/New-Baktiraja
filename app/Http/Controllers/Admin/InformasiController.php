@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Informasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class InformasiController extends Controller
 {
@@ -19,6 +19,7 @@ class InformasiController extends Controller
         'panatapan-bakara' => 'Panatapan Bakara',
         'tombak-sulu-sulu' => 'Tombak Sulu-sulu'
     ];
+
     public function index()
     {
         $informasi = Informasi::orderBy('urutan', 'asc')->paginate(10);
@@ -36,7 +37,8 @@ class InformasiController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', // 4MB
+            'gambar' => 'nullable|array|max:10',
+            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             'urutan' => 'required|integer|unique:informasi,urutan',
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
@@ -51,17 +53,17 @@ class InformasiController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageData = file_get_contents($image->getRealPath());
-            $base64 = base64_encode($imageData);
-            $mimeType = $image->getMimeType();
-            $data['gambar'] = 'data:' . $mimeType . ';base64,' . $base64;
+            $paths = [];
+            foreach ($request->file('gambar') as $image) {
+                $paths[] = $image->store('informasi', 'public');
+            }
+            $data['gambar'] = json_encode($paths);
         }
 
         Informasi::create($data);
 
         return redirect()->route('admin.informasi.index')
-            ->with('success', 'Informasi berhasil ditambahkan! (Gambar max 4MB)');
+            ->with('success', 'Informasi berhasil ditambahkan!');
     }
 
     public function edit($id)
@@ -78,7 +80,8 @@ class InformasiController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:4096', // 4MB
+            'gambar' => 'nullable|array|max:10',
+            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             'urutan' => 'required|integer|unique:informasi,urutan,' . $id,
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
@@ -93,11 +96,22 @@ class InformasiController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageData = file_get_contents($image->getRealPath());
-            $base64 = base64_encode($imageData);
-            $mimeType = $image->getMimeType();
-            $data['gambar'] = 'data:' . $mimeType . ';base64,' . $base64;
+            // Delete old files from storage
+            $oldGambar = json_decode($informasi->gambar, true);
+            if (is_array($oldGambar)) {
+                foreach ($oldGambar as $oldPath) {
+                    if ($oldPath && !str_starts_with($oldPath, 'data:')) {
+                        Storage::disk('public')->delete($oldPath);
+                    }
+                }
+            }
+
+            // Store new files
+            $paths = [];
+            foreach ($request->file('gambar') as $image) {
+                $paths[] = $image->store('informasi', 'public');
+            }
+            $data['gambar'] = json_encode($paths);
         }
 
         $informasi->update($data);
@@ -109,6 +123,17 @@ class InformasiController extends Controller
     public function destroy($id)
     {
         $informasi = Informasi::findOrFail($id);
+
+        // Delete all image files from storage
+        $oldGambar = json_decode($informasi->gambar, true);
+        if (is_array($oldGambar)) {
+            foreach ($oldGambar as $oldPath) {
+                if ($oldPath && !str_starts_with($oldPath, 'data:')) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+        }
+
         $informasi->delete();
 
         return redirect()->route('admin.informasi.index')

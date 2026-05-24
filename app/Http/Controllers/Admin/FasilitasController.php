@@ -40,7 +40,8 @@ class FasilitasController extends Controller
         $request->validate([
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6144',
+            'gambar'    => 'nullable|array|max:10',
+            'gambar.*'  => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             'urutan'    => 'required|integer',
             'harga'     => 'nullable|string|max:100',
             'geosite'   => 'required|string',
@@ -58,7 +59,11 @@ class FasilitasController extends Controller
 
         // Simpan file gambar ke storage/app/public/fasilitas
         if ($request->hasFile('gambar')) {
-            $data['gambar'] = $request->file('gambar')->store('fasilitas', 'public');
+            $paths = [];
+            foreach ($request->file('gambar') as $image) {
+                $paths[] = $image->store('fasilitas', 'public');
+            }
+            $data['gambar'] = json_encode($paths);
         }
 
         Fasilitas::create($data);
@@ -82,7 +87,8 @@ class FasilitasController extends Controller
         $request->validate([
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:6144',
+            'gambar'    => 'nullable|array|max:10',
+            'gambar.*'  => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             'urutan'    => 'required|integer',
             'harga'     => 'nullable|string|max:100',
             'geosite'   => 'required|string',
@@ -100,10 +106,25 @@ class FasilitasController extends Controller
 
         // Ganti file gambar lama jika ada upload baru
         if ($request->hasFile('gambar')) {
-            if ($data->gambar && !str_starts_with($data->gambar, 'data:')) {
+            // Delete old files from storage
+            $oldGambar = json_decode($data->gambar, true);
+            if (is_array($oldGambar)) {
+                foreach ($oldGambar as $oldPath) {
+                    if ($oldPath && !str_starts_with($oldPath, 'data:')) {
+                        Storage::disk('public')->delete($oldPath);
+                    }
+                }
+            } elseif ($data->gambar && !str_starts_with($data->gambar, 'data:')) {
+                // Legacy single file path
                 Storage::disk('public')->delete($data->gambar);
             }
-            $input['gambar'] = $request->file('gambar')->store('fasilitas', 'public');
+
+            // Store new files
+            $paths = [];
+            foreach ($request->file('gambar') as $image) {
+                $paths[] = $image->store('fasilitas', 'public');
+            }
+            $input['gambar'] = json_encode($paths);
         }
 
         $data->update($input);
@@ -116,8 +137,16 @@ class FasilitasController extends Controller
     {
         $data = Fasilitas::findOrFail($id);
 
-        // Hapus file gambar dari storage jika bukan base64
-        if ($data->gambar && !str_starts_with($data->gambar, 'data:')) {
+        // Hapus semua file gambar dari storage
+        $oldGambar = json_decode($data->gambar, true);
+        if (is_array($oldGambar)) {
+            foreach ($oldGambar as $oldPath) {
+                if ($oldPath && !str_starts_with($oldPath, 'data:')) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+        } elseif ($data->gambar && !str_starts_with($data->gambar, 'data:')) {
+            // Legacy single file path
             Storage::disk('public')->delete($data->gambar);
         }
 

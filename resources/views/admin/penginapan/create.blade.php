@@ -3,6 +3,11 @@
 @section('title', 'Tambah Penginapan')
 
 @section('content')
+<style>
+    .preview-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .preview-item img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+</style>
+
 <div class="d-flex align-items-center mb-3">
     <a href="{{ route('admin.penginapan.index') }}" class="btn btn-sm btn-secondary me-2">
         <i class="fas fa-arrow-left"></i>
@@ -77,14 +82,14 @@
 
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Gambar</label>
-                    <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror" 
-                           accept="image/jpeg,image/png,image/jpg" id="inputGambar">
-                    <small class="text-muted">Format: JPG, PNG. Max: 5MB</small>
-                    <div class="preview-container mt-2" id="previewContainer" style="display: none;">
-                        <label>Preview Gambar:</label><br>
-                        <img id="previewImage" class="preview-image" style="max-width: 150px; border-radius: 8px; margin-top: 5px;">
-                    </div>
+                    <input type="file" name="gambar[]" class="form-control @error('gambar') is-invalid @enderror @error('gambar.*') is-invalid @enderror" 
+                           accept="image/jpeg,image/png,image/jpg,image/webp" id="inputGambar" multiple>
+                    <small class="text-muted">Format: JPG, PNG, WEBP. Max: 4MB per gambar. Maksimal 10 gambar.</small>
+                    <div class="preview-grid" id="previewGrid"></div>
                     @error('gambar')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                    @error('gambar.*')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -102,8 +107,6 @@
                 </div>
             </div>
 
-            
-
             <div class="d-flex gap-2">
                 <button type="submit" class="btn-submit">
                     <i class="fas fa-save me-2"></i> Simpan
@@ -118,20 +121,21 @@
 
 <script>
     document.getElementById('inputGambar').addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        const previewContainer = document.getElementById('previewContainer');
-        const previewImage = document.getElementById('previewImage');
-        
-        if (file) {
+        const grid = document.getElementById('previewGrid');
+        grid.innerHTML = '';
+        const files = e.target.files;
+        if (files.length > 10) { alert('Maksimal 10 gambar!'); this.value = ''; return; }
+        Array.from(files).forEach(file => {
+            if (file.size > 4 * 1024 * 1024) { alert('Gambar "' + file.name + '" melebihi 4MB!'); return; }
             const reader = new FileReader();
-            reader.onload = function(event) {
-                previewImage.src = event.target.result;
-                previewContainer.style.display = 'block';
+            reader.onload = function(ev) {
+                const item = document.createElement('div');
+                item.className = 'preview-item';
+                item.innerHTML = '<img src="' + ev.target.result + '" alt="Preview">';
+                grid.appendChild(item);
             }
             reader.readAsDataURL(file);
-        } else {
-            previewContainer.style.display = 'none';
-        }
+        });
     });
 </script>
 @endsection

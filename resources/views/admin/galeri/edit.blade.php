@@ -4,8 +4,11 @@
 
 @section('content')
 <style>
-    .preview-image { max-width: 200px; border-radius: 8px; }
-    .current-image { border: 2px solid #c6a43b; padding: 5px; display: inline-block; }
+    .preview-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .preview-item { position: relative; }
+    .preview-item img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .current-images { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+    .current-images img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; border: 2px solid #c6a43b; }
 </style>
 
 <div class="card">
@@ -35,21 +38,29 @@
                     </select>
                 </div>
 
-
-
                 <div class="col-md-12 mb-3">
                     <label>Deskripsi</label>
                     <textarea name="deskripsi" class="form-control" required>{{ $galeri->deskripsi }}</textarea>
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label>Gambar Sekarang</label><br>
-                    <div class="current-image">
-                        <img src="{{ $galeri->gambar }}" class="preview-image">
+                <div class="col-md-12 mb-3">
+                    <label>Gambar Saat Ini</label>
+                    <div class="current-images">
+                        @php
+                            $images = json_decode($galeri->gambar, true);
+                            if (!is_array($images)) $images = $galeri->gambar ? [$galeri->gambar] : [];
+                        @endphp
+                        @forelse($images as $img)
+                            <img src="{{ str_starts_with($img, 'data:') ? $img : asset('storage/' . $img) }}" alt="Gambar">
+                        @empty
+                            <span class="text-muted">Tidak ada gambar</span>
+                        @endforelse
                     </div>
-
-                    <input type="file" name="gambar" class="form-control mt-2" id="inputGambar">
-                    <img id="previewImage" class="preview-image mt-2" style="display:none;">
+                    <label class="mt-3">Upload Gambar Baru (kosongkan jika tidak ingin mengubah)</label>
+                    <input type="file" name="gambar[]" class="form-control mt-2" id="inputGambar" multiple
+                           accept="image/jpeg,image/png,image/jpg,image/webp">
+                    <small class="text-muted">Format: JPG, PNG, WEBP. Max: 4MB per gambar. Maksimal 10 gambar.</small>
+                    <div class="preview-grid" id="previewGrid"></div>
                 </div>
 
                 <div class="col-md-6 mb-3">
@@ -70,25 +81,35 @@
                 </div>
             </div>
 
-            <button class="btn-submit">
+            <div class="d-flex gap-2">
+                <button class="btn-submit">
                     <i class="fas fa-save"></i> Update
                 </button>
-            <a href="{{ route('admin.galeri.index') }}" class="btn-cancel">
+                <a href="{{ route('admin.galeri.index') }}" class="btn-cancel">
                     <i class="fas fa-arrow-left"></i> Kembali
                 </a>
+            </div>
         </form>
     </div>
 </div>
 
 <script>
-document.getElementById('inputGambar').addEventListener('change', function(e){
-    const reader = new FileReader();
-    reader.onload = function(event){
-        const img = document.getElementById('previewImage');
-        img.src = event.target.result;
-        img.style.display = 'block';
-    }
-    reader.readAsDataURL(e.target.files[0]);
-});
+    document.getElementById('inputGambar').addEventListener('change', function(e) {
+        const grid = document.getElementById('previewGrid');
+        grid.innerHTML = '';
+        const files = e.target.files;
+        if (files.length > 10) { alert('Maksimal 10 gambar!'); this.value = ''; return; }
+        Array.from(files).forEach(file => {
+            if (file.size > 4 * 1024 * 1024) { alert('Gambar "' + file.name + '" melebihi 4MB!'); return; }
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                const item = document.createElement('div');
+                item.className = 'preview-item';
+                item.innerHTML = '<img src="' + ev.target.result + '" alt="Preview">';
+                grid.appendChild(item);
+            }
+            reader.readAsDataURL(file);
+        });
+    });
 </script>
 @endsection

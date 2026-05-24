@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Galeri;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class GaleriController extends Controller
 {
@@ -19,6 +19,7 @@ class GaleriController extends Controller
         'panatapan-bakara' => 'Panatapan Bakara',
         'tombak-sulu-sulu' => 'Tombak Sulu-sulu'
     ];
+
     public function index()
     {
         $galeris = Galeri::latest()->paginate(10);
@@ -36,25 +37,23 @@ class GaleriController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'required|image|mimes:jpeg,png,jpg|max:4096',
+            'gambar' => 'required|array|max:10',
+            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             'lokasi' => 'nullable|string',
             'tanggal_foto' => 'nullable|date',
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
         ]);
 
-        $image = $request->file('gambar');
-        $imageData = file_get_contents($image->getRealPath());
-        $base64 = base64_encode($imageData);
-        $mimeType = $image->getMimeType();
-        $gambarBase64 = 'data:' . $mimeType . ';base64,' . $base64;
+        $paths = [];
+        foreach ($request->file('gambar') as $image) {
+            $paths[] = $image->store('galeri', 'public');
+        }
 
         Galeri::create([
             'judul' => $request->judul,
-            'slug' => Str::slug($request->judul),
-            'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $gambarBase64,
+            'gambar' => json_encode($paths),
             'lokasi' => $request->lokasi,
             'tanggal_foto' => $request->tanggal_foto,
             'geosite' => $request->geosite,
@@ -79,7 +78,8 @@ class GaleriController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:4096',
+            'gambar' => 'nullable|array|max:10',
+            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             'lokasi' => 'nullable|string',
             'tanggal_foto' => 'nullable|date',
             'geosite' => 'required|string',
@@ -88,8 +88,6 @@ class GaleriController extends Controller
 
         $data = [
             'judul' => $request->judul,
-            'slug' => Str::slug($request->judul),
-            'kategori' => $request->kategori,
             'deskripsi' => $request->deskripsi,
             'lokasi' => $request->lokasi,
             'tanggal_foto' => $request->tanggal_foto,
@@ -98,11 +96,22 @@ class GaleriController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $image = $request->file('gambar');
-            $imageData = file_get_contents($image->getRealPath());
-            $base64 = base64_encode($imageData);
-            $mimeType = $image->getMimeType();
-            $data['gambar'] = 'data:' . $mimeType . ';base64,' . $base64;
+            // Delete old files from storage
+            $oldGambar = json_decode($galeri->gambar, true);
+            if (is_array($oldGambar)) {
+                foreach ($oldGambar as $oldPath) {
+                    if ($oldPath && !str_starts_with($oldPath, 'data:')) {
+                        Storage::disk('public')->delete($oldPath);
+                    }
+                }
+            }
+
+            // Store new files
+            $paths = [];
+            foreach ($request->file('gambar') as $image) {
+                $paths[] = $image->store('galeri', 'public');
+            }
+            $data['gambar'] = json_encode($paths);
         }
 
         $galeri->update($data);
@@ -114,6 +123,17 @@ class GaleriController extends Controller
     public function destroy($id)
     {
         $galeri = Galeri::findOrFail($id);
+
+        // Delete all image files from storage
+        $oldGambar = json_decode($galeri->gambar, true);
+        if (is_array($oldGambar)) {
+            foreach ($oldGambar as $oldPath) {
+                if ($oldPath && !str_starts_with($oldPath, 'data:')) {
+                    Storage::disk('public')->delete($oldPath);
+                }
+            }
+        }
+
         $galeri->delete();
 
         return redirect()->route('admin.galeri.index')

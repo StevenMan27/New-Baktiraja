@@ -387,9 +387,14 @@
         </div>
         <div class="galeri-grid" id="galeriGrid">
     @forelse($galeri as $item)
-    <div class="galeri-item" onclick="openLightbox('{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}')">
-        <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->judul }}">
+    @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
+    @foreach($images as $img)
+
+    <div class="galeri-item" onclick="openLightbox('{{ $img }}')">
+        <img src="{{ $img }}" alt="{{ $item->judul }}">
     </div>
+    
+    @endforeach
     @empty
     <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
         <p>Belum ada foto galeri untuk geosite ini.</p>
@@ -403,12 +408,13 @@
 <section id="umkm" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>UMKM Lokal</h2><div class="divider"></div></div>
 <div class="umkm-grid">
     @forelse($umkm as $item)
-    <div class="umkm-card" data-aos="zoom-in">
-        @if($item->gambar)
+    @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
+    @if(count($images) > 0)
+        @foreach($images as $img)
+        <div class="umkm-card" data-aos="zoom-in">
         <div class="umkm-img">
-            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->nama }}">
+            <img src="{{ $img }}" alt="{{ $item->nama }}">
         </div>
-        @endif
         <div class="umkm-content">
             <h4>{{ $item->nama }}</h4>
             <p class="desc">{{ $item->deskripsi }}</p>
@@ -418,8 +424,27 @@
             @if($item->kontak)
             <div class="card-contact">📞 {{ $item->kontak }}</div>
             @endif
+            </div>
+    </div>
+        @endforeach
+    @else
+        <div class="umkm-card" data-aos="zoom-in">
+        
+        <div class="umkm-content">
+            <h4>{{ $item->nama }}</h4>
+            <p class="desc">{{ $item->deskripsi }}</p>
+            @if($item->lokasi)
+            <div class="card-location">📍 {{ $item->lokasi }}</div>
+            @endif
+             
+            @if($item->kontak)
+            <div class="card-contact">📞 {{ $item->kontak }}</div>
+            @endif
+             
         </div>
     </div>
+    @endif
+
     @empty
     <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
         <p>Belum ada data UMKM untuk geosite ini.</p>
@@ -431,12 +456,13 @@
 <section id="penginapan" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Penginapan &amp; Homestay</h2><div class="divider"></div></div>
 <div class="penginapan-grid">
     @forelse($penginapan as $item)
-    <div class="penginapan-card" data-aos="zoom-in">
-        @if($item->gambar)
+    @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
+    @if(count($images) > 0)
+        @foreach($images as $img)
+        <div class="penginapan-card" data-aos="zoom-in">
         <div class="penginapan-img">
-            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->nama }}">
+            <img src="{{ $img }}" alt="{{ $item->nama }}">
         </div>
-        @endif
         <div class="penginapan-content">
             <h4>{{ $item->nama }}</h4>
             <p class="desc">{{ $item->deskripsi }}</p>
@@ -446,8 +472,27 @@
             @if($item->kontak)
             <div class="card-contact">📞 {{ $item->kontak }}</div>
             @endif
+            </div>
+    </div>
+        @endforeach
+    @else
+        <div class="penginapan-card" data-aos="zoom-in">
+        
+        <div class="penginapan-content">
+            <h4>{{ $item->nama }}</h4>
+            <p class="desc">{{ $item->deskripsi }}</p>
+            @if($item->harga)
+            <div class="card-price">💰 {{ $item->harga }}</div>
+            @endif
+             
+            @if($item->kontak)
+            <div class="card-contact">📞 {{ $item->kontak }}</div>
+            @endif
+             
         </div>
     </div>
+    @endif
+
     @empty
     <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
         <p>Belum ada data penginapan untuk geosite ini.</p>
@@ -459,18 +504,34 @@
 <section id="fasilitas" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Fasilitas &amp; Layanan</h2><div class="divider"></div></div>
 <div class="fasilitas-grid">
     @forelse($fasilitas as $item)
-    <div class="fasilitas-item" data-aos="zoom-in">
-        @if($item->gambar)
-        <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" class="fasilitas-img" alt="{{ $item->nama }}">
-        @endif
+    @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
+    @if(count($images) > 0)
+        @foreach($images as $img)
+        <div class="fasilitas-item" data-aos="zoom-in">
+        <img src="{{ $img }}" class="fasilitas-img" alt="{{ $item->nama }}">
         <div class="fasilitas-content">
             <h4>{{ $item->nama }}</h4>
             <p>{{ $item->deskripsi }}</p>
             @if($item->harga)
             <div class="fasilitas-price">{{ $item->harga }}</div>
             @endif
+            </div>
+    </div>
+        @endforeach
+    @else
+        <div class="fasilitas-item" data-aos="zoom-in">
+        
+        <div class="fasilitas-content">
+            <h4>{{ $item->nama }}</h4>
+            <p>{{ $item->deskripsi }}</p>
+            @if($item->harga)
+            <div class="fasilitas-price">{{ $item->harga }}</div>
+            @endif
+             
         </div>
     </div>
+    @endif
+
     @empty
     <div style="grid-column:1/-1;text-align:center;padding:2rem;color:#888;">
         <p>Belum ada data fasilitas untuk geosite ini.</p>
@@ -488,18 +549,30 @@
     @if($berita->count() > 0)
     <div class="berita-grid">
         @foreach($berita as $item)
-    <div class="berita-card" data-aos="zoom-in">
-        @if($item->gambar)
+        @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
+        @if(count($images) > 0)
+            @foreach($images as $img)
+            <div class="berita-card" data-aos="zoom-in">
         <div class="berita-img">
-            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->judul }}">
+            <img src="{{ $img }}" alt="{{ $item->judul }}">
         </div>
-        @endif
         <div class="berita-content">
             <div class="berita-meta">{{ $item->penulis }} · {{ $item->created_at->format('d M Y') }}</div>
             <h4>{{ $item->judul }}</h4>
             <p class="berita-excerpt">{{ strip_tags($item->konten) }}</p>
         </div>
     </div>
+            @endforeach
+        @else
+            <div class="berita-card" data-aos="zoom-in">
+        
+        <div class="berita-content">
+            <div class="berita-meta">{{ $item->penulis }} · {{ $item->created_at->format('d M Y') }}</div>
+            <h4>{{ $item->judul }}</h4>
+            <p class="berita-excerpt">{{ strip_tags($item->konten) }}</p>
+        </div>
+    </div>
+        @endif
         @endforeach
     </div>
     @endif
@@ -507,21 +580,32 @@
 @if($informasi_dinamis->count() > 0)
 <div class="berita-grid" style="margin-top: 25px;">
     @foreach($informasi_dinamis as $item)
-    <div class="berita-card" data-aos="zoom-in">
-        @if($item->gambar)
+    @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
+    @if(count($images) > 0)
+        @foreach($images as $img)
+        <div class="berita-card" data-aos="zoom-in">
         <div class="berita-img">
-            <img src="{{ $item->gambar && !str_starts_with($item->gambar, 'data:') ? asset('storage/' . $item->gambar) : $item->gambar }}" alt="{{ $item->judul }}">
+            <img src="{{ $img }}" alt="{{ $item->judul }}">
         </div>
-        @endif
         <div class="berita-content">
             <h4>{{ $item->judul }}</h4>
             <div class="berita-excerpt">{!! $item->konten !!}</div>
         </div>
     </div>
+        @endforeach
+    @else
+        <div class="berita-card" data-aos="zoom-in">
+        
+        <div class="berita-content">
+            <h4>{{ $item->judul }}</h4>
+            <div class="berita-excerpt">{!! $item->konten !!}</div>
+        </div>
+    </div>
+    @endif
     @endforeach
 </div>
 @endif
-@endif
+
 </div></section>
 
 <!-- REKOMENDASI DESTINASI LAIN -->
