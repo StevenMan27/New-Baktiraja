@@ -3,10 +3,54 @@
 @section('title', 'Tambah Informasi')
 
 @section('content')
+
 <style>
-    .preview-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-    .preview-item img { width: 120px; height: 120px; object-fit: cover; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .custom-file-upload {
+        border: 2px dashed #003366;
+        border-radius: 12px;
+        padding: 30px;
+        text-align: center;
+        background-color: #f8f9fa;
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+    .custom-file-upload:hover {
+        background-color: #e9ecef;
+        border-color: #c6a43b;
+    }
+    .custom-file-upload input[type="file"] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
+    }
+    .custom-file-upload .icon {
+        font-size: 3rem;
+        color: #003366;
+        margin-bottom: 15px;
+    }
+    .custom-file-upload p {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #495057;
+    }
+    .custom-file-upload small {
+        color: #6c757d;
+    }
+    .preview-grid { 
+        display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; justify-content: center; position: relative; z-index: 3; pointer-events: none;
+    }
+    .preview-item { pointer-events: auto; }
+    .preview-item img { width: 120px; height: 120px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 2px solid #fff; }
 </style>
+
+
 
 <div class="d-flex align-items-center mb-3">
     <a href="{{ route('admin.informasi.index') }}" class="btn btn-sm btn-secondary me-2">
@@ -64,10 +108,14 @@
                 
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Gambar</label>
-                    <input type="file" name="gambar[]" class="form-control @error('gambar') is-invalid @enderror @error('gambar.*') is-invalid @enderror" 
+                    <div class="custom-file-upload mt-2">
+    <i class="fas fa-cloud-upload-alt icon"></i>
+    <p>Klik atau Seret Gambar ke Sini</p>
+    <small class="d-block mt-2">Format: JPG, PNG, WEBP | Max: 4MB per gambar | Maksimal 10 gambar</small>
+    <input type="file" name="gambar[]" class="form-control @error('gambar') is-invalid @enderror @error('gambar.*') is-invalid @enderror" 
                            accept="image/jpeg,image/png,image/jpg,image/webp" id="inputGambar" multiple>
-                    <small class="text-muted">Format: JPG, PNG, WEBP. Max: 4MB per gambar. Maksimal 10 gambar.</small>
-                    <div class="preview-grid" id="previewGrid"></div>
+    <div class="preview-grid" id="previewGrid"></div>
+</div>
                     @error('gambar')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
