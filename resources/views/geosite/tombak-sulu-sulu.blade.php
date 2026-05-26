@@ -268,29 +268,80 @@
     <a href="#berita" class="mobile-link">Berita</a>
 </div>
 
-<section class="hero"><div data-aos="fade-up"><h1 class="hero-title">TOMBAK SULU-SULU</h1><p class="hero-subtitle">Kawasan Bakara · Hutan Sakral & Legenda Pusaka</p></div></section>
+@php
+    $bgHero = ($profil && $profil->bg_hero && is_array($profil->bg_hero) && count($profil->bg_hero) > 0) 
+        ? asset('storage/' . $profil->bg_hero[0]) 
+        : asset('image/default-hero.jpg');
+@endphp
+<section class="hero" style="background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
+    <div data-aos="fade-up">
+        <h1 class="hero-title">{{ $profil->judul_utama ?? 'JUDUL UTAMA' }}</h1>
+        <p class="hero-subtitle">{{ $profil->sub_judul ?? 'SUB JUDUL' }}</p>
+    </div>
+</section>
 
 <section id="sejarah" class="section">
     <div class="container">
-        <div class="section-title" data-aos="fade-up"><h2>Legenda Tombak Pusaka Sisingamangaraja</h2><div class="divider"></div></div>
-        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
-            <p>Tombak Sulu-sulu adalah hutan larangan (hutan sakral) yang terletak di kawasan Bakara, Kecamatan Baktiraja. Tempat ini dipercaya menyimpan legenda tombak pusaka milik Raja Sisingamangaraja. Nama "Sulu-sulu" dalam bahasa Batak berarti "menyala" atau "bercahaya", merujuk pada kepercayaan bahwa tombak pusaka ini bercahaya dan memiliki kekuatan magis.</p>
-            <p>Menurut cerita turun-temurun, tombak pusaka Sisingamangaraja disembunyikan di hutan ini untuk melindunginya dari jatuh ke tangan musuh, terutama penjajah Belanda yang berusaha melumpuhkan perlawanan rakyat Batak. Hingga saat ini, banyak masyarakat yang percaya bahwa tombak tersebut masih tersimpan di suatu tempat di dalam hutan, dijaga oleh kekuatan gaib.</p>
-            <p>Hutan Tombak Sulu-sulu juga dikenal sebagai hutan adat yang dilindungi oleh masyarakat setempat. Tidak sembarang orang bisa masuk ke dalamnya tanpa izin dan mematuhi aturan adat. Pengunjung yang datang biasanya melakukan trekking ringan di sekitar hutan sambil mendengarkan cerita legenda dari pemandu lokal. Suasana hening, mistis, dan alami menjadikan tempat ini unik untuk wisata spiritual dan budaya.</p>
+        <div class="section-title" data-aos="fade-up">
+            <h2>{{ $profil->deskripsi_1_judul ?? 'Judul Deskripsi' }}</h2>
+            <div class="divider"></div>
         </div>
+        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
+            {!! nl2br(e($profil->deskripsi_1_teks ?? '')) !!}
+        </div>
+
         <div class="sejarah-grid">
-            <div class="sejarah-item" data-aos="fade-right"><div class="sejarah-image"><img src="{{ asset('image/bakara/tombak-sulu-sulu-forest.jpg') }}" alt="Hutan Sakral"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Hutan Larangan yang Dijaga Adat</h4><p>Hutan Tombak Sulu-sulu termasuk dalam kategori hutan larangan (hutan sakral) yang tidak boleh ditebang atau diambil apapun darinya tanpa izin adat. Masyarakat setempat percaya bahwa siapa pun yang melanggar akan mendapat sanksi gaib. Hingga kini, hutan ini masih sangat lestari karena perlindungan adat yang kuat.</p></div></div>
-            <div class="sejarah-item reverse" data-aos="fade-left"><div class="sejarah-image"><img src="{{ asset('image/bakara/tombak-sulu-sulu.jpg') }}" alt="Legenda"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Legenda Tombak Pusaka yang Bercahaya</h4><p>Konon, tombak pusaka Sisingamangaraja yang tersembunyi di hutan ini memiliki kemampuan bercahaya sendiri (sulu-sulu) pada malam hari. Tombak ini dipercaya sebagai simbol kekuatan dan perlawanan rakyat Batak. Beberapa orang mengaku pernah melihat cahaya misterius di tengah hutan, terutama pada malam-malam tertentu.</p></div></div>
+            @if($profil && $profil->deskripsi_2_judul)
+            <div class="sejarah-item reverse" data-aos="fade-left">
+                <div class="sejarah-image">
+                    @php
+                        $descImg = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) 
+                            ? asset('storage/' . $profil->deskripsi_2_gambar[0]) 
+                            : asset('image/default-image.jpg');
+                    @endphp
+                    <img src="{{ $descImg }}" alt="Gambar Deskripsi">
+                </div>
+                <div class="sejarah-text">
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_2_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_2_teks)) !!}</p>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>
 
-<section id="informasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Informasi Praktis</h2><div class="divider"></div></div>
-<div class="info-praktis"><div class="info-praktis-grid"><div class="info-praktis-item"><h4>LOKASI</h4><p>Kawasan Bakara</p></div><div class="info-praktis-item"><h4>JAM OPERASIONAL</h4><p>08:00 - 17:00 WIB</p></div><div class="info-praktis-item"><h4>HARGA TIKET</h4><p>Rp 5.000 - Rp 10.000</p></div></div><div class="tags"><span class="tag">Hutan Sakral</span><span class="tag">Legenda</span><span class="tag">Wisata Spiritual</span><span class="tag">Trekking</span></div></div>
-
-
-
-</div></section>
+<section id="informasi" class="section bg-light">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Informasi Praktis</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="info-praktis">
+            <div class="info-praktis-grid">
+                <div class="info-praktis-item">
+                    <h4>LOKASI</h4>
+                    <p>{{ $profil->info_lokasi ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>JAM OPERASIONAL</h4>
+                    <p>{{ $profil->info_jam ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>HARGA TIKET</h4>
+                    <p>{{ $profil->info_harga ?? '-' }}</p>
+                </div>
+            </div>
+            <div class="tags">
+                @if($profil && is_array($profil->tags))
+                    @foreach($profil->tags as $tag)
+                        <span class="tag">{{ $tag }}</span>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="galeri" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Galeri Foto</h2><div class="divider"></div></div>
 <div class="galeri-grid" id="galeriGrid">

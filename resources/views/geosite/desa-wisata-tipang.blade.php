@@ -278,28 +278,80 @@
     <a href="#berita" class="mobile-link">Berita</a>
 </div>
 
-<section class="hero"><div data-aos="fade-up"><h1 class="hero-title">DESA WISATA TIPANG</h1><p class="hero-subtitle">Tipang · Kec. Baktiraja · Kearifan Lokal Batak</p></div></section>
+@php
+    $bgHero = ($profil && $profil->bg_hero && is_array($profil->bg_hero) && count($profil->bg_hero) > 0) 
+        ? asset('storage/' . $profil->bg_hero[0]) 
+        : asset('image/default-hero.jpg');
+@endphp
+<section class="hero" style="background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
+    <div data-aos="fade-up">
+        <h1 class="hero-title">{{ $profil->judul_utama ?? 'JUDUL UTAMA' }}</h1>
+        <p class="hero-subtitle">{{ $profil->sub_judul ?? 'SUB JUDUL' }}</p>
+    </div>
+</section>
 
 <section id="sejarah" class="section">
     <div class="container">
-        <div class="section-title" data-aos="fade-up"><h2>Tipang: Permata Tersembunyi di Tepi Danau Toba</h2><div class="divider"></div></div>
-        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
-            <p>Desa Wisata Tipang adalah destinasi wisata berbasis masyarakat yang menawarkan pengalaman autentik tinggal bersama keluarga Batak di tepi Danau Toba. Dikenal dengan julukan "New Zealand-nya Toba", desa ini memiliki hamparan sawah hijau terasering yang membentang hingga ke pinggir danau, menciptakan pemandangan yang spektakuler.</p>
-            <p>Desa Tipang terletak di Kecamatan Baktiraja, Kabupaten Humbang Hasundutan. Keindahan alamnya yang masih asli, udara sejuk pegunungan, dan keramahan masyarakatnya menjadikan desa ini cocok untuk wisatawan yang ingin melepas penat dari hiruk pikuk perkotaan. Di sini, Anda dapat berjalan-jalan di tengah persawahan, belajar menenun ulos, atau sekadar bersantai di tepi pantai berpasir.</p>
+        <div class="section-title" data-aos="fade-up">
+            <h2>{{ $profil->deskripsi_1_judul ?? 'Judul Deskripsi' }}</h2>
+            <div class="divider"></div>
         </div>
+        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
+            {!! nl2br(e($profil->deskripsi_1_teks ?? '')) !!}
+        </div>
+
         <div class="sejarah-grid">
-            <div class="sejarah-item" data-aos="fade-right"><div class="sejarah-image"><img src="{{ asset('image/bakara/desa-tipang.jpg') }}" alt="Desa Tipang"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">"New Zealand-nya Toba"</h4><p>Julukan ini diberikan karena keindahan hamparan sawah terasering hijau yang membentang hingga ke tepi Danau Toba. Pemandangan ini sangat fotogenik dan menjadi favorit para fotografer, baik lokal maupun mancanegara.</p></div></div>
-            <div class="sejarah-item reverse" data-aos="fade-left"><div class="sejarah-image"><img src="{{ asset('image/bakara/homestay-bakara.jpg') }}" alt="Homestay"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Pengalaman Homestay Bersama Masyarakat Batak</h4><p>Menginap di homestay Desa Tipang memberikan pengalaman yang otentik. Anda akan tinggal bersama keluarga Batak, belajar memasak masakan khas, mendengarkan cerita rakyat, dan bahkan diajari menari tortor atau menenun ulos.</p></div></div>
+            @if($profil && $profil->deskripsi_2_judul)
+            <div class="sejarah-item reverse" data-aos="fade-left">
+                <div class="sejarah-image">
+                    @php
+                        $descImg = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) 
+                            ? asset('storage/' . $profil->deskripsi_2_gambar[0]) 
+                            : asset('image/default-image.jpg');
+                    @endphp
+                    <img src="{{ $descImg }}" alt="Gambar Deskripsi">
+                </div>
+                <div class="sejarah-text">
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_2_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_2_teks)) !!}</p>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>
 
-<section id="informasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Informasi Praktis</h2><div class="divider"></div></div>
-<div class="info-praktis"><div class="info-praktis-grid"><div class="info-praktis-item"><h4>LOKASI</h4><p>Tipang, Kec. Baktiraja</p></div><div class="info-praktis-item"><h4>JAM OPERASIONAL</h4><p>08:00 - 18:00 WIB</p></div><div class="info-praktis-item"><h4>HARGA TIKET</h4><p>Rp 5.000 - Rp 10.000</p></div></div><div class="tags"><span class="tag">Desa Wisata</span><span class="tag">Homestay</span><span class="tag">Budaya Batak</span><span class="tag">Panorama</span></div></div>
-
-
-
-</div></section>
+<section id="informasi" class="section bg-light">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Informasi Praktis</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="info-praktis">
+            <div class="info-praktis-grid">
+                <div class="info-praktis-item">
+                    <h4>LOKASI</h4>
+                    <p>{{ $profil->info_lokasi ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>JAM OPERASIONAL</h4>
+                    <p>{{ $profil->info_jam ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>HARGA TIKET</h4>
+                    <p>{{ $profil->info_harga ?? '-' }}</p>
+                </div>
+            </div>
+            <div class="tags">
+                @if($profil && is_array($profil->tags))
+                    @foreach($profil->tags as $tag)
+                        <span class="tag">{{ $tag }}</span>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="galeri" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Galeri Foto</h2><div class="divider"></div></div>
 <div class="galeri-grid" id="galeriGrid">

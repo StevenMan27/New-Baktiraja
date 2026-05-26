@@ -268,28 +268,80 @@
     <a href="#berita" class="mobile-link">Berita</a>
 </div>
 
-<section class="hero"><div data-aos="fade-up"><h1 class="hero-title">ISTANA SISINGAMANGARAJA</h1><p class="hero-subtitle">Tipang · Kec. Baktiraja · Pusat Spiritual & Sejarah Batak</p></div></section>
+@php
+    $bgHero = ($profil && $profil->bg_hero && is_array($profil->bg_hero) && count($profil->bg_hero) > 0) 
+        ? asset('storage/' . $profil->bg_hero[0]) 
+        : asset('image/default-hero.jpg');
+@endphp
+<section class="hero" style="background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
+    <div data-aos="fade-up">
+        <h1 class="hero-title">{{ $profil->judul_utama ?? 'JUDUL UTAMA' }}</h1>
+        <p class="hero-subtitle">{{ $profil->sub_judul ?? 'SUB JUDUL' }}</p>
+    </div>
+</section>
 
 <section id="sejarah" class="section">
     <div class="container">
-        <div class="section-title" data-aos="fade-up"><h2>Sejarah & Perjuangan Raja Sisingamangaraja</h2><div class="divider"></div></div>
-        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
-            <p>Istana Sisingamangaraja adalah pusat spiritual dan pemerintahan raja-raja Batak dari marga Sisingamangaraja, yang terletak di Tipang, Kecamatan Baktiraja. Tempat ini bukan sekadar bangunan bersejarah, tetapi merupakan simbol perlawanan rakyat Batak terhadap penjajahan kolonial Belanda pada abad ke-19 dan awal abad ke-20.</p>
-            <p>Para raja Sisingamangaraja, terutama Sisingamangaraja XII (1849-1907), dikenal sebagai pemimpin yang gigih melawan Belanda. Beliau memimpin perlawanan di seluruh kawasan Toba dan sekitarnya, dengan markas besar di kawasan Bakara dan Tipang. Hingga akhir hayatnya, Sisingamangaraja XII tidak pernah menyerah dan gugur dalam pertempuran melawan pasukan kolonial.</p>
+        <div class="section-title" data-aos="fade-up">
+            <h2>{{ $profil->deskripsi_1_judul ?? 'Judul Deskripsi' }}</h2>
+            <div class="divider"></div>
         </div>
+        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
+            {!! nl2br(e($profil->deskripsi_1_teks ?? '')) !!}
+        </div>
+
         <div class="sejarah-grid">
-            <div class="sejarah-item" data-aos="fade-right"><div class="sejarah-image"><img src="{{ asset('image/bakara/istana-sisingamangaraja-detail.jpg') }}" alt="Istana"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Sisingamangaraja XII: Pahlawan Nasional</h4><p>Sisingamangaraja XII diangkat menjadi Pahlawan Nasional Indonesia pada tahun 1961. Beliau memimpin perang gerilya selama hampir 30 tahun melawan Belanda di tanah Batak. Perlawanannya yang tak kenal menyerah menginspirasi perjuangan kemerdekaan Indonesia.</p></div></div>
-            <div class="sejarah-item reverse" data-aos="fade-left"><div class="sejarah-image"><img src="{{ asset('image/bakara/istana-sisingamangaraja.jpg') }}" alt="Arsitektur"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Arsitektur Tradisional Batak yang Autentik</h4><p>Istana Sisingamangaraja dibangun dengan arsitektur tradisional Batak Toba yang khas. Rumah adat dengan bentuk gonjong (atap melengkung), ukiran-ukiran filosofis, dan tiang-tiang penyangga yang kokoh. Setiap elemen bangunan memiliki makna dan filosofi tersendiri.</p></div></div>
+            @if($profil && $profil->deskripsi_2_judul)
+            <div class="sejarah-item reverse" data-aos="fade-left">
+                <div class="sejarah-image">
+                    @php
+                        $descImg = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) 
+                            ? asset('storage/' . $profil->deskripsi_2_gambar[0]) 
+                            : asset('image/default-image.jpg');
+                    @endphp
+                    <img src="{{ $descImg }}" alt="Gambar Deskripsi">
+                </div>
+                <div class="sejarah-text">
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_2_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_2_teks)) !!}</p>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>
 
-<section id="informasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Informasi Praktis</h2><div class="divider"></div></div>
-<div class="info-praktis"><div class="info-praktis-grid"><div class="info-praktis-item"><h4>LOKASI</h4><p>Tipang, Kec. Baktiraja</p></div><div class="info-praktis-item"><h4>JAM OPERASIONAL</h4><p>08:00 - 17:00 WIB</p></div><div class="info-praktis-item"><h4>HARGA TIKET</h4><p>Rp 10.000 - Rp 15.000</p></div></div><div class="tags"><span class="tag">Sejarah Batak</span><span class="tag">Raja Sisingamangaraja</span><span class="tag">Wisata Budaya</span><span class="tag">Artefak</span></div></div>
-
-
-
-</div></section>
+<section id="informasi" class="section bg-light">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Informasi Praktis</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="info-praktis">
+            <div class="info-praktis-grid">
+                <div class="info-praktis-item">
+                    <h4>LOKASI</h4>
+                    <p>{{ $profil->info_lokasi ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>JAM OPERASIONAL</h4>
+                    <p>{{ $profil->info_jam ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>HARGA TIKET</h4>
+                    <p>{{ $profil->info_harga ?? '-' }}</p>
+                </div>
+            </div>
+            <div class="tags">
+                @if($profil && is_array($profil->tags))
+                    @foreach($profil->tags as $tag)
+                        <span class="tag">{{ $tag }}</span>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="galeri" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Galeri Foto</h2><div class="divider"></div></div>
 <div class="galeri-grid" id="galeriGrid">

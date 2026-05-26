@@ -715,6 +715,9 @@
         </a>
         
         <div class="menu-title">Konten</div>
+        <a href="{{ route('admin.profil.index') }}" class="{{ request()->routeIs('admin.profil.*') ? 'active' : '' }}">
+            <i class="fas fa-id-card"></i> Profil Geosite
+        </a>
         <a href="{{ route('admin.galeri.index') }}" class="{{ request()->routeIs('admin.galeri.*') ? 'active' : '' }}">
             <i class="fas fa-images"></i> Galeri
         </a>

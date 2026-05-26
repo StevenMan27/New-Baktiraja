@@ -294,44 +294,45 @@
     <a href="#berita" class="mobile-link">Berita</a>
 </div>
 
-<section class="hero">
+@php
+    $bgHero = ($profil && $profil->bg_hero && is_array($profil->bg_hero) && count($profil->bg_hero) > 0) 
+        ? asset('storage/' . $profil->bg_hero[0]) 
+        : asset('image/default-hero.jpg');
+@endphp
+<section class="hero" style="background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
     <div data-aos="fade-up">
-        <h1 class="hero-title">AEK SITIO-TIO</h1>
-        <p class="hero-subtitle">Tipang · Kec. Baktiraja · Mata Air Pegunungan</p>
+        <h1 class="hero-title">{{ $profil->judul_utama ?? 'JUDUL UTAMA' }}</h1>
+        <p class="hero-subtitle">{{ $profil->sub_judul ?? 'SUB JUDUL' }}</p>
     </div>
 </section>
 
 <section id="sejarah" class="section">
     <div class="container">
         <div class="section-title" data-aos="fade-up">
-            <h2>Kesegaran Abadi Aek Sitio-tio</h2>
+            <h2>{{ $profil->deskripsi_1_judul ?? 'Judul Deskripsi' }}</h2>
             <div class="divider"></div>
         </div>
-        
         <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
-            <p>
-                Aek Sitio-tio adalah mata air pegunungan yang terkenal dengan kejernihan dan kesegarannya yang luar biasa. Berlokasi di Tipang, Kecamatan Baktiraja, mata air ini tidak pernah surut meskipun musim kemarau panjang. Nama "Aek Sitio-tio" dalam bahasa Batak berarti "air yang mengalir terus" atau "air yang tidak pernah berhenti", mencerminkan sifat alami mata air ini yang abadi.
-            </p>
-            <p>
-                Air dari Aek Sitio-tio sangat jernih dan segar, berasal dari resapan air pegunungan yang dikelilingi oleh hutan yang masih lestari. Masyarakat setempat meyakini bahwa air ini memiliki khasiat menyegarkan tubuh dan pikiran, serta konon membawa keberuntungan bagi siapa pun yang meminumnya atau sekadar merendam kaki di alirannya.
-            </p>
+            {!! nl2br(e($profil->deskripsi_1_teks ?? '')) !!}
         </div>
-        
+
         <div class="sejarah-grid">
-            <div class="sejarah-item" data-aos="fade-right">
-                <div class="sejarah-image"><img src="{{ asset('image/bakara/aek-sitio-tio-detail.jpg') }}" alt="Aek Sitio-tio"></div>
-                <div class="sejarah-text">
-                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Mata Air yang Tak Pernah Surut</h4>
-                    <p>Keunikan utama Aek Sitio-tio adalah debit airnya yang stabil sepanjang tahun. Bahkan di musim kemarau sekalipun, mata air ini tetap mengalir deras dan jernih. Fenomena alam ini menjadi daya tarik tersendiri bagi wisatawan yang penasaran dengan keajaiban alam di kawasan Bakara â€“ Tipang â€“ Baktiraja.</p>
-                </div>
-            </div>
+            @if($profil && $profil->deskripsi_2_judul)
             <div class="sejarah-item reverse" data-aos="fade-left">
-                <div class="sejarah-image"><img src="{{ asset('image/bakara/aek-sitio-tio.jpg') }}" alt="Kesegaran"></div>
+                <div class="sejarah-image">
+                    @php
+                        $descImg = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) 
+                            ? asset('storage/' . $profil->deskripsi_2_gambar[0]) 
+                            : asset('image/default-image.jpg');
+                    @endphp
+                    <img src="{{ $descImg }}" alt="Gambar Deskripsi">
+                </div>
                 <div class="sejarah-text">
-                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Khasiat dan Kepercayaan Lokal</h4>
-                    <p>Masyarakat sekitar mempercayai bahwa air Aek Sitio-tio memiliki khasiat menyegarkan tubuh dan pikiran. Banyak pengunjung yang datang khusus untuk berendam atau merendam kaki di alirannya, meyakini bahwa kesegaran air ini dapat menghilangkan rasa lelah setelah perjalanan jauh.</p>
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_2_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_2_teks)) !!}</p>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </section>
@@ -344,16 +345,27 @@
         </div>
         <div class="info-praktis">
             <div class="info-praktis-grid">
-                <div class="info-praktis-item"><h4>LOKASI</h4><p>Tipang, Kec. Baktiraja</p></div>
-                <div class="info-praktis-item"><h4>JAM OPERASIONAL</h4><p>08:00 - 17:00 WIB</p></div>
-                <div class="info-praktis-item"><h4>HARGA TIKET</h4><p>Gratis (Donasi Sukarela)</p></div>
+                <div class="info-praktis-item">
+                    <h4>LOKASI</h4>
+                    <p>{{ $profil->info_lokasi ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>JAM OPERASIONAL</h4>
+                    <p>{{ $profil->info_jam ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>HARGA TIKET</h4>
+                    <p>{{ $profil->info_harga ?? '-' }}</p>
+                </div>
             </div>
             <div class="tags">
-                <span class="tag">Mata Air</span><span class="tag">Air Jernih</span><span class="tag">Penyegaran</span><span class="tag">Alam</span><span class="tag">Tipang</span>
+                @if($profil && is_array($profil->tags))
+                    @foreach($profil->tags as $tag)
+                        <span class="tag">{{ $tag }}</span>
+                    @endforeach
+                @endif
             </div>
         </div>
-
-
     </div>
 </section>
 

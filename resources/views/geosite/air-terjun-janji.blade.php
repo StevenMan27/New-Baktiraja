@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -299,10 +299,15 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
+@php
+    $bgHero = ($profil && $profil->bg_hero && is_array($profil->bg_hero) && count($profil->bg_hero) > 0) 
+        ? asset('storage/' . $profil->bg_hero[0]) 
+        : asset('image/default-hero.jpg');
+@endphp
+<section class="hero" style="background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
     <div data-aos="fade-up">
-        <h1 class="hero-title">AIR TERJUN JANJI</h1>
-        <p class="hero-subtitle">Baktiraja · Kab. Humbang Hasundutan · Wisata Alam</p>
+        <h1 class="hero-title">{{ $profil->judul_utama ?? 'JUDUL UTAMA' }}</h1>
+        <p class="hero-subtitle">{{ $profil->sub_judul ?? 'SUB JUDUL' }}</p>
     </div>
 </section>
 
@@ -310,34 +315,30 @@
 <section id="sejarah" class="section">
     <div class="container">
         <div class="section-title" data-aos="fade-up">
-            <h2>Keindahan & Mitos Air Terjun Janji</h2>
+            <h2>{{ $profil->deskripsi_1_judul ?? 'Judul Deskripsi' }}</h2>
             <div class="divider"></div>
         </div>
-        
         <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
-            <p>
-                Air Terjun Janji merupakan salah satu destinasi wisata alam paling memukau di kawasan Baktiraja, Kabupaten Humbang Hasundutan. Air terjun ini memiliki debit air yang deras sepanjang tahun dengan kolam alami berwarna kebiruan yang jernih. Keindahannya yang masih alami dan suasana sekitar yang rindang menjadikan tempat ini surga tersembunyi bagi para pecinta alam dan fotografer.
-            </p>
-            <p>
-                Nama "Air Terjun Janji" berasal dari mitos lokal yang berkembang di masyarakat sekitar. Konon, siapa pun yang berani berenang di kolam alami air terjun ini akan mendapatkan pendamping hidup sesuai dengan "janji alam". Mitos ini menjadikan air terjun tidak hanya sebagai destinasi wisata alam, tetapi juga memiliki nilai spiritual dan romantis bagi masyarakat setempat.
-            </p>
+            {!! nl2br(e($profil->deskripsi_1_teks ?? '')) !!}
         </div>
-        
+
         <div class="sejarah-grid">
-            <div class="sejarah-item" data-aos="fade-right">
-                <div class="sejarah-image"><img src="{{ asset('image/bakara/air-terjun-janji-detail.jpg') }}" alt="Air Terjun Janji"></div>
-                <div class="sejarah-text">
-                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Keindahan Alam yang Masih Alami</h4>
-                    <p>Air Terjun Janji menyuguhkan pemandangan yang masih sangat alami. Airnya yang jernih kebiruan mengalir deras dari ketinggian, menciptakan kolam alami yang aman untuk berenang. Dikelilingi oleh pepohonan rindang dan tebing-tebing hijau, tempat ini menjadi oase kesegaran di tengah perjalanan Anda.</p>
-                </div>
-            </div>
+            @if($profil && $profil->deskripsi_2_judul)
             <div class="sejarah-item reverse" data-aos="fade-left">
-                <div class="sejarah-image"><img src="{{ asset('image/bakara/aek-sitio-tio.jpg') }}" alt="Mitos"></div>
+                <div class="sejarah-image">
+                    @php
+                        $descImg = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) 
+                            ? asset('storage/' . $profil->deskripsi_2_gambar[0]) 
+                            : asset('image/default-image.jpg');
+                    @endphp
+                    <img src="{{ $descImg }}" alt="Gambar Deskripsi">
+                </div>
                 <div class="sejarah-text">
-                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Mitos "Janji Alam" yang Melegenda</h4>
-                    <p>Menurut legenda setempat, Air Terjun Janji menyimpan janji alam bagi siapa pun yang berani berendam di kolamnya. Mitos ini telah turun-temurun dipercaya oleh masyarakat sekitar, menjadikan air terjun ini tidak hanya sebagai destinasi wisata, tetapi juga tempat yang sarat akan nilai spiritual dan budaya.</p>
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_2_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_2_teks)) !!}</p>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </section>
@@ -353,27 +354,25 @@
             <div class="info-praktis-grid">
                 <div class="info-praktis-item">
                     <h4>LOKASI</h4>
-                    <p>Baktiraja, Kab. Humbang Hasundutan</p>
+                    <p>{{ $profil->info_lokasi ?? '-' }}</p>
                 </div>
                 <div class="info-praktis-item">
                     <h4>JAM OPERASIONAL</h4>
-                    <p>08:00 - 17:00 WIB</p>
+                    <p>{{ $profil->info_jam ?? '-' }}</p>
                 </div>
                 <div class="info-praktis-item">
                     <h4>HARGA TIKET</h4>
-                    <p>Rp 10.000 - Rp 15.000</p>
+                    <p>{{ $profil->info_harga ?? '-' }}</p>
                 </div>
             </div>
             <div class="tags">
-                <span class="tag">Air Terjun</span>
-                <span class="tag">Mitos Lokal</span>
-                <span class="tag">Kolam Alami</span>
-                <span class="tag">Refreshing</span>
-                <span class="tag">Wisata Keluarga</span>
+                @if($profil && is_array($profil->tags))
+                    @foreach($profil->tags as $tag)
+                        <span class="tag">{{ $tag }}</span>
+                    @endforeach
+                @endif
             </div>
         </div>
-
-
     </div>
 </section>
 
@@ -604,6 +603,7 @@
     @endif
     @endforeach
 </div>
+@endif
 @endif
 
 </div></section>

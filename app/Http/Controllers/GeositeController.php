@@ -14,6 +14,7 @@ class GeositeController extends Controller
     private function getGeositeData($slug)
     {
         return [
+            'profil' => \App\Models\ProfilGeosite::where('geosite', $slug)->first(),
             'umkm' => Umkm::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
             'fasilitas' => Fasilitas::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),
             'penginapan' => Penginapan::where('status', 1)->where('geosite', $slug)->orderBy('urutan')->get(),

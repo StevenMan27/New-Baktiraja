@@ -278,28 +278,80 @@
     <a href="#berita" class="mobile-link">Berita</a>
 </div>
 
-<section class="hero"><div data-aos="fade-up"><h1 class="hero-title">PANATAPAN BAKARA</h1><p class="hero-subtitle">Desa Bakara · Kec. Baktiraja · Panorama Danau Toba</p></div></section>
+@php
+    $bgHero = ($profil && $profil->bg_hero && is_array($profil->bg_hero) && count($profil->bg_hero) > 0) 
+        ? asset('storage/' . $profil->bg_hero[0]) 
+        : asset('image/default-hero.jpg');
+@endphp
+<section class="hero" style="background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
+    <div data-aos="fade-up">
+        <h1 class="hero-title">{{ $profil->judul_utama ?? 'JUDUL UTAMA' }}</h1>
+        <p class="hero-subtitle">{{ $profil->sub_judul ?? 'SUB JUDUL' }}</p>
+    </div>
+</section>
 
 <section id="sejarah" class="section">
     <div class="container">
-        <div class="section-title" data-aos="fade-up"><h2>Panorama Spektakuler Danau Toba</h2><div class="divider"></div></div>
-        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
-            <p>Panatapan Bakara adalah destinasi wisata alam yang menyuguhkan pemandangan Danau Toba yang paling spektakuler dari ketinggian. Berlokasi di Desa Bakara, Kecamatan Baktiraja, tempat ini menjadi titik favorit wisatawan untuk menikmati sunrise dan sunset dengan latar belakang Pulau Samosir yang eksotis.</p>
-            <p>Nama "Panatapan" dalam bahasa Batak berarti "tempat memandang" atau "tempat melihat". Sesuai dengan namanya, dari sini Anda dapat menyaksikan hamparan Danau Toba yang membentang luas, perbukitan hijau di sekitarnya, serta Pulau Samosir yang megah.</p>
+        <div class="section-title" data-aos="fade-up">
+            <h2>{{ $profil->deskripsi_1_judul ?? 'Judul Deskripsi' }}</h2>
+            <div class="divider"></div>
         </div>
+        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
+            {!! nl2br(e($profil->deskripsi_1_teks ?? '')) !!}
+        </div>
+
         <div class="sejarah-grid">
-            <div class="sejarah-item" data-aos="fade-right"><div class="sejarah-image"><img src="{{ asset('image/bakara/panatapan-bakara-sunset.jpg') }}" alt="Sunset"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Sunset dan Sunrise Terbaik di Danau Toba</h4><p>Panatapan Bakara dikenal sebagai salah satu spot terbaik untuk menikmati sunrise dan sunset di kawasan Danau Toba. Saat matahari terbit, kabut tipis menyelimuti permukaan danau menciptakan suasana magis.</p></div></div>
-            <div class="sejarah-item reverse" data-aos="fade-left"><div class="sejarah-image"><img src="{{ asset('image/bakara/panatapan-bakara.jpg') }}" alt="Panorama"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Spot Fotografi Lanskap Kelas Dunia</h4><p>Para fotografer, baik amatir maupun profesional, menjadikan Panatapan Bakara sebagai surga fotografi lanskap. Komposisi alam antara danau, gunung, pulau, dan langit menciptakan bidikan yang sempurna.</p></div></div>
+            @if($profil && $profil->deskripsi_2_judul)
+            <div class="sejarah-item reverse" data-aos="fade-left">
+                <div class="sejarah-image">
+                    @php
+                        $descImg = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) 
+                            ? asset('storage/' . $profil->deskripsi_2_gambar[0]) 
+                            : asset('image/default-image.jpg');
+                    @endphp
+                    <img src="{{ $descImg }}" alt="Gambar Deskripsi">
+                </div>
+                <div class="sejarah-text">
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_2_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_2_teks)) !!}</p>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>
 
-<section id="informasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Informasi Praktis</h2><div class="divider"></div></div>
-<div class="info-praktis"><div class="info-praktis-grid"><div class="info-praktis-item"><h4>LOKASI</h4><p>Desa Bakara, Kec. Baktiraja</p></div><div class="info-praktis-item"><h4>JAM OPERASIONAL</h4><p>06:00 - 18:00 WIB</p></div><div class="info-praktis-item"><h4>HARGA TIKET</h4><p>Rp 5.000 - Rp 10.000</p></div></div><div class="tags"><span class="tag">Panorama Danau</span><span class="tag">Sunrise</span><span class="tag">Sunset</span><span class="tag">Spot Foto</span></div></div>
-
-
-
-</div></section>
+<section id="informasi" class="section bg-light">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Informasi Praktis</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="info-praktis">
+            <div class="info-praktis-grid">
+                <div class="info-praktis-item">
+                    <h4>LOKASI</h4>
+                    <p>{{ $profil->info_lokasi ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>JAM OPERASIONAL</h4>
+                    <p>{{ $profil->info_jam ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>HARGA TIKET</h4>
+                    <p>{{ $profil->info_harga ?? '-' }}</p>
+                </div>
+            </div>
+            <div class="tags">
+                @if($profil && is_array($profil->tags))
+                    @foreach($profil->tags as $tag)
+                        <span class="tag">{{ $tag }}</span>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="galeri" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Galeri Foto</h2><div class="divider"></div></div>
 <div class="galeri-grid" id="galeriGrid">

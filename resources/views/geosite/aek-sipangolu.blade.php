@@ -268,28 +268,80 @@
     <a href="#berita" class="mobile-link">Berita</a>
 </div>
 
-<section class="hero"><div data-aos="fade-up"><h1 class="hero-title">AEK SIPANGOLU</h1><p class="hero-subtitle">Baktiraja · Mata Air Panas dengan Khasiat Penyembuhan</p></div></section>
+@php
+    $bgHero = ($profil && $profil->bg_hero && is_array($profil->bg_hero) && count($profil->bg_hero) > 0) 
+        ? asset('storage/' . $profil->bg_hero[0]) 
+        : asset('image/default-hero.jpg');
+@endphp
+<section class="hero" style="background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
+    <div data-aos="fade-up">
+        <h1 class="hero-title">{{ $profil->judul_utama ?? 'JUDUL UTAMA' }}</h1>
+        <p class="hero-subtitle">{{ $profil->sub_judul ?? 'SUB JUDUL' }}</p>
+    </div>
+</section>
 
 <section id="sejarah" class="section">
     <div class="container">
-        <div class="section-title" data-aos="fade-up"><h2>Aek Sipangolu: Air Pereda Penat yang Melegenda</h2><div class="divider"></div></div>
-        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
-            <p>Aek Sipangolu, yang dalam bahasa Batak berarti "air pereda penat", adalah mata air panas alami yang terletak di Baktiraja, Kabupaten Humbang Hasundutan. Airnya yang hangat alami dengan kandungan belerang rendah dipercaya memiliki khasiat menyembuhkan berbagai penyakit kulit dan menghilangkan rasa lelah setelah perjalanan jauh.</p>
-            <p>Legenda setempat menyebutkan bahwa pada zaman dahulu, arwah raja-raja Batak konon berendam di Aek Sipangolu sebelum memimpin perang. Mereka percaya bahwa air ini dapat memberikan kekuatan spiritual, keberanian, dan kesehatan sebelum bertempur. Hingga saat ini, banyak masyarakat yang masih melakukan ritual kecil sebelum berendam sebagai bentuk penghormatan.</p>
-            <p>Selain nilai spiritual dan khasiat pengobatan tradisional, Aek Sipangolu juga memiliki keindahan alam yang memukau. Mata air ini dikelilingi oleh pepohonan rindang dan bebatuan alami, menciptakan suasana yang tenang dan damai. Banyak wisatawan yang datang tidak hanya untuk berendam tetapi juga untuk menikmati keindahan alam sekitar dan melepas penat.</p>
+        <div class="section-title" data-aos="fade-up">
+            <h2>{{ $profil->deskripsi_1_judul ?? 'Judul Deskripsi' }}</h2>
+            <div class="divider"></div>
         </div>
+        <div class="sejarah-intro" style="margin-bottom: 50px; line-height: 1.8; color: #444; font-size: 0.95rem;">
+            {!! nl2br(e($profil->deskripsi_1_teks ?? '')) !!}
+        </div>
+
         <div class="sejarah-grid">
-            <div class="sejarah-item" data-aos="fade-right"><div class="sejarah-image"><img src="{{ asset('image/bakara/aek-sipangolu-detail.jpg') }}" alt="Aek Sipangolu"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Khasiat Penyembuhan Air Panas Alami</h4><p>Air Aek Sipangolu memiliki suhu hangat alami yang konstan sepanjang tahun. Kandungan belerang (sulfur) yang rendah tetapi efektif dipercaya dapat menyembuhkan berbagai masalah kulit seperti gatal-gatal, panu, kurap, serta membantu menyembuhkan luka ringan.</p></div></div>
-            <div class="sejarah-item reverse" data-aos="fade-left"><div class="sejarah-image"><img src="{{ asset('image/bakara/aek-sipangolu.jpg') }}" alt="Legenda"></div><div class="sejarah-text"><h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">Legenda Raja-Raja Batak Berendam Sebelum Berperang</h4><p>Konon, pada masa kerajaan Sisingamangaraja, para raja dan panglima perang selalu berendam di Aek Sipangolu sebelum berangkat bertempur. Mereka percaya bahwa air ini dapat membersihkan jiwa dan raga, memberikan kekuatan spiritual, serta melindungi mereka dari bahaya.</p></div></div>
+            @if($profil && $profil->deskripsi_2_judul)
+            <div class="sejarah-item reverse" data-aos="fade-left">
+                <div class="sejarah-image">
+                    @php
+                        $descImg = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) 
+                            ? asset('storage/' . $profil->deskripsi_2_gambar[0]) 
+                            : asset('image/default-image.jpg');
+                    @endphp
+                    <img src="{{ $descImg }}" alt="Gambar Deskripsi">
+                </div>
+                <div class="sejarah-text">
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_2_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_2_teks)) !!}</p>
+                </div>
+            </div>
+            @endif
         </div>
     </div>
 </section>
 
-<section id="informasi" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Informasi Praktis</h2><div class="divider"></div></div>
-<div class="info-praktis"><div class="info-praktis-grid"><div class="info-praktis-item"><h4>LOKASI</h4><p>Baktiraja</p></div><div class="info-praktis-item"><h4>JAM OPERASIONAL</h4><p>07:00 - 18:00 WIB</p></div><div class="info-praktis-item"><h4>HARGA TIKET</h4><p>Rp 10.000 - Rp 20.000</p></div></div><div class="tags"><span class="tag">Mata Air Panas</span><span class="tag">Pengobatan Tradisional</span><span class="tag">Wisata Spiritual</span><span class="tag">Belerang</span></div></div>
-
-
-</div></section>
+<section id="informasi" class="section bg-light">
+    <div class="container">
+        <div class="section-title" data-aos="fade-up">
+            <h2>Informasi Praktis</h2>
+            <div class="divider"></div>
+        </div>
+        <div class="info-praktis">
+            <div class="info-praktis-grid">
+                <div class="info-praktis-item">
+                    <h4>LOKASI</h4>
+                    <p>{{ $profil->info_lokasi ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>JAM OPERASIONAL</h4>
+                    <p>{{ $profil->info_jam ?? '-' }}</p>
+                </div>
+                <div class="info-praktis-item">
+                    <h4>HARGA TIKET</h4>
+                    <p>{{ $profil->info_harga ?? '-' }}</p>
+                </div>
+            </div>
+            <div class="tags">
+                @if($profil && is_array($profil->tags))
+                    @foreach($profil->tags as $tag)
+                        <span class="tag">{{ $tag }}</span>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
 
 <section id="galeri" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Galeri Foto</h2><div class="divider"></div></div>
 <div class="galeri-grid" id="galeriGrid">
