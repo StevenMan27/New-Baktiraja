@@ -166,24 +166,28 @@
     </div>
 </div>
 
+
+
 <script>
     document.getElementById('inputGambar').addEventListener('change', function(e) {
         const grid = document.getElementById('previewGrid');
         grid.innerHTML = '';
-        const files = e.target.files;
-        const file = files[0];
-if (file) {
-        {
-            if (file.size > 4 * 1024 * 1024) { alert('Gambar "' + file.name + '" melebihi 4MB!'); return; }
-            const reader = new FileReader();
-            reader.onload = function(ev) {
-                const item = document.createElement('div');
-                item.className = 'preview-item';
-                item.innerHTML = '<img src="' + ev.target.result + '" alt="Preview">';
-                grid.appendChild(item);
-            }
-            reader.readAsDataURL(file);
+        const file = e.target.files[0];
+        if (!file) return;
+        if (file.size > 4 * 1024 * 1024) {
+            alert('Gambar "' + file.name + '" melebihi batas maksimal 4MB!');
+            this.value = '';
+            return;
         }
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            const item = document.createElement('div');
+            item.className = 'preview-item';
+            item.innerHTML = '<img src="' + ev.target.result + '" alt="Preview">';
+            grid.appendChild(item);
+        };
+        reader.readAsDataURL(file);
     });
 </script>
+
 @endsection
