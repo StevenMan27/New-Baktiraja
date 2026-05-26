@@ -53,11 +53,8 @@ class BeritaController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('berita', 'public');
-            }
-            $data['gambar'] = json_encode($paths);
+            $path = $request->file('gambar')->store('berita', 'public');
+            $data['gambar'] = json_encode([$path]);
         }
 
         Berita::create($data);
@@ -107,11 +104,8 @@ class BeritaController extends Controller
             }
 
             // Store new files
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('berita', 'public');
-            }
-            $data['gambar'] = json_encode($paths);
+            $path = $request->file('gambar')->store('berita', 'public');
+            $data['gambar'] = json_encode([$path]);
         }
 
         $berita->update($data);

@@ -61,11 +61,8 @@ class PenginapanController extends Controller
 
         // Simpan file gambar ke storage/app/public/penginapan
         if ($request->hasFile('gambar')) {
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('penginapan', 'public');
-            }
-            $data['gambar'] = json_encode($paths);
+            $path = $request->file('gambar')->store('penginapan', 'public');
+            $data['gambar'] = json_encode([$path]);
         }
 
         Penginapan::create($data);

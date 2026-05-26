@@ -53,11 +53,8 @@ class InformasiController extends Controller
         ];
 
         if ($request->hasFile('gambar')) {
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('informasi', 'public');
-            }
-            $data['gambar'] = json_encode($paths);
+            $path = $request->file('gambar')->store('informasi', 'public');
+            $data['gambar'] = json_encode([$path]);
         }
 
         Informasi::create($data);
@@ -107,11 +104,8 @@ class InformasiController extends Controller
             }
 
             // Store new files
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('informasi', 'public');
-            }
-            $data['gambar'] = json_encode($paths);
+            $path = $request->file('gambar')->store('informasi', 'public');
+            $data['gambar'] = json_encode([$path]);
         }
 
         $informasi->update($data);

@@ -59,11 +59,8 @@ class FasilitasController extends Controller
 
         // Simpan file gambar ke storage/app/public/fasilitas
         if ($request->hasFile('gambar')) {
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('fasilitas', 'public');
-            }
-            $data['gambar'] = json_encode($paths);
+            $path = $request->file('gambar')->store('fasilitas', 'public');
+            $data['gambar'] = json_encode([$path]);
         }
 
         Fasilitas::create($data);

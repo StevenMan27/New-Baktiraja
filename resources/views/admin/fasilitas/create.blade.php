@@ -94,8 +94,8 @@
                 <div class="custom-file-upload mt-2">
     <i class="fas fa-cloud-upload-alt icon"></i>
     <p>Klik atau Seret Gambar ke Sini</p>
-    <small class="d-block mt-2">Format: JPG, PNG, WEBP | Max: 4MB per gambar | Maksimal 10 gambar</small>
-    <input type="file" name="gambar[]" class="form-control" accept="image/*" id="inputGambar" multiple>
+    <small class="d-block mt-2">Format: JPG, PNG, WEBP | Maks. 4MB</small>
+    <input type="file" name="gambar" class="form-control" accept="image/*" id="inputGambar" >
     <div class="preview-grid" id="previewGrid"></div>
 </div>
             </div>
@@ -121,8 +121,9 @@
         const grid = document.getElementById('previewGrid');
         grid.innerHTML = '';
         const files = e.target.files;
-        if (files.length > 10) { alert('Maksimal 10 gambar!'); this.value = ''; return; }
-        Array.from(files).forEach(file => {
+        const file = files[0];
+if (file) {
+        {
             if (file.size > 4 * 1024 * 1024) { alert('Gambar "' + file.name + '" melebihi 4MB!'); return; }
             const reader = new FileReader();
             reader.onload = function(ev) {
@@ -132,7 +133,7 @@
                 grid.appendChild(item);
             }
             reader.readAsDataURL(file);
-        });
+        }
     });
 </script>
 @endsection

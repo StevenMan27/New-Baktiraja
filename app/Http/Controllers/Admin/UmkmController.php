@@ -61,11 +61,8 @@ class UmkmController extends Controller
 
         // Simpan file gambar ke storage/app/public/umkm
         if ($request->hasFile('gambar')) {
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('umkm', 'public');
-            }
-            $data['gambar'] = json_encode($paths);
+            $path = $request->file('gambar')->store('umkm', 'public');
+            $data['gambar'] = json_encode([$path]);
         }
 
         Umkm::create($data);
