@@ -294,16 +294,51 @@
             @if($profil && $profil->deskripsi_2_judul)
             <div class="sejarah-item reverse" data-aos="fade-left">
                 <div class="sejarah-image">
-                    @php
-                        $descImg = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) 
-                            ? asset('storage/' . $profil->deskripsi_2_gambar[0]) 
-                            : asset('image/default-image.jpg');
-                    @endphp
-                    <img src="{{ $descImg }}" alt="Gambar Deskripsi">
+                    @php $img2 = (is_array($profil->deskripsi_2_gambar) && count($profil->deskripsi_2_gambar) > 0) ? asset('storage/' . $profil->deskripsi_2_gambar[0]) : asset('image/default-image.jpg'); @endphp
+                    <img src="{{ $img2 }}" alt="Gambar">
                 </div>
                 <div class="sejarah-text">
                     <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_2_judul }}</h4>
                     <p>{!! nl2br(e($profil->deskripsi_2_teks)) !!}</p>
+                </div>
+            </div>
+            @endif
+
+            @if($profil && $profil->deskripsi_3_judul)
+            <div class="sejarah-item" data-aos="fade-right">
+                <div class="sejarah-image">
+                    @php $img3 = (is_array($profil->deskripsi_3_gambar) && count($profil->deskripsi_3_gambar) > 0) ? asset('storage/' . $profil->deskripsi_3_gambar[0]) : asset('image/default-image.jpg'); @endphp
+                    <img src="{{ $img3 }}" alt="Gambar">
+                </div>
+                <div class="sejarah-text">
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_3_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_3_teks)) !!}</p>
+                </div>
+            </div>
+            @endif
+
+            @if($profil && $profil->deskripsi_4_judul)
+            <div class="sejarah-item reverse" data-aos="fade-left">
+                <div class="sejarah-image">
+                    @php $img4 = (is_array($profil->deskripsi_4_gambar) && count($profil->deskripsi_4_gambar) > 0) ? asset('storage/' . $profil->deskripsi_4_gambar[0]) : asset('image/default-image.jpg'); @endphp
+                    <img src="{{ $img4 }}" alt="Gambar">
+                </div>
+                <div class="sejarah-text">
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_4_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_4_teks)) !!}</p>
+                </div>
+            </div>
+            @endif
+
+            @if($profil && $profil->deskripsi_5_judul)
+            <div class="sejarah-item" data-aos="fade-right">
+                <div class="sejarah-image">
+                    @php $img5 = (is_array($profil->deskripsi_5_gambar) && count($profil->deskripsi_5_gambar) > 0) ? asset('storage/' . $profil->deskripsi_5_gambar[0]) : asset('image/default-image.jpg'); @endphp
+                    <img src="{{ $img5 }}" alt="Gambar">
+                </div>
+                <div class="sejarah-text">
+                    <h4 style="color: var(--bi-blue); margin-bottom: 12px; font-family: 'Cormorant Garamond', serif;">{{ $profil->deskripsi_5_judul }}</h4>
+                    <p>{!! nl2br(e($profil->deskripsi_5_teks)) !!}</p>
                 </div>
             </div>
             @endif

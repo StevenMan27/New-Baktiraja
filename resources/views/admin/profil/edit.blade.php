@@ -56,7 +56,7 @@
 
                 <div class="col-md-12 mb-3">
                     <label class="form-label fw-bold">Judul Deskripsi 2</label>
-                    <input type="text" name="deskripsi_2_judul" class="form-control" value="{{ old('deskripsi_2_judul', $profil->deskripsi_2_judul) }}" placeholder="Contoh: Spot Fotografi Lanskap Kelas Dunia">
+                    <input type="text" name="deskripsi_2_judul" class="form-control" value="{{ old('deskripsi_2_judul', $profil->deskripsi_2_judul) }}">
                 </div>
 
                 <div class="col-md-12 mb-3">
@@ -67,7 +67,7 @@
                 <div class="col-md-12 mb-3">
                     <label class="form-label fw-bold">Gambar Deskripsi 2</label>
                     <input type="file" name="deskripsi_2_gambar[]" class="form-control" accept="image/*" multiple>
-                    <small class="text-muted">Bisa upload lebih dari satu gambar. Biarkan kosong jika tidak ingin mengubah.</small>
+                    <small class="text-muted">Biarkan kosong jika tidak ingin mengubah.</small>
                     @if($profil->deskripsi_2_gambar && is_array($profil->deskripsi_2_gambar))
                         <div class="mt-2 d-flex gap-2 flex-wrap">
                             @foreach($profil->deskripsi_2_gambar as $img)
@@ -76,31 +76,84 @@
                         </div>
                     @endif
                 </div>
-
+    
                 <hr class="my-4">
-                <h5 class="mb-3">Informasi Praktis</h5>
+                <h5 class="mb-3">Bagian Deskripsi 3 (Dengan Gambar)</h5>
 
-                <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Lokasi</label>
-                    <input type="text" name="info_lokasi" class="form-control" value="{{ old('info_lokasi', $profil->info_lokasi) }}" placeholder="Contoh: Desa Bakara, Kec. Baktiraja">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Judul Deskripsi 3</label>
+                    <input type="text" name="deskripsi_3_judul" class="form-control" value="{{ old('deskripsi_3_judul', $profil->deskripsi_3_judul) }}">
                 </div>
 
-                <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Jam Operasional</label>
-                    <input type="text" name="info_jam" class="form-control" value="{{ old('info_jam', $profil->info_jam) }}" placeholder="Contoh: 06:00 - 18:00 WIB">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Teks Deskripsi 3</label>
+                    <textarea name="deskripsi_3_teks" class="form-control" rows="4">{{ old('deskripsi_3_teks', $profil->deskripsi_3_teks) }}</textarea>
                 </div>
 
-                <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Harga Tiket</label>
-                    <input type="text" name="info_harga" class="form-control" value="{{ old('info_harga', $profil->info_harga) }}" placeholder="Contoh: Rp 5.000 - Rp 10.000">
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Gambar Deskripsi 3</label>
+                    <input type="file" name="deskripsi_3_gambar[]" class="form-control" accept="image/*" multiple>
+                    <small class="text-muted">Biarkan kosong jika tidak ingin mengubah.</small>
+                    @if($profil->deskripsi_3_gambar && is_array($profil->deskripsi_3_gambar))
+                        <div class="mt-2 d-flex gap-2 flex-wrap">
+                            @foreach($profil->deskripsi_3_gambar as $img)
+                                <img src="{{ asset('storage/' . $img) }}" width="150" height="100" class="rounded border" style="object-fit:cover;">
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+    
+                <hr class="my-4">
+                <h5 class="mb-3">Bagian Deskripsi 4 (Dengan Gambar)</h5>
+
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Judul Deskripsi 4</label>
+                    <input type="text" name="deskripsi_4_judul" class="form-control" value="{{ old('deskripsi_4_judul', $profil->deskripsi_4_judul) }}">
                 </div>
 
-                <div class="col-md-12 mb-4">
-                    <label class="form-label fw-bold">Tags</label>
-                    <input type="text" name="tags" class="form-control" value="{{ is_array($profil->tags) ? implode(', ', $profil->tags) : old('tags') }}" placeholder="Contoh: Panorama Danau, Sunrise, Sunset, Spot Foto (pisahkan dengan koma)">
-                    <small class="text-muted">Pisahkan setiap tag menggunakan tanda koma (,)</small>
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Teks Deskripsi 4</label>
+                    <textarea name="deskripsi_4_teks" class="form-control" rows="4">{{ old('deskripsi_4_teks', $profil->deskripsi_4_teks) }}</textarea>
                 </div>
-            </div>
+
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Gambar Deskripsi 4</label>
+                    <input type="file" name="deskripsi_4_gambar[]" class="form-control" accept="image/*" multiple>
+                    <small class="text-muted">Biarkan kosong jika tidak ingin mengubah.</small>
+                    @if($profil->deskripsi_4_gambar && is_array($profil->deskripsi_4_gambar))
+                        <div class="mt-2 d-flex gap-2 flex-wrap">
+                            @foreach($profil->deskripsi_4_gambar as $img)
+                                <img src="{{ asset('storage/' . $img) }}" width="150" height="100" class="rounded border" style="object-fit:cover;">
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
+    
+                <hr class="my-4">
+                <h5 class="mb-3">Bagian Deskripsi 5 (Dengan Gambar)</h5>
+
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Judul Deskripsi 5</label>
+                    <input type="text" name="deskripsi_5_judul" class="form-control" value="{{ old('deskripsi_5_judul', $profil->deskripsi_5_judul) }}">
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Teks Deskripsi 5</label>
+                    <textarea name="deskripsi_5_teks" class="form-control" rows="4">{{ old('deskripsi_5_teks', $profil->deskripsi_5_teks) }}</textarea>
+                </div>
+
+                <div class="col-md-12 mb-3">
+                    <label class="form-label fw-bold">Gambar Deskripsi 5</label>
+                    <input type="file" name="deskripsi_5_gambar[]" class="form-control" accept="image/*" multiple>
+                    <small class="text-muted">Biarkan kosong jika tidak ingin mengubah.</small>
+                    @if($profil->deskripsi_5_gambar && is_array($profil->deskripsi_5_gambar))
+                        <div class="mt-2 d-flex gap-2 flex-wrap">
+                            @foreach($profil->deskripsi_5_gambar as $img)
+                                <img src="{{ asset('storage/' . $img) }}" width="150" height="100" class="rounded border" style="object-fit:cover;">
+                            @endforeach
+                        </div>
+                    @endif
+                </div>
 
             <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Simpan Profil</button>
         </form>

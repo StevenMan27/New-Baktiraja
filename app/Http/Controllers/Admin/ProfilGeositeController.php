@@ -61,13 +61,22 @@ class ProfilGeositeController extends Controller
             'deskripsi_2_judul' => 'nullable|string|max:255',
             'deskripsi_2_teks' => 'nullable|string',
             'deskripsi_2_gambar.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'deskripsi_3_judul' => 'nullable|string|max:255',
+            'deskripsi_3_teks' => 'nullable|string',
+            'deskripsi_3_gambar.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'deskripsi_4_judul' => 'nullable|string|max:255',
+            'deskripsi_4_teks' => 'nullable|string',
+            'deskripsi_4_gambar.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'deskripsi_5_judul' => 'nullable|string|max:255',
+            'deskripsi_5_teks' => 'nullable|string',
+            'deskripsi_5_gambar.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'info_lokasi' => 'nullable|string|max:255',
             'info_jam' => 'nullable|string|max:255',
             'info_harga' => 'nullable|string|max:255',
             'tags' => 'nullable|string'
         ]);
 
-        $data = $request->except(['_token', '_method', 'bg_hero', 'deskripsi_2_gambar', 'tags']);
+        $data = $request->except(['_token', '_method', 'bg_hero', 'deskripsi_2_gambar', 'deskripsi_3_gambar', 'deskripsi_4_gambar', 'deskripsi_5_gambar', 'tags']);
 
         // Handle Tags (Convert comma separated to array)
         if ($request->filled('tags')) {
@@ -94,19 +103,47 @@ class ProfilGeositeController extends Controller
 
         // Handle Deskripsi 2 Gambar Upload
         if ($request->hasFile('deskripsi_2_gambar')) {
-            // Delete old files
             if ($profil && is_array($profil->deskripsi_2_gambar)) {
                 foreach ($profil->deskripsi_2_gambar as $oldPath) {
-                    if ($oldPath && !str_starts_with($oldPath, 'data:')) {
-                        Storage::disk('public')->delete($oldPath);
-                    }
+                    if ($oldPath && !str_starts_with($oldPath, 'data:')) Storage::disk('public')->delete($oldPath);
                 }
             }
             $paths = [];
-            foreach ($request->file('deskripsi_2_gambar') as $image) {
-                $paths[] = $image->store('profil', 'public');
-            }
+            foreach ($request->file('deskripsi_2_gambar') as $image) $paths[] = $image->store('profil', 'public');
             $data['deskripsi_2_gambar'] = $paths;
+        }
+
+        if ($request->hasFile('deskripsi_3_gambar')) {
+            if ($profil && is_array($profil->deskripsi_3_gambar)) {
+                foreach ($profil->deskripsi_3_gambar as $oldPath) {
+                    if ($oldPath && !str_starts_with($oldPath, 'data:')) Storage::disk('public')->delete($oldPath);
+                }
+            }
+            $paths = [];
+            foreach ($request->file('deskripsi_3_gambar') as $image) $paths[] = $image->store('profil', 'public');
+            $data['deskripsi_3_gambar'] = $paths;
+        }
+
+        if ($request->hasFile('deskripsi_4_gambar')) {
+            if ($profil && is_array($profil->deskripsi_4_gambar)) {
+                foreach ($profil->deskripsi_4_gambar as $oldPath) {
+                    if ($oldPath && !str_starts_with($oldPath, 'data:')) Storage::disk('public')->delete($oldPath);
+                }
+            }
+            $paths = [];
+            foreach ($request->file('deskripsi_4_gambar') as $image) $paths[] = $image->store('profil', 'public');
+            $data['deskripsi_4_gambar'] = $paths;
+        }
+
+        if ($request->hasFile('deskripsi_5_gambar')) {
+            if ($profil && is_array($profil->deskripsi_5_gambar)) {
+                foreach ($profil->deskripsi_5_gambar as $oldPath) {
+                    if ($oldPath && !str_starts_with($oldPath, 'data:')) Storage::disk('public')->delete($oldPath);
+                }
+            }
+            $paths = [];
+            foreach ($request->file('deskripsi_5_gambar') as $image) $paths[] = $image->store('profil', 'public');
+            $data['deskripsi_5_gambar'] = $paths;
         }
 
         if ($profil) {
