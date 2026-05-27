@@ -36,18 +36,28 @@ class HomepageController extends Controller
         $homepage = Homepage::first();
         
         // Memisahkan data file dan destinasi dari data teks agar bisa diproses terpisah
-        $data = $request->except(['_token', '_method', 'hero_slide_1', 'hero_slide_2', 'hero_slide_3', 'hero_slide_4', 'hero_slide_5', 'about_video', 'destinasi', 'destinasi_gambar']);
+        $data = $request->except(['_token', '_method', 'hero_slides', 'about_video', 'destinasi', 'destinasi_gambar']);
 
-        // Melakukan perulangan untuk memproses lima slot gambar slide hero
-        for ($i = 1; $i <= 5; $i++) {
-            $field = 'hero_slide_' . $i;
-            if ($request->hasFile($field)) {
-                // Menghapus file gambar yang lama dari storage server jika sudah ada
+        // Memproses multiple upload untuk 6 gambar slide hero
+        if ($request->hasFile('hero_slides')) {
+            $files = $request->file('hero_slides');
+            
+            // Menghapus semua gambar slide lama terlebih dahulu sebelum diganti batch baru
+            for ($i = 1; $i <= 6; $i++) {
+                $field = 'hero_slide_' . $i;
                 if ($homepage->$field) {
                     Storage::disk('public')->delete($homepage->$field);
                 }
-                // Menyimpan gambar yang baru ke folder homepage di public storage
-                $data[$field] = $request->file($field)->store('homepage', 'public');
+                $data[$field] = null; // Kosongkan database slot ini
+            }
+
+            // Menyimpan batch gambar yang baru (maksimal 6)
+            $index = 1;
+            foreach ($files as $file) {
+                if ($index > 6) break;
+                $field = 'hero_slide_' . $index;
+                $data[$field] = $file->store('homepage', 'public');
+                $index++;
             }
         }
 

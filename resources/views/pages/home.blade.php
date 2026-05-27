@@ -155,6 +155,7 @@
     .slide-3 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_3) ? asset("storage/" . $homepage->hero_slide_3) : "/image/bakara/bakara-slide3.jpg" }}'); }
     .slide-4 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_4) ? asset("storage/" . $homepage->hero_slide_4) : "/image/bakara/bakara-slide4.jpg" }}'); }
     .slide-5 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_5) ? asset("storage/" . $homepage->hero_slide_5) : "/image/bakara/bakara-slide5.jpg" }}'); }
+    .slide-6 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_6) ? asset("storage/" . $homepage->hero_slide_6) : "/image/bakara/bakara-slide1.jpg" }}'); }
     
     .hero-content {
         position: absolute;
@@ -1144,6 +1145,7 @@
         <div class="slide slide-3"></div>
         <div class="slide slide-4"></div>
         <div class="slide slide-5"></div>
+        <div class="slide slide-6"></div>
     </div>
     
     <div class="slider-dots">
@@ -1152,6 +1154,7 @@
         <div class="dot" data-slide="2"></div>
         <div class="dot" data-slide="3"></div>
         <div class="dot" data-slide="4"></div>
+        <div class="dot" data-slide="5"></div>
     </div>
     
     <div class="hero-content">

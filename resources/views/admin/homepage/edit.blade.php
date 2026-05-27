@@ -78,23 +78,24 @@
                     <input type="text" name="hero_subtitle" class="form-control" value="{{ old('hero_subtitle', $homepage->hero_subtitle ?? 'Kawasan Wisata Geopark Danau Toba') }}">
                 </div>
 
-                @for($i = 1; $i <= 5; $i++)
-                    @php $slideField = 'hero_slide_'.$i; @endphp
-                    <div class="col-md-4 mb-3">
-                        <label>Gambar Slide {{ $i }}</label>
-                        @if($homepage->$slideField)
-                            <div class="current-images">
-                                <img src="{{ asset('storage/' . $homepage->$slideField) }}" alt="Slide {{ $i }}">
-                            </div>
-                        @endif
-                        <div class="custom-file-upload mt-2" style="padding: 15px;">
-                            <i class="fas fa-image icon" style="font-size: 2rem;"></i>
-                            <p style="font-size: 0.9rem;">Upload Slide {{ $i }}</p>
-                            <input type="file" name="{{ $slideField }}" class="form-control image-input" accept="image/*" data-preview-container="preview-slide-{{$i}}">
-                            <div id="preview-slide-{{$i}}" class="preview-grid"></div>
-                        </div>
+                <div class="col-md-12 mb-3">
+                    <label>Gambar Slide Hero (Gabungan, Maksimal 6 Gambar Sekaligus)</label>
+                    <div class="current-images">
+                        @for($i = 1; $i <= 6; $i++)
+                            @php $slideField = 'hero_slide_'.$i; @endphp
+                            @if($homepage->$slideField)
+                                <img src="{{ asset('storage/' . $homepage->$slideField) }}" alt="Slide {{ $i }}" style="width: 150px; height: 100px;">
+                            @endif
+                        @endfor
                     </div>
-                @endfor
+                    <div class="custom-file-upload mt-2">
+                        <i class="fas fa-images icon"></i>
+                        <p>Klik di sini untuk mengunggah hingga 6 Gambar sekaligus</p>
+                        <small class="d-block mt-2 text-danger">*Catatan: Mengunggah gambar baru akan menggantikan/menimpa kumpulan gambar slide yang lama secara keseluruhan.</small>
+                        <input type="file" name="hero_slides[]" class="form-control image-input" accept="image/*" multiple data-preview-container="preview-hero-slides">
+                        <div id="preview-hero-slides" class="preview-grid"></div>
+                    </div>
+                </div>
             </div>
 
             <!-- Stats Section -->
@@ -224,8 +225,18 @@
                                     <input type="text" name="destinasi[{{ $dest->id }}][tags]" class="form-control" value="{{ old('destinasi.'.$dest->id.'.tags', $dest->tags) }}">
                                 </div>
                                 <div class="col-md-6 mb-2">
-                                    <label>Link Tombol (Jelajahi Lebih Lanjut)</label>
-                                    <input type="text" name="destinasi[{{ $dest->id }}][link]" class="form-control" value="{{ old('destinasi.'.$dest->id.'.link', $dest->link) }}">
+                                    <label>Link Tujuan Tombol (Jelajahi Lebih Lanjut)</label>
+                                    <select name="destinasi[{{ $dest->id }}][link]" class="form-control">
+                                        <option value="">Pilih Halaman Geosite...</option>
+                                        <option value="/geosite/aek-sipangolu" {{ old('destinasi.'.$dest->id.'.link', $dest->link) == '/geosite/aek-sipangolu' ? 'selected' : '' }}>Aek Sipangolu</option>
+                                        <option value="/geosite/aek-sitio-tio" {{ old('destinasi.'.$dest->id.'.link', $dest->link) == '/geosite/aek-sitio-tio' ? 'selected' : '' }}>Aek Sitio-tio</option>
+                                        <option value="/geosite/air-terjun-janji" {{ old('destinasi.'.$dest->id.'.link', $dest->link) == '/geosite/air-terjun-janji' ? 'selected' : '' }}>Air Terjun Janji</option>
+                                        <option value="/geosite/desa-wisata-tipang" {{ old('destinasi.'.$dest->id.'.link', $dest->link) == '/geosite/desa-wisata-tipang' ? 'selected' : '' }}>Desa Tipang</option>
+                                        <option value="/geosite/gonting" {{ old('destinasi.'.$dest->id.'.link', $dest->link) == '/geosite/gonting' ? 'selected' : '' }}>Gonting</option>
+                                        <option value="/geosite/istana-sisingamangaraja" {{ old('destinasi.'.$dest->id.'.link', $dest->link) == '/geosite/istana-sisingamangaraja' ? 'selected' : '' }}>Istana Sisingamangaraja</option>
+                                        <option value="/geosite/panatapan-bakara" {{ old('destinasi.'.$dest->id.'.link', $dest->link) == '/geosite/panatapan-bakara' ? 'selected' : '' }}>Panatapan Bakara</option>
+                                        <option value="/geosite/tombak-sulu-sulu" {{ old('destinasi.'.$dest->id.'.link', $dest->link) == '/geosite/tombak-sulu-sulu' ? 'selected' : '' }}>Tombak Sulu-sulu</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -250,18 +261,21 @@
             const containerId = this.getAttribute('data-preview-container');
             const container = document.getElementById(containerId);
             container.innerHTML = '';
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(ev) {
-                    const imgContainer = document.createElement('div');
-                    imgContainer.className = 'preview-item';
-                    const img = document.createElement('img');
-                    img.src = ev.target.result;
-                    imgContainer.appendChild(img);
-                    container.appendChild(imgContainer);
-                }
-                reader.readAsDataURL(file);
+            const files = e.target.files;
+            
+            if (files && files.length > 0) {
+                Array.from(files).forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function(ev) {
+                        const imgContainer = document.createElement('div');
+                        imgContainer.className = 'preview-item';
+                        const img = document.createElement('img');
+                        img.src = ev.target.result;
+                        imgContainer.appendChild(img);
+                        container.appendChild(imgContainer);
+                    }
+                    reader.readAsDataURL(file);
+                });
             }
         });
     });
