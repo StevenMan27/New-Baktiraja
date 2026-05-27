@@ -11,4 +11,9 @@ class Homepage extends Model
     
     // Allow mass assignment
     protected $guarded = [];
+    // Relasi ke Destinasi Homepage
+    public function destinasis()
+    {
+        return $this->hasMany(HomepageDestinasi::class)->orderBy('urutan', 'asc');
+    }
 }

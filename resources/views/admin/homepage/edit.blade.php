@@ -180,7 +180,61 @@
                 </div>
             </div>
 
-            <div class="d-flex gap-2">
+            <!-- 8 Destinasi Section -->
+            <h6 class="fw-bold mt-5 text-secondary border-bottom pb-2">Konfigurasi 8 Destinasi (Tampil Selang-Seling)</h6>
+            @foreach($homepage->destinasis as $dest)
+            <div class="card bg-light border-0 shadow-sm mb-4">
+                <div class="card-body">
+                    <h6 class="fw-bold text-primary mb-3"># Destinasi {{ $dest->urutan }}</h6>
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label>Gambar Destinasi {{ $dest->urutan }}</label>
+                            @if($dest->gambar)
+                                <div class="current-images">
+                                    <img src="{{ asset('storage/' . $dest->gambar) }}" alt="Destinasi {{ $dest->urutan }}">
+                                </div>
+                            @endif
+                            <div class="custom-file-upload mt-2" style="padding: 15px;">
+                                <i class="fas fa-image icon" style="font-size: 2rem;"></i>
+                                <p style="font-size: 0.9rem;">Upload Gambar {{ $dest->urutan }}</p>
+                                <input type="file" name="destinasi_gambar[{{ $dest->id }}]" class="form-control image-input" accept="image/*" data-preview-container="preview-dest-{{$dest->id}}">
+                                <div id="preview-dest-{{$dest->id}}" class="preview-grid"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <label>Teks Nomor (cth: 01 — PANORAMA)</label>
+                                    <input type="text" name="destinasi[{{ $dest->id }}][nomor_teks]" class="form-control" value="{{ old('destinasi.'.$dest->id.'.nomor_teks', $dest->nomor_teks) }}">
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label>Judul Destinasi</label>
+                                    <input type="text" name="destinasi[{{ $dest->id }}][judul]" class="form-control" value="{{ old('destinasi.'.$dest->id.'.judul', $dest->judul) }}">
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <label>Lokasi (Teks Kecil)</label>
+                                    <input type="text" name="destinasi[{{ $dest->id }}][lokasi]" class="form-control" value="{{ old('destinasi.'.$dest->id.'.lokasi', $dest->lokasi) }}">
+                                </div>
+                                <div class="col-md-12 mb-2">
+                                    <label>Deskripsi Singkat</label>
+                                    <textarea name="destinasi[{{ $dest->id }}][deskripsi]" class="form-control" rows="2">{{ old('destinasi.'.$dest->id.'.deskripsi', $dest->deskripsi) }}</textarea>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label>Tags (Pisahkan dengan koma, cth: Alam,Sejuk)</label>
+                                    <input type="text" name="destinasi[{{ $dest->id }}][tags]" class="form-control" value="{{ old('destinasi.'.$dest->id.'.tags', $dest->tags) }}">
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label>Link Tombol (Jelajahi Lebih Lanjut)</label>
+                                    <input type="text" name="destinasi[{{ $dest->id }}][link]" class="form-control" value="{{ old('destinasi.'.$dest->id.'.link', $dest->link) }}">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+
+            <div class="d-flex gap-2 mt-4">
                 <button class="btn btn-primary px-4 py-2" style="background:#003366; border:none; border-radius:50px;">
                     <i class="fas fa-save me-2"></i> Simpan Konfigurasi
                 </button>

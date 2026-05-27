@@ -1226,165 +1226,31 @@
         </div>
         <div class="destinasi-list">
             
-            <!-- 1. PANATAPAN BAKARA (Buatan) -->
-            <div class="destinasi-item" data-aos="fade-up" data-aos-duration="1000">
-                <div class="destinasi-image">
-                    <img src="/image/bakara/panatapan-bakara.jpg" alt="Panatapan Bakara">
-                </div>
-                <div class="destinasi-content">
-                    <div class="destinasi-number">01 — PANORAMA DANAU</div>
-                    <h3>Panatapan Bakara</h3>
-                    <div class="destinasi-location">Desa Bakara, Kecamatan Baktiraja</div>
-                    <p class="destinasi-desc">Panorama spektakuler Danau Toba dari ketinggian. Spot favorit untuk menikmati sunrise dan sunset dengan latar Pulau Samosir.</p>
-                    <div class="destinasi-tags">
-                        <span>Panorama Danau</span>
-                        <span>Sunrise</span>
-                        <span>Sunset</span>
-                        <span>Spot Foto</span>
+            @if(isset($homepage->destinasis) && count($homepage->destinasis) > 0)
+                @foreach($homepage->destinasis as $index => $dest)
+                <div class="destinasi-item {{ $index % 2 != 0 ? 'reverse' : '' }}" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="{{ $index * 200 }}">
+                    <div class="destinasi-image">
+                        <img src="{{ $dest->gambar ? asset('storage/' . $dest->gambar) : '/image/bakara/panatapan-bakara.jpg' }}" alt="{{ $dest->judul }}">
                     </div>
-                    <a href="{{ url('/geosite/panatapan-bakara') }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
-                </div>
-            </div>
-            
-            <!-- 2. AIR TERJUN JANJI (Alam) -->
-            <div class="destinasi-item reverse" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
-                <div class="destinasi-image">
-                    <img src="/image/bakara/air-terjun-janji.jpg" alt="Air Terjun Janji">
-                </div>
-                <div class="destinasi-content">
-                    <div class="destinasi-number">02 — AIR TERJUN</div>
-                    <h3>Air Terjun Janji</h3>
-                    <div class="destinasi-location">Baktiraja, Kabupaten Humbang Hasundutan</div>
-                    <p class="destinasi-desc">Air terjun deras dengan kolam alami kebiruan. Terdapat mitos lokal tentang "janji alam" bagi yang berenang di kolamnya.</p>
-                    <div class="destinasi-tags">
-                        <span>Air Terjun</span>
-                        <span>Mitos Lokal</span>
-                        <span>Kolam Alami</span>
-                        <span>Refreshing</span>
+                    <div class="destinasi-content">
+                        <div class="destinasi-number">{{ $dest->nomor_teks }}</div>
+                        <h3>{{ $dest->judul }}</h3>
+                        <div class="destinasi-location">{{ $dest->lokasi }}</div>
+                        <p class="destinasi-desc">{{ $dest->deskripsi }}</p>
+                        <div class="destinasi-tags">
+                            @if($dest->tags)
+                                @foreach(explode(',', $dest->tags) as $tag)
+                                    @if(trim($tag) != '')
+                                        <span>{{ trim($tag) }}</span>
+                                    @endif
+                                @endforeach
+                            @endif
+                        </div>
+                        <a href="{{ $dest->link ?? '#' }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
                     </div>
-                    <a href="{{ url('/geosite/air-terjun-janji') }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
                 </div>
-            </div>
-            
-            <!-- 3. ISTANA SISINGAMANGARAJA (Budaya) -->
-            <div class="destinasi-item" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">
-                <div class="destinasi-image">
-                    <img src="/image/bakara/istana-sisingamangaraja.jpg" alt="Istana Sisingamangaraja">
-                </div>
-                <div class="destinasi-content">
-                    <div class="destinasi-number">03 — SEJARAH & BUDAYA</div>
-                    <h3>Istana Sisingamangaraja</h3>
-                    <div class="destinasi-location">Tipang, Kecamatan Baktiraja</div>
-                    <p class="destinasi-desc">Pusat spiritual dan pemerintahan raja-raja Batak. Belajar sejarah perlawanan terhadap kolonial dan ritual adat.</p>
-                    <div class="destinasi-tags">
-                        <span>Sejarah Batak</span>
-                        <span>Raja Sisingamangaraja</span>
-                        <span>Wisata Budaya</span>
-                        <span>Artefak</span>
-                    </div>
-                    <a href="{{ url('/geosite/istana-sisingamangaraja') }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
-                </div>
-            </div>
-            
-            <!-- 4. AEK SITIO-TIO (Alam) -->
-            <div class="destinasi-item reverse" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
-                <div class="destinasi-image">
-                    <img src="/image/bakara/aek-sitio-tio.jpg" alt="Aek Sitio-tio">
-                </div>
-                <div class="destinasi-content">
-                    <div class="destinasi-number">04 — MATA AIR</div>
-                    <h3>Aek Sitio-tio</h3>
-                    <div class="destinasi-location">Tipang, Kecamatan Baktiraja</div>
-                    <p class="destinasi-desc">Mata air pegunungan yang jernih dan tidak pernah surut. Airnya sangat segar dan konon membawa keberuntungan.</p>
-                    <div class="destinasi-tags">
-                        <span>Mata Air</span>
-                        <span>Air Jernih</span>
-                        <span>Penyegaran</span>
-                        <span>Alam</span>
-                    </div>
-                    <a href="{{ url('/geosite/aek-sitio-tio') }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
-                </div>
-            </div>
-            
-            <!-- 5. GONTING (Buatan) -->
-            <div class="destinasi-item" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="800">
-                <div class="destinasi-image">
-                    <img src="/image/bakara/gonting.jpg" alt="Bukit Gonting">
-                </div>
-                <div class="destinasi-content">
-                    <div class="destinasi-number">05 — TREKKING</div>
-                    <h3>Gonting</h3>
-                    <div class="destinasi-location">Tipang, Kecamatan Baktiraja</div>
-                    <p class="destinasi-desc">Bukit dengan jalur trekking yang dilengkapi fasilitas pendukung, melewati kebun kopi dan hutan pinus.</p>
-                    <div class="destinasi-tags">
-                        <span>Trekking</span>
-                        <span>Bukit</span>
-                        <span>Panorama Danau</span>
-                        <span>Camping</span>
-                    </div>
-                    <a href="{{ url('/geosite/gonting') }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
-                </div>
-            </div>
-            
-            <!-- 6. DESA WISATA TIPANG (Alam) -->
-            <div class="destinasi-item reverse" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1000">
-                <div class="destinasi-image">
-                    <img src="/image/bakara/desa-tipang.jpg" alt="Desa Wisata Tipang">
-                </div>
-                <div class="destinasi-content">
-                    <div class="destinasi-number">06 — DESA WISATA</div>
-                    <h3>Desa Wisata Tipang</h3>
-                    <div class="destinasi-location">Tipang, Kecamatan Baktiraja</div>
-                    <p class="destinasi-desc">Desa wisata yang menawarkan pengalaman hidup bersama masyarakat Batak dengan pemandangan Danau Toba yang indah.</p>
-                    <div class="destinasi-tags">
-                        <span>Desa Wisata</span>
-                        <span>Homestay</span>
-                        <span>Budaya Batak</span>
-                        <span>Panorama</span>
-                    </div>
-                    <a href="{{ url('/geosite/desa-wisata-tipang') }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
-                </div>
-            </div>
-            
-            <!-- 7. TOMBAK SULU-SULU (Budaya) -->
-            <div class="destinasi-item" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1200">
-                <div class="destinasi-image">
-                    <img src="/image/bakara/tombak-sulu-sulu.jpg" alt="Tombak Sulu-sulu">
-                </div>
-                <div class="destinasi-content">
-                    <div class="destinasi-number">07 — HUTAN SAKRAL</div>
-                    <h3>Tombak Sulu-sulu</h3>
-                    <div class="destinasi-location">Kawasan Bakara</div>
-                    <p class="destinasi-desc">Hutan larangan dengan legenda tombak pusaka Raja Sisingamangaraja. Tempat wisata spiritual dan sejarah.</p>
-                    <div class="destinasi-tags">
-                        <span>Hutan Sakral</span>
-                        <span>Legenda</span>
-                        <span>Wisata Spiritual</span>
-                        <span>Sejarah</span>
-                    </div>
-                    <a href="{{ url('/geosite/tombak-sulu-sulu') }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
-                </div>
-            </div>
-            
-            <!-- 8. AEK SIPANGOLU (Budaya) -->
-            <div class="destinasi-item reverse" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="1400">
-                <div class="destinasi-image">
-                    <img src="/image/bakara/aek-sipangolu.jpg" alt="Aek Sipangolu">
-                </div>
-                <div class="destinasi-content">
-                    <div class="destinasi-number">08 — MATA AIR PANAS</div>
-                    <h3>Aek Sipangolu</h3>
-                    <div class="destinasi-location">Baktiraja</div>
-                    <p class="destinasi-desc">Mata air panas alami yang dipercaya memiliki khasiat menyembuhkan penyakit dan menghilangkan rasa lelah.</p>
-                    <div class="destinasi-tags">
-                        <span>Mata Air Panas</span>
-                        <span>Pengobatan Tradisional</span>
-                        <span>Wisata Spiritual</span>
-                        <span>Belerang</span>
-                    </div>
-                    <a href="{{ url('/geosite/aek-sipangolu') }}" class="destinasi-link">Jelajahi Lebih Lanjut →</a>
-                </div>
-            </div>
+                @endforeach
+            @endif
             
         </div>
     </div>
