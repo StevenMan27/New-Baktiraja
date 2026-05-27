@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\FasilitasController;
 use App\Http\Controllers\Admin\PenginapanController;
 use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Admin\HomepageController;
 use App\Http\Controllers\GaleriController as PublicGaleriController;
 use App\Http\Controllers\GeositeController;
 use App\Http\Controllers\InformasiController as PublicInformasiController;
@@ -114,6 +115,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
         
         return view('admin.dashboard', compact('totalGaleri', 'totalBerita', 'totalInformasi', 'totalUmkm', 'totalFasilitas', 'totalPenginapan', 'totalViews'));
     })->name('admin.dashboard');
+    
+    Route::get('homepage', [HomepageController::class, 'edit'])->name('admin.homepage.edit');
+    Route::put('homepage', [HomepageController::class, 'update'])->name('admin.homepage.update');
     
     Route::resource('galeri', GaleriController::class)->names('admin.galeri');
     Route::resource('berita', BeritaController::class)->names('admin.berita');

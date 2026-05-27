@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+﻿@extends('layouts.admin')
 
 @section('title', 'Edit Berita')
 
@@ -48,7 +48,7 @@
     }
     .preview-item { pointer-events: auto; }
     .preview-item img { width: 120px; height: 120px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 2px solid #fff; }
-</style>
+.current-images { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 10px; margin-bottom: 20px; } .current-images img { width: 150px; height: 150px; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 2px solid #bbb; }</style>
 
 
 

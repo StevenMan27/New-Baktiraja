@@ -60,7 +60,10 @@ class HomeController extends Controller
             ->orderBy('created_at', 'desc')
             ->take(6)
             ->get();
+            
+        // Mengambil konfigurasi dinamis Homepage
+        $homepage = \App\Models\Homepage::first();
         
-        return view('pages.home', compact('slide1', 'slide2', 'slide3', 'slide4', 'slide5', 'aboutImage', 'destinasi', 'galeri'));
+        return view('pages.home', compact('slide1', 'slide2', 'slide3', 'slide4', 'slide5', 'aboutImage', 'destinasi', 'galeri', 'homepage'));
     }
 }

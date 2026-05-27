@@ -150,11 +150,11 @@
         animation: shimmer 3s infinite;
     }
     
-    .slide-1 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/bakara/bakara-slide1.jpg'); }
-    .slide-2 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/bakara/bakara-slide2.jpg'); }
-    .slide-3 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/bakara/bakara-slide3.jpg'); }
-    .slide-4 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/bakara/bakara-slide4.jpg'); }
-    .slide-5 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('/image/bakara/bakara-slide5.jpg'); }
+    .slide-1 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_1) ? asset("storage/" . $homepage->hero_slide_1) : "/image/bakara/bakara-slide1.jpg" }}'); }
+    .slide-2 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_2) ? asset("storage/" . $homepage->hero_slide_2) : "/image/bakara/bakara-slide2.jpg" }}'); }
+    .slide-3 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_3) ? asset("storage/" . $homepage->hero_slide_3) : "/image/bakara/bakara-slide3.jpg" }}'); }
+    .slide-4 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_4) ? asset("storage/" . $homepage->hero_slide_4) : "/image/bakara/bakara-slide4.jpg" }}'); }
+    .slide-5 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_5) ? asset("storage/" . $homepage->hero_slide_5) : "/image/bakara/bakara-slide5.jpg" }}'); }
     
     .hero-content {
         position: absolute;
@@ -1156,8 +1156,8 @@
     
     <div class="hero-content">
         <div>
-            <div class="hero-subtitle">Kawasan Wisata Geopark Danau Toba</div>
-            <h1 class="hero-title">BAKARA · TIPANG<br>BAKTIRAJA</h1>
+            <div class="hero-subtitle">{{ $homepage->hero_subtitle ?? 'Kawasan Wisata Geopark Danau Toba' }}</div>
+            <h1 class="hero-title">{!! $homepage->hero_title ?? 'BAKARA · TIPANG<br>BAKTIRAJA' !!}</h1>
             <div class="hero-divider"></div>
             <a href="#destinasi" class="hero-btn">Jelajahi Sekarang</a>
         </div>
@@ -1174,20 +1174,20 @@
     <div class="container">
         <div class="stats-grid">
             <div class="stat-item" data-aos="zoom-in" data-aos-duration="800">
-                <div class="stat-number">8</div>
-                <div class="stat-label">DESTINASI</div>
+                <div class="stat-number">{{ $homepage->stat_1_num ?? '8' }}</div>
+                <div class="stat-label">{{ $homepage->stat_1_label ?? 'DESTINASI' }}</div>
             </div>
             <div class="stat-item" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="100">
-                <div class="stat-number">3</div>
-                <div class="stat-label">KATEGORI</div>
+                <div class="stat-number">{{ $homepage->stat_2_num ?? '3' }}</div>
+                <div class="stat-label">{{ $homepage->stat_2_label ?? 'KATEGORI' }}</div>
             </div>
             <div class="stat-item" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="200">
-                <div class="stat-number">74.000</div>
-                <div class="stat-label">TAHUN SEJARAH</div>
+                <div class="stat-number">{{ $homepage->stat_3_num ?? '74.000' }}</div>
+                <div class="stat-label">{{ $homepage->stat_3_label ?? 'TAHUN SEJARAH' }}</div>
             </div>
             <div class="stat-item" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="300">
-                <div class="stat-number">15+</div>
-                <div class="stat-label">WARISAN BUDAYA</div>
+                <div class="stat-number">{{ $homepage->stat_4_num ?? '15+' }}</div>
+                <div class="stat-label">{{ $homepage->stat_4_label ?? 'WARISAN BUDAYA' }}</div>
             </div>
         </div>
     </div>
@@ -1198,15 +1198,15 @@
     <div class="container">
         <div class="about-grid">
             <div class="about-content" data-aos="fade-right" data-aos-duration="1000">
-                <h3>Bakara · Tipang · Baktiraja</h3>
-                <p>Kawasan wisata di Kabupaten Humbang Hasundutan, Sumatera Utara, yang menyimpan kekayaan alam, sejarah, dan budaya Batak yang luar biasa. Terdiri dari 8 destinasi unggulan yang tersebar di tiga desa: Bakara, Tipang, dan Baktiraja.</p>
-                <p>Dari panorama Danau Toba di Panatapan Bakara, jejak perjuangan Raja Sisingamangaraja di Istana Sisingamangaraja, hingga khasiat penyembuhan Aek Sipangolu, setiap sudut kawasan ini menyimpan cerita dan keindahan yang tak terlupakan.</p>
+                <h3>{{ $homepage->about_title ?? 'Bakara · Tipang · Baktiraja' }}</h3>
+                <p>{{ $homepage->about_text_1 ?? 'Kawasan wisata di Kabupaten Humbang Hasundutan, Sumatera Utara, yang menyimpan kekayaan alam, sejarah, dan budaya Batak yang luar biasa. Terdiri dari 8 destinasi unggulan yang tersebar di tiga desa: Bakara, Tipang, dan Baktiraja.' }}</p>
+                <p>{{ $homepage->about_text_2 ?? 'Dari panorama Danau Toba di Panatapan Bakara, jejak perjuangan Raja Sisingamangaraja di Istana Sisingamangaraja, hingga khasiat penyembuhan Aek Sipangolu, setiap sudut kawasan ini menyimpan cerita dan keindahan yang tak terlupakan.' }}</p>
             </div>
             <div class="about-video" data-aos="fade-left" data-aos-duration="1000">
                 <!-- VIDEO TEST SEDERHANA -->
                 <div style="background: #000; border-radius: 12px; overflow: hidden; padding: 20px; text-align: center;">
                     <video width="100%" controls autoplay muted>
-                        <source src="http://localhost:8000/video/view_detail.mp4" type="video/mp4">
+                        <source src="{{ !empty($homepage->about_video) ? asset('storage/' . $homepage->about_video) : 'http://localhost:8000/video/view_detail.mp4' }}" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <p style="color: white; margin-top: 10px;">Video Pengenalan Baktiraja</p>
@@ -1220,9 +1220,9 @@
 <section id="destinasi" class="section section-white">
     <div class="container">
         <div class="section-title" data-aos="fade-up" data-aos-duration="800">
-            <h2>Destinasi Unggulan</h2>
+            <h2>{{ $homepage->destinasi_title ?? 'Destinasi Unggulan' }}</h2>
             <div class="divider"></div>
-            <p>8 destinasi wisata di kawasan Bakara · Tipang · Baktiraja</p>
+            <p>{{ $homepage->destinasi_subtitle ?? '8 destinasi wisata di kawasan Bakara · Tipang · Baktiraja' }}</p>
         </div>
         <div class="destinasi-list">
             
@@ -1394,9 +1394,9 @@
 <section class="section section-light">
     <div class="container">
         <div class="section-title" data-aos="fade-up" data-aos-duration="800">
-            <h2>Lokasi 3 Kawasan Wisata</h2>
+            <h2>{{ $homepage->maps_title ?? 'Lokasi 3 Kawasan Wisata' }}</h2>
             <div class="divider"></div>
-            <p>Bakara · Tipang · Baktiraja - Kabupaten Humbang Hasundutan</p>
+            <p>{{ $homepage->maps_subtitle ?? 'Bakara · Tipang · Baktiraja - Kabupaten Humbang Hasundutan' }}</p>
         </div>
         
         <div class="maps-container" data-aos="zoom-in" data-aos-duration="1000">
@@ -1434,9 +1434,9 @@
 <section class="cta-section">
     <div class="container">
         <div class="cta-content" data-aos="fade-up" data-aos-duration="800">
-            <h3>Mulai Petualangan Anda</h3>
+            <h3>{{ $homepage->cta_title ?? 'Mulai Petualangan Anda' }}</h3>
             <div class="divider"></div>
-            <p>Temukan keajaiban alam, sejarah perjuangan Sisingamangaraja, dan kearifan lokal Batak di kawasan Bakara · Tipang · Baktiraja.</p>
+            <p>{{ $homepage->cta_text ?? 'Temukan keajaiban alam, sejarah perjuangan Sisingamangaraja, dan kearifan lokal Batak di kawasan Bakara · Tipang · Baktiraja.' }}</p>
             <a href="#destinasi" class="cta-btn">Jelajahi Sekarang</a>
         </div>
     </div>
