@@ -109,7 +109,7 @@
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Gambar</label>
                     <div class="custom-file-upload mt-2">
-    <i class="fas fa-cloud-upload-alt icon"></i>
+    <i class="fas fa-image icon"></i>
     <p>Klik atau Seret Gambar ke Sini</p>
     <small class="d-block mt-2">Format: JPG, PNG, WEBP | Maks. 4MB</small>
     <input type="file" name="gambar" class="form-control @error('gambar') is-invalid @enderror @error('gambar.*') is-invalid @enderror" accept="image/jpeg,image/png,image/jpg,image/webp" id="inputGambar" >

@@ -46,7 +46,7 @@
                 <div class="col-md-12 mt-4">
                     <label class="form-label fw-bold text-secondary">Gambar Latar Belakang (Hero)</label>
                     <div class="custom-file-upload mt-2">
-    <i class="fas fa-cloud-upload-alt icon"></i>
+    <i class="fas fa-image icon"></i>
     <p>Klik atau Seret Gambar ke Sini</p>
     <small class="d-block mt-2">Format: JPG, PNG, WEBP | Disarankan rasio 16:9 atau lebar</small>
     <input type="file" name="bg_hero" class="form-control image-input" accept="image/*" data-preview-container="preview-hero">
@@ -111,7 +111,7 @@
                 <div class="col-md-12 mt-4">
                     <label class="form-label fw-bold text-secondary">Gambar Deskripsi {{ $i }}</label>
                     <div class="custom-file-upload mt-2">
-    <i class="fas fa-cloud-upload-alt icon"></i>
+    <i class="fas fa-image icon"></i>
     <p>Klik atau Seret Gambar ke Sini</p>
     <small class="d-block mt-2">Format: JPG, PNG, WEBP | Max: 4MB per gambar</small>
     <input type="file" name="{{ $gambarKey }}[]" class="form-control image-input" accept="image/*" multiple data-preview-container="preview-deskripsi-{{ $i }}">

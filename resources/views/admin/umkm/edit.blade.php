@@ -1,4 +1,4 @@
-﻿@extends('layouts.admin')
+@extends('layouts.admin')
 
 @section('title', 'Edit UMKM')
 
@@ -111,7 +111,7 @@
                 </div>
                 <label class="form-label mt-3">Upload Gambar Baru (kosongkan jika tidak ingin mengubah)</label>
                 <div class="custom-file-upload mt-2">
-    <i class="fas fa-cloud-upload-alt icon"></i>
+    <i class="fas fa-image icon"></i>
     <p>Klik atau Seret Gambar ke Sini</p>
     <small class="d-block mt-2">Format: JPG, PNG, WEBP | Maks. 4MB</small>
     <input type="file" name="gambar" class="form-control mt-2" accept="image/*" id="inputGambar" >
