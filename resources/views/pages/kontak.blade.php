@@ -322,33 +322,7 @@
         margin: 10px auto;
     }
 
-    /* FLOATING WHATSAPP */
-    .whatsapp-float {
-        position: fixed;
-        bottom: 25px;
-        right: 25px;
-        z-index: 100;
-    }
 
-    .whatsapp-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 55px;
-        height: 55px;
-        background: #25D366;
-        border-radius: 50%;
-        color: white;
-        font-size: 1.5rem;
-        box-shadow: 0 5px 15px rgba(37,211,102,0.3);
-        transition: var(--transition);
-        text-decoration: none;
-    }
-
-    .whatsapp-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 20px rgba(37,211,102,0.4);
-    }
 
 
 
@@ -404,11 +378,7 @@
         .info-card {
             padding: 20px;
         }
-        .whatsapp-btn {
-            width: 48px;
-            height: 48px;
-            font-size: 1.3rem;
-        }
+
         .map-full iframe {
             height: 220px;
         }
@@ -551,12 +521,7 @@
     </div>
 </section>
 
-<!-- FLOATING WHATSAPP -->
-<div class="whatsapp-float">
-    <a href="https://wa.me/6281234567890" class="whatsapp-btn" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-</div>
+
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">

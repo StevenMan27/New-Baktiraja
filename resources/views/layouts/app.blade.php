@@ -69,7 +69,7 @@
 
         /* LOGO IMG - Ukuran logo dijaga proporsional dengan object-fit cover, border-radius rounded agar terlihat modern, background transparan sehingga logo menyatu sempurna dengan header putih */
         .logo-img {
-            height: 60px;
+            height: 44px;
             width: auto;
             border-radius: 16px;
             object-fit: cover;
@@ -87,7 +87,7 @@
         /* LOGO DIVIDER - Garis pemisah vertikal tipis antar logo, menggunakan warna hitam sangat transparan agar terlihat subtle namun tetap memisahkan logo dengan jelas */
         .logo-divider {
             width: 1.5px;
-            height: 42px;
+            height: 28px;
             background: linear-gradient(145deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.04));
             border-radius: 2px;
         }
@@ -247,9 +247,9 @@
 
         /* RESPONSIVE 991px - Breakpoint tablet dan HP landscape, navbar beralih ke mode collapse dengan panel dropdown vertikal */
         @media (max-width: 991px) {
-            .logo-img { height: 52px; }
-            .logo-divider { height: 36px; }
-            .navbar-brand { font-size: 1.5rem; }
+            .logo-img { height: 40px; }
+            .logo-divider { height: 26px; }
+            .navbar-brand { font-size: 1.4rem; }
 
             /* NAVBAR COLLAPSE MOBILE - Panel menu mobile menggunakan background putih dengan border abu dan shadow ringan, menggantikan biru gelap agar konsisten dengan header putih */
             .navbar-collapse {
@@ -323,16 +323,16 @@
 
         /* RESPONSIVE 768px - Breakpoint HP portrait ukuran sedang, logo dan brand diperkecil secara proporsional */
         @media (max-width: 768px) {
-            .logo-img { height: 46px; }
-            .logo-divider { height: 32px; }
-            .navbar-brand { font-size: 1.35rem; }
+            .logo-img { height: 36px; }
+            .logo-divider { height: 24px; }
+            .navbar-brand { font-size: 1.3rem; }
         }
 
         /* RESPONSIVE 576px - Breakpoint HP kecil, semua elemen logo diperkecil lagi agar tidak overflow dari lebar layar */
         @media (max-width: 576px) {
-            .logo-img { height: 40px; }
-            .logo-divider { height: 28px; }
-            .navbar-brand { font-size: 1.2rem; }
+            .logo-img { height: 32px; }
+            .logo-divider { height: 20px; }
+            .navbar-brand { font-size: 1.15rem; }
         }
 
         /* FOOTER - Background gradient biru gelap ke biru sangat gelap, diposisikan di bawah semua konten halaman */
