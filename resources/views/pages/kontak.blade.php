@@ -74,57 +74,6 @@
         padding: 0 24px;
     }
 
-    /* CONTACT CARDS */
-    .contact-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-        margin-bottom: 50px;
-    }
-
-    .contact-card {
-        background: white;
-        padding: 30px 20px;
-        text-align: center;
-        border-radius: 20px;
-        box-shadow: var(--shadow);
-        transition: var(--transition);
-    }
-
-    .contact-card:hover {
-        transform: translateY(-5px);
-        box-shadow: var(--shadow-lg);
-    }
-
-    .contact-icon {
-        width: 60px;
-        height: 60px;
-        background: rgba(198,164,59,0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 15px;
-    }
-
-    .contact-icon i {
-        font-size: 24px;
-        color: var(--gold);
-    }
-
-    .contact-card h3 {
-        font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 10px;
-        color: var(--primary);
-    }
-
-    .contact-card p {
-        font-size: 0.85rem;
-        color: var(--gray);
-        line-height: 1.5;
-    }
-
     /* ==================== FORM ==================== */
     .form-card {
         background: white;
@@ -182,7 +131,6 @@
         display: flex;
         gap: 30px;
         align-items: stretch;
-        margin-top: 30px;
     }
 
     .form-map-grid > .form-card {
@@ -236,16 +184,19 @@
     }
 
     .info-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 30px;
+        display: flex;
+        justify-content: center;
+        max-width: 600px;
+        margin: 0 auto;
     }
 
     .info-card {
         background: white;
         border-radius: 20px;
-        padding: 25px;
+        padding: 35px;
         box-shadow: var(--shadow);
+        width: 100%;
+        text-align: center;
     }
 
     .info-title {
@@ -256,57 +207,6 @@
         padding-bottom: 10px;
         border-bottom: 2px solid var(--gold);
         display: inline-block;
-    }
-
-    /* DESTINASI LIST - BAKARA TIPANG BAKTIRAJA */
-    .dest-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .dest-item {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 12px;
-        background: var(--bg);
-        border-radius: 12px;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .dest-item:hover {
-        background: rgba(198,164,59,0.1);
-        transform: translateX(5px);
-    }
-
-    .dest-icon {
-        width: 45px;
-        height: 45px;
-        background: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: var(--shadow);
-    }
-
-    .dest-icon i {
-        font-size: 1.1rem;
-        color: var(--gold);
-    }
-
-    .dest-info h4 {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--primary);
-        margin-bottom: 3px;
-    }
-
-    .dest-info p {
-        font-size: 0.7rem;
-        color: var(--gray);
     }
 
     /* SOSIAL MEDIA */
@@ -324,8 +224,8 @@
     }
 
     .social-icons a {
-        width: 38px;
-        height: 38px;
+        width: 45px;
+        height: 45px;
         background: var(--bg);
         border-radius: 50%;
         display: flex;
@@ -334,6 +234,7 @@
         color: var(--primary);
         transition: var(--transition);
         text-decoration: none;
+        font-size: 1.2rem;
     }
 
     .social-icons a:hover {
@@ -345,28 +246,29 @@
     /* JAM OPERASIONAL */
     .hours-box {
         background: linear-gradient(135deg, var(--primary), #1a4a7a);
-        padding: 20px;
+        padding: 25px;
         border-radius: 16px;
         text-align: center;
         color: white;
-        margin-top: 20px;
+        margin-top: 25px;
     }
 
     .hours-box h4 {
-        font-size: 0.9rem;
-        margin-bottom: 10px;
+        font-size: 1rem;
+        margin-bottom: 12px;
     }
 
     .hours-box p {
-        font-size: 0.75rem;
+        font-size: 0.85rem;
         opacity: 0.9;
+        margin-bottom: 5px;
     }
 
     .hours-divider {
-        width: 30px;
+        width: 40px;
         height: 1px;
         background: rgba(255,255,255,0.3);
-        margin: 10px auto;
+        margin: 15px auto;
     }
 
     /* FLOATING WHATSAPP */
@@ -397,34 +299,13 @@
         box-shadow: 0 8px 20px rgba(37,211,102,0.4);
     }
 
-    /* BADGE KATEGORI DESTINASI */
-    .dest-category {
-        font-size: 0.6rem;
-        color: var(--gold);
-        margin-top: 2px;
-        display: block;
-    }
-
     /* RESPONSIVE */
-    {{ '@media' }} (max-width: 900px) {
-        .contact-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-        .info-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    {{ '@media' }} (max-width: 768px) {
+    @media (max-width: 768px) {
         .hero-kontak h1 {
             font-size: 2rem;
         }
         .hero-kontak {
             min-height: 250px;
-        }
-        .contact-grid {
-            grid-template-columns: 1fr;
-            gap: 20px;
         }
         .section {
             padding: 40px 0;
@@ -447,12 +328,9 @@
         }
     }
 
-    {{ '@media' }} (max-width: 480px) {
+    @media (max-width: 480px) {
         .hero-kontak h1 {
             font-size: 1.5rem;
-        }
-        .contact-card {
-            padding: 20px;
         }
         .info-card {
             padding: 20px;
@@ -461,9 +339,6 @@
             width: 48px;
             height: 48px;
             font-size: 1.3rem;
-        }
-        .map-full iframe {
-            height: 220px;
         }
     }
 
@@ -548,33 +423,9 @@
     </div>
 </section>
 
-<!-- CONTACT CARDS -->
+<!-- CONTACT MAP & FORM -->
 <section class="section">
     <div class="container">
-        <div class="contact-grid">
-            <div class="contact-card" data-aos="fade-up" data-aos-delay="0">
-                <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-                <h3>Alamat</h3>
-                <p>Kawasan Wisata Bakara - Tipang - Baktiraja</p>
-                <p>Kabupaten Humbang Hasundutan</p>
-                <p>Sumatera Utara, Indonesia</p>
-            </div>
-            <div class="contact-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
-                <h3>Telepon</h3>
-                <p>+62 812 3456 7890</p>
-                <p>+62 813 9876 5432</p>
-                <p>(0622) 12345</p>
-            </div>
-            <div class="contact-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="contact-icon"><i class="fas fa-envelope"></i></div>
-                <h3>Email</h3>
-                <p>info@geotoba.com</p>
-                <p>wisata@bakara-tipang.com</p>
-                <p>support@geotoba.com</p>
-            </div>
-        </div>
-
         <div class="form-map-grid">
             <!-- FORM KONTAK -->
             <div class="form-card" data-aos="fade-right">
@@ -645,46 +496,8 @@
 <section class="section">
     <div class="container">
         <div class="info-grid">
-            <!-- DESTINASI UNGGULAN - BAKARA TIPANG BAKTIRAJA -->
-            <div class="info-card" data-aos="fade-right">
-                <h3 class="info-title">Destinasi Unggulan</h3>
-                <div class="dest-list">
-                    <div class="dest-item" onclick="window.location.href='{{ url("/geosite/panatapan-bakara") }}'">
-                        <div class="dest-icon"><i class="fas fa-mountain"></i></div>
-                        <div class="dest-info">
-                            <h4>Panatapan Bakara</h4>
-                            <p>Panorama spektakuler Danau Toba</p>
-                            <span class="dest-category">● Buatan</span>
-                        </div>
-                    </div>
-                    <div class="dest-item" onclick="window.location.href='{{ url("/geosite/air-terjun-janji") }}'">
-                        <div class="dest-icon"><i class="fas fa-water"></i></div>
-                        <div class="dest-info">
-                            <h4>Air Terjun Janji</h4>
-                            <p>Air terjun dengan mitos "janji alam"</p>
-                            <span class="dest-category">● Alam</span>
-                        </div>
-                    </div>
-                    <div class="dest-item" onclick="window.location.href='{{ url("/geosite/istana-sisingamangaraja") }}'">
-                        <div class="dest-icon"><i class="fas fa-landmark"></i></div>
-                        <div class="dest-info">
-                            <h4>Istana Sisingamangaraja</h4>
-                            <p>Pusat spiritual raja-raja Batak</p>
-                            <span class="dest-category">● Budaya</span>
-                        </div>
-                    </div>
-                    <div class="dest-item" onclick="window.location.href='{{ url("/destinasi") }}'">
-                        <div class="dest-icon"><i class="fas fa-tree"></i></div>
-                        <div class="dest-info">
-                            <h4>8 Destinasi Lainnya</h4>
-                            <p>Aek Sitio-tio, Gonting, Desa Tipang, Tombak Sulu-sulu, Aek Sipangolu</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <!-- SOSIAL & JAM OPERASIONAL -->
-            <div class="info-card" data-aos="fade-left">
+            <div class="info-card" data-aos="fade-up">
                 <h3 class="info-title">Ikuti Kami</h3>
                 <div class="social-section">
                     <div class="social-icons">
