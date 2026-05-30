@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -616,77 +616,58 @@
                     <!-- MENU BERANDA - Active class ditambahkan secara dinamis via Laravel route check -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ url('/') }}">
-                            {{ app()->getLocale() == 'id' ? 'Beranda' : 'Home' }}
+                            Beranda
                         </a>
                     </li>
 
                     <!-- MENU INFORMASI - Active class ditambahkan jika route saat ini adalah 'informasi' -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('informasi') ? 'active' : '' }}" href="{{ url('/informasi') }}">
-                            {{ app()->getLocale() == 'id' ? 'Informasi' : 'Information' }}
+                            Informasi
                         </a>
                     </li>
 
                     <!-- MENU DESTINASI - Dropdown dengan submenu kategori destinasi, active jika route diawali 'destinasi' -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ request()->routeIs('destinasi*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown">
-                            {{ app()->getLocale() == 'id' ? 'Destinasi' : 'Destinations' }}
+                            Destinasi
                         </a>
                         <ul class="dropdown-menu">
                             <li>
                                 <h6 class="dropdown-header">
                                     <i class="fas fa-tag me-1"></i>
-                                    {{ app()->getLocale() == 'id' ? 'KATEGORI DESTINASI' : 'DESTINATION CATEGORIES' }}
+                                    KATEGORI DESTINASI
                                 </h6>
                             </li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/alam') }}">{{ app()->getLocale() == 'id' ? 'Destinasi Alam' : 'Natural Destinations' }}</a></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/buatan') }}">{{ app()->getLocale() == 'id' ? 'Destinasi Buatan' : 'Man-made Destinations' }}</a></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi/budaya') }}">{{ app()->getLocale() == 'id' ? 'Destinasi Budaya' : 'Cultural Destinations' }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/destinasi/alam') }}">Destinasi Alam</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/destinasi/buatan') }}">Destinasi Buatan</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/destinasi/budaya') }}">Destinasi Budaya</a></li>
                             <li><hr class="dropdown-divider" style="border-color: rgba(0,0,0,0.08);"></li>
-                            <li><a class="dropdown-item" href="{{ url('/destinasi') }}">{{ app()->getLocale() == 'id' ? 'Semua Destinasi' : 'All Destinations' }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url('/destinasi') }}">Semua Destinasi</a></li>
                         </ul>
                     </li>
 
                     <!-- MENU GALERI - Active class ditambahkan jika route saat ini adalah 'galeri' -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('galeri') ? 'active' : '' }}" href="{{ url('/galeri') }}">
-                            {{ app()->getLocale() == 'id' ? 'Galeri' : 'Gallery' }}
+                            Galeri
                         </a>
                     </li>
 
                     <!-- MENU BERITA - Active class ditambahkan jika route saat ini adalah 'berita' -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}" href="{{ url('/berita') }}">
-                            {{ app()->getLocale() == 'id' ? 'Berita' : 'News' }}
+                            Berita
                         </a>
                     </li>
 
                     <!-- MENU KONTAK - Active class ditambahkan jika route saat ini adalah 'kontak' -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ url('/kontak') }}">
-                            {{ app()->getLocale() == 'id' ? 'Kontak' : 'Contact' }}
+                            Kontak
                         </a>
                     </li>
 
-                    <!-- TOMBOL BAHASA - Dropdown pilihan bahasa dengan ikon globe, ms-2 memberi jarak kiri dari menu kontak -->
-                    <li class="nav-item dropdown ms-2">
-                        <a class="nav-link dropdown-toggle lang-btn" href="#" data-bs-toggle="dropdown">
-                            <i class="fas fa-globe"></i>
-                            {{ app()->getLocale() == 'id' ? 'ID' : 'EN' }}
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end lang-dropdown">
-                            <li>
-                                <a class="dropdown-item {{ app()->getLocale() == 'id' ? 'active' : '' }}" href="{{ route('lang.switch', 'id') }}">
-                                    <i class="fas fa-flag me-2"></i> Bahasa Indonesia
-                                </a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}" href="{{ route('lang.switch', 'en') }}">
-                                    <i class="fas fa-flag-usa me-2"></i> English
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
 
                 </ul>
             </div>
@@ -705,7 +686,7 @@
                 <div class="col-lg-4 col-md-12 mb-4 footer-col">
                     <h5 class="footer-title">Geo<span style="color: #c6a43b;">Toba</span></h5>
                     <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6;">
-                        {{ app()->getLocale() == 'id' ? 'Sistem Informasi Geosite Danau Toba - Menyajikan informasi lengkap tentang keindahan geologi dan budaya Batak di kawasan Danau Toba.' : 'Geosite Toba Information System - Presents complete information about the geological beauty and Batak culture in the Lake Toba area.' }}
+                        Sistem Informasi Geosite Danau Toba - Menyajikan informasi lengkap tentang keindahan geologi dan budaya Batak di kawasan Danau Toba.
                     </p>
                     <div class="social-icons">
                         <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
@@ -718,35 +699,36 @@
 
                 <!-- KOLOM TAUTAN - Daftar link navigasi cepat ke halaman utama -->
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6 mb-4 footer-col">
-                    <h5 class="footer-title">{{ app()->getLocale() == 'id' ? 'Tautan' : 'Quick Links' }}</h5>
+                    <h5 class="footer-title">Tautan</h5>
                     <ul class="footer-links">
-                        <li><a href="{{ url('/') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Beranda' : 'Home' }}</a></li>
-                        <li><a href="{{ url('/informasi') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Informasi' : 'Information' }}</a></li>
-                        <li><a href="{{ url('/galeri') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Galeri' : 'Gallery' }}</a></li>
-                        <li><a href="{{ url('/berita') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Berita' : 'News' }}</a></li>
-                        <li><a href="{{ url('/kontak') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Kontak' : 'Contact' }}</a></li>
+                        <li><a href="{{ url('/') }}"><i class="fas fa-chevron-right"></i> Beranda</a></li>
+                        <li><a href="{{ url('/informasi') }}"><i class="fas fa-chevron-right"></i> Informasi</a></li>
+                        <li><a href="{{ url('/galeri') }}"><i class="fas fa-chevron-right"></i> Galeri</a></li>
+                        <li><a href="{{ url('/berita') }}"><i class="fas fa-chevron-right"></i> Berita</a></li>
+                        <li><a href="{{ url('/kontak') }}"><i class="fas fa-chevron-right"></i> Kontak</a></li>
                     </ul>
                 </div>
 
                 <!-- KOLOM DESTINASI - Daftar link ke kategori-kategori destinasi wisata -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-4 footer-col">
-                    <h5 class="footer-title">{{ app()->getLocale() == 'id' ? 'Destinasi' : 'Destinations' }}</h5>
+                    <h5 class="footer-title">Destinasi</h5>
                     <ul class="footer-links">
-                        <li><a href="{{ url('/destinasi/alam') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Destinasi Alam' : 'Natural Destinations' }}</a></li>
-                        <li><a href="{{ url('/destinasi/buatan') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Destinasi Buatan' : 'Man-made Destinations' }}</a></li>
-                        <li><a href="{{ url('/destinasi/budaya') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Destinasi Budaya' : 'Cultural Destinations' }}</a></li>
-                        <li><a href="{{ url('/destinasi') }}"><i class="fas fa-chevron-right"></i> {{ app()->getLocale() == 'id' ? 'Semua Destinasi' : 'All Destinations' }}</a></li>
+                        <li><a href="{{ url('/destinasi/alam') }}"><i class="fas fa-chevron-right"></i> Destinasi Alam</a></li>
+                        <li><a href="{{ url('/destinasi/buatan') }}"><i class="fas fa-chevron-right"></i> Destinasi Buatan</a></li>
+                        <li><a href="{{ url('/destinasi/budaya') }}"><i class="fas fa-chevron-right"></i> Destinasi Budaya</a></li>
+                        <li><a href="{{ url('/destinasi') }}"><i class="fas fa-chevron-right"></i> Semua Destinasi</a></li>
                     </ul>
                 </div>
 
                 <!-- KOLOM KONTAK - Informasi kontak termasuk alamat, nomor telepon, email, dan jam operasional -->
                 <div class="col-lg-3 col-md-4 col-sm-12 mb-4 footer-col">
-                    <h5 class="footer-title">{{ app()->getLocale() == 'id' ? 'Kontak' : 'Contact Us' }}</h5>
+                    @php $globalKontak = \App\Models\Kontak::first(); @endphp
+                    <h5 class="footer-title">Kontak</h5>
                     <ul class="footer-contact">
-                        <li><i class="fas fa-map-marker-alt"></i> {{ app()->getLocale() == 'id' ? 'Danau Toba, Sumatera Utara' : 'Lake Toba, North Sumatra' }}</li>
-                        <li><i class="fas fa-phone"></i> +62 812 3456 7890</li>
-                        <li><i class="fas fa-envelope"></i> info@geotoba.com</li>
-                        <li><i class="fas fa-clock"></i> {{ app()->getLocale() == 'id' ? 'Senin - Minggu : 08.00 - 18.00 WIB' : 'Monday - Sunday : 08:00 - 18:00 WIB' }}</li>
+                        <li><i class="fas fa-map-marker-alt"></i> {{ explode("\n", $globalKontak->lokasi_bawah ?? '')[0] ?? 'Danau Toba, Sumatera Utara' }}</li>
+                        <li><i class="fas fa-phone"></i> {{ explode("\n", str_replace("\r", "", $globalKontak->telepon ?? ''))[0] ?? '+62 812 3456 7890' }}</li>
+                        <li><i class="fas fa-envelope"></i> {{ explode("\n", str_replace("\r", "", $globalKontak->email ?? ''))[0] ?? 'info@geotoba.com' }}</li>
+                        <li><i class="fas fa-clock"></i> {{ explode("\n", str_replace("\r", "", $globalKontak->jam_operasional ?? ''))[0] ?? 'Senin - Minggu : 08.00 - 18.00 WIB' }}</li>
                     </ul>
                 </div>
 
@@ -754,7 +736,7 @@
 
             <!-- COPYRIGHT - Teks hak cipta di bagian paling bawah footer -->
             <div class="copyright">
-                <p>&copy; 2026 GeoToba - Geopark Danau Toba. {{ app()->getLocale() == 'id' ? 'Hak Cipta dilindungi.' : 'All rights reserved.' }}</p>
+                <p>&copy; 2026 GeoToba - Geopark Danau Toba. Hak Cipta dilindungi.</p>
             </div>
         </div>
     </footer>

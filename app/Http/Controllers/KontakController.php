@@ -13,7 +13,11 @@ class KontakController extends Controller
      */
     public function index()
     {
-        return view('pages.kontak');
+        $kontak = \App\Models\Kontak::first();
+        if (!$kontak) {
+            $kontak = new \App\Models\Kontak();
+        }
+        return view('pages.kontak', compact('kontak'));
     }
 
     /**

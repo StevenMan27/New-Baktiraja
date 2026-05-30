@@ -403,23 +403,41 @@
             <div class="contact-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                 <h3>Alamat</h3>
-                <p>Kawasan Wisata Bakara - Tipang - Baktiraja</p>
-                <p>Kabupaten Humbang Hasundutan</p>
-                <p>Sumatera Utara, Indonesia</p>
+                @if(!empty($kontak->alamat))
+                    @foreach(explode("\n", str_replace("\r", "", $kontak->alamat)) as $line)
+                        <p>{{ $line }}</p>
+                    @endforeach
+                @else
+                    <p>Kawasan Wisata Bakara - Tipang - Baktiraja</p>
+                    <p>Kabupaten Humbang Hasundutan</p>
+                    <p>Sumatera Utara, Indonesia</p>
+                @endif
             </div>
             <div class="contact-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
                 <h3>Telepon</h3>
-                <p>+62 812 3456 7890</p>
-                <p>+62 813 9876 5432</p>
-                <p>(0622) 12345</p>
+                @if(!empty($kontak->telepon))
+                    @foreach(explode("\n", str_replace("\r", "", $kontak->telepon)) as $line)
+                        <p>{{ $line }}</p>
+                    @endforeach
+                @else
+                    <p>+62 812 3456 7890</p>
+                    <p>+62 813 9876 5432</p>
+                    <p>(0622) 12345</p>
+                @endif
             </div>
             <div class="contact-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                 <h3>Email</h3>
-                <p>info@geotoba.com</p>
-                <p>wisata@bakara-tipang.com</p>
-                <p>support@geotoba.com</p>
+                @if(!empty($kontak->email))
+                    @foreach(explode("\n", str_replace("\r", "", $kontak->email)) as $line)
+                        <p>{{ $line }}</p>
+                    @endforeach
+                @else
+                    <p>info@geotoba.com</p>
+                    <p>wisata@bakara-tipang.com</p>
+                    <p>support@geotoba.com</p>
+                @endif
             </div>
         </div>
 
@@ -475,14 +493,28 @@
 
             <!-- MAP -->
             <div class="map-card" data-aos="fade-left">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255193.1325813422!2d98.69644291915316!3d2.470043988424604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0057d16c05ff%3A0xee8ecfd05118386e!2sBakara%2C%20Kec.%20Baktiraja%2C%20Kabupaten%20Humbang%20Hasundutan%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
-                    allowfullscreen=""
-                    loading="lazy">
-                </iframe>
+                @if(!empty($kontak->map_iframe))
+                    @if(str_contains($kontak->map_iframe, '<iframe'))
+                        {!! $kontak->map_iframe !!}
+                    @else
+                        <iframe src="{{ $kontak->map_iframe }}" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    @endif
+                @else
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255193.1325813422!2d98.69644291915316!3d2.470043988424604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0057d16c05ff%3A0xee8ecfd05118386e!2sBakara%2C%20Kec.%20Baktiraja%2C%20Kabupaten%20Humbang%20Hasundutan%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                        allowfullscreen=""
+                        loading="lazy">
+                    </iframe>
+                @endif
                 <div class="map-info">
                     <h4><i class="fas fa-map-marker-alt" style="color:var(--gold)"></i> Lokasi Kami</h4>
-                    <p>Bakara · Tipang · Baktiraja<br>Kabupaten Humbang Hasundutan, Sumatera Utara</p>
+                    <p>
+                        @if(!empty($kontak->map_lokasi))
+                            {!! nl2br(e($kontak->map_lokasi)) !!}
+                        @else
+                            Bakara · Tipang · Baktiraja<br>Kabupaten Humbang Hasundutan, Sumatera Utara
+                        @endif
+                    </p>
                 </div>
             </div>
         </div>
@@ -500,21 +532,37 @@
                 <h3 class="info-title">Ikuti Kami</h3>
                 <div class="social-section">
                     <div class="social-icons">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                        <a href="{{ $kontak->social_fb ?? '#' }}"><i class="fab fa-facebook-f"></i></a>
+                        <a href="{{ $kontak->social_ig ?? '#' }}"><i class="fab fa-instagram"></i></a>
+                        <a href="{{ $kontak->social_twitter ?? '#' }}"><i class="fab fa-twitter"></i></a>
+                        <a href="{{ $kontak->social_youtube ?? '#' }}"><i class="fab fa-youtube"></i></a>
+                        <a href="{{ $kontak->social_tiktok ?? '#' }}"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
 
                 <div class="hours-box">
                     <h4><i class="far fa-clock"></i> Jam Operasional</h4>
-                    <p>Senin - Jumat: 08:00 - 17:00 WIB</p>
-                    <p>Sabtu - Minggu: 08:00 - 18:00 WIB</p>
+                    @if(!empty($kontak->jam_operasional))
+                        @foreach(explode("\n", str_replace("\r", "", $kontak->jam_operasional)) as $line)
+                            <p>{{ $line }}</p>
+                        @endforeach
+                    @else
+                        <p>Senin - Jumat: 08:00 - 17:00 WIB</p>
+                        <p>Sabtu - Minggu: 08:00 - 18:00 WIB</p>
+                    @endif
                     <div class="hours-divider"></div>
-                    <p><i class="fas fa-map-marker-alt"></i> Bakara · Tipang · Baktiraja</p>
-                    <p style="margin-top: 8px;">Kabupaten Humbang Hasundutan</p>
+                    @if(!empty($kontak->lokasi_bawah))
+                        @foreach(explode("\n", str_replace("\r", "", $kontak->lokasi_bawah)) as $idx => $line)
+                            @if($idx === 0)
+                                <p><i class="fas fa-map-marker-alt"></i> {{ $line }}</p>
+                            @else
+                                <p style="margin-top: 8px;">{{ $line }}</p>
+                            @endif
+                        @endforeach
+                    @else
+                        <p><i class="fas fa-map-marker-alt"></i> Bakara · Tipang · Baktiraja</p>
+                        <p style="margin-top: 8px;">Kabupaten Humbang Hasundutan</p>
+                    @endif
                 </div>
             </div>
         </div>

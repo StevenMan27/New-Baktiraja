@@ -11,15 +11,16 @@ use App\Http\Controllers\Admin\PenginapanController;
 use App\Http\Controllers\DestinasiController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\HomepageController;
+use App\Http\Controllers\Admin\KontakController as AdminKontakController;
 use App\Http\Controllers\GaleriController as PublicGaleriController;
 use App\Http\Controllers\GeositeController;
 use App\Http\Controllers\InformasiController as PublicInformasiController;
-use App\Http\Controllers\LanguageController;
+
 use App\Http\Controllers\KontakController;
 use Illuminate\Support\Facades\DB;
 
 // ==================== LANGUAGE ROUTE ====================
-Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
+
 
 // ==================== FRONTEND ROUTES ====================
 
@@ -118,6 +119,9 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     
     Route::get('homepage', [HomepageController::class, 'edit'])->name('admin.homepage.edit');
     Route::put('homepage', [HomepageController::class, 'update'])->name('admin.homepage.update');
+
+    Route::get('kontak', [AdminKontakController::class, 'edit'])->name('admin.kontak.edit');
+    Route::put('kontak', [AdminKontakController::class, 'update'])->name('admin.kontak.update');
     
     Route::resource('galeri', GaleriController::class)->names('admin.galeri');
     Route::resource('berita', BeritaController::class)->names('admin.berita');
