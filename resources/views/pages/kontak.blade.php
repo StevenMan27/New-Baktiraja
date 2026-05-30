@@ -237,7 +237,9 @@
 
     .info-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: 1fr;
+        max-width: 600px;
+        margin: 0 auto;
         gap: 30px;
     }
 
@@ -258,56 +260,7 @@
         display: inline-block;
     }
 
-    /* DESTINASI LIST - BAKARA TIPANG BAKTIRAJA */
-    .dest-list {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
 
-    .dest-item {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        padding: 12px;
-        background: var(--bg);
-        border-radius: 12px;
-        cursor: pointer;
-        transition: var(--transition);
-    }
-
-    .dest-item:hover {
-        background: rgba(198,164,59,0.1);
-        transform: translateX(5px);
-    }
-
-    .dest-icon {
-        width: 45px;
-        height: 45px;
-        background: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: var(--shadow);
-    }
-
-    .dest-icon i {
-        font-size: 1.1rem;
-        color: var(--gold);
-    }
-
-    .dest-info h4 {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: var(--primary);
-        margin-bottom: 3px;
-    }
-
-    .dest-info p {
-        font-size: 0.7rem;
-        color: var(--gray);
-    }
 
     /* SOSIAL MEDIA */
     .social-section {
@@ -397,13 +350,7 @@
         box-shadow: 0 8px 20px rgba(37,211,102,0.4);
     }
 
-    /* BADGE KATEGORI DESTINASI */
-    .dest-category {
-        font-size: 0.6rem;
-        color: var(--gold);
-        margin-top: 2px;
-        display: block;
-    }
+
 
     /* RESPONSIVE */
     {{ '@media' }} (max-width: 900px) {
@@ -467,76 +414,7 @@
         }
     }
 
-/* ========== OVERRIDE NAVBAR MENJADI PUTIH & RAPAT ========== */
-.navbar {
-    background: rgba(255, 255, 255, 0.98) !important;
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
-    padding: 12px 0 !important;
-}
 
-.navbar .container {
-    max-width: 100% !important;
-    padding: 0 16px !important;
-}
-
-.navbar-brand {
-    display: flex !important;
-    align-items: center !important;
-    gap: 12px !important;
-}
-
-.navbar-brand img:first-child {
-    width: 65px !important;
-    height: auto !important;
-}
-
-.navbar-brand .logo-divider {
-    width: 1px !important;
-    height: 30px !important;
-    background: rgba(0, 0, 0, 0.1) !important;
-}
-
-.navbar-brand h4 {
-    font-size: 0.85rem !important;
-    font-weight: 700 !important;
-    color: #003366 !important;
-    margin: 0 !important;
-}
-
-.navbar-brand p {
-    font-size: 0.4rem !important;
-    color: rgba(0, 0, 0, 0.5) !important;
-    margin: 0 !important;
-}
-
-.navbar-nav {
-    gap: 28px !important;
-}
-
-.navbar-nav .nav-link {
-    font-size: 0.7rem !important;
-    letter-spacing: 0.15em !important;
-    text-transform: uppercase !important;
-    color: rgba(0, 0, 0, 0.7) !important;
-    font-weight: 600 !important;
-    padding: 6px 0 !important;
-}
-
-.navbar-nav .nav-link:hover {
-    color: #c6a43b !important;
-}
-
-.navbar-toggler {
-    background: rgba(0, 0, 0, 0.05) !important;
-    border: 1px solid rgba(0, 0, 0, 0.1) !important;
-    padding: 8px 12px !important;
-    border-radius: 50px !important;
-}
-
-.navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23003366' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
-}
 
 </style>
 
@@ -645,43 +523,7 @@
 <section class="section">
     <div class="container">
         <div class="info-grid">
-            <!-- DESTINASI UNGGULAN - BAKARA TIPANG BAKTIRAJA -->
-            <div class="info-card" data-aos="fade-right">
-                <h3 class="info-title">Destinasi Unggulan</h3>
-                <div class="dest-list">
-                    <div class="dest-item" onclick="window.location.href='{{ url("/geosite/panatapan-bakara") }}'">
-                        <div class="dest-icon"><i class="fas fa-mountain"></i></div>
-                        <div class="dest-info">
-                            <h4>Panatapan Bakara</h4>
-                            <p>Panorama spektakuler Danau Toba</p>
-                            <span class="dest-category">● Buatan</span>
-                        </div>
-                    </div>
-                    <div class="dest-item" onclick="window.location.href='{{ url("/geosite/air-terjun-janji") }}'">
-                        <div class="dest-icon"><i class="fas fa-water"></i></div>
-                        <div class="dest-info">
-                            <h4>Air Terjun Janji</h4>
-                            <p>Air terjun dengan mitos "janji alam"</p>
-                            <span class="dest-category">● Alam</span>
-                        </div>
-                    </div>
-                    <div class="dest-item" onclick="window.location.href='{{ url("/geosite/istana-sisingamangaraja") }}'">
-                        <div class="dest-icon"><i class="fas fa-landmark"></i></div>
-                        <div class="dest-info">
-                            <h4>Istana Sisingamangaraja</h4>
-                            <p>Pusat spiritual raja-raja Batak</p>
-                            <span class="dest-category">● Budaya</span>
-                        </div>
-                    </div>
-                    <div class="dest-item" onclick="window.location.href='{{ url("/destinasi") }}'">
-                        <div class="dest-icon"><i class="fas fa-tree"></i></div>
-                        <div class="dest-info">
-                            <h4>8 Destinasi Lainnya</h4>
-                            <p>Aek Sitio-tio, Gonting, Desa Tipang, Tombak Sulu-sulu, Aek Sipangolu</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- SOSIAL & JAM OPERASIONAL -->
             <div class="info-card" data-aos="fade-left">
