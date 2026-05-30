@@ -28,7 +28,7 @@
                         <th>Nama</th>
                         <th>Lokasi</th>
                         <th>Kontak</th>
-                        <th width="80">Urutan</th>
+                        
                         <th width="80">Status</th>
                         <th width="150">Aksi</th>
                     </tr>
@@ -50,7 +50,7 @@
                         <td><strong>{{ $item->nama }}</strong></td>
                         <td>{{ $item->lokasi ?? '-' }}</td>
                         <td>{{ $item->kontak ?? '-' }}</td>
-                        <td>{{ $item->urutan }}</td>
+                        
                         <td>
                             @if($item->status)
                                 <span class="badge bg-success">Aktif</span>

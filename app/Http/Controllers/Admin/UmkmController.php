@@ -40,8 +40,8 @@ class UmkmController extends Controller
         $request->validate([
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar'    => 'nullable|array|max:10',
-            'gambar.*'  => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'urutan'    => 'required|integer',
             'lokasi'    => 'nullable|string|max:255',
             'kontak'    => 'nullable|string|max:255',
@@ -86,8 +86,8 @@ class UmkmController extends Controller
         $request->validate([
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar'    => 'nullable|array|max:10',
-            'gambar.*'  => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'urutan'    => 'required|integer',
             'lokasi'    => 'nullable|string|max:255',
             'kontak'    => 'nullable|string|max:255',
@@ -120,12 +120,9 @@ class UmkmController extends Controller
                 Storage::disk('public')->delete($data->gambar);
             }
 
-            // Store new files
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('umkm', 'public');
-            }
-            $input['gambar'] = json_encode($paths);
+            // Penjelasan: Menggunakan single file object bukan array karena form input 'gambar' bukan array.
+            $path = $request->file('gambar')->store('umkm', 'public');
+            $input['gambar'] = json_encode([$path]);
         }
 
         $data->update($input);

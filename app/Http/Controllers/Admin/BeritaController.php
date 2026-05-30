@@ -37,8 +37,8 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
-            'gambar' => 'nullable|array|max:10',
-            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'penulis' => 'nullable|string|max:100',
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
@@ -77,8 +77,8 @@ class BeritaController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
-            'gambar' => 'nullable|array|max:10',
-            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'penulis' => 'nullable|string|max:100',
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'

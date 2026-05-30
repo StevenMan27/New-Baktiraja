@@ -98,14 +98,7 @@
                     @enderror
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label required">Urutan</label>
-                    <input type="number" name="urutan" class="form-control @error('urutan') is-invalid @enderror" 
-                           value="{{ old('urutan', $informasi->urutan) }}" required>
-                    @error('urutan')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
+                <!-- Penjelasan: Input 'urutan' telah dihapus dari form edit informasi sesuai instruksi -->
                 
                 <div class="col-md-12 mb-3">
                     <label class="form-label">Gambar Saat Ini</label>

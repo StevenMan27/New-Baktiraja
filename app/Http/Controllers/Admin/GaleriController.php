@@ -37,18 +37,17 @@ class GaleriController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'required|array|max:10',
-            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
+            'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
             'lokasi' => 'nullable|string',
             'tanggal_foto' => 'nullable|date',
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
         ]);
 
-        $paths = [];
-        foreach ($request->file('gambar') as $image) {
-            $paths[] = $image->store('galeri', 'public');
-        }
+        // Penjelasan: Menyimpan sebagai single file.
+        $path = $request->file('gambar')->store('galeri', 'public');
+        $paths = [$path];
 
         Galeri::create([
             'judul' => $request->judul,
@@ -78,8 +77,8 @@ class GaleriController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'nullable|string',
-            'gambar' => 'nullable|array|max:10',
-            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'lokasi' => 'nullable|string',
             'tanggal_foto' => 'nullable|date',
             'geosite' => 'required|string',
@@ -106,12 +105,9 @@ class GaleriController extends Controller
                 }
             }
 
-            // Store new files
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('galeri', 'public');
-            }
-            $data['gambar'] = json_encode($paths);
+            // Penjelasan: Menyimpan sebagai single file.
+            $path = $request->file('gambar')->store('galeri', 'public');
+            $data['gambar'] = json_encode([$path]);
         }
 
         $galeri->update($data);

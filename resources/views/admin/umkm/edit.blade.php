@@ -91,10 +91,7 @@
                 </div>
             </div>
             
-            <div class="mb-3">
-                <label class="form-label">Urutan</label>
-                <input type="number" name="urutan" class="form-control" value="{{ $data->urutan }}" required>
-            </div>
+            
             
             <div class="mb-3">
                 <label class="form-label">Gambar Saat Ini</label>

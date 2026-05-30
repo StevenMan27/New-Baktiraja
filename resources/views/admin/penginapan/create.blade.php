@@ -87,16 +87,7 @@
                     @enderror
                 </div>
 
-                <div class="col-md-6 mb-3">
-                    <label class="form-label">Urutan</label>
-                    <input type="number" name="urutan" class="form-control @error('urutan') is-invalid @enderror" 
-                           value="{{ old('urutan') }}" required>
-                    <small class="text-muted">Semakin kecil angka, semakin atas tampilannya</small>
-                    @error('urutan')
-                        <div class="invalid-feedback">{{ $message }}</div>
-                    @enderror
-                </div>
-
+                <!-- Penjelasan: Baris enderror dan tag div penutup yang berlebih di bawah sini telah dihapus untuk memperbaiki ParseError -->
                 <div class="col-md-12 mb-3">
                     <label class="form-label required">Deskripsi</label>
                     <textarea name="deskripsi" class="form-control @error('deskripsi') is-invalid @enderror" 

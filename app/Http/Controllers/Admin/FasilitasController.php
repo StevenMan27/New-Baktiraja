@@ -40,8 +40,8 @@ class FasilitasController extends Controller
         $request->validate([
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar'    => 'nullable|array|max:10',
-            'gambar.*'  => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'urutan'    => 'required|integer',
             'harga'     => 'nullable|string|max:100',
             'geosite'   => 'required|string',
@@ -84,8 +84,8 @@ class FasilitasController extends Controller
         $request->validate([
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'gambar'    => 'nullable|array|max:10',
-            'gambar.*'  => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'urutan'    => 'required|integer',
             'harga'     => 'nullable|string|max:100',
             'geosite'   => 'required|string',
@@ -116,12 +116,9 @@ class FasilitasController extends Controller
                 Storage::disk('public')->delete($data->gambar);
             }
 
-            // Store new files
-            $paths = [];
-            foreach ($request->file('gambar') as $image) {
-                $paths[] = $image->store('fasilitas', 'public');
-            }
-            $input['gambar'] = json_encode($paths);
+            // Penjelasan: Menyimpan sebagai single file.
+            $path = $request->file('gambar')->store('fasilitas', 'public');
+            $input['gambar'] = json_encode([$path]);
         }
 
         $data->update($input);

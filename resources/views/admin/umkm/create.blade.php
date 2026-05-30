@@ -86,11 +86,7 @@
                     <input type="text" name="kontak" class="form-control">
                 </div>
             </div>
-            <div class="mb-3">
-                <label>Urutan</label>
-                <input type="number" name="urutan" class="form-control" required>
-                <small class="text-muted">Semakin kecil angka, semakin atas tampilannya</small>
-            </div>
+            
             <div class="mb-3">
                 <label>Gambar</label>
                 <div class="custom-file-upload mt-2">

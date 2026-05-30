@@ -29,7 +29,7 @@
                         <th>Harga</th>
                         <th>Kontak</th>
                         <th width="120">Lokasi Geosite</th>
-                        <th width="80">Urutan</th>
+                        
                         <th width="80">Status</th>
                         <th width="150">Aksi</th>
                     </tr>
@@ -52,7 +52,7 @@
                         <td>{{ $item->harga ?? '-' }}</td>
                         <td>{{ $item->kontak ?? '-' }}</td>
                         <td><span class="badge bg-info text-dark">{{ ucwords(str_replace('-', ' ', $item->geosite)) }}</span></td>
-                        <td>{{ $item->urutan }}</td>
+                        
                         <td>
                             @if($item->status)
                                 <span class="badge bg-success">Aktif</span>

@@ -85,10 +85,7 @@
                 <input type="text" name="harga" class="form-control" value="{{ $data->harga }}">
             </div>
             
-            <div class="mb-3">
-                <label>Urutan</label>
-                <input type="number" name="urutan" class="form-control" value="{{ $data->urutan }}" required>
-            </div>
+            
             
             <div class="mb-3">
                 <label>Gambar Saat Ini</label>

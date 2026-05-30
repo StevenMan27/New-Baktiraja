@@ -22,7 +22,8 @@ class InformasiController extends Controller
 
     public function index()
     {
-        $informasi = Informasi::orderBy('urutan', 'asc')->paginate(10);
+        // Penjelasan: Mengubah pengurutan data dari 'urutan' menjadi berdasarkan waktu pembuatan terbaru (latest) karena fitur urutan manual dihapus.
+        $informasi = Informasi::latest()->paginate(10);
         return view('admin.informasi.index', compact('informasi'));
     }
 
@@ -39,7 +40,7 @@ class InformasiController extends Controller
             'konten' => 'required|string',
             'gambar' => 'nullable|array|max:10',
             'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
-            'urutan' => 'required|integer|unique:informasi,urutan',
+            // Penjelasan: Validasi 'urutan' telah dihapus dari sini
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
         ]);
@@ -47,7 +48,8 @@ class InformasiController extends Controller
         $data = [
             'judul' => $request->judul,
             'konten' => $request->konten,
-            'urutan' => $request->urutan,
+            // Penjelasan: 'urutan' di-set secara otomatis menggunakan nilai max dari database agar tidak menyebabkan error di level database
+            'urutan' => Informasi::max('urutan') + 1,
             'geosite' => $request->geosite,
             'status' => $request->has('status') ? 1 : 0
         ];
@@ -79,7 +81,7 @@ class InformasiController extends Controller
             'konten' => 'required|string',
             'gambar' => 'nullable|array|max:10',
             'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
-            'urutan' => 'required|integer|unique:informasi,urutan,' . $id,
+            // Penjelasan: Validasi 'urutan' telah dihapus untuk form edit
             'geosite' => 'required|string',
             'status' => 'nullable|boolean'
         ]);
@@ -87,7 +89,7 @@ class InformasiController extends Controller
         $data = [
             'judul' => $request->judul,
             'konten' => $request->konten,
-            'urutan' => $request->urutan,
+            // Penjelasan: 'urutan' tidak lagi di-update dari form
             'geosite' => $request->geosite,
             'status' => $request->has('status') ? 1 : 0
         ];
