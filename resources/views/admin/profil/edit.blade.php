@@ -441,7 +441,7 @@
             </div>
         </div>
 
-        <!-- ════════ 3–6. DESKRIPSI 2–5 (Dengan Gambar) ════════ -->
+        <!-- 3–6. DESKRIPSI 2–5 (Dengan Gambar) -->
         @for($i = 2; $i <= 5; $i++)
         @php
             $judulKey = "deskripsi_{$i}_judul";
@@ -493,7 +493,7 @@
         </div>
         @endfor
 
-        <!-- ════════ 7. INFORMASI PRAKTIS & TAGS ════════ -->
+        <!-- 7. INFORMASI PRAKTIS & TAGS -->
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-info"><i class="fas fa-info-circle"></i></div>
