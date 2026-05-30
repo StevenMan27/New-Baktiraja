@@ -247,9 +247,90 @@
         to { opacity: 1; transform: translateY(0); }
     }
     
-
+    .slider-dots {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 15;
+    }
     
-
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.5);
+        cursor: pointer;
+        transition: all 0.4s ease;
+        position: relative;
+    }
+    
+    .dot::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: -5px;
+        right: -5px;
+        bottom: -5px;
+        border-radius: 50%;
+        background: rgba(198, 164, 59, 0.3);
+        transform: scale(0);
+        transition: transform 0.3s ease;
+    }
+    
+    .dot:hover::after {
+        transform: scale(1);
+    }
+    
+    .dot.active {
+        background: #c6a43b;
+        width: 28px;
+        border-radius: 10px;
+    }
+    
+    .dot:hover {
+        background: #c6a43b;
+        transform: scale(1.2);
+    }
+    
+    .scroll-indicator {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 15;
+        animation: bounce 2.5s infinite;
+        cursor: pointer;
+        color: white;
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        opacity: 0.8;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+    }
+    
+    .scroll-indicator .line {
+        width: 1px;
+        height: 30px;
+        background: white;
+        margin-top: 5px;
+        transition: height 0.3s ease;
+    }
+    
+    .scroll-indicator:hover .line {
+        height: 40px;
+        background: #c6a43b;
+    }
+    
+    @keyframes bounce {
+        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.8; }
+        50% { transform: translateX(-50%) translateY(-10px); opacity: 0.4; }
+    }
     
     /* ==================== SECTION UMUM ==================== */
     .section { padding: 90px 0; position: relative; overflow: hidden; }
@@ -980,7 +1061,8 @@
     @media (max-width: 480px) {
         .hero-title { font-size: 1.6rem; }
         .hero-subtitle { font-size: 0.5rem; letter-spacing: 0.15em; }
-
+        .dot { width: 8px; height: 8px; }
+        .dot.active { width: 20px; }
         .maps-container iframe { height: 220px; }
     }
 </style>
@@ -996,8 +1078,15 @@
         <div class="slide slide-6"></div>
     </div>
     
-
-
+    <div class="slider-dots">
+        <div class="dot active" data-slide="0"></div>
+        <div class="dot" data-slide="1"></div>
+        <div class="dot" data-slide="2"></div>
+        <div class="dot" data-slide="3"></div>
+        <div class="dot" data-slide="4"></div>
+        <div class="dot" data-slide="5"></div>
+    </div>
+    
     <div class="hero-content">
         <div>
             <div class="hero-subtitle">{{ $homepage->hero_subtitle ?? 'Kawasan Wisata Geopark Danau Toba' }}</div>
@@ -1007,7 +1096,10 @@
         </div>
     </div>
     
-
+    <div class="scroll-indicator" onclick="document.getElementById('destinasi').scrollIntoView({behavior:'smooth'})">
+        <span>SCROLL</span>
+        <div class="line"></div>
+    </div>
 </section>
 
 <!-- ==================== STATISTICS ==================== -->
