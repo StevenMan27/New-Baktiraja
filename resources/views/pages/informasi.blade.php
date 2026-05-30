@@ -1,459 +1,763 @@
 @extends('layouts.app')
 
-@section('title', 'Informasi - Geosite Danau Toba')
+@section('title', 'INFORMASI TERKINI - Geosite Danau Toba')
 
 @section('content')
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
 <style>
-    /* ==================== BASE & TYPOGRAPHY ==================== */
-    .geopark-wrapper {
-        font-family: 'Plus Jakarta Sans', sans-serif;
-        color: #666;
-        background-color: #f8fafc;
+    /* ========== OVERRIDE NAVBAR MENJADI PUTIH & RAPAT ========== */
+.navbar {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+    padding: 12px 0 !important;
+}
+
+.navbar .container {
+    max-width: 100% !important;
+    padding: 0 16px !important;
+}
+
+.navbar-brand {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+}
+
+.navbar-brand img:first-child {
+    width: 65px !important;
+    height: auto !important;
+}
+
+.navbar-brand .logo-divider {
+    width: 1px !important;
+    height: 30px !important;
+    background: rgba(0, 0, 0, 0.1) !important;
+}
+
+.navbar-brand h4 {
+    font-size: 0.85rem !important;
+    font-weight: 700 !important;
+    color: #003366 !important;
+    margin: 0 !important;
+}
+
+.navbar-brand p {
+    font-size: 0.4rem !important;
+    color: rgba(0, 0, 0, 0.5) !important;
+    margin: 0 !important;
+}
+
+.navbar-nav {
+    gap: 28px !important;
+}
+
+.navbar-nav .nav-link {
+    font-size: 0.7rem !important;
+    letter-spacing: 0.15em !important;
+    text-transform: uppercase !important;
+    color: rgba(0, 0, 0, 0.7) !important;
+    font-weight: 600 !important;
+    padding: 6px 0 !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #c6a43b !important;
+}
+
+.navbar-toggler {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+    padding: 8px 12px !important;
+    border-radius: 50px !important;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='%23003366' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E") !important;
+}
+    /* ========== STACKED SLIP CARDS STYLE - SAME AS GALERI ========== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: #f0f2f5;
+    }
+
+    /* HERO SECTION - SAME AS GALERI */
+    .news-hero {
+        background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
+        padding: 80px 0 50px;
+        margin-top: 70px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .news-hero::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+        animation: slowRotate 20s linear infinite;
+    }
+
+    @keyframes slowRotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
+    .news-hero-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .news-hero h1 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        font-family: 'Playfair Display', serif;
+        color: white;
+        margin-bottom: 10px;
+        letter-spacing: 2px;
+    }
+
+    .news-hero p {
+        font-size: 0.85rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.8);
+    }
+
+    /* NEWS SECTION */
+    .news-section {
+        padding: 60px 0 100px;
+        background: linear-gradient(135deg, #f8fafc 0%, #eef2f8 100%);
         min-height: 100vh;
-        overflow-x: hidden;
     }
 
     .container {
-        max-width: 1200px;
+        max-width: 1400px;
         margin: 0 auto;
         padding: 0 24px;
     }
 
-    /* ==================== HERO SECTION ==================== */
-    .hero-informasi {
-        background: #ffffff;
-        padding: 130px 0 40px; /* Jarak disesuaikan dengan tinggi navbar */
-        text-align: center;
-        border-bottom: 1px solid #edf2f7;
-    }
-    
-    .hero-informasi h2 {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #1a3c5e;
-        margin-bottom: 12px;
-    }
-    
-    .hero-informasi p {
-        font-size: 0.95rem;
-        color: #718096;
-        max-width: 600px;
-        margin: 0 auto;
-        line-height: 1.6;
+    /* STACK CONTAINER - SAME AS GALERI */
+    .stack-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0;
+        padding: 40px 0;
+        position: relative;
     }
 
-    /* ==================== GRID SECTION ==================== */
-    .informasi-section {
-        padding: 60px 0;
-        transition: all 0.4s ease;
-    }
-    
-    .informasi-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 32px;
-    }
-    
-    .informasi-card {
+    /* SLIP CARD - SAME EXACT STYLE AS GALERI */
+    .slip-card {
+        position: relative;
+        width: 280px;
         background: white;
         border-radius: 16px;
         overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        display: flex;
-        flex-direction: column;
+        cursor: pointer;
+        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02);
+        margin-left: -60px;
     }
-    
-    .informasi-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+
+    .slip-card:first-child {
+        margin-left: 0;
     }
-    
-    .informasi-card-img {
-        height: 200px;
-        overflow: hidden;
+
+    /* Efek hover - card naik ke atas seperti slip */
+    .slip-card:hover {
+        transform: translateY(-20px) scale(1.02);
+        z-index: 100;
+        box-shadow: 0 25px 40px -10px rgba(0,0,0,0.25);
+    }
+
+    /* Efek hover untuk card di sampingnya */
+    .slip-card:hover ~ .slip-card {
+        transform: translateX(20px);
+    }
+
+    /* Container gambar - SAME AS GALERI */
+    .slip-image {
         position: relative;
+        width: 100%;
+        height: 320px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1e293b, #0f172a);
     }
-    
-    .informasi-card-img img {
+
+    .slip-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
-    }
-    
-    .informasi-card-body {
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
+        transition: transform 0.5s ease;
     }
 
-    .informasi-card-body .card-date {
-        font-size: 12px;
-        color: #c6a43b;
-        font-weight: 500;
-        margin-bottom: 8px;
-        display: block;
+    .slip-card:hover .slip-image img {
+        transform: scale(1.05);
     }
-    
-    .informasi-card-body h3 {
-        font-size: 1.25rem;
+
+    /* Overlay - SAME AS GALERI */
+    .slip-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        padding: 30px 16px 16px;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .slip-card:hover .slip-overlay {
+        opacity: 1;
+    }
+
+    .slip-category {
+        display: inline-block;
+        background: #c6a43b;
+        color: #003366;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.6rem;
         font-weight: 700;
-        color: #1a3c5e;
-        margin: 8px 0 12px;
-        line-height: 1.4;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
-    
-    .informasi-card-body p {
-        color: #666;
-        font-size: 14px;
-        line-height: 1.6;
-        margin-bottom: 20px;
+
+    .slip-title-overlay {
+        color: white;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-top: 8px;
+        line-height: 1.3;
+    }
+
+    /* Info Card - SAME AS GALERI */
+    .slip-info {
+        padding: 16px;
+        background: white;
+        position: relative;
+        border-top: 1px solid #f0f0f0;
+    }
+
+    /* Decorative line seperti slip */
+    .slip-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #c6a43b, #e8c45a, #c6a43b);
+        transform: scaleX(0);
+        transition: transform 0.3s ease;
+    }
+
+    .slip-card:hover .slip-line {
+        transform: scaleX(1);
+    }
+
+    .slip-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 6px;
+        line-height: 1.4;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
-        line-clamp: 3;
+        -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
-    
-    .btn-read {
-        margin-top: auto;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        color: #c6a43b;
-        font-size: 12px;
-        font-weight: 600;
-        text-decoration: none;
-        background: none;
-        border: none;
-        padding: 0;
-        cursor: pointer;
-        width: fit-content;
-        transition: all 0.2s ease;
-    }
-    
-    .btn-read:hover {
-        color: #1a3c5e;
-        gap: 10px;
-    }
-    
-    /* ==================== FULL ARTICLE VIEW ==================== */
-    .article-view-section {
-        display: none;
-        padding: 20px 0 100px;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.4s ease, transform 0.4s ease;
+
+    /* News specific - excerpt preview */
+    .slip-excerpt {
+        font-size: 0.7rem;
+        color: #64748b;
+        line-height: 1.4;
+        margin-bottom: 8px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    .article-view-section.active {
-        display: block;
+    .slip-date {
+        font-size: 0.7rem;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .slip-date i {
+        font-size: 0.65rem;
+        color: #c6a43b;
+    }
+
+    /* Nomor slip seperti antrian - SAME AS GALERI */
+    .slip-number {
+        position: absolute;
+        bottom: 12px;
+        right: 16px;
+        font-size: 0.6rem;
+        color: #cbd5e1;
+        font-family: monospace;
+        letter-spacing: 1px;
+    }
+
+    /* Views counter */
+    .slip-views {
+        position: absolute;
+        bottom: 12px;
+        left: 16px;
+        font-size: 0.6rem;
+        color: #cbd5e1;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .slip-views i {
+        font-size: 0.55rem;
+        color: #c6a43b;
+    }
+
+    /* MODAL READER - TETAP SAMA (FUNGSI BERITA) */
+    #fullReader {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 99999;
+        transition: top 0.7s cubic-bezier(0.86, 0, 0.07, 1);
+        overflow-y: auto;
+        visibility: hidden;
+    }
+
+    #fullReader.active {
+        top: 0;
+        visibility: visible;
+    }
+
+    .progress-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        background: #eee;
+        z-index: 100;
+    }
+
+    .progress-bar {
+        height: 4px;
+        background: #c6a43b;
+        width: 0%;
+        transition: width 0.1s ease;
+    }
+
+    .reader-nav {
+        padding: 20px 5%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(255,255,255,0.98);
+        backdrop-filter: blur(12px);
+        position: sticky;
+        top: 0;
+        z-index: 99;
+        border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .reader-logo {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #003366;
+    }
+
+    .reader-logo span {
+        color: #c6a43b;
+    }
+
+    .btn-close-circle {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: #f0f0f0;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: #1a1a1a;
+    }
+
+    .btn-close-circle:hover {
+        background: #c6a43b;
+        color: #003366;
+        transform: rotate(90deg);
+    }
+
+    .reader-content-wrap {
+        max-width: 850px;
+        margin: 0 auto;
+        padding: 40px 30px 60px;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.6s ease 0.2s;
+    }
+
+    #fullReader.active .reader-content-wrap {
         opacity: 1;
         transform: translateY(0);
     }
 
-    /* Pembungkus untuk memberikan jarak aman dari Navbar melayang */
-    .article-container-box {
-        margin-top: 110px; 
+    .reader-header {
+        text-align: center;
+        margin-bottom: 40px;
     }
 
-    .btn-back-container {
-        margin-bottom: 24px;
-        text-align: left;
+    .reader-date {
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: #c6a43b;
+        display: inline-block;
+        margin-bottom: 15px;
     }
 
-    /* Tombol Kembali yang Dipercantik & Stabil */
-    .btn-back {
-        display: inline-flex;
+    .reader-title-display {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        line-height: 1.25;
+        color: #1a1a1a;
+        margin: 20px 0;
+        font-weight: 700;
+    }
+
+    .reader-divider {
+        width: 50px;
+        height: 2px;
+        background: #c6a43b;
+        margin: 20px auto;
+    }
+
+    .reader-author {
+        font-size: 13px;
+        color: #999;
+        display: flex;
         align-items: center;
-        gap: 10px;
-        background: #ffffff;
-        border: 1px solid #e2e8f0;
-        padding: 12px 26px;
-        border-radius: 50px;
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: #1a3c5e;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        box-shadow: 0 4px 12px rgba(26, 60, 94, 0.08);
-        position: relative;
-        z-index: 10;
+        justify-content: center;
+        gap: 8px;
     }
 
-    .btn-back i {
-        transition: transform 0.3s ease;
+    .reader-hero-img {
+        width: 100%;
+        height: auto;
+        max-height: 500px;
+        object-fit: cover;
+        border-radius: 16px;
+        margin: 30px 0 40px;
+        box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+    }
+
+    .reader-article-body {
+        font-size: 16px;
+        line-height: 1.9;
+        color: #2c3e50;
+        text-align: left;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .reader-article-body p {
+        margin-bottom: 25px;
+    }
+
+    .reader-footer {
+        margin: 60px 0 0;
+        text-align: center;
+        border-top: 1px solid #eee;
+        padding-top: 40px;
+    }
+
+    .btn-back {
+        background: #003366;
+        color: white;
+        padding: 12px 32px;
+        border-radius: 40px;
+        border: none;
+        font-size: 12px;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
     }
 
     .btn-back:hover {
-        background: #1a3c5e;
-        color: #ffffff;
-        border-color: #1a3c5e;
-        box-shadow: 0 6px 20px rgba(26, 60, 94, 0.2);
+        background: #c6a43b;
+        color: #003366;
+        transform: translateY(-3px);
     }
 
-    .btn-back:hover i {
-        transform: translateX(-4px);
-    }
-
-    .article-wrapper {
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 15px 45px rgba(0,0,0,0.06);
-        overflow: hidden;
-    }
-
-    .article-hero-img {
-        width: 100%;
-        height: 450px;
-        object-fit: cover;
-    }
-
-    .article-content-padding {
-        padding: 40px 50px;
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .article-meta {
-        display: flex;
-        gap: 20px;
-        color: #718096;
-        font-size: 13px;
-        margin-bottom: 20px;
-        border-bottom: 1px solid #edf2f7;
-        padding-bottom: 16px;
-    }
-
-    .article-meta span {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    .article-main-title {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #1a3c5e;
-        line-height: 1.3;
-        margin-bottom: 24px;
-    }
-
-    .article-body-text {
-        font-size: 15px;
-        line-height: 1.8;
-        color: #4a5568;
-    }
-
-    .article-body-text p {
-        margin-bottom: 1.5rem;
-    }
-
-    /* ==================== UTILITIES ==================== */
-    .pagination-wrapper {
-        display: flex;
-        justify-content: center;
-        margin-top: 40px;
-    }
-    
-    .empty-state {
+    .empty-news {
         text-align: center;
-        padding: 60px 20px;
+        padding: 80px;
         background: white;
         border-radius: 16px;
-        grid-column: span 3;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.04);
     }
 
-    /* ==================== RESPONSIVE ==================== */
-    @media (max-width: 992px) {
-        .informasi-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
-        .article-main-title { font-size: 1.8rem; }
-        .article-content-padding { padding: 30px; }
-        .article-hero-img { height: 320px; }
+    .empty-news i {
+        font-size: 3rem;
+        color: #cbd5e1;
+        margin-bottom: 15px;
     }
-    
+
+    /* RESPONSIVE - SAME AS GALERI */
+    @media (max-width: 1200px) {
+        .slip-card {
+            width: 240px;
+        }
+        .slip-image {
+            height: 280px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .stack-container {
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .slip-card {
+            margin-left: 0 !important;
+            width: 260px;
+        }
+        .slip-card:hover ~ .slip-card {
+            transform: none;
+        }
+        .slip-card:hover {
+            transform: translateY(-10px);
+        }
+    }
+
     @media (max-width: 768px) {
-        .informasi-grid { grid-template-columns: 1fr; }
-        .hero-informasi { padding: 110px 0 30px; }
-        .hero-informasi h2 { font-size: 1.6rem; }
-        .article-main-title { font-size: 1.5rem; }
-        .article-hero-img { height: 240px; }
-        .article-container-box { margin-top: 90px; }
+        .slip-card {
+            width: calc(50% - 8px);
+        }
+        .slip-image {
+            height: 260px;
+        }
+        .news-hero h1 {
+            font-size: 2rem;
+        }
+        .reader-title-display {
+            font-size: 1.6rem;
+        }
+        .reader-content-wrap {
+            padding: 20px;
+        }
+    }
+
+    @media (max-width: 560px) {
+        .slip-card {
+            width: 100%;
+        }
+        .slip-image {
+            height: 280px;
+        }
     }
 </style>
 
-<div class="geopark-wrapper">
-    <div class="hero-informasi" id="heroSection">
-        <div class="container">
-            <h2>Informasi Terbaru</h2>
-            <p>Jelajahi wawasan ilmiah, warisan budaya, dan keanekaragaman geologi Geosite Danau Toba.</p>
-        </div>
+<!-- HERO SECTION - SAME AS GALERI -->
+<div class="news-hero">
+    <div class="news-hero-content">
+        <h1>INFORMASI TERKINI</h1>
+        <p>Informasi Lengkap Geopark</p>
     </div>
-
-    <section class="informasi-section" id="gridSection">
-        <div class="container">
-            <div class="informasi-grid">
-                @forelse($informasiList as $index => $item)
-                <div class="informasi-card" data-aos="fade-up">
-                    
-                    @php
-                        $imgSrc = asset('image/default.jpg');
-                        if (!empty($item->gambar)) {
-                            if (str_starts_with($item->gambar, 'data:image')) {
-                                $imgSrc = $item->gambar;
-                            } elseif (filter_var($item->gambar, FILTER_VALIDATE_URL)) {
-                                $imgSrc = $item->gambar;
-                            } elseif (file_exists(public_path('storage/' . $item->gambar))) {
-                                $imgSrc = asset('storage/' . $item->gambar);
-                            } elseif (file_exists(public_path($item->gambar))) {
-                                $imgSrc = asset($item->gambar);
-                            } else {
-                                $imgSrc = asset('storage/' . $item->gambar);
-                            }
-                        }
-                    @endphp
-
-                    <div class="informasi-card-img">
-                        <img src="{{ $imgSrc }}" alt="{{ $item->judul }}" onerror="this.src='{{ asset('image/default.jpg') }}'">
-                    </div>
-                    
-                    <div class="informasi-card-body">
-                        <span class="card-date">{{ $item->created_at->format('d M Y') }}</span>
-                        <h3>{{ Str::limit($item->judul, 50) }}</h3>
-                        <p>{{ Str::limit(strip_tags($item->konten), 120) }}</p>
-                        <button class="btn-read" onclick="showArticle({{ $index }})">
-                            Baca Selengkapnya →
-                        </button>
-                    </div>
-                </div>
-                @empty
-                <div class="empty-state">
-                    <p>Belum ada informasi tersedia.</p>
-                </div>
-                @endforelse
-            </div>
-            
-            @if(method_exists($informasiList, 'links'))
-            <div class="pagination-wrapper">
-                {{ $informasiList->links() }}
-            </div>
-            @endif
-        </div>
-    </section>
-
-    <section class="article-view-section" id="articleSection">
-        <div class="container">
-            <div class="article-container-box">
-                
-                <div class="btn-back-container">
-                    <button class="btn-back" onclick="hideArticle()">
-                        <i class="fas fa-arrow-left"></i> Kembali ke Informasi
-                    </button>
-                </div>
-
-                <div class="article-wrapper">
-                    <img id="viewImg" class="article-hero-img" src="" alt="">
-                    <div class="article-content-padding">
-                        <div class="article-meta">
-                            <span><i class="far fa-calendar-alt"></i> <span id="viewDate"></span></span>
-                            <span><i class="far fa-eye"></i> <span id="viewViews"></span> Pembaca</span>
-                        </div>
-                        <h1 class="article-main-title" id="viewTitle"></h1>
-                        <div class="article-body-text" id="viewContent"></div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
 </div>
 
-<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<script>
-    AOS.init({ duration: 600, once: true, offset: 40 });
-    
-    // Sinkronisasi data dari Backend ke Frontend JS
-    const informasiData = @json(method_exists($informasiList, 'items') ? $informasiList->items() : $informasiList);
-    
-    const gridSection = document.getElementById('gridSection');
-    const articleSection = document.getElementById('articleSection');
-    const heroSection = document.getElementById('heroSection');
+<!-- STACKED SLIP CARDS SECTION - SAME VISUAL AS GALERI -->
+<section class="news-section">
+    <div class="container">
+        <div class="stack-container">
+            @php $counter = 1; @endphp
+            @forelse($informasiList as $item)
+                @php
+                    // Handle gambar sama seperti galeri
+                    if (!empty($item->gambar)) {
+                        if (strlen($item->gambar) > 500 && !filter_var($item->gambar, FILTER_VALIDATE_URL)) {
+                            $imageSrc = $item->gambar;
+                        } elseif (filter_var($item->gambar, FILTER_VALIDATE_URL)) {
+                            $imageSrc = $item->gambar;
+                        } else {
+                            $imageSrc = asset('storage/' . $item->gambar);
+                        }
+                    } else {
+                        $imageSrc = 'https://via.placeholder.com/400x500?text=No+Image';
+                    }
+                    
+                    // Excerpt untuk preview
+                    $excerpt = strip_tags($item->konten);
+                    $excerpt = Str::limit($excerpt, 80);
+                @endphp
+                
+                <div class="slip-card" onclick="openReader({{ $item->id }})">
+                    <div class="slip-image">
+                        <img src="{{ $imageSrc }}" 
+                             alt="{{ $item->judul }}" 
+                             loading="lazy" 
+                             onerror="this.onerror=null;this.src='https://via.placeholder.com/400x500?text=No+Image'">
+                        <div class="slip-overlay">
+                            <span class="slip-category">INFORMASI</span>
+                            <div class="slip-title-overlay">{{ Str::limit($item->judul, 35) }}</div>
+                        </div>
+                    </div>
+                    <div class="slip-info">
+                        <div class="slip-line"></div>
+                        <div class="slip-title">{{ Str::limit($item->judul, 30) }}</div>
+                        <div class="slip-excerpt">{{ $excerpt }}</div>
+                        <div class="slip-date">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d M Y') }}</span>
+                        </div>
+                        <div class="slip-number">#{{ str_pad($counter, 3, '0', STR_PAD_LEFT) }}</div>
+                    </div>
+                </div>
+                @php $counter++; @endphp
+            @empty
+                <div class="empty-news">
+                    <i class="fas fa-newspaper"></i>
+                    <h3>Belum Ada Informasi</h3>
+                    <p style="color: #999; margin-top: 10px;">Silakan tambah informasi melalui panel admin.</p>
+                </div>
+            @endforelse
+        </div>
+    </div>
+</section>
 
-    function showArticle(index) {
-        const item = informasiData[index];
-        if (!item) return;
+<!-- READER MODAL - FUNGSI BERITA TETAP -->
+<div id="fullReader">
+    <div class="progress-container">
+        <div class="progress-bar" id="myBar"></div>
+    </div>
+    
+    <div class="reader-nav">
+        <div class="reader-logo">Geo<span>Toba</span></div>
+        <button class="btn-close-circle" onclick="closeReader()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <div class="reader-content-wrap">
+        <div class="reader-header">
+            <span class="reader-date" id="r-date"></span>
+            <h1 id="r-title" class="reader-title-display"></h1>
+            <div class="reader-divider"></div>
+            <div class="reader-author">
+                <i class="far fa-user"></i>
+                <span id="r-author">Admin GeoToba</span>
+            </div>
+        </div>
+
+        <img id="r-img" src="" class="reader-hero-img" alt="">
+
+        <div id="r-content" class="reader-article-body"></div>
+
+        <div class="reader-footer">
+            <button class="btn-back" onclick="closeReader()">
+                <i class="fas fa-arrow-left"></i> Kembali ke Informasi
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Data berita dari server
+    const infoData = @json($informasiList);
+
+    function openReader(id) {
+        const item = infoData.find(x => x.id === id);
+        if(!item) return;
+
+        // Handle gambar untuk reader
+        let imgSrc = 'https://via.placeholder.com/400x500?text=No+Image';
         
-        let imgSrc = '{{ asset("image/default.jpg") }}';
-        if (item.gambar) {
-            if (item.gambar.startsWith('data:image') || item.gambar.startsWith('http')) {
+        if (item.gambar && item.gambar.trim() !== '') {
+            if (item.gambar.length > 500 && !item.gambar.startsWith('http')) {
                 imgSrc = item.gambar;
-            } else {
-                imgSrc = item.gambar.includes('storage/') ? '{{ asset("") }}' + item.gambar : '{{ asset("storage") }}/' + item.gambar;
+            } else if (item.gambar.startsWith('http')) {
+                imgSrc = item.gambar;
+            } else if (item.gambar) {
+                imgSrc = '{{ asset("storage") }}/' + item.gambar;
             }
         }
-        
-        const tanggal = new Date(item.created_at);
-        const tanggalFormatted = tanggal.toLocaleDateString('id-ID', {
+
+        // Set content
+        document.getElementById('r-title').innerText = item.judul;
+        document.getElementById('r-content').innerHTML = item.konten;
+        document.getElementById('r-img').src = imgSrc;
+        document.getElementById('r-date').innerHTML = new Date(item.created_at).toLocaleDateString('id-ID', {
             day: 'numeric',
             month: 'long',
             year: 'numeric'
         });
-        
-        document.getElementById('viewImg').src = imgSrc;
-        document.getElementById('viewTitle').innerText = item.judul;
-        document.getElementById('viewDate').innerText = tanggalFormatted;
-        document.getElementById('viewViews').innerText = (item.views || 0).toLocaleString();
-        document.getElementById('viewContent').innerHTML = item.konten;
-        
-        gridSection.style.display = 'none';
-        heroSection.style.display = 'none';
-        
-        articleSection.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        document.getElementById('r-author').innerHTML = item.penulis || 'Admin GeoToba';
 
-        // Fitur Tambah Views dari Project Anda (Berjalan di Latar Belakang)
-        if (item.id) {
-            const csrfMeta = document.querySelector('meta[name="csrf-token"]');
-            const csrfToken = csrfMeta ? csrfMeta.getAttribute('content') : '{{ csrf_token() }}';
-            
-            fetch('{{ url("/informasi") }}/' + item.id + '/view', {
-                method: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken,
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success && data.views !== undefined) {
-                    document.getElementById('viewViews').innerText = data.views.toLocaleString();
-                }
-            })
-            .catch(err => {
-                console.warn('Gagal menambah views secara asinkron:', err);
-            });
+        // Aktifkan Reader
+        const reader = document.getElementById('fullReader');
+        reader.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        // Reset Scroll Progress
+        const progressBar = document.getElementById("myBar");
+        if (progressBar) {
+            progressBar.style.width = "0%";
         }
     }
-    
-    function hideArticle() {
-        articleSection.classList.remove('active');
-        
-        setTimeout(() => {
-            gridSection.style.display = 'block';
-            heroSection.style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 150);
+
+    function closeReader() {
+        const reader = document.getElementById('fullReader');
+        reader.classList.remove('active');
+        document.body.style.overflow = 'auto';
     }
+
+    // Progress Bar saat scroll
+    const readerElement = document.getElementById('fullReader');
+    if (readerElement) {
+        readerElement.onscroll = function() {
+            const winScroll = readerElement.scrollTop;
+            const height = readerElement.scrollHeight - readerElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById("myBar");
+            if (progressBar) {
+                progressBar.style.width = scrolled + "%";
+            }
+        };
+    }
+
+    // ESC key to close
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            const reader = document.getElementById('fullReader');
+            if (reader && reader.classList.contains('active')) {
+                closeReader();
+            }
+        }
+    });
 </script>
 
 @endsection
