@@ -22,7 +22,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('homepages', function (Blueprint $table) {
-            $table->dropColumn('button_link');
+            if (Schema::hasColumn('homepages', 'button_link') && \DB::getDriverName() === 'mysql') {
+                $table->dropColumn('button_link');
+            }
         });
     }
 };

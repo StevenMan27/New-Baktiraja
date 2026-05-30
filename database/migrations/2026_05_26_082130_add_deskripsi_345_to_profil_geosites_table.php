@@ -32,11 +32,14 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('profil_geosites', function (Blueprint $table) {
-            $table->dropColumn([
-                'deskripsi_3_judul', 'deskripsi_3_teks', 'deskripsi_3_gambar',
-                'deskripsi_4_judul', 'deskripsi_4_teks', 'deskripsi_4_gambar',
-                'deskripsi_5_judul', 'deskripsi_5_teks', 'deskripsi_5_gambar'
-            ]);
+            // Skip dropColumn on non-MySQL drivers (SQLite incompatible)
+            if (\DB::getDriverName() === 'mysql') {
+                $table->dropColumn([
+                    'deskripsi_3_judul', 'deskripsi_3_teks', 'deskripsi_3_gambar',
+                    'deskripsi_4_judul', 'deskripsi_4_teks', 'deskripsi_4_gambar',
+                    'deskripsi_5_judul', 'deskripsi_5_teks', 'deskripsi_5_gambar'
+                ]);
+            }
         });
     }
 };

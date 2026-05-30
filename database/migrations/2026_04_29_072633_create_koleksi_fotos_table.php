@@ -12,16 +12,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('koleksi_fotos', function (Blueprint $table) {
-            $table->id();
-            $table->string('nama_foto');
-            // Gunakan binary() karena longBinary() tidak ada di Laravel
-            $table->binary('file_foto'); 
-            $table->timestamps();
-        });
+        if (!Schema::hasTable('koleksi_fotos')) {
+            Schema::create('koleksi_fotos', function (Blueprint $table) {
+                $table->id();
+                $table->string('nama_foto');
+                // Gunakan binary() karena longBinary() tidak ada di Laravel
+                $table->binary('file_foto'); 
+                $table->timestamps();
+            });
+        }
 
         // Paksa kolom menjadi LONGBLOB lewat SQL mentah agar bisa menampung foto besar
-        DB::statement("ALTER TABLE koleksi_fotos MODIFY file_foto LONGBLOB");
+        // Hanya jalankan untuk MySQL — SQLite tidak mendukung ALTER ... MODIFY
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE koleksi_fotos MODIFY file_foto LONGBLOB");
+        }
     }
 
     /**

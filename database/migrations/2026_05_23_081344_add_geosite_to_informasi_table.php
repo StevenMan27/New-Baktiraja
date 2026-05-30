@@ -22,7 +22,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('informasi', function (Blueprint $table) {
-            $table->dropColumn('geosite');
+            if (Schema::hasColumn('informasi', 'geosite') && \DB::getDriverName() === 'mysql') {
+                $table->dropColumn('geosite');
+            }
         });
     }
 };

@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('galeris', function (Blueprint $table) {
-            $table->dropColumn('kategori');
+            // SQLite tidak mendukung dropColumn via ALTER TABLE — lewati jika bukan MySQL
+            if (Schema::hasColumn('galeris', 'kategori') && \DB::getDriverName() === 'mysql') {
+                $table->dropColumn('kategori');
+            }
         });
     }
 

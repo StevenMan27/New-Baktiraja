@@ -30,7 +30,10 @@ return new class extends Migration
         });
 
         // Tambahkan kolom gambar secara spesifik sebagai LONGBLOB
-        DB::statement("ALTER TABLE galeris ADD gambar LONGBLOB AFTER deskripsi");
+        // Hanya jalankan penambahan LONGBLOB untuk MySQL
+        if (DB::getDriverName() === 'mysql') {
+            DB::statement("ALTER TABLE galeris ADD gambar LONGBLOB AFTER deskripsi");
+        }
     }
 
     /**
