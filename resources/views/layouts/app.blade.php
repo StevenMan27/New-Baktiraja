@@ -71,8 +71,8 @@
         .logo-img {
             height: 44px;
             width: auto;
-            border-radius: 16px;
-            object-fit: cover;
+            border-radius: 0;
+            object-fit: contain;
             transition: all 0.3s ease;
             box-shadow: none;
             background: transparent;

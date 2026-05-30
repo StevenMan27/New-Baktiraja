@@ -506,26 +506,7 @@
             </div>
         </div>
 
-        <!-- ════════ 5. CTA ════════ -->
-        <div class="hp-section">
-            <div class="hp-section-header">
-                <div class="section-icon icon-cta"><i class="fas fa-bullhorn"></i></div>
-                <div>
-                    <h6>Call To Action (CTA)</h6>
-                    <p>Tombol ajakan di bagian bawah halaman</p>
-                </div>
-            </div>
-            <div class="hp-section-body">
-                <div style="margin-bottom:14px;">
-                    <label class="hp-label">Judul CTA</label>
-                    <input type="text" name="cta_title" class="hp-input" value="{{ old('cta_title', $homepage->cta_title ?? 'Mulai Petualangan Anda') }}">
-                </div>
-                <div>
-                    <label class="hp-label">Teks CTA</label>
-                    <textarea name="cta_text" class="hp-input" rows="2">{{ old('cta_text', $homepage->cta_text ?? 'Temukan keajaiban alam, sejarah perjuangan Sisingamangaraja, dan kearifan lokal Batak di kawasan Bakara · Tipang · Baktiraja.') }}</textarea>
-                </div>
-            </div>
-        </div>
+
 
         <!-- ════════ 6. 8 DESTINASI ════════ -->
         <div class="hp-section">

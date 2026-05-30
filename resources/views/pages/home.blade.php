@@ -247,90 +247,9 @@
         to { opacity: 1; transform: translateY(0); }
     }
     
-    .slider-dots {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 12px;
-        z-index: 15;
-    }
+
     
-    .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.5);
-        cursor: pointer;
-        transition: all 0.4s ease;
-        position: relative;
-    }
-    
-    .dot::after {
-        content: '';
-        position: absolute;
-        top: -5px;
-        left: -5px;
-        right: -5px;
-        bottom: -5px;
-        border-radius: 50%;
-        background: rgba(198, 164, 59, 0.3);
-        transform: scale(0);
-        transition: transform 0.3s ease;
-    }
-    
-    .dot:hover::after {
-        transform: scale(1);
-    }
-    
-    .dot.active {
-        background: #c6a43b;
-        width: 28px;
-        border-radius: 10px;
-    }
-    
-    .dot:hover {
-        background: #c6a43b;
-        transform: scale(1.2);
-    }
-    
-    .scroll-indicator {
-        position: absolute;
-        bottom: 30px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 15;
-        animation: bounce 2.5s infinite;
-        cursor: pointer;
-        color: white;
-        font-size: 0.65rem;
-        letter-spacing: 0.25em;
-        text-transform: uppercase;
-        opacity: 0.8;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-    }
-    
-    .scroll-indicator .line {
-        width: 1px;
-        height: 30px;
-        background: white;
-        margin-top: 5px;
-        transition: height 0.3s ease;
-    }
-    
-    .scroll-indicator:hover .line {
-        height: 40px;
-        background: #c6a43b;
-    }
-    
-    @keyframes bounce {
-        0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.8; }
-        50% { transform: translateX(-50%) translateY(-10px); opacity: 0.4; }
-    }
+
     
     /* ==================== SECTION UMUM ==================== */
     .section { padding: 90px 0; position: relative; overflow: hidden; }
@@ -919,119 +838,7 @@
         animation: pulse 2s infinite;
     }
     
-    /* ==================== CTA ==================== */
-    .cta-section {
-        background: linear-gradient(135deg, #003366 0%, #0a4a7a 50%, #005c8a 100%);
-        padding: 80px 0;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-    
-    .cta-section::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
-        animation: rotate 20s linear infinite;
-    }
-    
-    .cta-section::after {
-        content: '✦';
-        position: absolute;
-        font-size: 3rem;
-        color: rgba(255,255,255,0.05);
-        bottom: 20px;
-        right: 30px;
-        animation: float 3s ease-in-out infinite;
-    }
-    
-    @keyframes rotate {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-    }
-    
-    .cta-content { 
-        max-width: 600px; 
-        margin: 0 auto;
-        position: relative;
-        z-index: 2;
-    }
-    
-    .cta-content h3 {
-        font-size: 2rem;
-        font-family: 'Cormorant Garamond', serif;
-        font-weight: 500;
-        margin-bottom: 20px;
-        color: white;
-        animation: fadeInUp 0.8s ease;
-    }
-    
-    .cta-content .divider {
-        width: 50px;
-        height: 2px;
-        background: #c6a43b;
-        margin: 0 auto 25px;
-        transition: width 0.5s ease;
-    }
-    
-    .cta-content:hover .divider {
-        width: 100px;
-    }
-    
-    .cta-content p {
-        color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 35px;
-        font-size: 0.9rem;
-        line-height: 1.7;
-        animation: fadeInUp 0.8s ease 0.2s both;
-    }
-    
-    .cta-btn {
-        display: inline-block;
-        background: #c6a43b;
-        color: #003366;
-        padding: 14px 42px;
-        font-size: 0.75rem;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        text-decoration: none;
-        border-radius: 40px;
-        font-weight: 600;
-        position: relative;
-        overflow: hidden;
-        animation: fadeInUp 0.8s ease 0.4s both;
-    }
-    
-    .cta-btn::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255,255,255,0.5);
-        transform: translate(-50%, -50%);
-        transition: width 0.6s, height 0.6s;
-    }
-    
-    .cta-btn:hover::before {
-        width: 300px;
-        height: 300px;
-    }
-    
-    .cta-btn:hover {
-        background: white;
-        color: #003366;
-        transform: translateY(-5px) scale(1.05);
-        letter-spacing: 0.3em;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-    }
+
     
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 992px) {
@@ -1052,8 +859,7 @@
         .stats-grid { flex-direction: column; align-items: center; gap: 25px; }
         .stat-number { font-size: 2rem; }
         .about-content h3 { font-size: 1.6rem; }
-        .cta-content h3 { font-size: 1.6rem; }
-        .cta-btn { padding: 10px 28px; font-size: 0.65rem; }
+
         .maps-container iframe { height: 280px; }
         .maps-location-item { padding: 6px 18px; }
         .maps-location-item span { font-size: 0.7rem; }
@@ -1061,8 +867,7 @@
     @media (max-width: 480px) {
         .hero-title { font-size: 1.6rem; }
         .hero-subtitle { font-size: 0.5rem; letter-spacing: 0.15em; }
-        .dot { width: 8px; height: 8px; }
-        .dot.active { width: 20px; }
+
         .maps-container iframe { height: 220px; }
     }
 </style>
@@ -1078,14 +883,7 @@
         <div class="slide slide-6"></div>
     </div>
     
-    <div class="slider-dots">
-        <div class="dot active" data-slide="0"></div>
-        <div class="dot" data-slide="1"></div>
-        <div class="dot" data-slide="2"></div>
-        <div class="dot" data-slide="3"></div>
-        <div class="dot" data-slide="4"></div>
-        <div class="dot" data-slide="5"></div>
-    </div>
+
     
     <div class="hero-content">
         <div>
@@ -1096,10 +894,7 @@
         </div>
     </div>
     
-    <div class="scroll-indicator" onclick="document.getElementById('destinasi').scrollIntoView({behavior:'smooth'})">
-        <span>SCROLL</span>
-        <div class="line"></div>
-    </div>
+
 </section>
 
 <!-- ==================== STATISTICS ==================== -->
@@ -1229,17 +1024,7 @@
     </div>
 </section>
 
-<!-- ==================== CTA ==================== -->
-<section class="cta-section">
-    <div class="container">
-        <div class="cta-content" data-aos="fade-up" data-aos-duration="800">
-            <h3>{{ $homepage->cta_title ?? 'Mulai Petualangan Anda' }}</h3>
-            <div class="divider"></div>
-            <p>{{ $homepage->cta_text ?? 'Temukan keajaiban alam, sejarah perjuangan Sisingamangaraja, dan kearifan lokal Batak di kawasan Bakara · Tipang · Baktiraja.' }}</p>
-            <a href="#destinasi" class="cta-btn">Jelajahi Sekarang</a>
-        </div>
-    </div>
-</section>
+
 
 <script>
     // ==================== HERO SLIDER ====================
