@@ -52,8 +52,8 @@
                             <strong>{{ $item->judul }}</strong>
                             <br><small class="text-muted">{{ $item->created_at->format('d M Y') }}</small>
                         </td>
-                        
-                                                                        <td>
+                        <td>{{ ucwords(str_replace('-', ' ', $item->geosite)) ?? '-' }}</td>
+                        <td>
                             <div class="btn-group" role="group">
                                 <div class="action-buttons">
                                 <a href="{{ route('admin.informasi.edit', $item->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>

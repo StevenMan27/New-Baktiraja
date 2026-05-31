@@ -53,8 +53,7 @@
                         <td><strong>{{ $item->nama }}</strong></td>
                         <td>{{ $item->harga ?? '-' }}</td>
                         <td>{{ $item->kontak ?? '-' }}</td>
-                                                
-
+                        <td>{{ ucwords(str_replace('-', ' ', $item->geosite)) ?? '-' }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <div class="action-buttons">

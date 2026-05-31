@@ -23,7 +23,6 @@
                 <th width="50">No</th>
                 <th width="80">Gambar</th>
                 <th>Judul</th>
-                
                 <th>Aksi</th>
             </tr>
 
@@ -36,7 +35,6 @@
                          width="60">
                 </td>
                 <td>{{ $g->judul }}</td>
-                <td>{{ $g->kategori }}</td>
                 <td>
                     <div class="action-buttons">
                         <a href="{{ route('admin.galeri.edit', $g->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>
