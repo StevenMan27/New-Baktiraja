@@ -23,7 +23,7 @@ class PenginapanController extends Controller
 
     public function index()
     {
- geosite lalu urutan tampil
+        // Urutkan berdasarkan geosite
         $data = Penginapan::orderBy('geosite')->paginate(10);
         return view('admin.penginapan.index', compact('data'));
     }
