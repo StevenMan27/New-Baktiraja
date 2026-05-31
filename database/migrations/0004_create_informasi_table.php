@@ -8,21 +8,21 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('berita', function (Blueprint $table) {
+        // Tabel informasi — artikel informasi dengan geosite dan views
+        Schema::create('informasi', function (Blueprint $table) {
             $table->id();
             $table->string('judul', 255);
             $table->string('slug', 255)->unique();
             $table->longText('konten');
-            $table->longText('gambar')->nullable(); // base64
-            $table->string('penulis', 100)->nullable();
-            $table->integer('views')->default(0);
-            $table->boolean('status')->default(true);
+            $table->longText('gambar')->nullable(); // JSON array path gambar
+            $table->string('geosite')->nullable();
+            $table->unsignedBigInteger('views')->default(0);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('berita');
+        Schema::dropIfExists('informasi');
     }
 };

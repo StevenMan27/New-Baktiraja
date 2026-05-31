@@ -71,6 +71,17 @@ Route::post('/api/berita/{id}/view', function ($id) {
     ]);
 })->name('berita.view.increment');
 
+// API endpoint untuk increment views informasi via AJAX dari modal reader
+// Setiap kali modal informasi dibuka oleh pengunjung, endpoint ini dipanggil untuk menambah +1 pada kolom views
+Route::post('/api/informasi/{id}/view', function ($id) {
+    $informasi = App\Models\Informasi::findOrFail($id);
+    $informasi->increment('views');
+    return response()->json([
+        'success' => true,
+        'views'   => $informasi->views,
+    ]);
+})->name('informasi.view.increment');
+
 // UMKM Publik
 Route::get('/umkm', [HomeController::class, 'umkm'])->name('umkm');
 
