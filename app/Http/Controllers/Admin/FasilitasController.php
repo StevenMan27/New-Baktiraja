@@ -23,7 +23,7 @@ class FasilitasController extends Controller
 
     public function index()
     {
-        // Urutkan berdasarkan geosite lalu urutan tampil
+ geosite lalu urutan tampil
         $data = Fasilitas::orderBy('geosite')->paginate(10);
         return view('admin.fasilitas.index', compact('data'));
     }
@@ -50,9 +50,8 @@ class FasilitasController extends Controller
             'nama'      => $request->nama,
             'deskripsi' => $request->deskripsi,
             'harga'     => $request->harga,
-            'urutan'    => $request->urutan,
+
             'geosite'   => $request->geosite,
-            'status'    => $request->has('status') ? 1 : 0,
         ];
 
         // Simpan file gambar ke storage/app/public/fasilitas
@@ -92,9 +91,8 @@ class FasilitasController extends Controller
             'nama'      => $request->nama,
             'deskripsi' => $request->deskripsi,
             'harga'     => $request->harga,
-            'urutan'    => $request->urutan,
+
             'geosite'   => $request->geosite,
-            'status'    => $request->has('status') ? 1 : 0,
         ];
 
         // Ganti file gambar lama jika ada upload baru
@@ -146,6 +144,8 @@ class FasilitasController extends Controller
             ->with('success', 'Fasilitas berhasil dihapus!');
     }
 }
+
+
 
 
 

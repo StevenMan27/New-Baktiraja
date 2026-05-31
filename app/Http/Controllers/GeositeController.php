@@ -15,12 +15,12 @@ class GeositeController extends Controller
     {
         return [
             'profil' => \App\Models\ProfilGeosite::where('geosite', $slug)->first(),
-            'umkm' => Umkm::where('status', 1)->where('geosite', $slug)->get(),
-            'fasilitas' => Fasilitas::where('status', 1)->where('geosite', $slug)->get(),
-            'penginapan' => Penginapan::where('status', 1)->where('geosite', $slug)->get(),
-            'berita' => Berita::where('status', true)->where('geosite', $slug)->latest()->take(6)->get(),
-            'galeri' => Galeri::where('status', 1)->where('geosite', $slug)->latest()->get(),
-            'informasi_dinamis' => \App\Models\Informasi::where('status', 1)->where('geosite', $slug)->get(),
+            'umkm' => Umkm::where('geosite', $slug)->get(),
+            'fasilitas' => Fasilitas::where('geosite', $slug)->get(),
+            'penginapan' => Penginapan::where('geosite', $slug)->get(),
+            'berita' => Berita::where('geosite', $slug)->latest()->take(6)->get(),
+            'galeri' => Galeri::where('geosite', $slug)->latest()->get(),
+            'informasi_dinamis' => \App\Models\Informasi::where('geosite', $slug)->get(),
         ];
     }
 
@@ -78,5 +78,6 @@ class GeositeController extends Controller
         return view('geosite.aek-sipangolu', $this->getGeositeData('aek-sipangolu'));
     }
 }
+
 
 

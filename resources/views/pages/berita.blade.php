@@ -5,8 +5,32 @@
 @section('content')
 
 <style>
-    /* ========== STACKED SLIP CARDS STYLE - SAME AS GALERI ========== */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
+    /* ========== VARIABEL WARNA DAN FONT GLOBAL ========== */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+    :root {
+        --primary: #003366;
+        --primary-light: #1a4a7a;
+        --primary-dark: #001f3f;
+        --gold: #c6a43b;
+        --gold-light: #f1d26b;
+        --gold-dark: #967a28;
+        --text-dark: #0f172a;
+        --text-gray: #334155;
+        --text-light: #64748b;
+        --white: #ffffff;
+        --bg-light: #f8fafc;
+        --bg-gray: #f1f5f9;
+
+        /* Bayangan bertingkat */
+        --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+        --shadow-md: 0 10px 30px rgba(0,0,0,0.06);
+        --shadow-xl: 0 25px 50px -12px rgba(15, 23, 42, 0.15);
+
+        --radius-lg: 20px;
+        --radius-md: 14px;
+        --radius-sm: 8px;
+    }
 
     * {
         margin: 0;
@@ -16,12 +40,14 @@
 
     body {
         font-family: 'Inter', sans-serif;
-        background: #f0f2f5;
+        color: var(--text-dark);
+        background-color: var(--bg-light);
+        -webkit-font-smoothing: antialiased;
     }
 
-    /* HERO SECTION - SAME AS GALERI */
+    /* ========== HERO SECTION ========== */
     .news-hero {
-        background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
+        background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
         padding: 80px 0 50px;
         margin-top: 70px;
         text-align: center;
@@ -29,6 +55,7 @@
         overflow: hidden;
     }
 
+    /* Efek lingkaran cahaya berputar di latar belakang hero */
     .news-hero::before {
         content: '';
         position: absolute;
@@ -50,6 +77,21 @@
         z-index: 2;
     }
 
+    /* Badge kecil di atas judul hero */
+    .hero-badge {
+        display: inline-block;
+        background: rgba(198, 164, 59, 0.12);
+        border: 1px solid rgba(198, 164, 59, 0.3);
+        color: var(--gold-light);
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
     .news-hero h1 {
         font-size: 2.8rem;
         font-weight: 700;
@@ -66,7 +108,16 @@
         color: rgba(255,255,255,0.8);
     }
 
-    /* NEWS SECTION */
+    /* Garis emas kecil di bawah subjudul */
+    .hero-divider {
+        width: 50px;
+        height: 3px;
+        background: var(--gold);
+        margin: 20px auto 0;
+        border-radius: 4px;
+    }
+
+    /* ========== SECTION DAFTAR BERITA ========== */
     .news-section {
         padding: 60px 0 100px;
         background: linear-gradient(135deg, #f8fafc 0%, #eef2f8 100%);
@@ -79,7 +130,7 @@
         padding: 0 24px;
     }
 
-    /* STACK CONTAINER - SAME AS GALERI */
+    /* ========== SLIP CARD STYLE (KARTU BERITA TUMPUKAN) ========== */
     .stack-container {
         display: flex;
         flex-wrap: wrap;
@@ -89,7 +140,7 @@
         position: relative;
     }
 
-    /* SLIP CARD - SAME EXACT STYLE AS GALERI */
+    /* Kartu berita yang saling tumpang tindih seperti slip/struk */
     .slip-card {
         position: relative;
         width: 280px;
@@ -106,19 +157,19 @@
         margin-left: 0;
     }
 
-    /* Efek hover - card naik ke atas seperti slip */
+    /* Saat hover, kartu naik ke atas dan membesar sedikit */
     .slip-card:hover {
         transform: translateY(-20px) scale(1.02);
         z-index: 100;
         box-shadow: 0 25px 40px -10px rgba(0,0,0,0.25);
     }
 
-    /* Efek hover untuk card di sampingnya */
+    /* Kartu di sebelah kanan juga bergeser saat card kiri di-hover */
     .slip-card:hover ~ .slip-card {
         transform: translateX(20px);
     }
 
-    /* Container gambar - SAME AS GALERI */
+    /* Area gambar di bagian atas kartu */
     .slip-image {
         position: relative;
         width: 100%;
@@ -134,11 +185,12 @@
         transition: transform 0.5s ease;
     }
 
+    /* Gambar sedikit membesar saat card di-hover */
     .slip-card:hover .slip-image img {
         transform: scale(1.05);
     }
 
-    /* Overlay - SAME AS GALERI */
+    /* Lapisan gelap semi-transparan di atas gambar, muncul saat hover */
     .slip-overlay {
         position: absolute;
         bottom: 0;
@@ -154,6 +206,7 @@
         opacity: 1;
     }
 
+    /* Label kategori kecil berwarna emas */
     .slip-category {
         display: inline-block;
         background: #c6a43b;
@@ -174,7 +227,7 @@
         line-height: 1.3;
     }
 
-    /* Info Card - SAME AS GALERI */
+    /* Area informasi di bawah gambar */
     .slip-info {
         padding: 16px;
         background: white;
@@ -182,7 +235,7 @@
         border-top: 1px solid #f0f0f0;
     }
 
-    /* Decorative line seperti slip */
+    /* Garis emas di atas info card yang muncul saat hover */
     .slip-line {
         position: absolute;
         top: 0;
@@ -210,7 +263,7 @@
         overflow: hidden;
     }
 
-    /* News specific - excerpt preview */
+    /* Cuplikan isi berita singkat di bawah judul */
     .slip-excerpt {
         font-size: 0.7rem;
         color: #64748b;
@@ -222,12 +275,14 @@
         overflow: hidden;
     }
 
+    /* Tanggal publikasi berita */
     .slip-date {
         font-size: 0.7rem;
         color: #94a3b8;
         display: flex;
         align-items: center;
         gap: 5px;
+        margin-bottom: 4px;
     }
 
     .slip-date i {
@@ -235,18 +290,7 @@
         color: #c6a43b;
     }
 
-    /* Nomor slip seperti antrian - SAME AS GALERI */
-    .slip-number {
-        position: absolute;
-        bottom: 12px;
-        right: 16px;
-        font-size: 0.6rem;
-        color: #cbd5e1;
-        font-family: monospace;
-        letter-spacing: 1px;
-    }
-
-    /* Views counter */
+    /* Counter tampilan/views di sudut kiri bawah kartu */
     .slip-views {
         position: absolute;
         bottom: 12px;
@@ -263,7 +307,33 @@
         color: #c6a43b;
     }
 
-    /* MODAL READER - TETAP SAMA (FUNGSI BERITA) */
+    /* Nomor urut berita di sudut kanan bawah kartu */
+    .slip-number {
+        position: absolute;
+        bottom: 12px;
+        right: 16px;
+        font-size: 0.6rem;
+        color: #cbd5e1;
+        font-family: monospace;
+        letter-spacing: 1px;
+    }
+
+    /* ========== EMPTY STATE (Jika belum ada berita) ========== */
+    .empty-news {
+        text-align: center;
+        padding: 80px;
+        background: white;
+        border-radius: 16px;
+    }
+
+    .empty-news i {
+        font-size: 3rem;
+        color: #cbd5e1;
+        margin-bottom: 15px;
+    }
+
+    /* ========== FULL SCREEN MODAL READER ========== */
+    /* Modal membuka dari bawah layar ke atas */
     #fullReader {
         position: fixed;
         top: 100%;
@@ -282,67 +352,75 @@
         visibility: visible;
     }
 
+    /* Progress bar di bagian paling atas saat membaca */
     .progress-container {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
         height: 4px;
-        background: #eee;
+        background: rgba(0,0,0,0.01);
         z-index: 100;
     }
 
+    /* Garis berwarna emas yang menunjukkan seberapa jauh artikel sudah dibaca */
     .progress-bar {
         height: 4px;
-        background: #c6a43b;
+        background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
         width: 0%;
         transition: width 0.1s ease;
     }
 
+    /* Navigasi sticky di atas modal reader */
     .reader-nav {
         padding: 20px 5%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background: rgba(255,255,255,0.98);
-        backdrop-filter: blur(12px);
+        background: rgba(255,255,255,0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         position: sticky;
         top: 0;
         z-index: 99;
         border-bottom: 1px solid rgba(0,0,0,0.05);
     }
 
+    /* Logo GeoToba di navigasi modal */
     .reader-logo {
         font-family: 'Playfair Display', serif;
-        font-size: 1.2rem;
+        font-size: 1.35rem;
         font-weight: 700;
-        color: #003366;
+        color: var(--primary-dark);
     }
 
     .reader-logo span {
-        color: #c6a43b;
+        color: var(--gold);
     }
 
-    .btn-close-circle {
+    /* Tombol bulat untuk menutup modal reader */
+    .btn-close-reader {
         width: 42px;
         height: 42px;
         border-radius: 50%;
-        background: #f0f0f0;
+        background: var(--bg-gray);
         border: none;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
         transition: all 0.3s ease;
-        color: #1a1a1a;
+        color: var(--text-dark);
+        font-size: 0.85rem;
     }
 
-    .btn-close-circle:hover {
-        background: #c6a43b;
-        color: #003366;
+    .btn-close-reader:hover {
+        background: var(--primary-dark);
+        color: var(--white);
         transform: rotate(90deg);
     }
 
+    /* Area konten utama artikel di dalam modal */
     .reader-content-wrap {
         max-width: 850px;
         margin: 0 auto;
@@ -352,34 +430,53 @@
         transition: all 0.6s ease 0.2s;
     }
 
+    /* Konten artikel muncul dengan animasi fade-in dari bawah saat modal terbuka */
     #fullReader.active .reader-content-wrap {
         opacity: 1;
         transform: translateY(0);
     }
 
+    /* Area header artikel di dalam modal */
     .reader-header {
         text-align: center;
         margin-bottom: 40px;
     }
 
+    /* Label kategori artikel berwarna emas di bagian atas */
+    .reader-category {
+        display: inline-block;
+        background: rgba(198, 164, 59, 0.08);
+        color: var(--gold-dark);
+        padding: 5px 16px;
+        border-radius: 30px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+    }
+
+    /* Tanggal publikasi artikel di header modal */
     .reader-date {
         font-size: 12px;
         text-transform: uppercase;
         letter-spacing: 3px;
         color: #c6a43b;
-        display: inline-block;
-        margin-bottom: 15px;
+        display: block;
+        margin-bottom: 10px;
     }
 
+    /* Judul besar artikel di dalam modal reader */
     .reader-title-display {
         font-family: 'Playfair Display', serif;
         font-size: 2.5rem;
         line-height: 1.25;
-        color: #1a1a1a;
-        margin: 20px 0;
+        color: var(--primary-dark);
+        margin: 16px 0 20px;
         font-weight: 700;
     }
 
+    /* Garis pembatas kecil berwarna emas di antara judul dan meta info */
     .reader-divider {
         width: 50px;
         height: 2px;
@@ -387,15 +484,26 @@
         margin: 20px auto;
     }
 
-    .reader-author {
-        font-size: 13px;
-        color: #999;
+    /* Baris informasi meta: penulis, tanggal, jumlah pembaca */
+    .reader-meta {
         display: flex;
-        align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 24px;
+        font-size: 0.82rem;
+        color: var(--text-light);
+        flex-wrap: wrap;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--bg-gray);
+        margin-bottom: 10px;
     }
 
+    .reader-meta span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* Gambar utama artikel dengan sudut melengkung dan bayangan */
     .reader-hero-img {
         width: 100%;
         height: auto;
@@ -406,27 +514,73 @@
         box-shadow: 0 16px 40px rgba(0,0,0,0.12);
     }
 
+    /* Area isi teks artikel */
     .reader-article-body {
-        font-size: 16px;
+        font-family: 'Inter', sans-serif;
+        font-size: 1rem;
         line-height: 1.9;
         color: #2c3e50;
         text-align: left;
-        font-family: 'Inter', sans-serif;
     }
 
     .reader-article-body p {
-        margin-bottom: 25px;
+        margin-bottom: 1.4rem;
+        text-align: justify;
     }
 
+    /* Judul di dalam teks artikel yang berasal dari editor admin */
+    .reader-article-body h1,
+    .reader-article-body h2,
+    .reader-article-body h3,
+    .reader-article-body h4 {
+        color: var(--primary-dark);
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        line-height: 1.35;
+        margin: 1.8rem 0 0.8rem;
+    }
+
+    .reader-article-body h2 {
+        font-size: 1.5rem;
+        border-left: 3px solid var(--gold);
+        padding-left: 12px;
+    }
+
+    /* Gambar di dalam teks artikel menyesuaikan lebar kontainer */
+    .reader-article-body img {
+        max-width: 100%;
+        height: auto;
+        border-radius: var(--radius-sm);
+        margin: 20px auto;
+        display: block;
+    }
+
+    /* Kutipan teks dalam artikel */
+    .reader-article-body blockquote {
+        border-left: 3px solid var(--gold);
+        padding: 16px 24px;
+        margin: 30px 0;
+        background: var(--bg-light);
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        font-style: italic;
+        color: var(--primary-light);
+        font-family: 'Playfair Display', serif;
+    }
+
+    /* Footer di dalam modal reader berisi tombol kembali dan bagikan */
     .reader-footer {
         margin: 60px 0 0;
         text-align: center;
         border-top: 1px solid #eee;
         padding-top: 40px;
+        display: flex;
+        justify-content: center;
+        gap: 15px;
     }
 
-    .btn-back {
-        background: #003366;
+    /* Tombol kembali ke daftar berita */
+    .btn-back-reader {
+        background: var(--primary-dark);
         color: white;
         padding: 12px 32px;
         border-radius: 40px;
@@ -435,35 +589,42 @@
         letter-spacing: 1px;
         cursor: pointer;
         transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     }
 
-    .btn-back:hover {
-        background: #c6a43b;
-        color: #003366;
+    .btn-back-reader:hover {
+        background: var(--gold-dark);
         transform: translateY(-3px);
     }
 
-    .empty-news {
-        text-align: center;
-        padding: 80px;
-        background: white;
-        border-radius: 16px;
+    /* Tombol bagikan artikel */
+    .btn-share-reader {
+        background: transparent;
+        color: var(--primary-dark);
+        padding: 12px 32px;
+        border-radius: 40px;
+        border: 1px solid rgba(0, 31, 63, 0.15);
+        font-size: 12px;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     }
 
-    .empty-news i {
-        font-size: 3rem;
-        color: #cbd5e1;
-        margin-bottom: 15px;
+    .btn-share-reader:hover {
+        background: var(--bg-light);
+        border-color: var(--primary-dark);
+        transform: translateY(-3px);
     }
 
-    /* RESPONSIVE - SAME AS GALERI */
+    /* ========== RESPONSIVE DESIGN ========== */
     @media (max-width: 1200px) {
-        .slip-card {
-            width: 240px;
-        }
-        .slip-image {
-            height: 280px;
-        }
+        .slip-card { width: 240px; }
+        .slip-image { height: 280px; }
     }
 
     @media (max-width: 992px) {
@@ -472,77 +633,61 @@
             flex-wrap: wrap;
             gap: 20px;
         }
-        .slip-card {
-            margin-left: 0 !important;
-            width: 260px;
-        }
-        .slip-card:hover ~ .slip-card {
-            transform: none;
-        }
-        .slip-card:hover {
-            transform: translateY(-10px);
-        }
+        .slip-card { margin-left: 0 !important; width: 260px; }
+        .slip-card:hover ~ .slip-card { transform: none; }
+        .slip-card:hover { transform: translateY(-10px); }
     }
 
     @media (max-width: 768px) {
-        .slip-card {
-            width: calc(50% - 8px);
-        }
-        .slip-image {
-            height: 260px;
-        }
-        .news-hero h1 {
-            font-size: 2rem;
-        }
-        .reader-title-display {
-            font-size: 1.6rem;
-        }
-        .reader-content-wrap {
-            padding: 20px;
-        }
+        .slip-card { width: calc(50% - 8px); }
+        .slip-image { height: 260px; }
+        .news-hero h1 { font-size: 2rem; }
+        .reader-title-display { font-size: 1.6rem; }
+        .reader-content-wrap { padding: 20px; }
+        .reader-meta { gap: 14px; }
     }
 
     @media (max-width: 560px) {
-        .slip-card {
-            width: 100%;
-        }
-        .slip-image {
-            height: 280px;
-        }
+        .slip-card { width: 100%; }
+        .slip-image { height: 280px; }
     }
 </style>
 
-<!-- HERO SECTION - SAME AS GALERI -->
+{{-- ========== HERO SECTION ========== --}}
 <div class="news-hero">
     <div class="news-hero-content">
-        <h1>BERITA TERKINI</h1>
-        <p>Discover Geosite Toba</p>
+        <div class="hero-badge">UPDATE TERBARU</div>
+        <h1>Berita Terkini</h1>
+        <p>Informasi & Perkembangan Terbaru Geopark Danau Toba</p>
+        <div class="hero-divider"></div>
     </div>
 </div>
 
-<!-- STACKED SLIP CARDS SECTION - SAME VISUAL AS GALERI -->
+{{-- ========== SECTION DAFTAR KARTU BERITA ========== --}}
 <section class="news-section">
     <div class="container">
         <div class="stack-container">
             @php $counter = 1; @endphp
             @forelse($berita as $item)
                 @php
+                    // Menentukan sumber gambar berita: base64, URL eksternal, atau dari storage lokal
                     $imageSrc = \App\Helpers\ImageHelper::getFirstImage($item->gambar);
                     if (!$imageSrc) {
-                        $imageSrc = 'https://via.placeholder.com/400x500?text=No+Image';
+                        $imageSrc = asset('image/default.jpg');
                     }
-                    
-                    // Excerpt untuk preview
+
+                    // Membuat cuplikan teks pendek dari isi konten untuk pratinjau di kartu
                     $excerpt = strip_tags($item->konten);
-                    $excerpt = Str::limit($excerpt, 80);
+                    $excerpt = \Illuminate\Support\Str::limit($excerpt, 80);
                 @endphp
-                
+
+                {{-- Setiap kartu berita, saat diklik akan memanggil fungsi openReader --}}
                 <div class="slip-card" onclick="openReader({{ $item->id }})">
                     <div class="slip-image">
-                        <img src="{{ $imageSrc }}" 
-                             alt="{{ $item->judul }}" 
-                             loading="lazy" 
-                             onerror="this.onerror=null;this.src='https://via.placeholder.com/400x500?text=No+Image'">
+                        <img src="{{ $imageSrc }}"
+                             alt="{{ $item->judul }}"
+                             loading="lazy"
+                             onerror="this.onerror=null;this.src='{{ asset('image/default.jpg') }}'">
                         <div class="slip-overlay">
                             <span class="slip-category">BERITA</span>
                             <div class="slip-title-overlay">{{ Str::limit($item->judul, 35) }}</div>
@@ -556,9 +701,10 @@
                             <i class="fas fa-calendar-alt"></i>
                             <span>{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d M Y') }}</span>
                         </div>
-                        <div class="slip-views">
+                        {{-- Counter views ditampilkan dan akan diperbarui secara langsung setelah modal dibuka --}}
+                        <div class="slip-views" id="views-{{ $item->id }}">
                             <i class="fas fa-eye"></i>
-                            <span>{{ $item->views ?? 0 }}</span>
+                            <span>{{ number_format($item->views ?? 0) }}</span>
                         </div>
                         <div class="slip-number">#{{ str_pad($counter, 3, '0', STR_PAD_LEFT) }}</div>
                     </div>
@@ -572,120 +718,200 @@
                 </div>
             @endforelse
         </div>
+
+        @if(method_exists($berita, 'links'))
+        <div style="display:flex;justify-content:center;margin-top:40px;">
+            {{ $berita->links() }}
+        </div>
+        @endif
     </div>
 </section>
 
-<!-- READER MODAL - FUNGSI BERITA TETAP -->
+{{-- ========== MODAL READER PREMIUM (TAMPILAN DETAIL BERITA) ========== --}}
 <div id="fullReader">
+    {{-- Progress bar menunjukkan seberapa jauh artikel sudah digulir --}}
     <div class="progress-container">
         <div class="progress-bar" id="myBar"></div>
     </div>
-    
+
+    {{-- Navigasi sticky di atas modal dengan logo dan tombol tutup --}}
     <div class="reader-nav">
         <div class="reader-logo">Geo<span>Toba</span></div>
-        <button class="btn-close-circle" onclick="closeReader()">
+        <button class="btn-close-reader" onclick="closeReader()" title="Tutup artikel">
             <i class="fas fa-times"></i>
         </button>
     </div>
 
     <div class="reader-content-wrap">
+        {{-- Header artikel: kategori, tanggal, judul, garis, dan meta info --}}
         <div class="reader-header">
+            <span class="reader-category">BERITA</span>
             <span class="reader-date" id="r-date"></span>
             <h1 id="r-title" class="reader-title-display"></h1>
             <div class="reader-divider"></div>
-            <div class="reader-author">
-                <i class="far fa-user"></i>
-                <span id="r-author">Admin GeoToba</span>
-            </div>
+            {{-- Baris meta berisi penulis, tanggal, dan jumlah pembaca --}}
+            <div class="reader-meta" id="r-meta"></div>
         </div>
 
+        {{-- Gambar utama artikel --}}
         <img id="r-img" src="" class="reader-hero-img" alt="">
 
+        {{-- Isi konten artikel lengkap yang diambil dari database --}}
         <div id="r-content" class="reader-article-body"></div>
 
+        {{-- Footer modal berisi tombol kembali dan tombol bagikan --}}
         <div class="reader-footer">
-            <button class="btn-back" onclick="closeReader()">
+            <button class="btn-back-reader" onclick="closeReader()">
                 <i class="fas fa-arrow-left"></i> Kembali ke Berita
+            </button>
+            <button class="btn-share-reader" onclick="bagikanBerita()">
+                <i class="fas fa-share-alt"></i> Bagikan Artikel
             </button>
         </div>
     </div>
 </div>
 
 <script>
-    // Data berita dari server
+    // Menyimpan seluruh data berita dari server ke variabel JavaScript
+    // sehingga modal bisa diisi konten tanpa perlu reload halaman
     const newsData = @json($berita->items());
 
-    function openReader(id) {
+    /**
+     * Fungsi openReader: membuka modal reader dan menampilkan detail berita
+     * yang dipilih berdasarkan id, sekaligus mengirim permintaan ke server
+     * untuk menambah jumlah pembaca (views) secara real-time via AJAX.
+     */
+    async function openReader(id) {
+        // Cari data berita yang sesuai dengan id yang diklik
         const item = newsData.find(x => x.id === id);
-        if(!item) return;
+        if (!item) return;
 
-        // Handle gambar untuk reader
-        let imgSrc = 'https://via.placeholder.com/400x500?text=No+Image';
-        
+        // Menentukan sumber gambar berdasarkan format penyimpanannya
+        let imgSrc = '{{ asset("image/default.jpg") }}';
         if (item.gambar && item.gambar.trim() !== '') {
-            if (item.gambar.length > 500 && !item.gambar.startsWith('http')) {
+            if (item.gambar.startsWith('data:image') || item.gambar.startsWith('http')) {
                 imgSrc = item.gambar;
-            } else if (item.gambar.startsWith('http')) {
-                imgSrc = item.gambar;
-            } else if (item.gambar) {
+            } else {
+                // Gambar yang disimpan di storage lokal Laravel
                 imgSrc = '{{ asset("storage") }}/' + item.gambar;
             }
         }
 
-        // Set content
-        document.getElementById('r-title').innerText = item.judul;
-        document.getElementById('r-content').innerHTML = item.konten;
-        document.getElementById('r-img').src = imgSrc;
-        document.getElementById('r-date').innerHTML = new Date(item.created_at).toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
+        // Memformat tanggal ke format Indonesia, contoh: 15 Januari 2025
+        const tgl = new Date(item.created_at);
+        const tanggalFormatted = tgl.toLocaleDateString('id-ID', {
+            day: 'numeric', month: 'long', year: 'numeric'
         });
-        document.getElementById('r-author').innerHTML = item.penulis || 'Admin GeoToba';
 
-        // Aktifkan Reader
+        // Mengisi seluruh elemen HTML di dalam modal dengan data artikel
+        document.getElementById('r-title').innerText   = item.judul;
+        document.getElementById('r-content').innerHTML = item.konten;
+        document.getElementById('r-img').src           = imgSrc;
+        document.getElementById('r-date').innerText    = tanggalFormatted;
+
+        // Mengisi baris meta informasi artikel (penulis, tanggal, views sementara)
+        document.getElementById('r-meta').innerHTML = `
+            <span><i class="far fa-calendar"></i> ${tanggalFormatted}</span>
+            <span><i class="far fa-user"></i> ${item.penulis || 'Admin GeoToba'}</span>
+            <span><i class="far fa-eye"></i> <span id="modalViews">${(item.views || 0).toLocaleString()}</span> dibaca</span>
+        `;
+
+        // Mengaktifkan modal dan mengunci scroll halaman utama
         const reader = document.getElementById('fullReader');
         reader.classList.add('active');
         document.body.style.overflow = 'hidden';
 
-        // Reset Scroll Progress
-        const progressBar = document.getElementById("myBar");
-        if (progressBar) {
-            progressBar.style.width = "0%";
+        // Mengatur ulang posisi scroll dan progress bar ke posisi awal
+        reader.scrollTop = 0;
+        document.getElementById('myBar').style.width = '0%';
+
+        // Mengirim permintaan POST ke server untuk menambah +1 pada jumlah pembaca
+        // Counter di kartu berita dan di dalam modal akan diperbarui secara langsung
+        try {
+            const response = await fetch('/api/berita/' + id + '/view', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
+            const data = await response.json();
+
+            if (data.success) {
+                // Memperbarui tampilan counter di kartu berita pada halaman list
+                const viewsEl = document.getElementById('views-' + id);
+                if (viewsEl) {
+                    viewsEl.innerHTML = `<i class="fas fa-eye"></i> <span>${data.views.toLocaleString()}</span>`;
+                }
+                // Memperbarui tampilan counter di dalam modal reader
+                const modalViews = document.getElementById('modalViews');
+                if (modalViews) {
+                    modalViews.innerText = data.views.toLocaleString();
+                }
+            }
+        } catch (err) {
+            // Jika terjadi kesalahan jaringan, modal tetap terbuka namun counter tidak diperbarui
+            console.error('Gagal memperbarui jumlah pembaca:', err);
         }
-        
-        // Increment views via AJAX
-        fetch(`/api/berita/${id}/view`, { 
-            method: 'POST', 
-            headers: { 
-                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                'Content-Type': 'application/json'
-            } 
-        }).catch(err => console.log('View increment error:', err));
     }
 
+    /**
+     * Fungsi closeReader: menutup modal reader dan mengembalikan
+     * kemampuan scroll pada halaman utama.
+     */
     function closeReader() {
         const reader = document.getElementById('fullReader');
         reader.classList.remove('active');
         document.body.style.overflow = 'auto';
     }
 
-    // Progress Bar saat scroll
-    const readerElement = document.getElementById('fullReader');
-    if (readerElement) {
-        readerElement.onscroll = function() {
-            const winScroll = readerElement.scrollTop;
-            const height = readerElement.scrollHeight - readerElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            const progressBar = document.getElementById("myBar");
-            if (progressBar) {
-                progressBar.style.width = scrolled + "%";
-            }
-        };
+    /**
+     * Fungsi bagikanBerita: membagikan tautan artikel menggunakan
+     * Web Share API jika tersedia di browser, atau menyalin tautan
+     * ke clipboard sebagai alternatif.
+     */
+    function bagikanBerita() {
+        const title = document.getElementById('r-title').innerText;
+        const url   = window.location.href;
+
+        if (navigator.share) {
+            navigator.share({
+                title: title,
+                text: 'Baca berita menarik seputar GeoToba terbaru ini:',
+                url: url
+            }).catch(err => console.log('Share dibatalkan oleh pengguna'));
+        } else {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('Tautan berita berhasil disalin ke clipboard!');
+            }).catch(() => {
+                alert('Salin tautan berikut: ' + url);
+            });
+        }
     }
 
-    // ESC key to close
-    document.addEventListener('keydown', function(e) {
+    /**
+     * Listener scroll pada modal reader untuk memperbarui progress bar
+     * secara real-time sesuai posisi guliran artikel yang sedang dibaca.
+     */
+    const readerElement = document.getElementById('fullReader');
+    if (readerElement) {
+        readerElement.addEventListener('scroll', function () {
+            const winScroll  = readerElement.scrollTop;
+            const height     = readerElement.scrollHeight - readerElement.clientHeight;
+            const scrolled   = height > 0 ? (winScroll / height) * 100 : 0;
+            const progressBar = document.getElementById('myBar');
+            if (progressBar) {
+                progressBar.style.width = scrolled + '%';
+            }
+        });
+    }
+
+    /**
+     * Listener keyboard untuk menutup modal reader saat tombol ESC ditekan,
+     * memberikan kemudahan navigasi bagi pengguna.
+     */
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             const reader = document.getElementById('fullReader');
             if (reader && reader.classList.contains('active')) {
@@ -693,6 +919,12 @@
             }
         }
     });
+</script>
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true, offset: 60, easing: 'ease-out-quad' });
 </script>
 
 @endsection

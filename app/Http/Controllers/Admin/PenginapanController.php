@@ -23,7 +23,7 @@ class PenginapanController extends Controller
 
     public function index()
     {
-        // Urutkan berdasarkan geosite lalu urutan tampil
+ geosite lalu urutan tampil
         $data = Penginapan::orderBy('geosite')->paginate(10);
         return view('admin.penginapan.index', compact('data'));
     }
@@ -52,9 +52,8 @@ class PenginapanController extends Controller
             'deskripsi' => $request->deskripsi,
             'harga'     => $request->harga,
             'kontak'    => $request->kontak,
-            'urutan'    => $request->urutan,
+
             'geosite'   => $request->geosite,
-            'status'    => $request->has('status') ? 1 : 0,
         ];
 
         // Simpan file gambar ke storage/app/public/penginapan
@@ -96,9 +95,8 @@ class PenginapanController extends Controller
             'deskripsi' => $request->deskripsi,
             'harga'     => $request->harga,
             'kontak'    => $request->kontak,
-            'urutan'    => $request->urutan,
+
             'geosite'   => $request->geosite,
-            'status'    => $request->has('status') ? 1 : 0,
         ];
 
         // Ganti file gambar lama jika ada upload baru
@@ -150,6 +148,8 @@ class PenginapanController extends Controller
             ->with('success', 'Penginapan berhasil dihapus!');
     }
 }
+
+
 
 
 

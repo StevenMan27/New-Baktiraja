@@ -19,7 +19,7 @@ class HomepageController extends Controller
         if ($homepage->destinasis()->count() < 8) {
             $currentCount = $homepage->destinasis()->count();
             for ($i = $currentCount + 1; $i <= 8; $i++) {
-                $homepage->destinasis()->create(['urutan' => $i]);
+                $homepage->destinasis()->create([]);
             }
         }
         
@@ -98,5 +98,7 @@ class HomepageController extends Controller
         return redirect()->back()->with('success', 'Konfigurasi Homepage berhasil diperbarui.');
     }
 }
+
+
 
 

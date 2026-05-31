@@ -33,7 +33,6 @@ class BeritaController extends Controller
             'judul' => $request->judul,
             'konten' => $request->konten,
             'penulis' => $request->penulis ?? 'Admin',
-            'status' => $request->has('status') ? 1 : 0
         ];
 
         if ($request->hasFile('gambar')) {
@@ -71,7 +70,6 @@ class BeritaController extends Controller
             'judul' => $request->judul,
             'konten' => $request->konten,
             'penulis' => $request->penulis ?? 'Admin',
-            'status' => $request->has('status') ? 1 : 0
         ];
 
         if ($request->hasFile('gambar')) {
@@ -97,4 +95,5 @@ class BeritaController extends Controller
             ->with('success', 'Berita berhasil dihapus!');
     }
 }
+
 

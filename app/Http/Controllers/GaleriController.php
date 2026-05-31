@@ -11,8 +11,7 @@ class GaleriController extends Controller
     public function index()
     {
         // Ambil semua data galeri yang status aktif
-        $allGaleri = Galeri::where('status', true)
-            ->orderBy('created_at', 'desc')
+        $allGaleri = Galeri::orderBy('created_at', 'desc')
             ->get();
 
         // Kelompokkan secara dinamis berdasarkan kolom geosite di DB
@@ -47,4 +46,5 @@ class GaleriController extends Controller
         return redirect()->back()->with('success', 'Foto Berhasil Ditambahkan!');
     }
 }
+
 

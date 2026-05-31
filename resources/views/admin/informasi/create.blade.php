@@ -125,12 +125,7 @@
                     @enderror
                 </div>
                 
-                <div class="col-12 mb-3">
-                    <div class="form-check">
-                            <i class="fas fa-check-circle text-success me-1"></i> Aktifkan
-                        </label>
-                    </div>
-                </div>
+
             </div>
             
             <div class="d-flex gap-2">

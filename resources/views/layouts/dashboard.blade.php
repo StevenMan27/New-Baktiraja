@@ -36,15 +36,14 @@
             <h5>Berita Terbaru</h5>
             <table class="table">
                 <thead>
-                    <tr><th>Judul</th><th>Tanggal</th><th>Status</th><th></th></tr>
+                    <tr><th>Judul</th><th>Tanggal</th><th></th></tr>
                 </thead>
                 <tbody>
-                    @foreach(\App\Models\Berita::latest()->limit(5)->get() as $item)
+                    @foreach(\App\Models\Berita::latest()->take(5)->get() as $item)
                     <tr>
-                        <td>{{ Str::limit($item->judul, 40) }}</td>
-                        <td>{{ $item->tanggal_terbit->format('d/m/Y') }}</td>
-                        <td>@if($item->status)<span class="badge bg-success">Publish</span>@else<span class="badge bg-danger">Draft</span>@endif</td>
-                        <td><a href="{{ route('admin.berita.edit', $item->id) }}" class="btn btn-sm btn-warning">Edit</a></td>
+                        <td>{{ \Illuminate\Support\Str::limit($item->judul, 40) }}</td>
+                        <td>{{ $item->created_at->format('d M Y') }}</td>
+                        <td><a href="{{ route('admin.berita.edit', $item->id) }}" class="btn btn-sm btn-light"><i class="fas fa-edit"></i></a></td>
                     </tr>
                     @endforeach
                 </tbody>

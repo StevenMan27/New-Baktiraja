@@ -3,6 +3,10 @@
 @section('title', 'Data Galeri')
 
 @section('content')
+<style>
+    .card-header .btn-primary { background-color: #0b5ed7 !important; border-color: #0a58ca !important; }
+    .card-header .btn-primary:hover { background-color: #094eb3 !important; border-color: #084298 !important; }
+</style>
 <div class="card">
     <div class="card-header d-flex justify-content-between">
         <h5>Data Galeri</h5>
@@ -16,8 +20,8 @@
 
         <table class="table table-bordered">
             <tr>
-                <th>No</th>
-                <th>Gambar</th>
+                <th width="50">No</th>
+                <th width="80">Gambar</th>
                 <th>Judul</th>
                 
                 <th>Aksi</th>
@@ -49,5 +53,6 @@
     </div>
 </div>
 @endsection 
+
 
 

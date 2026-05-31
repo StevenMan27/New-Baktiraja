@@ -49,16 +49,27 @@ Route::get('/galeri/{slug}', function ($slug) {
 
 // Berita Publik
 Route::get('/berita', function () {
-    $berita = App\Models\Berita::where('status', true)->latest()->paginate(9);
+    $berita = App\Models\Berita::latest()->paginate(9);
     return view('pages.berita', compact('berita'));
 })->name('berita');
 
-// Detail Berita
+// Detail Berita (route ini hanya dipakai jika user langsung akses URL, bukan via modal)
 Route::get('/berita/{slug}', function ($slug) {
-    $berita = App\Models\Berita::where('slug', $slug)->where('status', true)->firstOrFail();
+    $berita = App\Models\Berita::where('slug', $slug)->firstOrFail();
     $berita->increment('views');
     return view('pages.berita-detail', compact('berita'));
 })->name('berita.detail');
+
+// API endpoint untuk increment views berita via AJAX dari modal reader
+// Setiap kali modal berita dibuka oleh pengunjung, endpoint ini dipanggil untuk menambah +1 pada kolom views
+Route::post('/api/berita/{id}/view', function ($id) {
+    $berita = App\Models\Berita::findOrFail($id);
+    $berita->increment('views');
+    return response()->json([
+        'success' => true,
+        'views'   => $berita->views,
+    ]);
+})->name('berita.view.increment');
 
 // UMKM Publik
 Route::get('/umkm', [HomeController::class, 'umkm'])->name('umkm');

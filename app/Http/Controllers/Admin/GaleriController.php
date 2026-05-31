@@ -55,7 +55,6 @@ class GaleriController extends Controller
             'lokasi' => $request->lokasi,
             'tanggal_foto' => $request->tanggal_foto,
             'geosite' => $request->geosite,
-            'status' => $request->has('status') ? 1 : 0
         ]);
 
         return redirect()->route('admin.galeri.index')
@@ -89,7 +88,6 @@ class GaleriController extends Controller
             'lokasi' => $request->lokasi,
             'tanggal_foto' => $request->tanggal_foto,
             'geosite' => $request->geosite,
-            'status' => $request->has('status') ? 1 : 0
         ];
 
         if ($request->hasFile('gambar')) {
@@ -136,5 +134,7 @@ class GaleriController extends Controller
 
     
 }
+
+
 
 

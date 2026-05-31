@@ -56,8 +56,7 @@ class HomeController extends Controller
         ];
         
         // Galeri untuk CRUD (6 foto terbaru) - Tetap sama, hanya konten fotonya yang diganti
-        $galeri = Galeri::where('status', 1)
-            ->orderBy('created_at', 'desc')
+        $galeri = Galeri::orderBy('created_at', 'desc')
             ->take(6)
             ->get();
             
@@ -67,4 +66,5 @@ class HomeController extends Controller
         return view('pages.home', compact('slide1', 'slide2', 'slide3', 'slide4', 'slide5', 'aboutImage', 'destinasi', 'galeri', 'homepage'));
     }
 }
+
 

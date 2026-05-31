@@ -3,14 +3,17 @@
 @section('title', 'Manajemen Berita')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="mb-0">📰 Daftar Berita</h5>
-    <a href="{{ route('admin.berita.create') }}" class="btn btn-primary">
-        <i class="fas fa-plus"></i> Tambah Berita
-    </a>
-</div>
-
+<style>
+    .card-header .btn-primary { background-color: #0b5ed7 !important; border-color: #0a58ca !important; }
+    .card-header .btn-primary:hover { background-color: #094eb3 !important; border-color: #084298 !important; }
+</style>
 <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">📰 Daftar Berita</h5>
+        <a href="{{ route('admin.berita.create') }}" class="btn btn-primary" style="background-color: #0d47a1; border-color: #0d47a1;">
+            <i class="fas fa-plus"></i> Tambah Berita
+        </a>
+    </div>
     <div class="card-body">
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -19,8 +22,8 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>No</th>
-                    <th>Gambar</th>
+                    <th width="50">No</th>
+                    <th width="80">Gambar</th>
                     <th>Judul</th>
                     <th width="120">Lokasi Geosite</th>
                     <th>Penulis</th>
@@ -34,7 +37,7 @@
                     <td>
                         @php $imgs = json_decode($item->gambar, true); $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $item->gambar; @endphp
                         @if($firstImg)
-                            <img src="{{ str_starts_with($firstImg, 'data:') ? $firstImg : asset('storage/' . $firstImg) }}" width="50" height="50" style="object-fit: cover;">
+                            <img src="{{ str_starts_with($firstImg, 'data:') ? $firstImg : asset('storage/' . $firstImg) }}" width="50" height="50" style="object-fit: cover; border-radius: 8px;">
                         @else
                             <span class="text-muted">-</span>
                         @endif
@@ -61,5 +64,6 @@
     </div>
 </div>
 @endsection
+
 
 

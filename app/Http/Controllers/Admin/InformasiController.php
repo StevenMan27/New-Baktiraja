@@ -38,8 +38,7 @@ class InformasiController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
-            'gambar' => 'nullable|array|max:10',
-            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             // Penjelasan: Validasi 'urutan' telah dihapus dari sini
             'geosite' => 'required|string',
         ]);
@@ -47,10 +46,8 @@ class InformasiController extends Controller
         $data = [
             'judul' => $request->judul,
             'konten' => $request->konten,
-            // Penjelasan: 'urutan' di-set secara otomatis menggunakan nilai max dari database agar tidak menyebabkan error di level database
-            'urutan' => Informasi::max('urutan') + 1,
+
             'geosite' => $request->geosite,
-            'status' => $request->has('status') ? 1 : 0
         ];
 
         if ($request->hasFile('gambar')) {
@@ -78,8 +75,7 @@ class InformasiController extends Controller
         $request->validate([
             'judul' => 'required|string|max:255',
             'konten' => 'required|string',
-            'gambar' => 'nullable|array|max:10',
-            'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
+            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             // Penjelasan: Validasi 'urutan' telah dihapus untuk form edit
             'geosite' => 'required|string',
         ]);
@@ -89,7 +85,6 @@ class InformasiController extends Controller
             'konten' => $request->konten,
             // Penjelasan: 'urutan' tidak lagi di-update dari form
             'geosite' => $request->geosite,
-            'status' => $request->has('status') ? 1 : 0
         ];
 
         if ($request->hasFile('gambar')) {
@@ -136,6 +131,8 @@ class InformasiController extends Controller
 
     
 }
+
+
 
 
 

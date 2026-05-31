@@ -3,14 +3,17 @@
 @section('title', 'Manajemen Penginapan')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h5 class="mb-0">🏨 Penginapan Geosite</h5>
-    <a href="{{ route('admin.penginapan.create') }}" class="btn btn-primary">
-        <i class="fas fa-plus"></i> Tambah Penginapan
-    </a>
-</div>
-
+<style>
+    .card-header .btn-primary { background-color: #0b5ed7 !important; border-color: #0a58ca !important; }
+    .card-header .btn-primary:hover { background-color: #094eb3 !important; border-color: #084298 !important; }
+</style>
 <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">🏨 Penginapan Geosite</h5>
+        <a href="{{ route('admin.penginapan.create') }}" class="btn btn-primary" style="background-color: #0d47a1; border-color: #0d47a1;">
+            <i class="fas fa-plus"></i> Tambah Penginapan
+        </a>
+    </div>
     <div class="card-body">
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -83,5 +86,6 @@
     </div>
 </div>
 @endsection
+
 
 

@@ -23,7 +23,7 @@ class UmkmController extends Controller
 
     public function index()
     {
-        // Urutkan berdasarkan geosite lalu urutan tampil
+ geosite lalu urutan tampil
         $data = Umkm::orderBy('geosite')->paginate(10);
         return view('admin.umkm.index', compact('data'));
     }
@@ -52,9 +52,8 @@ class UmkmController extends Controller
             'deskripsi' => $request->deskripsi,
             'lokasi'    => $request->lokasi,
             'kontak'    => $request->kontak,
-            'urutan'    => $request->urutan,
+
             'geosite'   => $request->geosite,
-            'status'    => $request->has('status') ? 1 : 0,
         ];
 
         // Simpan file gambar ke storage/app/public/umkm
@@ -96,9 +95,8 @@ class UmkmController extends Controller
             'deskripsi' => $request->deskripsi,
             'lokasi'    => $request->lokasi,
             'kontak'    => $request->kontak,
-            'urutan'    => $request->urutan,
+
             'geosite'   => $request->geosite,
-            'status'    => $request->has('status') ? 1 : 0,
         ];
 
         // Ganti file gambar lama jika ada upload baru
@@ -150,6 +148,8 @@ class UmkmController extends Controller
             ->with('success', 'UMKM berhasil dihapus!');
     }
 }
+
+
 
 
 

@@ -60,8 +60,13 @@ class AuthController extends Controller
     // Kirim OTP ke email
     public function sendOtp(Request $request)
     {
+        // Validasi input email dengan pesan yang mudah dipahami
         $request->validate([
-            'email' => 'required|email|exists:users,email'
+            'email' => 'required|email|exists:users,email',
+        ], [
+            'email.required' => 'Alamat email tidak boleh kosong.',
+            'email.email'    => 'Format email tidak valid. Contoh yang benar: nama@gmail.com',
+            'email.exists'   => 'Email yang Anda masukkan tidak terdaftar. Periksa kembali alamat email Anda.',
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -109,8 +114,13 @@ class AuthController extends Controller
     // Proses verifikasi OTP
     public function verifyOtp(Request $request)
     {
+        // Validasi kode OTP harus 6 digit angka dengan pesan yang jelas
         $request->validate([
-            'otp' => 'required|numeric|digits:6'
+            'otp' => 'required|numeric|digits:6',
+        ], [
+            'otp.required' => 'Kode OTP tidak boleh kosong. Silakan masukkan kode yang dikirim ke email Anda.',
+            'otp.numeric'  => 'Kode OTP hanya boleh berisi angka.',
+            'otp.digits'   => 'Kode OTP harus terdiri dari 6 angka.',
         ]);
 
         $email = session('otp_email');
@@ -153,8 +163,15 @@ class AuthController extends Controller
     // Proses reset password
     public function resetPassword(Request $request)
     {
+        // Validasi password baru harus minimal 6 karakter dan sama dengan konfirmasi password
         $request->validate([
-            'password' => 'required|min:6|confirmed',
+            'password'              => 'required|min:6|confirmed',
+            'password_confirmation' => 'required',
+        ], [
+            'password.required'              => 'Password baru tidak boleh kosong.',
+            'password.min'                   => 'Password terlalu pendek. Minimal harus 6 karakter.',
+            'password.confirmed'             => 'Password baru dan konfirmasi password tidak sama. Ketik ulang kedua password dengan benar.',
+            'password_confirmation.required' => 'Konfirmasi password tidak boleh kosong.',
         ]);
         
         $email = session('otp_email');

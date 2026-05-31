@@ -48,7 +48,6 @@ class BeritaController extends Controller
             'konten' => $request->konten,
             'penulis' => $request->penulis ?? 'Admin',
             'geosite' => $request->geosite,
-            'status' => $request->has('status') ? 1 : 0
         ];
 
         if ($request->hasFile('gambar')) {
@@ -87,7 +86,6 @@ class BeritaController extends Controller
             'konten' => $request->konten,
             'penulis' => $request->penulis ?? 'Admin',
             'geosite' => $request->geosite,
-            'status' => $request->has('status') ? 1 : 0
         ];
 
         if ($request->hasFile('gambar')) {
@@ -134,5 +132,7 @@ class BeritaController extends Controller
 
     
 }
+
+
 
 

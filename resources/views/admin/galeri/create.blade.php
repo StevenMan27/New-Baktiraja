@@ -132,14 +132,7 @@
                     @enderror
                 </div>
                 
-                <div class="col-md-6 mb-3">
-                    <div class="form-check mt-4">
-                            <i class="fas fa-check-circle text-success me-1"></i> Aktifkan
-                        </label>
-                        <br>
-                        <small class="text-muted">Jika diaktifkan, galeri akan ditampilkan di halaman publik</small>
-                    </div>
-                </div>
+
             </div>
             
             <div class="d-flex gap-2">
