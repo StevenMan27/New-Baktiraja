@@ -479,7 +479,11 @@
                     </div>
                 @endif
 
-                <!-- ALERT DANGER - Ditampilkan saat ada error validasi seperti email tidak terdaftar -->
+                <!-- ALERT DANGER - Ditampilkan saat ada error validasi dari server maupun dari validasi JavaScript di sisi browser -->
+                <div class="alert-danger" id="clientErrorBox" style="display:none;">
+                    <i class="fas fa-circle-exclamation"></i>
+                    <span id="clientErrorMsg"></span>
+                </div>
                 @if($errors->any())
                     <div class="alert-danger">
                         <i class="fas fa-circle-exclamation"></i>
@@ -496,7 +500,8 @@
                 </div>
 
                 <!-- FORM KIRIM OTP - Form POST ke route send-otp Laravel dengan CSRF token -->
-                <form method="POST" action="{{ route('password.send-otp') }}">
+                <!-- novalidate menonaktifkan validasi HTML bawaan browser agar validasi ditangani sepenuhnya oleh JavaScript -->
+                <form method="POST" action="{{ route('password.send-otp') }}" id="forgotForm" novalidate>
                     @csrf
 
                     <!-- FIELD EMAIL - Input email dengan ikon amplop di dalam input sebagai petunjuk visual tipe field -->
@@ -505,12 +510,12 @@
                         <div class="input-wrapper">
                             <i class="fas fa-envelope input-icon"></i>
                             <input
-                                type="email"
+                                type="text"
                                 name="email"
+                                id="emailInput"
                                 class="form-control"
                                 placeholder="contoh@email.com"
                                 value="{{ old('email') }}"
-                                required
                                 autofocus
                             >
                         </div>
@@ -522,6 +527,45 @@
                         Kirim Kode OTP
                     </button>
                 </form>
+
+                <script>
+                    // Fungsi untuk menampilkan pesan error di kotak merah yang sudah ada di halaman
+                    function tampilkanError(pesan) {
+                        const box = document.getElementById('clientErrorBox');
+                        const msg = document.getElementById('clientErrorMsg');
+                        msg.innerText = pesan;
+                        box.style.display = 'flex';
+                        // Scroll ke atas agar kotak merah terlihat oleh pengguna
+                        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    }
+
+                    // Fungsi untuk menyembunyikan kotak error saat pengguna mulai mengetik
+                    function sembunyikanError() {
+                        document.getElementById('clientErrorBox').style.display = 'none';
+                    }
+
+                    // Saat pengguna mengetik di input email, sembunyikan pesan error
+                    document.getElementById('emailInput').addEventListener('input', sembunyikanError);
+
+                    // Mencegat submit form dan melakukan validasi manual sebelum form dikirim ke server
+                    document.getElementById('forgotForm').addEventListener('submit', function(e) {
+                        const emailVal = document.getElementById('emailInput').value.trim();
+                        // Pola regex standar untuk memvalidasi format email yang mengandung @ dan domain
+                        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+                        if (emailVal === '') {
+                            e.preventDefault();
+                            tampilkanError('Alamat email tidak boleh kosong.');
+                            return;
+                        }
+
+                        if (!emailRegex.test(emailVal)) {
+                            e.preventDefault();
+                            tampilkanError('Format email tidak valid. Pastikan email Anda mengandung tanda @ dan domain. Contoh: nama@gmail.com');
+                            return;
+                        }
+                    });
+                </script>
 
                 <!-- BACK LINK - Link untuk kembali ke halaman login jika user ingat password -->
                 <div class="back-link">

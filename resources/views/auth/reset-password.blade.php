@@ -487,7 +487,11 @@
                     </div>
                 </div>
 
-                <!-- ALERT DANGER - Ditampilkan saat ada error validasi seperti password tidak cocok atau terlalu pendek -->
+                <!-- ALERT DANGER - Ditampilkan saat ada error dari server maupun dari validasi JavaScript di sisi browser -->
+                <div class="alert-danger" id="clientErrorBox" style="display:none;">
+                    <i class="fas fa-circle-exclamation"></i>
+                    <span id="clientErrorMsg"></span>
+                </div>
                 @if($errors->any())
                     <div class="alert-danger">
                         <i class="fas fa-circle-exclamation"></i>
@@ -495,8 +499,8 @@
                     </div>
                 @endif
 
-                <!-- FORM RESET PASSWORD - Form POST ke route password.update Laravel dengan CSRF token -->
-                <form method="POST" action="{{ route('password.update') }}">
+                <!-- FORM RESET PASSWORD - novalidate menonaktifkan validasi bawaan browser, validasi sepenuhnya ditangani oleh JavaScript sebelum form dikirim ke server -->
+                <form method="POST" action="{{ route('password.update') }}" id="resetForm" novalidate>
                     @csrf
 
                     <!-- FIELD PASSWORD BARU - Input password dengan ikon gembok, tombol toggle show/hide, bar kekuatan, dan petunjuk syarat -->
@@ -525,23 +529,17 @@
                         </div>
                         <div class="strength-text" id="strengthText"></div>
 
-                        <!-- STRENGTH HINTS - Kotak daftar syarat password yang berubah hijau saat setiap syarat terpenuhi -->
+                        <!-- STRENGTH HINTS - Daftar syarat password yang wajib dipenuhi, berubah hijau saat syarat terpenuhi -->
                         <div class="strength-hints">
                             <p><i class="fas fa-list-check"></i> Syarat password kuat:</p>
                             <div class="hint-item" id="hint-length">
                                 <i class="fas fa-circle"></i> Minimal 6 karakter
-                            </div>
-                            <div class="hint-item" id="hint-long">
-                                <i class="fas fa-circle"></i> Lebih baik 10+ karakter
                             </div>
                             <div class="hint-item" id="hint-upper">
                                 <i class="fas fa-circle"></i> Mengandung huruf kapital (A-Z)
                             </div>
                             <div class="hint-item" id="hint-number">
                                 <i class="fas fa-circle"></i> Mengandung angka (0-9)
-                            </div>
-                            <div class="hint-item" id="hint-special">
-                                <i class="fas fa-circle"></i> Mengandung karakter spesial (!@#$%)
                             </div>
                         </div>
                     </div>
@@ -603,24 +601,23 @@
         icon.className = isHidden ? 'fas fa-eye-slash' : 'fas fa-eye';
     });
 
-    // Password strength meter - Mengevaluasi kekuatan password secara real-time berdasarkan panjang, huruf kapital, angka, dan karakter spesial, lalu memperbarui bar, teks level, dan status setiap hint
+    // Password strength meter - Mengevaluasi kekuatan password secara real-time berdasarkan panjang, huruf kapital, dan angka
     document.getElementById('pwNew').addEventListener('input', function () {
         const val  = this.value;
         const fill = document.getElementById('strengthFill');
         const text = document.getElementById('strengthText');
 
-        // Evaluasi setiap syarat - Mengecek apakah password memenuhi masing-masing kriteria secara terpisah
+        // Evaluasi setiap syarat wajib - Mengecek apakah password memenuhi tiga kriteria yang tersisa
         const checks = {
-            length:  val.length >= 6,
-            long:    val.length >= 10,
-            upper:   /[A-Z]/.test(val),
-            number:  /[0-9]/.test(val),
-            special: /[^A-Za-z0-9]/.test(val),
+            length: val.length >= 6,
+            upper:  /[A-Z]/.test(val),
+            number: /[0-9]/.test(val),
         };
 
         // Update hint items - Menambahkan atau menghapus class 'met' dan mengganti ikon pada setiap baris syarat sesuai hasil evaluasi
         Object.keys(checks).forEach(key => {
             const el   = document.getElementById('hint-' + key);
+            if (!el) return;
             const icon = el.querySelector('i');
             if (checks[key]) {
                 el.classList.add('met');
@@ -631,30 +628,31 @@
             }
         });
 
-        // Hitung skor kekuatan - Menjumlahkan berapa banyak syarat yang terpenuhi untuk menentukan level password
+        // Hitung skor kekuatan berdasarkan tiga syarat yang tersisa
         const strength = Object.values(checks).filter(Boolean).length;
 
-        // Konfigurasi tampilan per level - Setiap level memiliki warna dan label yang berbeda untuk memberi umpan balik visual yang jelas
+        // Konfigurasi tampilan per level - Setiap level memiliki warna dan label berbeda
         const config = [
             { color: '',        label: '' },
             { color: '#ef4444', label: 'Sangat Lemah' },
             { color: '#f97316', label: 'Lemah' },
-            { color: '#eab308', label: 'Cukup' },
             { color: '#22c55e', label: 'Kuat' },
-            { color: '#003366', label: 'Sangat Kuat' },
         ];
 
-        // Perbarui tampilan bar dan teks - Mengubah lebar bar sebanding dengan skor, warna sesuai level, dan teks label kekuatan
-        fill.style.width      = val.length ? (strength * 20) + '%' : '0';
+        // Perbarui tampilan bar dan teks sesuai skor kekuatan
+        fill.style.width      = val.length ? (strength * 33.3) + '%' : '0';
         fill.style.background = config[strength]?.color || '';
         text.textContent      = val.length ? config[strength]?.label || '' : '';
         text.style.color      = config[strength]?.color || '#94a3b8';
 
-        // Trigger cek kesesuaian - Memperbarui indikator match saat password baru berubah agar konfirmasi selalu tersinkron
+        // Trigger cek kesesuaian - Memperbarui indikator match saat password baru berubah
         document.getElementById('pwConfirm').dispatchEvent(new Event('input'));
+
+        // Sembunyikan kotak error saat pengguna mengetik ulang
+        document.getElementById('clientErrorBox').style.display = 'none';
     });
 
-    // Match checker - Membandingkan nilai password baru dan konfirmasi setiap kali field konfirmasi berubah, lalu menampilkan ikon dan teks yang sesuai
+    // Match checker - Membandingkan nilai password baru dan konfirmasi setiap kali field konfirmasi berubah
     document.getElementById('pwConfirm').addEventListener('input', function () {
         const pw1   = document.getElementById('pwNew').value;
         const match = this.value === pw1;
@@ -665,11 +663,71 @@
             return;
         }
 
-        // Tampilkan hasil match - Ikon centang hijau dan teks "cocok" jika sesuai, ikon silang merah dan teks "tidak cocok" jika berbeda
+        // Tampilkan hasil match - Ikon centang hijau jika cocok, ikon silang merah jika berbeda
         if (match) {
             el.innerHTML = '<i class="fas fa-circle-check" style="color:#16a34a;"></i> <span style="color:#16a34a;">Password cocok</span>';
         } else {
             el.innerHTML = '<i class="fas fa-circle-xmark" style="color:#dc2626;"></i> <span style="color:#dc2626;">Password tidak cocok</span>';
+        }
+
+        // Sembunyikan kotak error saat pengguna mengetik ulang konfirmasi
+        document.getElementById('clientErrorBox').style.display = 'none';
+    });
+
+    // Fungsi untuk menampilkan pesan error di kotak merah dan scroll ke posisi kotak tersebut
+    function tampilkanErrorPassword(pesan) {
+        const box = document.getElementById('clientErrorBox');
+        const msg = document.getElementById('clientErrorMsg');
+        msg.innerText = pesan;
+        box.style.display = 'flex';
+        box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Validasi saat form disubmit - Mencegat pengiriman form dan memeriksa semua syarat sebelum data dikirim ke server
+    document.getElementById('resetForm').addEventListener('submit', function (e) {
+        const pw      = document.getElementById('pwNew').value;
+        const confirm = document.getElementById('pwConfirm').value;
+
+        // Cek apakah password kosong
+        if (pw === '') {
+            e.preventDefault();
+            tampilkanErrorPassword('Password baru tidak boleh kosong.');
+            return;
+        }
+
+        // Cek minimal 6 karakter
+        if (pw.length < 6) {
+            e.preventDefault();
+            tampilkanErrorPassword('Password tidak memenuhi persyaratan: minimal harus 6 karakter.');
+            return;
+        }
+
+        // Cek harus mengandung huruf kapital A-Z
+        if (!/[A-Z]/.test(pw)) {
+            e.preventDefault();
+            tampilkanErrorPassword('Password tidak memenuhi persyaratan: harus mengandung minimal satu huruf kapital (A-Z).');
+            return;
+        }
+
+        // Cek harus mengandung angka 0-9
+        if (!/[0-9]/.test(pw)) {
+            e.preventDefault();
+            tampilkanErrorPassword('Password tidak memenuhi persyaratan: harus mengandung minimal satu angka (0-9).');
+            return;
+        }
+
+        // Cek konfirmasi password kosong
+        if (confirm === '') {
+            e.preventDefault();
+            tampilkanErrorPassword('Konfirmasi password tidak boleh kosong.');
+            return;
+        }
+
+        // Cek apakah password baru dan konfirmasi password sama
+        if (pw !== confirm) {
+            e.preventDefault();
+            tampilkanErrorPassword('Password baru dan konfirmasi password tidak sama. Ketik ulang kedua password dengan benar.');
+            return;
         }
     });
 </script>
