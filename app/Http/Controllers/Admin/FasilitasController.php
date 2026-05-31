@@ -24,7 +24,7 @@ class FasilitasController extends Controller
     public function index()
     {
         // Urutkan berdasarkan geosite lalu urutan tampil
-        $data = Fasilitas::orderBy('geosite')->orderBy('urutan')->paginate(10);
+        $data = Fasilitas::orderBy('geosite')->paginate(10);
         return view('admin.fasilitas.index', compact('data'));
     }
 
@@ -42,10 +42,8 @@ class FasilitasController extends Controller
             'deskripsi' => 'required|string',
             // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
             'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-            'urutan'    => 'required|integer',
-            'harga'     => 'nullable|string|max:100',
+'harga'     => 'nullable|string|max:100',
             'geosite'   => 'required|string',
-            'status'    => 'nullable|boolean',
         ]);
 
         $data = [
@@ -86,10 +84,8 @@ class FasilitasController extends Controller
             'deskripsi' => 'required|string',
             // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
             'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-            'urutan'    => 'required|integer',
-            'harga'     => 'nullable|string|max:100',
+'harga'     => 'nullable|string|max:100',
             'geosite'   => 'required|string',
-            'status'    => 'nullable|boolean',
         ]);
 
         $input = [
@@ -150,3 +146,6 @@ class FasilitasController extends Controller
             ->with('success', 'Fasilitas berhasil dihapus!');
     }
 }
+
+
+

@@ -84,10 +84,7 @@
                 <input type="text" name="harga" class="form-control" placeholder="Contoh: Gratis / Rp 50.000">
             </div>
             
-            <div class="mb-3">
-                <label>Urutan</label>
-                <input type="number" name="urutan" class="form-control" required>
-            </div>
+
             
             <div class="mb-3">
                 <label>Gambar</label>
@@ -100,10 +97,7 @@
 </div>
             </div>
             
-            <div class="mb-3">
-                <input type="checkbox" name="status" value="1" checked> Aktifkan
-            </div>
-            
+                        
             <div class="d-flex gap-2">
                 <button type="submit" class="btn-submit">
                     <i class="fas fa-save"></i> Simpan
@@ -141,3 +135,6 @@
 </script>
 
 @endsection
+
+
+

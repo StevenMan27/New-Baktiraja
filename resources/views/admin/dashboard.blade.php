@@ -45,8 +45,7 @@
                     <th>Nama</th>
                     <th>Lokasi</th>
                     <th>Kontak</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                                        <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,8 +56,7 @@
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->lokasi ?? '-' }}</td>
                     <td>{{ $item->kontak ?? '-' }}</td>
-                    <td><span class="badge {{ $item->status ? 'badge-success' : 'badge-danger' }}">{{ $item->status ? 'Aktif' : 'Tidak' }}</span></td>
-                    <td>
+                                        <td>
                         <div class="action-buttons">
                             <a href="{{ route('admin.umkm.edit', $item->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>
                             <form action="{{ route('admin.umkm.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus UMKM {{ $item->nama }}?')">
@@ -90,8 +88,7 @@
                     <th>No</th>
                     <th>Nama</th>
                     <th>Harga</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                                        <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -101,8 +98,7 @@
                     <td>{{ $key + 1 }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->harga ?? 'Gratis' }}</td>
-                    <td><span class="badge {{ $item->status ? 'badge-success' : 'badge-danger' }}">{{ $item->status ? 'Aktif' : 'Tidak' }}</span></td>
-                    <td>
+                                        <td>
                         <div class="action-buttons">
                             <a href="{{ route('admin.fasilitas.edit', $item->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>
                             <form action="{{ route('admin.fasilitas.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus fasilitas {{ $item->nama }}?')">
@@ -135,8 +131,7 @@
                     <th>Nama</th>
                     <th>Harga</th>
                     <th>Kontak</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                                        <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -147,8 +142,7 @@
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->harga ?? '-' }}</td>
                     <td>{{ $item->kontak ?? '-' }}</td>
-                    <td><span class="badge {{ $item->status ? 'badge-success' : 'badge-danger' }}">{{ $item->status ? 'Aktif' : 'Tidak' }}</span></td>
-                    <td>
+                                        <td>
                         <div class="action-buttons">
                             <a href="{{ route('admin.penginapan.edit', $item->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>
                             <form action="{{ route('admin.penginapan.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus penginapan {{ $item->nama }}?')">
@@ -177,3 +171,5 @@
     <a href="{{ route('admin.penginapan.create') }}" class="btn-primary"><i class="fas fa-plus-circle"></i> Penginapan</a>
 </div>
 @endsection 
+
+

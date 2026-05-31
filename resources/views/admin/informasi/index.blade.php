@@ -28,8 +28,7 @@
                         <th>Judul</th>
                         
                         <th width="120">Lokasi Geosite</th>
-                        <th width="80">Status</th>
-                        <th width="120">Aksi</th>
+                                                <th width="120">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,13 +50,7 @@
                             <br><small class="text-muted">{{ $item->created_at->format('d M Y') }}</small>
                         </td>
                         
-                        <td><span class="badge bg-info text-dark">{{ ucwords(str_replace('-', ' ', $item->geosite)) }}</span></td>
-                        <td>
-                            <span class="badge {{ $item->status ? 'bg-success' : 'bg-danger' }}">
-                                {{ $item->status ? 'Aktif' : 'Tidak Aktif' }}
-                            </span>
-                        </td>
-                        <td>
+                                                                        <td>
                             <div class="btn-group" role="group">
                                 <div class="action-buttons">
                                 <a href="{{ route('admin.informasi.edit', $item->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>
@@ -88,3 +81,5 @@
     </div>
 </div>
 @endsection
+
+

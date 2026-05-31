@@ -111,7 +111,6 @@
             </div>
             
             <div class="mb-3">
-                <input type="checkbox" name="status" value="1" {{ $data->status ? 'checked' : '' }}> Aktifkan
             </div>
             
             <div class="d-flex gap-2">
@@ -151,3 +150,6 @@
 </script>
 
 @endsection
+
+
+

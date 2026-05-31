@@ -127,9 +127,6 @@
                 
                 <div class="col-12 mb-3">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="status" value="1" 
-                               id="statusCheck" {{ old('status') ? 'checked' : 'checked' }}>
-                        <label class="form-check-label" for="statusCheck">
                             <i class="fas fa-check-circle text-success me-1"></i> Aktifkan
                         </label>
                     </div>
@@ -173,3 +170,6 @@
 </script>
 
 @endsection
+
+
+

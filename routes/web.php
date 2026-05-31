@@ -134,7 +134,4 @@ Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('profil/{geosite}/edit', [\App\Http\Controllers\Admin\ProfilGeositeController::class, 'edit'])->name('admin.profil.edit');
     Route::put('profil/{geosite}', [\App\Http\Controllers\Admin\ProfilGeositeController::class, 'update'])->name('admin.profil.update');
     
-    Route::post('galeri/toggle-status/{id}', [GaleriController::class, 'toggleStatus'])->name('admin.galeri.toggle-status');
-    Route::post('berita/toggle-status/{id}', [BeritaController::class, 'toggleStatus'])->name('admin.berita.toggle-status');
-    Route::post('informasi/toggle-status/{id}', [InformasiController::class, 'toggleStatus'])->name('admin.informasi.toggle-status');
 });

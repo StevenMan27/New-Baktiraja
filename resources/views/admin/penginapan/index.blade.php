@@ -30,8 +30,7 @@
                         <th>Kontak</th>
                         <th width="120">Lokasi Geosite</th>
                         
-                        <th width="80">Status</th>
-                        <th width="150">Aksi</th>
+                                                <th width="150">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,15 +50,8 @@
                         <td><strong>{{ $item->nama }}</strong></td>
                         <td>{{ $item->harga ?? '-' }}</td>
                         <td>{{ $item->kontak ?? '-' }}</td>
-                        <td><span class="badge bg-info text-dark">{{ ucwords(str_replace('-', ' ', $item->geosite)) }}</span></td>
-                        
-                        <td>
-                            @if($item->status)
-                                <span class="badge bg-success">Aktif</span>
-                            @else
-                                <span class="badge bg-danger">Tidak</span>
-                            @endif
-                        </td>
+                                                
+
                         <td>
                             <div class="btn-group" role="group">
                                 <div class="action-buttons">
@@ -91,3 +83,5 @@
     </div>
 </div>
 @endsection
+
+

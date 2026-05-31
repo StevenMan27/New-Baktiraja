@@ -590,3 +590,5 @@ document.querySelectorAll('.image-input').forEach(input => {
 </script>
 
 @endsection
+
+

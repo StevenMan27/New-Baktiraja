@@ -527,16 +527,8 @@
             @php $counter = 1; @endphp
             @forelse($informasiList as $item)
                 @php
-                    // Handle gambar sama seperti galeri
-                    if (!empty($item->gambar)) {
-                        if (strlen($item->gambar) > 500 && !filter_var($item->gambar, FILTER_VALIDATE_URL)) {
-                            $imageSrc = $item->gambar;
-                        } elseif (filter_var($item->gambar, FILTER_VALIDATE_URL)) {
-                            $imageSrc = $item->gambar;
-                        } else {
-                            $imageSrc = asset('storage/' . $item->gambar);
-                        }
-                    } else {
+                    $imageSrc = \App\Helpers\ImageHelper::getFirstImage($item->gambar);
+                    if (!$imageSrc) {
                         $imageSrc = 'https://via.placeholder.com/400x500?text=No+Image';
                     }
                     

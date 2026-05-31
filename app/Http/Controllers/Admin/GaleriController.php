@@ -42,7 +42,6 @@ class GaleriController extends Controller
             'lokasi' => 'nullable|string',
             'tanggal_foto' => 'nullable|date',
             'geosite' => 'required|string',
-            'status' => 'nullable|boolean'
         ]);
 
         // Penjelasan: Menyimpan sebagai single file.
@@ -82,7 +81,6 @@ class GaleriController extends Controller
             'lokasi' => 'nullable|string',
             'tanggal_foto' => 'nullable|date',
             'geosite' => 'required|string',
-            'status' => 'nullable|boolean'
         ]);
 
         $data = [
@@ -136,12 +134,7 @@ class GaleriController extends Controller
             ->with('success', 'Galeri berhasil dihapus!');
     }
 
-    public function toggleStatus($id)
-    {
-        $galeri = Galeri::findOrFail($id);
-        $galeri->status = !$galeri->status;
-        $galeri->save();
-
-        return response()->json(['success' => true, 'status' => $galeri->status]);
-    }
+    
 }
+
+

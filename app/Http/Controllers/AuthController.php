@@ -175,3 +175,4 @@ class AuthController extends Controller
             ->with('success', 'Password berhasil direset! Silakan login dengan password baru Anda.');
     }
 }
+

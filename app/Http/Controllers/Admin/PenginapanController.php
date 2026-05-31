@@ -24,7 +24,7 @@ class PenginapanController extends Controller
     public function index()
     {
         // Urutkan berdasarkan geosite lalu urutan tampil
-        $data = Penginapan::orderBy('geosite')->orderBy('urutan')->paginate(10);
+        $data = Penginapan::orderBy('geosite')->paginate(10);
         return view('admin.penginapan.index', compact('data'));
     }
 
@@ -42,11 +42,9 @@ class PenginapanController extends Controller
             'deskripsi' => 'required|string',
             // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
             'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-            'urutan'    => 'required|integer',
-            'harga'     => 'nullable|string|max:100',
+'harga'     => 'nullable|string|max:100',
             'kontak'    => 'nullable|string|max:255',
             'geosite'   => 'required|string',
-            'status'    => 'nullable|boolean',
         ]);
 
         $data = [
@@ -88,11 +86,9 @@ class PenginapanController extends Controller
             'deskripsi' => 'required|string',
             // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
             'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-            'urutan'    => 'required|integer',
-            'harga'     => 'nullable|string|max:100',
+'harga'     => 'nullable|string|max:100',
             'kontak'    => 'nullable|string|max:255',
             'geosite'   => 'required|string',
-            'status'    => 'nullable|boolean',
         ]);
 
         $input = [
@@ -154,3 +150,6 @@ class PenginapanController extends Controller
             ->with('success', 'Penginapan berhasil dihapus!');
     }
 }
+
+
+

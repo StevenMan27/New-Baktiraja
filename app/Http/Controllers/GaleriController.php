@@ -15,8 +15,8 @@ class GaleriController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        // Kelompokkan secara dinamis berdasarkan kolom kategori di DB
-        $galeriByKategori = $allGaleri->groupBy('kategori');
+        // Kelompokkan secara dinamis berdasarkan kolom geosite di DB
+        $galeriByKategori = $allGaleri->groupBy('geosite');
 
         return view('pages.galeri', compact('galeriByKategori'));
     }
@@ -40,7 +40,6 @@ class GaleriController extends Controller
                 'kategori' => $request->kategori,
                 'deskripsi' => $request->deskripsi,
                 'gambar' => $imageData, // Simpan biner asli
-                'status' => true,
                 'tanggal_foto' => now(),
             ]);
         }
@@ -48,3 +47,4 @@ class GaleriController extends Controller
         return redirect()->back()->with('success', 'Foto Berhasil Ditambahkan!');
     }
 }
+

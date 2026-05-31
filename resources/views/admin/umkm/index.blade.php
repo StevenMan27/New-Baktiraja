@@ -29,8 +29,7 @@
                         <th>Lokasi</th>
                         <th>Kontak</th>
                         
-                        <th width="80">Status</th>
-                        <th width="150">Aksi</th>
+                                                <th width="150">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -51,13 +50,7 @@
                         <td>{{ $item->lokasi ?? '-' }}</td>
                         <td>{{ $item->kontak ?? '-' }}</td>
                         
-                        <td>
-                            @if($item->status)
-                                <span class="badge bg-success">Aktif</span>
-                            @else
-                                <span class="badge bg-danger">Tidak</span>
-                            @endif
-                        </td>
+
                         <td>
                             <div class="btn-group" role="group">
                                 <div class="action-buttons">
@@ -89,3 +82,5 @@
     </div>
 </div>
 @endsection
+
+

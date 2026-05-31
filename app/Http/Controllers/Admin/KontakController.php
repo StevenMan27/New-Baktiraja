@@ -56,3 +56,5 @@ class KontakController extends Controller
         return redirect()->back()->with('success', 'Pengaturan Kontak berhasil diperbarui!');
     }
 }
+
+

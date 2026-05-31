@@ -24,8 +24,7 @@
                     <th>Judul</th>
                     <th width="120">Lokasi Geosite</th>
                     <th>Penulis</th>
-                    <th>Status</th>
-                    <th>Aksi</th>
+                                        <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,14 +40,8 @@
                         @endif
                     </td>
                     <td>{{ $item->judul }}</td>
-                    <td><span class="badge bg-info text-dark">{{ ucwords(str_replace('-', ' ', $item->geosite)) }}</span></td>
-                    <td>{{ $item->penulis ?? '-' }}</td>
-                    <td>
-                        <span class="badge {{ $item->status ? 'bg-success' : 'bg-danger' }}">
-                            {{ $item->status ? 'Aktif' : 'Tidak' }}
-                        </span>
-                    </td>
-                    <td>
+                                        <td>{{ $item->penulis ?? '-' }}</td>
+                                        <td>
                         <div class="action-buttons">
                             <a href="{{ route('admin.berita.edit', $item->id) }}" class="btn-edit"><i class="fas fa-edit"></i> Edit</a>
                             <form action="{{ route('admin.berita.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin hapus?')">
@@ -68,3 +61,5 @@
     </div>
 </div>
 @endsection
+
+

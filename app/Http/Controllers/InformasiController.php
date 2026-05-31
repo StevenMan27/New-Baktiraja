@@ -15,3 +15,5 @@ class InformasiController extends Controller
         return view('pages.informasi', compact('informasiList'));
     }
 }
+
+

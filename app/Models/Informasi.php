@@ -14,13 +14,10 @@ class Informasi extends Model
         'slug',
         'konten',
         'gambar',
-        'status',
         'geosite'
     ];
 
-    protected $casts = [
-        'status' => 'boolean'
-    ];
+    protected $casts = [];
 
     protected static function boot()
     {
@@ -35,3 +32,4 @@ class Informasi extends Model
         });
     }
 }
+

@@ -16,12 +16,10 @@ class Berita extends Model
         'gambar',
         'penulis',
         'views',
-        'status',
         'geosite'
     ];
 
     protected $casts = [
-        'status' => 'boolean',
         'views' => 'integer'
     ];
 

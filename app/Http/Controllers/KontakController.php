@@ -45,3 +45,4 @@ class KontakController extends Controller
         return back()->with('success', 'Pesan berhasil dikirim!');
     }
 }
+

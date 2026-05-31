@@ -157,3 +157,5 @@ class ProfilGeositeController extends Controller
             ->with('success', "Profil {$this->geosites[$geosite]} berhasil diupdate!");
     }
 }
+
+

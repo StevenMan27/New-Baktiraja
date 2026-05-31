@@ -27,7 +27,6 @@ class BeritaController extends Controller
             'konten' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
             'penulis' => 'nullable|string|max:100',
-            'status' => 'nullable|boolean'
         ]);
 
         $data = [
@@ -66,7 +65,6 @@ class BeritaController extends Controller
             'konten' => 'required|string',
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg|max:5120',
             'penulis' => 'nullable|string|max:100',
-            'status' => 'nullable|boolean'
         ]);
 
         $data = [
@@ -99,3 +97,4 @@ class BeritaController extends Controller
             ->with('success', 'Berita berhasil dihapus!');
     }
 }
+

@@ -41,7 +41,6 @@ class BeritaController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'penulis' => 'nullable|string|max:100',
             'geosite' => 'required|string',
-            'status' => 'nullable|boolean'
         ]);
 
         $data = [
@@ -81,7 +80,6 @@ class BeritaController extends Controller
             'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'penulis' => 'nullable|string|max:100',
             'geosite' => 'required|string',
-            'status' => 'nullable|boolean'
         ]);
 
         $data = [
@@ -134,12 +132,7 @@ class BeritaController extends Controller
             ->with('success', 'Berita berhasil dihapus!');
     }
 
-    public function toggleStatus($id)
-    {
-        $berita = Berita::findOrFail($id);
-        $berita->status = !$berita->status;
-        $berita->save();
-
-        return response()->json(['success' => true, 'status' => $berita->status]);
-    }
+    
 }
+
+

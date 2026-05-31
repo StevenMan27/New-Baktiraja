@@ -98,3 +98,5 @@ class HomepageController extends Controller
         return redirect()->back()->with('success', 'Konfigurasi Homepage berhasil diperbarui.');
     }
 }
+
+

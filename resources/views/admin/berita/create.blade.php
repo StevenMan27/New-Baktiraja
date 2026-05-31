@@ -95,10 +95,7 @@
 </div>
             </div>
             
-            <div class="mb-3">
-                <input type="checkbox" name="status" value="1" checked> Aktifkan
-            </div>
-            
+                        
             <div class="d-flex gap-2">
                 <button type="submit" class="btn-submit">
                     <i class="fas fa-save"></i> Simpan
@@ -136,3 +133,6 @@
 </script>
 
 @endsection
+
+
+

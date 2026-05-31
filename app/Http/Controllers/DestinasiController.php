@@ -163,3 +163,4 @@ class DestinasiController extends Controller
         abort(404, 'Destinasi tidak ditemukan');
     }
 }
+

@@ -182,24 +182,7 @@
             </div>
         </div>
 
-        <!-- Bagian 4: Status -->
-        <div class="hp-section" style="margin-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; border-bottom: none;">
-            <div class="hp-section-header">
-                <div class="section-icon icon-status"><i class="fas fa-eye"></i></div>
-                <div>
-                    <h6>Status Publikasi</h6>
-                    <p>Tentukan apakah galeri ini bisa dilihat oleh pengunjung</p>
-                </div>
-            </div>
-            <div class="hp-section-body">
-                <label class="hp-switch">
-                    <input type="checkbox" name="status" value="1" {{ old('status', $galeri->status) ? 'checked' : '' }}>
-                    <div class="slider"></div>
-                    <span class="label-text">Tampilkan di halaman publik</span>
-                </label>
-            </div>
-        </div>
-        
+                
         <div class="hp-save-bar">
             <a href="{{ route('admin.galeri.index') }}" class="hp-btn-back">
                 <i class="fas fa-arrow-left"></i> Kembali
@@ -231,3 +214,6 @@
     });
 </script>
 @endsection
+
+
+

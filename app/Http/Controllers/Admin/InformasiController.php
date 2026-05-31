@@ -42,7 +42,6 @@ class InformasiController extends Controller
             'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             // Penjelasan: Validasi 'urutan' telah dihapus dari sini
             'geosite' => 'required|string',
-            'status' => 'nullable|boolean'
         ]);
 
         $data = [
@@ -83,7 +82,6 @@ class InformasiController extends Controller
             'gambar.*' => 'image|mimes:jpeg,png,jpg,webp|max:4096',
             // Penjelasan: Validasi 'urutan' telah dihapus untuk form edit
             'geosite' => 'required|string',
-            'status' => 'nullable|boolean'
         ]);
 
         $data = [
@@ -136,12 +134,8 @@ class InformasiController extends Controller
             ->with('success', 'Informasi berhasil dihapus!');
     }
 
-    public function toggleStatus($id)
-    {
-        $informasi = Informasi::findOrFail($id);
-        $informasi->status = !$informasi->status;
-        $informasi->save();
-
-        return response()->json(['success' => true, 'status' => $informasi->status]);
-    }
+    
 }
+
+
+
