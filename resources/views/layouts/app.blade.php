@@ -47,11 +47,11 @@
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
         }
 
-        /* NAVBAR CONTAINER - Wrapper flex untuk logo dan menu, dibatasi lebar 1200px agar layout tidak terlalu melebar di monitor besar */
+        /* NAVBAR CONTAINER - Wrapper flex untuk logo dan menu, lebar penuh dengan padding sisi kiri-kanan untuk posisi elegan */
         .navbar .container {
-            max-width: 1200px;
+            max-width: 100%;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 48px;
             display: flex;
             align-items: center;
             justify-content: space-between;

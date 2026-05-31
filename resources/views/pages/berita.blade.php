@@ -503,15 +503,19 @@
         gap: 6px;
     }
 
-    /* Gambar utama artikel dengan sudut melengkung dan bayangan */
+    /* Gambar utama artikel dengan sudut melengkung dan bayangan, ukuran asli */
     .reader-hero-img {
         width: 100%;
         height: auto;
-        max-height: 500px;
-        object-fit: cover;
         border-radius: 16px;
         margin: 30px 0 40px;
         box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+        display: block;
+    }
+
+    /* Sembunyikan gambar jika src kosong */
+    .reader-hero-img[src=""] {
+        display: none;
     }
 
     /* Area isi teks artikel */
@@ -785,29 +789,49 @@
         const item = newsData.find(x => x.id === id);
         if (!item) return;
 
-        // Menentukan sumber gambar berdasarkan format penyimpanannya
-        let imgSrc = '{{ asset("image/default.jpg") }}';
+        // Menentukan sumber gambar berita — gambar disimpan sebagai JSON array di database
+        let imgSrc = '';
         if (item.gambar && item.gambar.trim() !== '') {
-            if (item.gambar.startsWith('data:image') || item.gambar.startsWith('http')) {
-                imgSrc = item.gambar;
-            } else {
-                // Gambar yang disimpan di storage lokal Laravel
-                imgSrc = '{{ asset("storage") }}/' + item.gambar;
+            // Coba parse sebagai JSON array terlebih dahulu
+            try {
+                const gambarArr = JSON.parse(item.gambar);
+                const firstImg = Array.isArray(gambarArr) ? gambarArr[0] : gambarArr;
+                if (firstImg && firstImg.trim() !== '') {
+                    if (firstImg.startsWith('data:image') || firstImg.startsWith('http')) {
+                        imgSrc = firstImg;
+                    } else {
+                        imgSrc = '{{ asset("storage") }}/' + firstImg;
+                    }
+                }
+            } catch (e) {
+                // Jika bukan JSON, gunakan langsung sebagai string
+                if (item.gambar.startsWith('data:image') || item.gambar.startsWith('http')) {
+                    imgSrc = item.gambar;
+                } else {
+                    imgSrc = '{{ asset("storage") }}/' + item.gambar;
+                }
             }
         }
-
-        // Memformat tanggal ke format Indonesia, contoh: 15 Januari 2025
-        const tgl = new Date(item.created_at);
-        const tanggalFormatted = tgl.toLocaleDateString('id-ID', {
-            day: 'numeric', month: 'long', year: 'numeric'
-        });
 
         // Mengisi seluruh elemen HTML di dalam modal dengan data artikel
         document.getElementById('r-title').innerText   = item.judul;
         document.getElementById('r-content').innerHTML = item.konten;
-        document.getElementById('r-img').src           = imgSrc;
+
+        // Tampilkan atau sembunyikan gambar tergantung apakah ada gambar
+        const imgEl = document.getElementById('r-img');
+        if (imgSrc) {
+            imgEl.src = imgSrc;
+            imgEl.style.display = 'block';
+        } else {
+            imgEl.src = '';
+            imgEl.style.display = 'none';
+        }
 
         // Mengisi baris meta informasi artikel (penulis, tanggal, views sementara)
+        const tgl = new Date(item.created_at);
+        const tanggalFormatted = tgl.toLocaleDateString('id-ID', {
+            day: 'numeric', month: 'long', year: 'numeric'
+        });
         document.getElementById('r-meta').innerHTML = `
             <span><i class="far fa-calendar"></i> ${tanggalFormatted}</span>
             <span><i class="far fa-user"></i> ${item.penulis || 'Admin GeoToba'}</span>

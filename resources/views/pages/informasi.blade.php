@@ -399,11 +399,15 @@
     .reader-hero-img {
         width: 100%;
         height: auto;
-        max-height: 500px;
-        object-fit: cover;
         border-radius: 16px;
         margin: 30px 0 40px;
         box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+        display: block;
+    }
+
+    /* Sembunyikan gambar jika src kosong */
+    .reader-hero-img[src=""] {
+        display: none;
     }
 
     .reader-article-body {
@@ -425,21 +429,82 @@
         padding-top: 40px;
     }
 
-    .btn-back {
-        background: #003366;
-        color: white;
-        padding: 12px 32px;
-        border-radius: 40px;
-        border: none;
-        font-size: 12px;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.3s ease;
+    /* Label kategori artikel berwarna emas */
+    .reader-category {
+        display: inline-block;
+        background: rgba(198, 164, 59, 0.08);
+        border: 1px solid rgba(198, 164, 59, 0.3);
+        color: #967a28;
+        padding: 5px 16px;
+        border-radius: 30px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
     }
 
-    .btn-back:hover {
+    /* Baris informasi meta: tanggal, views */
+    .reader-meta {
+        display: flex;
+        justify-content: center;
+        gap: 24px;
+        font-size: 0.82rem;
+        color: #64748b;
+        flex-wrap: wrap;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #f1f5f9;
+        margin-bottom: 10px;
+    }
+
+    .reader-meta span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    /* Tombol kembali di footer reader */
+    .btn-back-reader {
+        background: #003366;
+        color: white;
+        padding: 14px 32px;
+        border-radius: 40px;
+        border: none;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-back-reader:hover {
         background: #c6a43b;
         color: #003366;
+        transform: translateY(-3px);
+    }
+
+    /* Tombol bagikan artikel */
+    .btn-share-reader {
+        background: transparent;
+        color: #003366;
+        padding: 13px 28px;
+        border-radius: 40px;
+        border: 2px solid #003366;
+        font-size: 0.82rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .btn-share-reader:hover {
+        background: #003366;
+        color: white;
         transform: translateY(-3px);
     }
 
@@ -571,12 +636,12 @@
     </div>
 </section>
 
-<!-- READER MODAL - FUNGSI BERITA TETAP -->
+<!-- READER MODAL -->
 <div id="fullReader">
     <div class="progress-container">
         <div class="progress-bar" id="myBar"></div>
     </div>
-    
+
     <div class="reader-nav">
         <div class="reader-logo">Geo<span>Toba</span></div>
         <button class="btn-close-circle" onclick="closeReader()">
@@ -585,69 +650,117 @@
     </div>
 
     <div class="reader-content-wrap">
+        {{-- Header artikel: kategori, judul, garis emas, meta info --}}
         <div class="reader-header">
-            <span class="reader-date" id="r-date"></span>
+            <span class="reader-category">INFORMASI</span>
             <h1 id="r-title" class="reader-title-display"></h1>
             <div class="reader-divider"></div>
-            <div class="reader-author">
-                <i class="far fa-user"></i>
-                <span id="r-author">Admin GeoToba</span>
-            </div>
+            {{-- Baris meta berisi tanggal dan jumlah pembaca --}}
+            <div class="reader-meta" id="r-meta"></div>
         </div>
 
+        {{-- Gambar utama artikel (ukuran asli) --}}
         <img id="r-img" src="" class="reader-hero-img" alt="">
 
+        {{-- Isi konten artikel --}}
         <div id="r-content" class="reader-article-body"></div>
 
-        <div class="reader-footer">
-            <button class="btn-back" onclick="closeReader()">
+        {{-- Footer modal --}}
+        <div class="reader-footer" style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+            <button class="btn-back-reader" onclick="closeReader()">
                 <i class="fas fa-arrow-left"></i> Kembali ke Informasi
+            </button>
+            <button class="btn-share-reader" onclick="bagikanInformasi()">
+                <i class="fas fa-share-alt"></i> Bagikan Artikel
             </button>
         </div>
     </div>
 </div>
 
 <script>
-    // Data berita dari server
+    // Data informasi dari server
     const infoData = @json($informasiList);
 
-    function openReader(id) {
+    async function openReader(id) {
         const item = infoData.find(x => x.id === id);
-        if(!item) return;
+        if (!item) return;
 
-        // Handle gambar untuk reader
-        let imgSrc = 'https://via.placeholder.com/400x500?text=No+Image';
-        
+        // Menentukan sumber gambar — gambar disimpan sebagai JSON array di database
+        let imgSrc = '';
         if (item.gambar && item.gambar.trim() !== '') {
-            if (item.gambar.length > 500 && !item.gambar.startsWith('http')) {
-                imgSrc = item.gambar;
-            } else if (item.gambar.startsWith('http')) {
-                imgSrc = item.gambar;
-            } else if (item.gambar) {
-                imgSrc = '{{ asset("storage") }}/' + item.gambar;
+            try {
+                const gambarArr = JSON.parse(item.gambar);
+                const firstImg = Array.isArray(gambarArr) ? gambarArr[0] : gambarArr;
+                if (firstImg && firstImg.trim() !== '') {
+                    if (firstImg.startsWith('data:image') || firstImg.startsWith('http')) {
+                        imgSrc = firstImg;
+                    } else {
+                        imgSrc = '{{ asset("storage") }}/' + firstImg;
+                    }
+                }
+            } catch (e) {
+                // Jika bukan JSON, gunakan langsung sebagai string
+                if (item.gambar.startsWith('data:image') || item.gambar.startsWith('http')) {
+                    imgSrc = item.gambar;
+                } else {
+                    imgSrc = '{{ asset("storage") }}/' + item.gambar;
+                }
             }
         }
 
-        // Set content
-        document.getElementById('r-title').innerText = item.judul;
+        // Mengisi judul dan konten
+        document.getElementById('r-title').innerText   = item.judul;
         document.getElementById('r-content').innerHTML = item.konten;
-        document.getElementById('r-img').src = imgSrc;
-        document.getElementById('r-date').innerHTML = new Date(item.created_at).toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric'
-        });
-        document.getElementById('r-author').innerHTML = item.penulis || 'Admin GeoToba';
 
-        // Aktifkan Reader
+        // Tampilkan atau sembunyikan gambar
+        const imgEl = document.getElementById('r-img');
+        if (imgSrc) {
+            imgEl.src = imgSrc;
+            imgEl.style.display = 'block';
+        } else {
+            imgEl.src = '';
+            imgEl.style.display = 'none';
+        }
+
+        // Format tanggal ke format Indonesia
+        const tgl = new Date(item.created_at);
+        const tanggalFormatted = tgl.toLocaleDateString('id-ID', {
+            day: 'numeric', month: 'long', year: 'numeric'
+        });
+
+        // Mengisi baris meta: tanggal dan jumlah pembaca
+        document.getElementById('r-meta').innerHTML = `
+            <span><i class="far fa-calendar"></i> ${tanggalFormatted}</span>
+            <span><i class="far fa-eye"></i> <span id="modalViews">${(item.views || 0).toLocaleString()}</span> dibaca</span>
+        `;
+
+        // Aktifkan modal dan kunci scroll
         const reader = document.getElementById('fullReader');
         reader.classList.add('active');
         document.body.style.overflow = 'hidden';
 
-        // Reset Scroll Progress
-        const progressBar = document.getElementById("myBar");
-        if (progressBar) {
-            progressBar.style.width = "0%";
+        // Reset posisi scroll dan progress bar
+        reader.scrollTop = 0;
+        document.getElementById('myBar').style.width = '0%';
+
+        // Tambah jumlah pembaca via AJAX jika ada endpoint
+        try {
+            const response = await fetch('/api/informasi/' + id + '/view', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || ''
+                }
+            });
+            if (response.ok) {
+                const result = await response.json();
+                const viewsEl = document.getElementById('modalViews');
+                if (viewsEl && result.views !== undefined) {
+                    viewsEl.innerText = result.views.toLocaleString();
+                }
+            }
+        } catch (e) {
+            // Abaikan jika endpoint belum ada
         }
     }
 
@@ -680,6 +793,24 @@
             }
         }
     });
+
+    // Fungsi bagikan artikel informasi via Web Share API atau salin URL
+    function bagikanInformasi() {
+        const judul = document.getElementById('r-title').innerText;
+        if (navigator.share) {
+            navigator.share({
+                title: judul + ' — GeoToba Baktiraja',
+                text: 'Baca informasi menarik dari GeoToba Baktiraja: ' + judul,
+                url: window.location.href
+            }).catch(() => {});
+        } else {
+            navigator.clipboard.writeText(window.location.href).then(() => {
+                alert('Link halaman berhasil disalin!');
+            }).catch(() => {
+                alert('Salin URL ini untuk berbagi: ' + window.location.href);
+            });
+        }
+    }
 </script>
 
 @endsection
