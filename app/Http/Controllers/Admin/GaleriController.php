@@ -35,13 +35,21 @@ class GaleriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
-            'gambar' => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
-            'lokasi' => 'nullable|string',
-            'tanggal_foto' => 'nullable|date',
-            'geosite' => 'required|string',
+            'judul'       => 'required|string|max:255',
+            'deskripsi'   => 'nullable|string',
+            'gambar'      => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'lokasi'      => 'nullable|string',
+            'tanggal_foto'=> 'nullable|date',
+            'geosite'     => 'required|string',
+        ], [
+            'judul.required'    => 'Judul galeri wajib diisi.',
+            'judul.max'         => 'Judul galeri tidak boleh melebihi 255 karakter.',
+            'gambar.required'   => 'Gambar galeri wajib diunggah.',
+            'gambar.image'      => 'File yang diunggah harus berupa gambar (bukan PDF, Word, atau file lainnya).',
+            'gambar.mimes'      => 'Format gambar tidak didukung. Gunakan format JPG, PNG, atau WEBP.',
+            'gambar.max'        => 'Ukuran gambar terlalu besar. Maksimal yang diizinkan adalah 4MB.',
+            'geosite.required'  => 'Lokasi geosite wajib dipilih.',
+            'tanggal_foto.date' => 'Format tanggal foto tidak valid.',
         ]);
 
         // Penjelasan: Menyimpan sebagai single file.
@@ -73,13 +81,20 @@ class GaleriController extends Controller
         $galeri = Galeri::findOrFail($id);
 
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string',
-            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-            'lokasi' => 'nullable|string',
-            'tanggal_foto' => 'nullable|date',
-            'geosite' => 'required|string',
+            'judul'       => 'required|string|max:255',
+            'deskripsi'   => 'nullable|string',
+            'gambar'      => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'lokasi'      => 'nullable|string',
+            'tanggal_foto'=> 'nullable|date',
+            'geosite'     => 'required|string',
+        ], [
+            'judul.required'    => 'Judul galeri wajib diisi.',
+            'judul.max'         => 'Judul galeri tidak boleh melebihi 255 karakter.',
+            'gambar.image'      => 'File yang diunggah harus berupa gambar (bukan PDF, Word, atau file lainnya).',
+            'gambar.mimes'      => 'Format gambar tidak didukung. Gunakan format JPG, PNG, atau WEBP.',
+            'gambar.max'        => 'Ukuran gambar terlalu besar. Maksimal yang diizinkan adalah 4MB.',
+            'geosite.required'  => 'Lokasi geosite wajib dipilih.',
+            'tanggal_foto.date' => 'Format tanggal foto tidak valid.',
         ]);
 
         $data = [

@@ -30,14 +30,14 @@
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    /* ── Page Wrapper ── */
+    /* Wrapper halaman yang mengikuti lebar konten penuh tanpa batas tengah */
     .ep-wrapper {
-        max-width: 960px;
-        margin: 0 auto;
+        max-width: 100%;
+        margin: 0;
         padding: 0 0 60px;
     }
 
-    /* ── Page Header ── */
+    /* Banner header halaman dengan gradient biru gelap */
     .hp-page-header {
         background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
         border-radius: var(--radius);
@@ -48,21 +48,73 @@
         gap: 18px;
         margin-bottom: 28px;
         box-shadow: var(--shadow-md);
+        position: relative;
+        overflow: hidden;
     }
+
+    /* Dekorasi lingkaran besar transparan di pojok kanan header */
+    .hp-page-header::before {
+        content: '';
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 160px;
+        height: 160px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 50%;
+    }
+
+    /* Dekorasi lingkaran kecil transparan di pojok kiri bawah header */
+    .hp-page-header::after {
+        content: '';
+        position: absolute;
+        bottom: -30px;
+        left: 120px;
+        width: 100px;
+        height: 100px;
+        background: rgba(255,255,255,0.04);
+        border-radius: 50%;
+    }
+
+    /* Wrapper sisi kiri header yang menampung ikon dan teks judul */
     .hp-page-header-left {
         display: flex;
         align-items: center;
         gap: 18px;
+        position: relative;
+        z-index: 1;
     }
+
+    /* Kotak ikon di sisi kiri header */
     .hp-page-header .icon-wrap {
-        width: 52px; height: 52px;
+        width: 52px;
+        height: 52px;
         background: rgba(255,255,255,0.12);
         border-radius: 12px;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 1.4rem; color: #fff; flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        color: #fff;
+        flex-shrink: 0;
     }
-    .hp-page-header h4 { color: #fff; margin: 0; font-weight: 700; font-size: 1.2rem; }
-    .hp-page-header p  { color: rgba(255,255,255,0.65); margin: 0; font-size: 0.85rem; }
+
+    /* Judul halaman di dalam header */
+    .hp-page-header h4 {
+        color: #fff;
+        margin: 0;
+        font-weight: 700;
+        font-size: 1.2rem;
+    }
+
+    /* Subjudul nama geosite di bawah judul header */
+    .hp-page-header p {
+        color: rgba(255,255,255,0.65);
+        margin: 0;
+        font-size: 0.85rem;
+    }
+
+    /* Tombol kembali di sisi kanan header */
     .hp-btn-back {
         background: rgba(255,255,255,0.13);
         color: #fff;
@@ -72,15 +124,24 @@
         font-size: 0.82rem;
         font-weight: 600;
         cursor: pointer;
-        display: flex; align-items: center; gap: 7px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
         text-decoration: none;
         transition: background 0.2s;
         white-space: nowrap;
         font-family: 'Plus Jakarta Sans', sans-serif;
+        position: relative;
+        z-index: 1;
     }
-    .hp-btn-back:hover { background: rgba(255,255,255,0.22); color: #fff; }
 
-    /* ── Alert ── */
+    /* Efek hover tombol kembali */
+    .hp-btn-back:hover {
+        background: rgba(255,255,255,0.22);
+        color: #fff;
+    }
+
+    /* Alert notifikasi sukses di bawah header */
     .hp-alert {
         background: #f0fdf4;
         border: 1px solid #bbf7d0;
@@ -90,10 +151,12 @@
         color: #166534;
         font-size: 0.9rem;
         margin-bottom: 24px;
-        display: flex; align-items: center; gap: 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
-    /* ── Section Card ── */
+    /* Card section pembungkus setiap kelompok input */
     .hp-section {
         background: var(--surface);
         border-radius: var(--radius);
@@ -101,6 +164,8 @@
         margin-bottom: 20px;
         overflow: hidden;
     }
+
+    /* Header bagian atas setiap section card */
     .hp-section-header {
         padding: 18px 24px;
         border-bottom: 1px solid var(--border);
@@ -109,24 +174,35 @@
         gap: 12px;
         background: var(--surface-2);
     }
+
+    /* Kotak ikon kecil di kiri header section */
     .hp-section-header .section-icon {
-        width: 36px; height: 36px;
+        width: 36px;
+        height: 36px;
         border-radius: 9px;
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         font-size: 0.95rem;
         flex-shrink: 0;
     }
+
+    /* Judul section card */
     .hp-section-header h6 {
         margin: 0;
         font-size: 0.95rem;
         font-weight: 700;
         color: var(--text);
     }
+
+    /* Deskripsi kecil di bawah judul section */
     .hp-section-header p {
         margin: 0;
         font-size: 0.78rem;
         color: var(--text-muted);
     }
+
+    /* Badge opsional di sisi kanan header section */
     .hp-section-header .badge-optional {
         margin-left: auto;
         background: #f1f5f9;
@@ -138,15 +214,25 @@
         padding: 3px 10px;
         letter-spacing: 0.03em;
     }
-    .hp-section-body { padding: 24px; }
 
-    /* Icon colors per section */
-    .icon-hero    { background: #eff6ff; color: #2563eb; }
-    .icon-desc    { background: #f0fdf4; color: #16a34a; }
-    .icon-desc-img{ background: #fdf4ff; color: #9333ea; }
-    .icon-info    { background: #fef3c7; color: #d97706; }
+    /* Padding konten di dalam section card */
+    .hp-section-body {
+        padding: 24px;
+    }
 
-    /* ── Form Controls ── */
+    /* Warna ikon section hero biru */
+    .icon-hero     { background: #eff6ff; color: #2563eb; }
+
+    /* Warna ikon section deskripsi tanpa gambar hijau */
+    .icon-desc     { background: #f0fdf4; color: #16a34a; }
+
+    /* Warna ikon section deskripsi dengan gambar ungu */
+    .icon-desc-img { background: #fdf4ff; color: #9333ea; }
+
+    /* Warna ikon section informasi praktis kuning */
+    .icon-info     { background: #fef3c7; color: #d97706; }
+
+    /* Label di atas setiap input field */
     .hp-label {
         font-size: 0.8rem;
         font-weight: 600;
@@ -156,6 +242,8 @@
         margin-bottom: 6px;
         display: block;
     }
+
+    /* Input teks dan textarea standar */
     .hp-input {
         width: 100%;
         padding: 10px 14px;
@@ -168,17 +256,30 @@
         outline: none;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
+
+    /* Efek fokus input menampilkan border biru dan shadow tipis */
     .hp-input:focus {
         border-color: var(--navy);
         box-shadow: 0 0 0 3px rgba(0,51,102,0.08);
     }
-    textarea.hp-input { resize: vertical; min-height: 90px; }
+
+    /* Textarea dengan tinggi minimum yang bisa diubah */
+    textarea.hp-input {
+        resize: vertical;
+        min-height: 90px;
+    }
+
+    /* Wrapper input dengan ikon prefix di sisi kiri */
     .hp-input-group {
         display: flex;
         align-items: stretch;
     }
+
+    /* Kotak ikon prefix di sisi kiri input group */
     .hp-input-group-icon {
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 0 13px;
         background: var(--surface-2);
         border: 1.5px solid var(--border);
@@ -188,18 +289,32 @@
         font-size: 0.85rem;
         flex-shrink: 0;
     }
+
+    /* Input di dalam grup yang menyesuaikan border kiri */
     .hp-input-group .hp-input {
         border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
     }
 
-    /* ── Grid helpers ── */
-    .hp-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .hp-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+    /* Grid dua kolom untuk input berdampingan */
+    .hp-grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+    }
+
+    /* Grid tiga kolom untuk input berdampingan */
+    .hp-grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+    }
+
+    /* Grid menjadi satu kolom di layar kecil */
     @media(max-width: 768px) {
         .hp-grid-2, .hp-grid-3 { grid-template-columns: 1fr; }
     }
 
-    /* ── Upload Zone ── */
+    /* Area upload gambar dengan border dashed */
     .upload-zone {
         border: 2px dashed var(--border);
         border-radius: var(--radius-sm);
@@ -210,46 +325,71 @@
         cursor: pointer;
         transition: border-color 0.2s, background 0.2s;
     }
+
+    /* Efek hover area upload menampilkan border biru */
     .upload-zone:hover {
         border-color: var(--navy);
         background: #f0f6ff;
     }
+
+    /* Input file tersembunyi di atas upload zone */
     .upload-zone input[type="file"] {
-        position: absolute; inset: 0;
-        width: 100%; height: 100%;
-        opacity: 0; cursor: pointer; z-index: 2;
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+        z-index: 2;
     }
+
+    /* Ikon di tengah upload zone */
     .upload-zone .uz-icon {
-        width: 40px; height: 40px;
+        width: 40px;
+        height: 40px;
         background: #e8effa;
         border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         margin: 0 auto 10px;
-        font-size: 1rem; color: var(--navy);
+        font-size: 1rem;
+        color: var(--navy);
     }
+
+    /* Teks label utama upload zone */
     .upload-zone .uz-label {
         font-size: 0.85rem;
         font-weight: 600;
         color: var(--text);
         margin-bottom: 3px;
     }
+
+    /* Teks petunjuk format gambar di upload zone */
     .upload-zone .uz-hint {
         font-size: 0.75rem;
         color: var(--text-muted);
     }
 
-    /* ── Current media strip ── */
+    /* Strip gambar yang sudah tersimpan sebelumnya */
     .media-strip {
-        display: flex; flex-wrap: wrap; gap: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
         margin-bottom: 10px;
     }
+
+    /* Setiap gambar di dalam media strip */
     .media-strip img {
-        width: 100px; height: 75px;
+        width: 100px;
+        height: 75px;
         object-fit: cover;
         border-radius: var(--radius-sm);
         border: 2px solid var(--border);
         box-shadow: 0 1px 4px rgba(0,0,0,0.08);
     }
+
+    /* Label kecil di atas media strip */
     .media-strip-label {
         font-size: 0.72rem;
         font-weight: 600;
@@ -259,36 +399,34 @@
         margin-bottom: 6px;
     }
 
-    /* ── Preview grid ── */
+    /* Grid preview gambar yang baru dipilih sebelum disimpan */
     .preview-grid {
-        display: flex; flex-wrap: wrap; gap: 8px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
         margin-top: 10px;
         justify-content: center;
-        position: relative; z-index: 3;
+        position: relative;
+        z-index: 3;
         pointer-events: none;
     }
-    .preview-item { pointer-events: auto; }
+
+    /* Item preview individual dalam grid */
+    .preview-item {
+        pointer-events: auto;
+    }
+
+    /* Gambar thumbnail di dalam item preview */
     .preview-item img {
-        width: 70px; height: 70px;
+        width: 70px;
+        height: 70px;
         object-fit: cover;
         border-radius: 6px;
         border: 2px solid #fff;
         box-shadow: 0 2px 6px rgba(0,0,0,0.12);
     }
 
-    /* ── Description section numbering ── */
-    .desc-section-num {
-        display: inline-flex; align-items: center; justify-content: center;
-        width: 22px; height: 22px;
-        background: var(--navy);
-        color: #fff;
-        font-size: 0.7rem;
-        font-weight: 800;
-        border-radius: 50%;
-        flex-shrink: 0;
-    }
-
-    /* ── Save Bar ── */
+    /* Bar simpan di bagian bawah form */
     .hp-save-bar {
         background: var(--surface);
         border-top: 1px solid var(--border);
@@ -299,6 +437,8 @@
         justify-content: space-between;
         gap: 16px;
     }
+
+    /* Tombol simpan semua perubahan berwarna biru */
     .hp-btn-save {
         background: linear-gradient(135deg, var(--navy) 0%, #0a4a8a 100%);
         color: #fff;
@@ -308,13 +448,31 @@
         font-size: 0.9rem;
         font-weight: 700;
         cursor: pointer;
-        display: flex; align-items: center; gap: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
         transition: opacity 0.2s, transform 0.1s;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .hp-btn-save:hover { opacity: 0.9; transform: translateY(-1px); }
-    .hp-btn-save:active { transform: translateY(0); }
-    .hp-save-hint { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* Efek hover tombol simpan sedikit terangkat */
+    .hp-btn-save:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+    }
+
+    /* Efek klik tombol simpan kembali ke posisi semula */
+    .hp-btn-save:active {
+        transform: translateY(0);
+    }
+
+    /* Teks petunjuk kecil di sisi kiri save bar */
+    .hp-save-hint {
+        font-size: 0.78rem;
+        color: var(--text-muted);
+    }
+
+    /* Tombol batal berwarna abu di samping tombol simpan */
     .hp-btn-cancel {
         background: var(--surface-2);
         color: var(--text-muted);
@@ -325,28 +483,40 @@
         font-weight: 600;
         cursor: pointer;
         text-decoration: none;
-        display: inline-flex; align-items: center; gap: 6px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
         transition: border-color 0.2s, color 0.2s;
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
-    .hp-btn-cancel:hover { border-color: var(--text-muted); color: var(--text); }
 
-    /* ── Info field row (lokasi, jam, harga) ── */
+    /* Efek hover tombol batal mempergelap border */
+    .hp-btn-cancel:hover {
+        border-color: var(--text-muted);
+        color: var(--text);
+    }
+
+    /* Garis pemisah antar kelompok input di section informasi */
     .info-divider {
         height: 1px;
         background: var(--border);
         margin: 20px 0;
     }
+
+    /* Teks petunjuk kecil di bawah input tags */
     .tags-hint {
         font-size: 0.75rem;
         color: var(--text-muted);
         margin-top: 5px;
-        display: flex; align-items: center; gap: 5px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
     }
 </style>
 
 <div class="ep-wrapper">
 
+    {{-- Alert notifikasi setelah data berhasil disimpan --}}
     @if(session('success'))
     <div class="hp-alert">
         <i class="fas fa-check-circle"></i>
@@ -354,7 +524,7 @@
     </div>
     @endif
 
-    <!-- Page Header -->
+    {{-- Banner header halaman dengan nama geosite dan tombol kembali --}}
     <div class="hp-page-header">
         <div class="hp-page-header-left">
             <div class="icon-wrap"><i class="fas fa-edit"></i></div>
@@ -363,16 +533,18 @@
                 <p>{{ $nama_geosite }}</p>
             </div>
         </div>
+        {{-- Tombol kembali ke halaman daftar profil geosite --}}
         <a href="{{ route('admin.profil.index') }}" class="hp-btn-back">
             <i class="fas fa-arrow-left"></i> Kembali
         </a>
     </div>
 
+    {{-- Form utama yang mengirimkan semua data profil geosite --}}
     <form action="{{ route('admin.profil.update', $profil->geosite) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
-        <!-- ════════ 1. HERO ════════ -->
+        {{-- Section 1: Bagian Hero dengan judul dan gambar latar --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-hero"><i class="fas fa-star"></i></div>
@@ -399,6 +571,7 @@
 
                 <label class="hp-label">Gambar Latar Belakang (Hero)</label>
 
+                {{-- Tampilkan gambar hero yang sudah tersimpan bila ada --}}
                 @if($profil->bg_hero && is_array($profil->bg_hero) && count($profil->bg_hero) > 0)
                 <div class="media-strip-label">Gambar saat ini</div>
                 <div class="media-strip" style="margin-bottom: 12px;">
@@ -406,6 +579,7 @@
                 </div>
                 @endif
 
+                {{-- Area upload gambar hero baru --}}
                 <div class="upload-zone">
                     <input type="file" name="bg_hero" class="image-input" accept="image/*"
                         data-preview-container="preview-hero">
@@ -417,7 +591,7 @@
             </div>
         </div>
 
-        <!-- ════════ 2. DESKRIPSI 1 (Tanpa Gambar) ════════ -->
+        {{-- Section 2: Deskripsi pertama tanpa gambar --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-desc"><i class="fas fa-align-left"></i></div>
@@ -441,11 +615,11 @@
             </div>
         </div>
 
-        <!-- 3–6. DESKRIPSI 2–5 (Dengan Gambar) -->
+        {{-- Section 3-6: Deskripsi 2 hingga 5 dengan gambar, diulang menggunakan loop --}}
         @for($i = 2; $i <= 5; $i++)
         @php
-            $judulKey = "deskripsi_{$i}_judul";
-            $teksKey  = "deskripsi_{$i}_teks";
+            $judulKey  = "deskripsi_{$i}_judul";
+            $teksKey   = "deskripsi_{$i}_teks";
             $gambarKey = "deskripsi_{$i}_gambar";
         @endphp
         <div class="hp-section">
@@ -472,6 +646,7 @@
 
                 <label class="hp-label">Gambar Deskripsi {{ $i }}</label>
 
+                {{-- Tampilkan gambar yang sudah tersimpan untuk deskripsi ini bila ada --}}
                 @if($profil->$gambarKey && is_array($profil->$gambarKey))
                 <div class="media-strip-label">Gambar saat ini</div>
                 <div class="media-strip" style="margin-bottom: 12px;">
@@ -481,6 +656,7 @@
                 </div>
                 @endif
 
+                {{-- Area upload gambar baru untuk deskripsi ini, mendukung multiple file --}}
                 <div class="upload-zone">
                     <input type="file" name="{{ $gambarKey }}[]" class="image-input" accept="image/*" multiple
                         data-preview-container="preview-deskripsi-{{ $i }}">
@@ -493,7 +669,7 @@
         </div>
         @endfor
 
-        <!-- 7. INFORMASI PRAKTIS & TAGS -->
+        {{-- Section terakhir: Informasi praktis dan tags pencarian --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-info"><i class="fas fa-info-circle"></i></div>
@@ -547,11 +723,13 @@
                 </div>
             </div>
 
-            <!-- Save Bar -->
+            {{-- Save bar berisi tombol batal dan simpan di bagian bawah form --}}
             <div class="hp-save-bar">
                 <span class="hp-save-hint"><i class="fas fa-lock me-1"></i>Semua perubahan akan langsung diterapkan ke halaman publik</span>
                 <div style="display:flex; gap:10px; align-items:center;">
+                    {{-- Tombol batal kembali ke halaman daftar profil --}}
                     <a href="{{ route('admin.profil.index') }}" class="hp-btn-cancel">Batal</a>
+                    {{-- Tombol submit untuk menyimpan seluruh perubahan --}}
                     <button type="submit" class="hp-btn-save">
                         <i class="fas fa-save"></i> Simpan Semua Perubahan
                     </button>
@@ -562,6 +740,7 @@
     </form>
 </div>
 
+{{-- Script preview gambar sebelum diupload, berjalan saat file dipilih --}}
 <script>
 document.querySelectorAll('.image-input').forEach(input => {
     input.addEventListener('change', function(e) {
@@ -590,5 +769,3 @@ document.querySelectorAll('.image-input').forEach(input => {
 </script>
 
 @endsection
-
-

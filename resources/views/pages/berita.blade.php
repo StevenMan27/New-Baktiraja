@@ -746,7 +746,6 @@
         {{-- Header artikel: kategori, tanggal, judul, garis, dan meta info --}}
         <div class="reader-header">
             <span class="reader-category">BERITA</span>
-            <span class="reader-date" id="r-date"></span>
             <h1 id="r-title" class="reader-title-display"></h1>
             <div class="reader-divider"></div>
             {{-- Baris meta berisi penulis, tanggal, dan jumlah pembaca --}}
@@ -807,7 +806,6 @@
         document.getElementById('r-title').innerText   = item.judul;
         document.getElementById('r-content').innerHTML = item.konten;
         document.getElementById('r-img').src           = imgSrc;
-        document.getElementById('r-date').innerText    = tanggalFormatted;
 
         // Mengisi baris meta informasi artikel (penulis, tanggal, views sementara)
         document.getElementById('r-meta').innerHTML = `

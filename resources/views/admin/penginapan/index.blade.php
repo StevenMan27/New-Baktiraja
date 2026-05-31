@@ -7,49 +7,111 @@
 {{-- Style khusus halaman Manajemen Penginapan, selaras dengan design system GeoToba --}}
 <style>
 
-    /* Wrapper judul halaman di bagian atas konten */
-    .page-heading {
+    /* Banner header halaman dengan gradient biru gelap */
+    .page-banner {
+        background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
+        border-radius: 16px;
+        padding: 28px 32px;
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 24px;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 28px;
+        position: relative;
+        overflow: hidden;
     }
 
-    /* Teks judul utama halaman */
-    .page-heading h1 {
+    /* Dekorasi lingkaran besar di pojok kanan banner */
+    .page-banner::before {
+        content: '';
+        position: absolute;
+        top: -40px;
+        right: -40px;
+        width: 160px;
+        height: 160px;
+        background: rgba(255,255,255,0.05);
+        border-radius: 50%;
+    }
+
+    /* Dekorasi lingkaran kecil di pojok kiri bawah banner */
+    .page-banner::after {
+        content: '';
+        position: absolute;
+        bottom: -30px;
+        left: 120px;
+        width: 100px;
+        height: 100px;
+        background: rgba(255,255,255,0.04);
+        border-radius: 50%;
+    }
+
+    /* Wrapper ikon dan teks di sisi kiri banner */
+    .page-banner-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Kotak ikon di sisi kiri banner */
+    .page-banner-icon {
+        width: 52px;
+        height: 52px;
+        background: rgba(255,255,255,0.12);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    /* Ikon font awesome di dalam kotak banner */
+    .page-banner-icon i {
+        color: #ffffff;
         font-size: 1.3rem;
+    }
+
+    /* Teks judul utama banner */
+    .page-banner-text h1 {
+        font-size: 1.35rem;
         font-weight: 700;
-        color: #0f172a;
+        color: #ffffff;
+        margin: 0 0 5px;
+        letter-spacing: -0.2px;
+    }
+
+    /* Teks deskripsi di bawah judul banner */
+    .page-banner-text p {
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.7);
         margin: 0;
     }
 
-    /* Teks subjudul kecil di bawah judul utama */
-    .page-heading p {
-        font-size: 0.78rem;
-        color: #94a3b8;
-        margin: 3px 0 0;
-    }
-
-    /* Tombol tambah data dengan gradient biru sesuai brand GeoToba */
+    /* Tombol tambah di dalam banner, warna putih transparan */
     .btn-tambah {
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        background: linear-gradient(135deg, #003366, #1a4a7a);
+        background: rgba(255,255,255,0.15);
         color: #ffffff;
         padding: 9px 18px;
         border-radius: 10px;
         font-size: 0.82rem;
         font-weight: 600;
         text-decoration: none;
-        transition: opacity 0.2s ease, transform 0.2s ease;
-        border: none;
+        transition: background 0.2s ease, transform 0.2s ease;
+        border: 1px solid rgba(255,255,255,0.25);
         cursor: pointer;
+        position: relative;
+        z-index: 1;
+        white-space: nowrap;
+        flex-shrink: 0;
     }
 
-    /* Efek hover tombol tambah, sedikit terangkat */
+    /* Efek hover tombol tambah di dalam banner */
     .btn-tambah:hover {
-        opacity: 0.88;
+        background: rgba(255,255,255,0.25);
         transform: translateY(-1px);
         color: #ffffff;
         text-decoration: none;
@@ -287,11 +349,16 @@
 
 </style>
 
-{{-- Bagian judul halaman dan tombol tambah --}}
-<div class="page-heading">
-    <div>
-        <h1>Manajemen Penginapan</h1>
-        <p>Kelola semua data penginapan GeoToba Baktiraja</p>
+{{-- Banner header halaman dengan ikon, deskripsi, dan tombol tambah --}}
+<div class="page-banner">
+    <div class="page-banner-left">
+        <div class="page-banner-icon">
+            <i class="fas fa-hotel"></i>
+        </div>
+        <div class="page-banner-text">
+            <h1>Manajemen Penginapan</h1>
+            <p>Kelola semua data penginapan GeoToba Baktiraja</p>
+        </div>
     </div>
     {{-- Tombol navigasi ke halaman tambah penginapan --}}
     <a href="{{ route('admin.penginapan.create') }}" class="btn-tambah">
