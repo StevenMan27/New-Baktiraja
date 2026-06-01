@@ -2,16 +2,16 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class UserSeeder extends Seeder
+class AdminSeeder extends Seeder
 {
     public function run()
     {
         // Cek apakah sudah ada, jika belum buat
-        User::firstOrCreate(
+        Admin::firstOrCreate(
             ['email' => 'adminbaktiraja@gmail.com'],
             [
                 'name' => 'Admin GeoToba',

@@ -8,8 +8,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Tabel users untuk autentikasi admin
-        Schema::create('users', function (Blueprint $table) {
+        // Tabel admins untuk autentikasi admin
+        Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
@@ -41,6 +41,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('password_resets');
         Schema::dropIfExists('sessions');
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('admins');
     }
 };

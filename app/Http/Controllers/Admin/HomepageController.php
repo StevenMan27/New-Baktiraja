@@ -32,8 +32,8 @@ class HomepageController extends Controller
     // Memproses data teks dan file yang dikirim dari form admin
     public function update(Request $request)
     {
-        // Menangkap objek homepage yang pertama di database
-        $homepage = Homepage::first();
+        // Mengambil data homepage pertama atau membuat row kosong jika belum ada — mencegah null error
+        $homepage = Homepage::firstOrCreate([]);
         
         // Memisahkan data file dan destinasi dari data teks agar bisa diproses terpisah
         $data = $request->except(['_token', '_method', 'hero_slides', 'about_video', 'destinasi', 'destinasi_gambar']);

@@ -160,9 +160,10 @@
     .hero-content {
         position: absolute;
         z-index: 10;
-        bottom: 20%;
-        left: 0;
-        right: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
         text-align: center;
         color: white;
         padding: 0 20px;
@@ -176,6 +177,7 @@
         font-weight: 300;
         opacity: 0.9;
         animation: fadeInUp 0.8s ease;
+        margin-right: -0.35em; /* Fix centering offset */
     }
     
     .hero-title {
@@ -204,6 +206,7 @@
         padding: 14px 42px;
         font-size: 0.75rem;
         letter-spacing: 0.25em;
+        text-indent: 0.25em; /* Fix centering offset from letter-spacing */
         text-transform: uppercase;
         transition: all 0.4s ease;
         text-decoration: none;

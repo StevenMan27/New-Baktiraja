@@ -41,4 +41,34 @@ class ProfilGeosite extends Model
         'deskripsi_4_gambar' => 'array',
         'deskripsi_5_gambar' => 'array',
     ];
+
+    public function galeri()
+    {
+        return $this->hasMany(Galeri::class, 'geosite', 'geosite');
+    }
+
+    public function berita()
+    {
+        return $this->hasMany(Berita::class, 'geosite', 'geosite');
+    }
+
+    public function informasi()
+    {
+        return $this->hasMany(Informasi::class, 'geosite', 'geosite');
+    }
+
+    public function umkm()
+    {
+        return $this->hasMany(Umkm::class, 'geosite', 'geosite');
+    }
+
+    public function fasilitas()
+    {
+        return $this->hasMany(Fasilitas::class, 'geosite', 'geosite');
+    }
+
+    public function penginapan()
+    {
+        return $this->hasMany(Penginapan::class, 'geosite', 'geosite');
+    }
 }

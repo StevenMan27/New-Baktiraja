@@ -9,8 +9,8 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Tabel galeri — menyimpan foto beserta kategori, lokasi, dan geosite
-        Schema::create('galeri', function (Blueprint $table) {
+        // Tabel galeris — menyimpan foto beserta kategori, lokasi, dan geosite
+        Schema::create('galeris', function (Blueprint $table) {
             $table->id();
             $table->string('judul');
             $table->string('slug')->unique();
@@ -22,11 +22,17 @@ return new class extends Migration
             $table->string('geosite')->nullable();
             $table->integer('views')->default(0);
             $table->timestamps();
+
+            // Foreign Key ke profil_geosites
+            $table->foreign('geosite')
+                  ->references('geosite')->on('profil_geosites')
+                  ->onUpdate('cascade')
+                  ->onDelete('set null');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('galeri');
+        Schema::dropIfExists('galeris');
     }
 };

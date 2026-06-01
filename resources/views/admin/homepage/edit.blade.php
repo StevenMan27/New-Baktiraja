@@ -522,7 +522,7 @@
                 @foreach($homepage->destinasis as $dest)
                 <div class="dest-card">
                     <div class="dest-card-header">
-                        <span class="dest-badge">Destinasi {{ $dest->urutan }}</span>
+                        <span class="dest-badge">Destinasi {{ $loop->iteration }}</span>
                         <span class="dest-name">{{ $dest->judul ?? '—' }}</span>
                     </div>
                     <div class="dest-card-body">
@@ -533,7 +533,7 @@
                                 <label class="hp-label">Foto Destinasi</label>
                                 @if($dest->gambar)
                                 <div class="media-strip" style="margin-bottom:8px;">
-                                    <img src="{{ asset('storage/' . $dest->gambar) }}" alt="Destinasi {{ $dest->urutan }}" style="width:100%;height:110px;">
+                                    <img src="{{ asset('storage/' . $dest->gambar) }}" alt="Destinasi {{ $loop->iteration }}" style="width:100%;height:110px;">
                                 </div>
                                 @endif
                                 <div class="upload-zone" style="padding:14px 10px;">

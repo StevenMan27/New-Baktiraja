@@ -66,6 +66,9 @@
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* LOGIN HEADER - Bagian atas kartu dengan background gradient biru gelap, menampilkan logo dan judul halaman login */
@@ -137,6 +140,7 @@
         /* LOGIN BODY - Area form login dengan padding yang cukup besar agar form tidak terasa sempit */
         .login-body {
             padding: 32px;
+            overflow-y: auto;
         }
 
         /* ALERT SUCCESS - Notifikasi berhasil dengan background hijau sangat terang dan border kiri hijau sebagai aksen */

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+use App\Models\Admin;
 use App\Mail\OtpResetPasswordMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,14 +62,14 @@ class AuthController extends Controller
     {
         // Validasi input email dengan pesan yang mudah dipahami
         $request->validate([
-            'email' => 'required|email|exists:users,email',
+            'email' => 'required|email|exists:admins,email',
         ], [
             'email.required' => 'Alamat email tidak boleh kosong.',
             'email.email'    => 'Format email tidak valid. Contoh yang benar: nama@gmail.com',
             'email.exists'   => 'Email yang Anda masukkan tidak terdaftar. Periksa kembali alamat email Anda.',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = Admin::where('email', $request->email)->first();
         
         if (!$user) {
             return back()->withErrors(['email' => 'Email tidak ditemukan.']);
@@ -180,7 +180,7 @@ class AuthController extends Controller
             return redirect()->route('password.request')->withErrors(['email' => 'Sesi tidak valid.']);
         }
         
-        User::where('email', $email)->update([
+        Admin::where('email', $email)->update([
             'password' => Hash::make($request->password)
         ]);
         

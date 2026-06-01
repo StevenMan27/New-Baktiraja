@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Penginapan;
+use App\Models\ProfilGeosite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -37,15 +38,20 @@ class PenginapanController extends Controller
     public function store(Request $request)
     {
         // Validasi input form tambah penginapan
+        $validGeosites = implode(',', array_keys($this->geositeList));
         $request->validate([
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
             // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
             'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-'harga'     => 'nullable|string|max:100',
+            'harga'     => 'nullable|string|max:100',
             'kontak'    => 'nullable|string|max:255',
-            'geosite'   => 'required|string',
+            'geosite'   => "required|string|in:{$validGeosites}",
         ]);
+
+        // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
+        ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
+
 
         $data = [
             'nama'      => $request->nama,
@@ -80,15 +86,20 @@ class PenginapanController extends Controller
         $data = Penginapan::findOrFail($id);
 
         // Validasi input form edit penginapan
+        $validGeosites = implode(',', array_keys($this->geositeList));
         $request->validate([
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
             // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
             'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-'harga'     => 'nullable|string|max:100',
+            'harga'     => 'nullable|string|max:100',
             'kontak'    => 'nullable|string|max:255',
-            'geosite'   => 'required|string',
+            'geosite'   => "required|string|in:{$validGeosites}",
         ]);
+
+        // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
+        ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
+
 
         $input = [
             'nama'      => $request->nama,

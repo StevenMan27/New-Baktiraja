@@ -14,6 +14,6 @@ class Homepage extends Model
     // Relasi ke Destinasi Homepage
     public function destinasis()
     {
-        return $this->hasMany(HomepageDestinasi::class)->orderBy('urutan', 'asc');
+        return $this->hasMany(HomepageDestinasi::class)->orderBy('id', 'asc');
     }
 }

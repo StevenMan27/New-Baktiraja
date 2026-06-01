@@ -51,7 +51,6 @@
             border-radius: 50%;
         }
 
-        /* LOGIN CONTAINER - Wrapper utama yang membatasi lebar card agar tidak terlalu lebar di layar besar */
         .login-container {
             width: 100%;
             max-width: 460px;
@@ -66,6 +65,9 @@
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
         }
 
         /* LOGIN HEADER - Bagian atas card dengan gradient biru gelap, konsisten di semua halaman auth */
@@ -137,6 +139,7 @@
         /* LOGIN BODY - Area konten form dengan padding yang cukup agar tidak terasa sempit */
         .login-body {
             padding: 32px;
+            overflow-y: auto;
         }
 
         /* STEP INDICATOR WRAPPER - Flex container untuk tiga langkah proses reset password */
@@ -515,6 +518,32 @@
                 font-size: 1.1rem;
             }
             .otp-inputs { gap: 5px; }
+        }
+
+        /* RESPONSIVE HEIGHT - Jika layar monitor kurang tinggi, kecilkan padding/margin agar card muat tanpa scroll */
+        @media (max-height: 850px) {
+            .login-header { padding: 20px 24px 16px; }
+            .login-icon { width: 48px; height: 48px; margin-bottom: 10px; }
+            .login-icon i { font-size: 1.2rem; }
+            .login-header h1 { font-size: 1.2rem; }
+            .login-body { padding: 20px 24px; }
+            .step-indicator { margin-bottom: 16px; padding: 12px; }
+            .step-connector { margin-bottom: 16px; }
+            .info-box { margin-bottom: 16px; padding: 10px 12px; }
+            .info-box p { font-size: 0.75rem; }
+            .otp-label { margin-bottom: 12px; }
+            .otp-inputs { margin-bottom: 16px; }
+            .otp-digit { height: 50px; font-size: 1.2rem; }
+            .timer-wrapper { margin-bottom: 16px; padding: 10px; }
+            .timer-countdown { margin: 2px 0; font-size: 1rem; }
+            .back-link { margin-top: 12px; }
+            .login-footer { padding: 10px 24px; }
+        }
+        
+        @media (max-height: 650px) {
+            .login-header::before { display: none; }
+            .login-icon { display: none; }
+            .step-indicator { display: none; } /* Hilangkan step indicator jika layar benar-benar sangat pendek */
         }
     </style>
 </head>

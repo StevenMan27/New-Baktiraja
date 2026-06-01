@@ -18,6 +18,11 @@ return new class extends Migration
             $table->string('kontak', 255)->nullable();
             $table->string('geosite')->nullable();
             $table->timestamps();
+
+            $table->foreign('geosite')
+                  ->references('geosite')->on('profil_geosites')
+                  ->onUpdate('cascade')
+                  ->onDelete('set null');
         });
 
         // Tabel fasilitas — fasilitas wisata yang tersedia di geosite
@@ -29,6 +34,11 @@ return new class extends Migration
             $table->string('harga')->nullable();
             $table->string('geosite')->nullable();
             $table->timestamps();
+
+            $table->foreign('geosite')
+                  ->references('geosite')->on('profil_geosites')
+                  ->onUpdate('cascade')
+                  ->onDelete('set null');
         });
 
         // Tabel penginapan — pilihan akomodasi di kawasan geosite
@@ -41,6 +51,11 @@ return new class extends Migration
             $table->string('kontak', 255)->nullable();
             $table->string('geosite')->nullable();
             $table->timestamps();
+
+            $table->foreign('geosite')
+                  ->references('geosite')->on('profil_geosites')
+                  ->onUpdate('cascade')
+                  ->onDelete('set null');
         });
     }
 

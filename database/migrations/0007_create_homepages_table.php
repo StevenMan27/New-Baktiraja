@@ -56,7 +56,7 @@ return new class extends Migration
         Schema::create('homepage_destinasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('homepage_id')->constrained()->onDelete('cascade');
-            $table->integer('urutan');
+
             $table->string('gambar')->nullable();
             $table->string('nomor_teks')->nullable();
             $table->string('judul')->nullable();

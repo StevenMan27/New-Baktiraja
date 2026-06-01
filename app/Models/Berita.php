@@ -19,6 +19,14 @@ class Berita extends Model
         'geosite'
     ];
 
+    /**
+     * Relasi ke ProfilGeosite
+     */
+    public function profilGeosite()
+    {
+        return $this->belongsTo(ProfilGeosite::class, 'geosite', 'geosite');
+    }
+
     protected $casts = [
         'views' => 'integer'
     ];

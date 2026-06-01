@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Informasi;
+use App\Models\ProfilGeosite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -22,7 +23,6 @@ class InformasiController extends Controller
 
     public function index()
     {
-        // Penjelasan: Mengubah pengurutan data dari 'urutan' menjadi berdasarkan waktu pembuatan terbaru (latest) karena fitur urutan manual dihapus.
         $informasi = Informasi::latest()->paginate(10);
         return view('admin.informasi.index', compact('informasi'));
     }
@@ -35,18 +35,20 @@ class InformasiController extends Controller
 
     public function store(Request $request)
     {
+        $validGeosites = implode(',', array_keys($this->geositeList));
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'konten' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-            // Penjelasan: Validasi 'urutan' telah dihapus dari sini
-            'geosite' => 'required|string',
+            'judul'   => 'required|string|max:255',
+            'konten'  => 'required|string',
+            'gambar'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'geosite' => "required|string|in:{$validGeosites}",
         ]);
 
-        $data = [
-            'judul' => $request->judul,
-            'konten' => $request->konten,
+        // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
+        ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
 
+        $data = [
+            'judul'   => $request->judul,
+            'konten'  => $request->konten,
             'geosite' => $request->geosite,
         ];
 
@@ -63,7 +65,7 @@ class InformasiController extends Controller
 
     public function edit($id)
     {
-        $informasi = Informasi::findOrFail($id);
+        $informasi   = Informasi::findOrFail($id);
         $geositeList = $this->geositeList;
         return view('admin.informasi.edit', compact('informasi', 'geositeList'));
     }
@@ -72,23 +74,25 @@ class InformasiController extends Controller
     {
         $informasi = Informasi::findOrFail($id);
 
+        $validGeosites = implode(',', array_keys($this->geositeList));
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'konten' => 'required|string',
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-            // Penjelasan: Validasi 'urutan' telah dihapus untuk form edit
-            'geosite' => 'required|string',
+            'judul'   => 'required|string|max:255',
+            'konten'  => 'required|string',
+            'gambar'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'geosite' => "required|string|in:{$validGeosites}",
         ]);
 
+        // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
+        ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
+
         $data = [
-            'judul' => $request->judul,
-            'konten' => $request->konten,
-            // Penjelasan: 'urutan' tidak lagi di-update dari form
+            'judul'   => $request->judul,
+            'konten'  => $request->konten,
             'geosite' => $request->geosite,
         ];
 
         if ($request->hasFile('gambar')) {
-            // Delete old files from storage
+            // Hapus gambar lama dari storage
             $oldGambar = json_decode($informasi->gambar, true);
             if (is_array($oldGambar)) {
                 foreach ($oldGambar as $oldPath) {
@@ -98,7 +102,6 @@ class InformasiController extends Controller
                 }
             }
 
-            // Store new files
             $path = $request->file('gambar')->store('informasi', 'public');
             $data['gambar'] = json_encode([$path]);
         }
@@ -113,7 +116,7 @@ class InformasiController extends Controller
     {
         $informasi = Informasi::findOrFail($id);
 
-        // Delete all image files from storage
+        // Hapus semua file gambar dari storage
         $oldGambar = json_decode($informasi->gambar, true);
         if (is_array($oldGambar)) {
             foreach ($oldGambar as $oldPath) {
@@ -128,11 +131,4 @@ class InformasiController extends Controller
         return redirect()->route('admin.informasi.index')
             ->with('success', 'Informasi berhasil dihapus!');
     }
-
-    
 }
-
-
-
-
-

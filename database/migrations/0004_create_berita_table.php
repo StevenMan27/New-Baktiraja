@@ -19,6 +19,12 @@ return new class extends Migration
             $table->integer('views')->default(0);
             $table->string('geosite')->nullable();
             $table->timestamps();
+
+            // Foreign Key ke profil_geosites
+            $table->foreign('geosite')
+                  ->references('geosite')->on('profil_geosites')
+                  ->onUpdate('cascade')
+                  ->onDelete('set null');
         });
     }
 

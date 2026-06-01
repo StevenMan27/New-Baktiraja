@@ -7,115 +7,10 @@
 {{-- Style khusus halaman Manajemen Berita, selaras dengan design system GeoToba --}}
 <style>
 
-    /* Banner header halaman dengan gradient biru gelap */
-    .page-banner {
-        background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
-        border-radius: 16px;
-        padding: 28px 32px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-        margin-bottom: 28px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    /* Dekorasi lingkaran besar di pojok kanan banner */
-    .page-banner::before {
-        content: '';
-        position: absolute;
-        top: -40px;
-        right: -40px;
-        width: 160px;
-        height: 160px;
-        background: rgba(255,255,255,0.05);
-        border-radius: 50%;
-    }
-
-    /* Dekorasi lingkaran kecil di pojok kiri bawah banner */
-    .page-banner::after {
-        content: '';
-        position: absolute;
-        bottom: -30px;
-        left: 120px;
-        width: 100px;
-        height: 100px;
-        background: rgba(255,255,255,0.04);
-        border-radius: 50%;
-    }
-
-    /* Wrapper ikon dan teks di sisi kiri banner */
-    .page-banner-left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        position: relative;
-        z-index: 1;
-    }
-
-    /* Kotak ikon di sisi kiri banner */
-    .page-banner-icon {
-        width: 52px;
-        height: 52px;
-        background: rgba(255,255,255,0.12);
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    /* Ikon font awesome di dalam kotak banner */
-    .page-banner-icon i {
-        color: #ffffff;
-        font-size: 1.3rem;
-    }
-
-    /* Teks judul utama banner */
-    .page-banner-text h1 {
-        font-size: 1.35rem;
-        font-weight: 700;
-        color: #ffffff;
-        margin: 0 0 5px;
-        letter-spacing: -0.2px;
-    }
-
-    /* Teks deskripsi di bawah judul banner */
-    .page-banner-text p {
-        font-size: 0.8rem;
-        color: rgba(255,255,255,0.7);
-        margin: 0;
-    }
-
-    /* Tombol tambah di dalam banner, warna putih transparan */
-    .btn-tambah {
-        display: inline-flex;
-        align-items: center;
-        gap: 7px;
-        background: rgba(255,255,255,0.15);
-        color: #ffffff;
-        padding: 9px 18px;
-        border-radius: 10px;
-        font-size: 0.82rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background 0.2s ease, transform 0.2s ease;
-        border: 1px solid rgba(255,255,255,0.25);
-        cursor: pointer;
-        position: relative;
-        z-index: 1;
-        white-space: nowrap;
-        flex-shrink: 0;
-    }
-
-    /* Efek hover tombol tambah di dalam banner */
-    .btn-tambah:hover {
-        background: rgba(255,255,255,0.25);
-        transform: translateY(-1px);
-        color: #ffffff;
-        text-decoration: none;
-    }
+    /* ======================================
+       STYLE UNIK HALAMAN BERITA
+       (Style umum sudah ada di admin.blade.php)
+       ====================================== */
 
     /* Card utama pembungkus tabel berita */
     .berita-card {
@@ -128,32 +23,6 @@
     /* Padding konten di dalam card */
     .berita-card-body {
         padding: 24px;
-    }
-
-    /* Alert sukses setelah aksi berhasil */
-    .alert-sukses {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        background: #f0fdf4;
-        border: 1px solid #bbf7d0;
-        color: #15803d;
-        padding: 12px 16px;
-        border-radius: 10px;
-        font-size: 0.82rem;
-        font-weight: 500;
-        margin-bottom: 20px;
-    }
-
-    /* Ikon centang di dalam alert sukses */
-    .alert-sukses i {
-        font-size: 0.95rem;
-        color: #22c55e;
-    }
-
-    /* Wrapper tabel agar bisa scroll horizontal di layar kecil */
-    .table-wrapper {
-        overflow-x: auto;
     }
 
     /* Tabel utama data berita */
@@ -202,20 +71,6 @@
         padding: 32px 14px;
     }
 
-    /* Badge nomor urut di kolom pertama */
-    .row-number {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 26px;
-        height: 26px;
-        background: #f1f5f9;
-        color: #64748b;
-        border-radius: 6px;
-        font-size: 0.75rem;
-        font-weight: 600;
-    }
-
     /* Gambar thumbnail berita dengan object-fit cover agar proporsional */
     .berita-thumb {
         width: 56px;
@@ -246,82 +101,10 @@
         color: #0f172a;
     }
 
-    /* Badge lokasi geosite */
-    .badge-geosite {
-        display: inline-block;
-        background: rgba(0, 51, 102, 0.07);
-        color: #003366;
-        padding: 3px 10px;
-        border-radius: 20px;
-        font-size: 0.72rem;
-        font-weight: 600;
-        white-space: nowrap;
-    }
-
     /* Teks penulis berita */
     .penulis-text {
         color: #64748b;
         font-size: 0.8rem;
-    }
-
-    /* Wrapper tombol aksi edit dan hapus */
-    .action-buttons {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    /* Tombol edit berwarna biru muda */
-    .btn-edit {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 6px 12px;
-        background: #eff6ff;
-        color: #003366;
-        border-radius: 8px;
-        font-size: 0.76rem;
-        font-weight: 600;
-        text-decoration: none;
-        transition: background 0.2s ease;
-        border: 1px solid #bfdbfe;
-        white-space: nowrap;
-    }
-
-    /* Efek hover tombol edit */
-    .btn-edit:hover {
-        background: #dbeafe;
-        text-decoration: none;
-        color: #003366;
-    }
-
-    /* Tombol hapus berwarna merah muda */
-    .btn-delete {
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-        padding: 6px 12px;
-        background: #fff1f2;
-        color: #be123c;
-        border-radius: 8px;
-        font-size: 0.76rem;
-        font-weight: 600;
-        border: 1px solid #fecdd3;
-        cursor: pointer;
-        transition: background 0.2s ease;
-        white-space: nowrap;
-    }
-
-    /* Efek hover tombol hapus */
-    .btn-delete:hover {
-        background: #ffe4e6;
-    }
-
-    /* Wrapper pagination di bawah tabel */
-    .pagination-wrapper {
-        margin-top: 20px;
-        display: flex;
-        justify-content: flex-end;
     }
 
 </style>

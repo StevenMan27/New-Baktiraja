@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
+use App\Models\ProfilGeosite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,18 +35,21 @@ class BeritaController extends Controller
 
     public function store(Request $request)
     {
+        $validGeosites = implode(',', array_keys($this->geositeList));
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'konten' => 'required|string',
-            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'judul'   => 'required|string|max:255',
+            'konten'  => 'required|string',
+            'gambar'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'penulis' => 'nullable|string|max:100',
-            'geosite' => 'required|string',
+            'geosite' => "required|string|in:{$validGeosites}",
         ]);
 
+        // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
+        ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
+
         $data = [
-            'judul' => $request->judul,
-            'konten' => $request->konten,
+            'judul'   => $request->judul,
+            'konten'  => $request->konten,
             'penulis' => $request->penulis ?? 'Admin',
             'geosite' => $request->geosite,
         ];
@@ -63,7 +67,7 @@ class BeritaController extends Controller
 
     public function edit($id)
     {
-        $berita = Berita::findOrFail($id);
+        $berita      = Berita::findOrFail($id);
         $geositeList = $this->geositeList;
         return view('admin.berita.edit', compact('berita', 'geositeList'));
     }
@@ -72,24 +76,27 @@ class BeritaController extends Controller
     {
         $berita = Berita::findOrFail($id);
 
+        $validGeosites = implode(',', array_keys($this->geositeList));
         $request->validate([
-            'judul' => 'required|string|max:255',
-            'konten' => 'required|string',
-            // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
-            'gambar' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'judul'   => 'required|string|max:255',
+            'konten'  => 'required|string',
+            'gambar'  => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
             'penulis' => 'nullable|string|max:100',
-            'geosite' => 'required|string',
+            'geosite' => "required|string|in:{$validGeosites}",
         ]);
 
+        // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
+        ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
+
         $data = [
-            'judul' => $request->judul,
-            'konten' => $request->konten,
+            'judul'   => $request->judul,
+            'konten'  => $request->konten,
             'penulis' => $request->penulis ?? 'Admin',
             'geosite' => $request->geosite,
         ];
 
         if ($request->hasFile('gambar')) {
-            // Delete old files from storage
+            // Hapus gambar lama dari storage
             $oldGambar = json_decode($berita->gambar, true);
             if (is_array($oldGambar)) {
                 foreach ($oldGambar as $oldPath) {
@@ -99,7 +106,6 @@ class BeritaController extends Controller
                 }
             }
 
-            // Store new files
             $path = $request->file('gambar')->store('berita', 'public');
             $data['gambar'] = json_encode([$path]);
         }
@@ -114,7 +120,7 @@ class BeritaController extends Controller
     {
         $berita = Berita::findOrFail($id);
 
-        // Delete all image files from storage
+        // Hapus semua file gambar dari storage
         $oldGambar = json_decode($berita->gambar, true);
         if (is_array($oldGambar)) {
             foreach ($oldGambar as $oldPath) {
@@ -129,10 +135,4 @@ class BeritaController extends Controller
         return redirect()->route('admin.berita.index')
             ->with('success', 'Berita berhasil dihapus!');
     }
-
-    
 }
-
-
-
-

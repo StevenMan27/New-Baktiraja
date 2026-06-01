@@ -18,6 +18,14 @@ class Informasi extends Model
         'views',
     ];
 
+    /**
+     * Relasi ke ProfilGeosite
+     */
+    public function profilGeosite()
+    {
+        return $this->belongsTo(ProfilGeosite::class, 'geosite', 'geosite');
+    }
+
     protected $casts = [];
 
     protected static function boot()

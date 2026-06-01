@@ -8,21 +8,27 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
 
-        /* Reset global - Menghapus margin, padding, dan box-sizing default browser agar semua elemen mulai dari nol dan konsisten di semua browser */
+        /* Reset global menghapus margin, padding, dan box-sizing default browser */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Body - Font Inter sebagai font utama, background abu sangat terang agar konten putih di atasnya terasa timbul dan tidak flat */
+        /* Mencegah overflow horizontal di seluruh halaman pada layar mobile */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        /* Body menggunakan font Inter dengan background abu terang agar konten putih terasa timbul */
         body {
             font-family: 'Inter', sans-serif;
             background: #f1f5f9;
             color: #0f172a;
         }
 
-        /* SIDEBAR - Panel navigasi fixed di sisi kiri, lebar tetap 260px, background putih dengan border kanan tipis sebagai pemisah dari konten utama */
+        /* SIDEBAR - Panel navigasi fixed di sisi kiri dengan lebar tetap 260px */
         .sidebar {
             position: fixed;
             top: 0;
@@ -38,12 +44,12 @@
             flex-direction: column;
         }
 
-        /* SIDEBAR CLOSED - State tersembunyi sidebar saat di-toggle, digeser sepenuhnya ke kiri layar dengan translateX negatif */
+        /* SIDEBAR CLOSED - State tersembunyi sidebar digeser ke kiri layar */
         .sidebar.closed {
             transform: translateX(-100%);
         }
 
-        /* SIDEBAR HEADER - Area brand GeoToba di bagian paling atas sidebar, menggunakan gradient biru gelap ke biru sedang agar terasa premium dan berbeda dari menu di bawahnya */
+        /* SIDEBAR HEADER - Area brand GeoToba dengan gradient biru gelap */
         .sidebar-header {
             padding: 28px 24px 24px;
             background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
@@ -51,7 +57,7 @@
             overflow: hidden;
         }
 
-        /* SIDEBAR HEADER DEKORATIF - Lingkaran besar putih transparan sebagai elemen dekoratif di pojok kanan atas header untuk memberikan kedalaman visual */
+        /* Dekorasi lingkaran besar transparan di pojok kanan atas header sidebar */
         .sidebar-header::before {
             content: '';
             position: absolute;
@@ -63,7 +69,7 @@
             border-radius: 50%;
         }
 
-        /* SIDEBAR HEADER DEKORATIF 2 - Lingkaran kedua lebih kecil di posisi berbeda untuk memperkaya elemen dekoratif tanpa mengganggu teks */
+        /* Dekorasi lingkaran kecil di posisi berbeda untuk memperkaya elemen dekoratif */
         .sidebar-header::after {
             content: '';
             position: absolute;
@@ -75,7 +81,7 @@
             border-radius: 50%;
         }
 
-        /* SIDEBAR HEADER ICON - Ikon bangunan sebagai avatar brand di atas teks GeoToba, warna gold agar konsisten dengan identitas brand */
+        /* Ikon brand di atas teks GeoToba dengan warna gold */
         .sidebar-header-icon {
             width: 42px;
             height: 42px;
@@ -89,13 +95,13 @@
             z-index: 1;
         }
 
-        /* SIDEBAR HEADER ICON I - Ikon font awesome di dalam kotak brand, warna gold */
+        /* Ikon font awesome di dalam kotak brand */
         .sidebar-header-icon i {
             color: #c6a43b;
             font-size: 1.1rem;
         }
 
-        /* SIDEBAR HEADER H3 - Teks brand GeoToba berwarna putih, posisi relative agar tidak tertimpa pseudo-element dekoratif */
+        /* Teks brand GeoToba berwarna putih */
         .sidebar-header h3 {
             font-size: 1.25rem;
             font-weight: 800;
@@ -105,12 +111,12 @@
             letter-spacing: -0.3px;
         }
 
-        /* SIDEBAR HEADER H3 SPAN - Bagian kata Toba berwarna gold sesuai identitas brand */
+        /* Kata Toba berwarna gold sesuai identitas brand */
         .sidebar-header h3 span {
             color: #c6a43b;
         }
 
-        /* SIDEBAR HEADER P - Teks kecil Administrator di bawah brand, putih transparan agar terasa sebagai keterangan sekunder */
+        /* Teks Administrator berwarna putih transparan sebagai keterangan sekunder */
         .sidebar-header p {
             font-size: 0.7rem;
             color: rgba(255, 255, 255, 0.6);
@@ -122,7 +128,7 @@
             gap: 6px;
         }
 
-        /* SIDEBAR HEADER P DOT - Titik hijau kecil di samping teks Administrator sebagai indikator status aktif/online */
+        /* Titik hijau kecil sebagai indikator status aktif di samping teks Administrator */
         .sidebar-header p::before {
             content: '';
             width: 6px;
@@ -133,13 +139,13 @@
             flex-shrink: 0;
         }
 
-        /* SIDEBAR MENU - Wrapper seluruh item navigasi sidebar dengan padding atas-bawah */
+        /* Wrapper seluruh item navigasi sidebar */
         .sidebar-menu {
             padding: 12px 0 24px;
             flex: 1;
         }
 
-        /* SIDEBAR MENU TITLE - Label grup menu seperti "Menu" dan "Konten", ukuran sangat kecil dan uppercase agar jelas berfungsi sebagai judul kategori bukan link navigasi */
+        /* Label grup menu dalam ukuran sangat kecil uppercase */
         .sidebar-menu .menu-title {
             padding: 16px 20px 6px;
             font-size: 0.62rem;
@@ -149,7 +155,7 @@
             color: #94a3b8;
         }
 
-        /* SIDEBAR MENU A - Setiap item navigasi, menggunakan flex row agar ikon dan teks sejajar, padding nyaman untuk area klik, border-radius rounded agar terasa modern */
+        /* Setiap item navigasi menggunakan flex row agar ikon dan teks sejajar */
         .sidebar-menu a {
             display: flex;
             align-items: center;
@@ -164,13 +170,13 @@
             border-radius: 10px;
         }
 
-        /* SIDEBAR MENU A HOVER - Background abu terang dan teks lebih gelap saat hover, memberikan feedback visual yang jelas */
+        /* Background abu terang saat hover item menu */
         .sidebar-menu a:hover {
             background: #f8fafc;
             color: #0f172a;
         }
 
-        /* SIDEBAR MENU A ACTIVE - State halaman aktif menggunakan background biru sangat terang dengan teks biru gelap dan border kiri biru sebagai penanda visual yang kuat */
+        /* Item aktif dengan background biru transparan dan border kiri biru */
         .sidebar-menu a.active {
             background: linear-gradient(90deg, rgba(0, 51, 102, 0.08), rgba(0, 51, 102, 0.04));
             color: #003366;
@@ -179,7 +185,7 @@
             padding-left: 13px;
         }
 
-        /* SIDEBAR MENU A ICON - Lebar tetap 18px untuk semua ikon agar teks di sebelahnya selalu sejajar rapi meskipun ikon berbeda ukuran */
+        /* Lebar tetap untuk semua ikon agar teks selalu sejajar */
         .sidebar-menu a i {
             width: 18px;
             font-size: 0.9rem;
@@ -187,12 +193,12 @@
             flex-shrink: 0;
         }
 
-        /* SIDEBAR MENU A ACTIVE ICON - Ikon pada item aktif berwarna biru gelap agar selaras dengan warna teks aktif */
+        /* Ikon pada item aktif berwarna biru gelap */
         .sidebar-menu a.active i {
             color: #003366;
         }
 
-        /* MAIN CONTENT - Area konten utama di sebelah kanan sidebar, margin kiri sebesar lebar sidebar agar tidak tertimpa */
+        /* Area konten utama di sebelah kanan sidebar dengan margin kiri sebesar lebar sidebar */
         .main-content {
             margin-left: 260px;
             padding: 0;
@@ -200,87 +206,112 @@
             transition: margin-left 0.3s ease;
         }
 
-        /* MAIN CONTENT EXPANDED - State saat sidebar ditutup di mobile, margin kiri direset ke nol agar konten mengisi penuh */
+        /* State saat sidebar ditutup di mobile, margin kiri direset ke nol */
         .main-content.expanded {
             margin-left: 0;
         }
 
-        /* TOP BAR - Bar navigasi atas yang menampilkan judul halaman dan info user, menggunakan background putih dengan shadow bawah agar terasa sebagai elemen terpisah dari konten */
+        /* TOP BAR - Bar navigasi atas sticky dengan layout satu baris yang konsisten */
         .top-bar {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             padding: 0 32px;
-            height: 68px;
+            height: 64px;
             background: #ffffff;
             border-bottom: 1px solid #e2e8f0;
             box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
-            flex-wrap: wrap;
-            gap: 12px;
             position: sticky;
             top: 0;
             z-index: 100;
+            gap: 12px;
+            flex-wrap: nowrap;
         }
 
-        /* MENU TOGGLE - Tombol hamburger untuk membuka sidebar di mode mobile, tersembunyi di desktop */
+        /* Sisi kiri top bar berisi tombol hamburger dan judul halaman */
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        /* Sisi kanan top bar berisi info user dan tombol keluar */
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        /* Tombol hamburger untuk membuka sidebar di mobile */
         .menu-toggle {
             display: none;
             background: #f8fafc;
             border: 1px solid #e2e8f0;
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 10px;
             cursor: pointer;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #475569;
             transition: all 0.2s;
+            flex-shrink: 0;
+            line-height: 1;
         }
 
-        /* MENU TOGGLE HOVER - Background sedikit lebih gelap saat hover agar ada feedback visual pada tombol hamburger */
+        /* Background sedikit lebih gelap saat hover tombol hamburger */
         .menu-toggle:hover {
             background: #f1f5f9;
             color: #0f172a;
         }
 
-        /* PAGE TITLE - Judul halaman yang ditampilkan di top bar, ukuran sedang dan font weight tebal agar jelas terbaca */
+        /* Judul halaman di top bar dengan teks terpotong jika terlalu panjang */
         .page-title {
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             font-weight: 700;
             color: #0f172a;
             letter-spacing: -0.2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        /* USER MENU - Kontainer info user dan tombol logout di sisi kanan top bar, berbentuk pill dengan border tipis */
+        /* Wrapper info user berbentuk pill dengan border tipis */
         .user-menu {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
             background: #f8fafc;
-            padding: 6px 6px 6px 14px;
+            padding: 5px 5px 5px 12px;
             border-radius: 40px;
             border: 1px solid #e2e8f0;
+            flex-shrink: 0;
         }
 
-        /* USER NAME - Nama user yang sedang login, ukuran kecil dengan ikon user di depannya */
+        /* Nama user yang sedang login dengan ikon user di depannya */
         .user-name {
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             font-weight: 500;
             color: #334155;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 7px;
+            white-space: nowrap;
         }
 
-        /* USER NAME ICON - Ikon user circle di depan nama, warna biru gelap agar berkesan profesional */
+        /* Ikon user circle berwarna biru gelap */
         .user-name i {
             color: #003366;
             font-size: 1rem;
+            flex-shrink: 0;
         }
 
-        /* LOGOUT BTN - Tombol keluar berbentuk pill, ukuran compact, menggunakan warna merah saat hover sebagai peringatan visual tindakan destructive */
+        /* Tombol keluar berbentuk pill dengan warna merah saat hover */
         .logout-btn {
             background: #ffffff;
             color: #64748b;
-            padding: 7px 14px;
+            padding: 6px 12px;
             border-radius: 30px;
             font-size: 0.75rem;
             font-weight: 500;
@@ -289,22 +320,24 @@
             transition: all 0.2s;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 5px;
+            white-space: nowrap;
+            flex-shrink: 0;
         }
 
-        /* LOGOUT BTN HOVER - Warna merah saat hover sebagai sinyal visual bahwa ini adalah aksi keluar yang perlu perhatian */
+        /* Warna merah saat hover tombol keluar */
         .logout-btn:hover {
             background: #fee2e2;
             color: #dc2626;
             border-color: #fecaca;
         }
 
-        /* CONTENT WRAPPER - Padding untuk area konten di dalam main-content, terpisah dari top-bar agar layout lebih terstruktur */
+        /* Padding untuk area konten di dalam main-content */
         .content-wrapper {
             padding: 28px 32px;
         }
 
-        /* STATS GRID - Grid enam kolom untuk kartu statistik di dashboard, gap seragam antar kartu */
+        /* Grid enam kolom untuk kartu statistik dashboard */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -312,7 +345,7 @@
             margin-bottom: 28px;
         }
 
-        /* STAT CARD - Kartu statistik individual, background putih dengan border tipis dan border-radius rounded, transisi shadow saat hover */
+        /* Kartu statistik individual dengan background putih */
         .stat-card {
             background: white;
             padding: 18px 16px;
@@ -323,7 +356,7 @@
             overflow: hidden;
         }
 
-        /* STAT CARD BEFORE - Garis berwarna di bagian atas setiap kartu statistik sebagai aksen visual yang membedakan kartu statistik dari kartu biasa */
+        /* Garis berwarna di bagian atas setiap kartu statistik */
         .stat-card::before {
             content: '';
             position: absolute;
@@ -335,14 +368,14 @@
             border-radius: 14px 14px 0 0;
         }
 
-        /* STAT CARD HOVER - Shadow lebih dalam dan border lebih gelap saat hover untuk memberikan efek depth */
+        /* Shadow lebih dalam dan sedikit naik saat hover kartu statistik */
         .stat-card:hover {
             border-color: #cbd5e1;
             box-shadow: 0 6px 20px rgba(0, 51, 102, 0.08);
             transform: translateY(-2px);
         }
 
-        /* STAT NUMBER - Angka statistik utama, ukuran besar dan bold agar langsung terbaca sebagai data penting */
+        /* Angka statistik utama dengan ukuran besar dan bold */
         .stat-number {
             font-size: 1.6rem;
             font-weight: 800;
@@ -351,7 +384,7 @@
             margin-top: 4px;
         }
 
-        /* STAT LABEL - Keterangan angka statistik, ukuran kecil dan warna abu agar berperan sebagai label sekunder */
+        /* Label keterangan angka statistik berwarna abu */
         .stat-label {
             font-size: 0.68rem;
             color: #94a3b8;
@@ -361,7 +394,7 @@
             letter-spacing: 0.5px;
         }
 
-        /* CARD TABLE - Kartu wrapper untuk tabel data, background putih dengan border tipis dan padding nyaman */
+        /* Kartu wrapper untuk tabel data */
         .card-table {
             background: white;
             border-radius: 16px;
@@ -371,7 +404,7 @@
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
         }
 
-        /* CARD HEADER - Baris judul dan tombol aksi di atas tabel, flex row dengan space-between agar judul di kiri dan tombol di kanan */
+        /* Baris judul dan tombol aksi di atas tabel */
         .card-header {
             display: flex;
             justify-content: space-between;
@@ -383,14 +416,14 @@
             gap: 12px;
         }
 
-        /* CARD HEADER H5 - Judul tabel, ukuran sedang dan bold agar jelas terbaca sebagai heading section */
+        /* Judul tabel dengan ukuran sedang dan bold */
         .card-header h5 {
             font-size: 1rem;
             font-weight: 700;
             color: #0f172a;
         }
 
-        /* BTN PRIMARY - Tombol aksi utama seperti tambah data, menggunakan warna biru gelap sebagai sinyal aksi positif */
+        /* Tombol aksi utama dengan warna biru gelap */
         .btn-primary {
             background: linear-gradient(135deg, #1e3a8a, #172554);
             color: white;
@@ -408,7 +441,7 @@
             box-shadow: 0 2px 8px rgba(30, 58, 138, 0.25);
         }
 
-        /* BTN PRIMARY HOVER - Shadow lebih dalam dan sedikit naik saat hover untuk memberikan efek tombol yang ditekan */
+        /* Shadow lebih dalam dan sedikit naik saat hover tombol primary */
         .btn-primary:hover {
             background: linear-gradient(135deg, #172554, #0f172a);
             box-shadow: 0 4px 14px rgba(30, 58, 138, 0.35);
@@ -416,7 +449,7 @@
             color: white;
         }
 
-        /* BTN BACK - Tombol kembali ke halaman sebelumnya, tampil sebagai link biasa bukan tombol untuk tidak terlalu mencolok */
+        /* Tombol kembali ke halaman sebelumnya */
         .btn-back {
             display: inline-flex;
             align-items: center;
@@ -433,14 +466,14 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* BTN BACK HOVER - Warna teks dan border berubah ke biru saat hover untuk memberikan feedback navigasi */
+        /* Warna teks dan border biru saat hover tombol kembali */
         .btn-back:hover {
             color: #003366;
             border-color: #003366;
             background: rgba(0, 51, 102, 0.04);
         }
 
-        /* BTN SUBMIT - Tombol simpan data form, lebar tetap 115px agar konsisten dengan tombol batal di sebelahnya */
+        /* Tombol simpan data form berwarna hijau */
         .btn-submit {
             background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
@@ -460,13 +493,13 @@
             box-shadow: 0 2px 8px rgba(34, 197, 94, 0.2);
         }
 
-        /* BTN SUBMIT HOVER - Shadow diperdalam saat hover sebagai feedback tombol simpan */
+        /* Shadow diperdalam saat hover tombol simpan */
         .btn-submit:hover {
             background: linear-gradient(135deg, #16a34a, #15803d);
             box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
         }
 
-        /* BTN CANCEL - Tombol batal form, lebar sama dengan tombol simpan untuk keseragaman visual */
+        /* Tombol batal form dengan lebar sama dengan tombol simpan */
         .btn-cancel {
             background: #f8fafc;
             color: #64748b;
@@ -484,20 +517,20 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* BTN CANCEL HOVER - Warna merah saat hover sebagai sinyal bahwa tindakan ini membatalkan perubahan */
+        /* Warna merah saat hover tombol batal */
         .btn-cancel:hover {
             background: #fee2e2;
             color: #dc2626;
             border-color: #fecaca;
         }
 
-        /* FORM PAGE - Wrapper form dengan max-width 800px dan auto margin agar form tidak terlalu lebar dan tercentar di layar besar */
+        /* Wrapper form dengan max-width dan auto margin */
         .form-page {
             max-width: 800px;
             margin: 0 auto;
         }
 
-        /* FORM CARD - Kartu form dengan background putih, border-radius besar, dan shadow ringan agar form terasa sebagai area terfokus */
+        /* Kartu form dengan background putih dan shadow ringan */
         .form-card {
             background: white;
             border-radius: 20px;
@@ -506,7 +539,7 @@
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
         }
 
-        /* FORM CARD H2 - Judul form, ukuran sedang dan bold sebagai heading utama halaman form */
+        /* Judul form ukuran sedang dan bold */
         .form-card h2 {
             font-size: 1.25rem;
             font-weight: 700;
@@ -514,7 +547,7 @@
             margin-bottom: 6px;
         }
 
-        /* FORM CARD P - Deskripsi singkat di bawah judul form, warna abu agar berperan sebagai teks sekunder */
+        /* Deskripsi singkat di bawah judul form berwarna abu */
         .form-card p {
             color: #94a3b8;
             font-size: 0.82rem;
@@ -523,7 +556,7 @@
             border-bottom: 1px solid #f1f5f9;
         }
 
-        /* FORM ROW - Grid dua kolom untuk form input yang sejajar secara horizontal di layar lebar */
+        /* Grid dua kolom untuk input form sejajar */
         .form-row {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -531,12 +564,12 @@
             margin-bottom: 20px;
         }
 
-        /* FORM GROUP - Wrapper satu field form yang mencakup label dan input-nya */
+        /* Wrapper satu field form yang mencakup label dan input */
         .form-group {
             margin-bottom: 20px;
         }
 
-        /* FORM GROUP LABEL - Label field form, ukuran kecil dan semi-bold agar jelas terbaca sebagai keterangan input */
+        /* Label field form ukuran kecil dan semi-bold */
         .form-group label {
             display: block;
             font-size: 0.78rem;
@@ -545,12 +578,12 @@
             margin-bottom: 7px;
         }
 
-        /* FORM GROUP REQUIRED - Tanda bintang merah untuk field wajib isi */
+        /* Tanda bintang merah untuk field wajib isi */
         .form-group .required {
             color: #ef4444;
         }
 
-        /* FORM CONTROL - Elemen input, select, dan textarea, padding nyaman dengan border abu dan border-radius rounded */
+        /* Input, select, dan textarea dengan padding nyaman dan border abu */
         .form-control {
             width: 100%;
             padding: 10px 14px;
@@ -563,7 +596,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* FORM CONTROL FOCUS - Border berubah ke biru gelap dengan shadow tipis saat input difokus agar user tahu field mana yang sedang diisi */
+        /* Border biru dan shadow tipis saat input difokus */
         .form-control:focus {
             outline: none;
             border-color: #003366;
@@ -571,13 +604,13 @@
             background: #ffffff;
         }
 
-        /* TEXTAREA FORM CONTROL - Textarea bisa di-resize vertikal oleh user, tinggi minimum 100px agar tidak terlalu sempit */
+        /* Textarea bisa di-resize vertikal dengan tinggi minimum 100px */
         textarea.form-control {
             resize: vertical;
             min-height: 100px;
         }
 
-        /* FORM GROUP SMALL - Teks helper kecil di bawah input sebagai panduan pengisian, warna abu sangat terang */
+        /* Teks helper kecil di bawah input berwarna abu */
         .form-group small {
             display: block;
             font-size: 0.68rem;
@@ -585,7 +618,7 @@
             margin-top: 5px;
         }
 
-        /* FORM CHECK - Wrapper checkbox dengan teks label, flex row agar kotak dan teks sejajar */
+        /* Wrapper checkbox dengan flex row agar kotak dan teks sejajar */
         .form-check {
             display: flex;
             align-items: center;
@@ -597,7 +630,7 @@
             border: 1px solid #e2e8f0;
         }
 
-        /* FORM CHECK INPUT - Ukuran checkbox sedikit lebih besar dari default agar mudah diklik */
+        /* Ukuran checkbox sedikit lebih besar dari default */
         .form-check input {
             width: 18px;
             height: 18px;
@@ -605,7 +638,7 @@
             accent-color: #003366;
         }
 
-        /* FORM CHECK LABEL - Teks di samping checkbox, cursor pointer agar user bisa klik teks untuk toggle checkbox */
+        /* Teks di samping checkbox dengan cursor pointer */
         .form-check label {
             font-size: 0.84rem;
             color: #334155;
@@ -613,7 +646,7 @@
             font-weight: 500;
         }
 
-        /* FORM ACTIONS - Baris tombol submit dan cancel di bagian bawah form, dipisahkan dari form dengan border atas */
+        /* Baris tombol submit dan cancel di bawah form */
         .form-actions {
             display: flex;
             gap: 12px;
@@ -622,20 +655,20 @@
             border-top: 1px solid #f1f5f9;
         }
 
-        /* TABLE RESPONSIVE - Wrapper tabel dengan overflow horizontal agar tabel tidak merusak layout di layar kecil */
+        /* Wrapper tabel dengan overflow horizontal untuk layar kecil */
         .table-responsive {
             overflow-x: auto;
             border-radius: 10px;
         }
 
-        /* TABLE - Tabel data utama, lebar penuh, border-collapse untuk menghilangkan gap antar cell */
+        /* Tabel data utama lebar penuh */
         table {
             width: 100%;
             border-collapse: collapse;
             min-width: 600px;
         }
 
-        /* TH - Header kolom tabel, teks sangat kecil uppercase dengan background abu sangat terang untuk membedakan dari baris data */
+        /* Header kolom tabel ukuran sangat kecil uppercase */
         th {
             text-align: left;
             padding: 12px 14px;
@@ -648,17 +681,17 @@
             border-bottom: 1px solid #e2e8f0;
         }
 
-        /* TH FIRST CHILD - Sudut kiri atas header tabel diberi border-radius agar selaras dengan border-radius container */
+        /* Sudut kiri atas header tabel dengan border-radius */
         th:first-child {
             border-radius: 10px 0 0 0;
         }
 
-        /* TH LAST CHILD - Sudut kanan atas header tabel diberi border-radius */
+        /* Sudut kanan atas header tabel dengan border-radius */
         th:last-child {
             border-radius: 0 10px 0 0;
         }
 
-        /* TD - Cell data tabel dengan padding nyaman dan border bawah sangat tipis sebagai pemisah baris */
+        /* Cell data tabel dengan padding nyaman dan border bawah tipis */
         td {
             padding: 13px 14px;
             font-size: 0.83rem;
@@ -667,17 +700,17 @@
             vertical-align: middle;
         }
 
-        /* TR HOVER - Baris tabel memiliki background abu sangat terang saat hover untuk memudahkan user mengikuti baris yang sedang dibaca */
+        /* Background abu sangat terang saat hover baris tabel */
         tr:hover td {
             background: #fafafa;
         }
 
-        /* TR LAST CHILD TD - Baris terakhir tabel tidak memiliki border bawah agar tidak double dengan border container */
+        /* Baris terakhir tabel tanpa border bawah */
         tr:last-child td {
             border-bottom: none;
         }
 
-        /* BADGE - Label status berbentuk pill, ukuran sangat kecil dengan padding horizontal untuk teks */
+        /* Label status berbentuk pill dengan ukuran sangat kecil */
         .badge {
             padding: 4px 10px;
             border-radius: 30px;
@@ -688,19 +721,19 @@
             gap: 4px;
         }
 
-        /* BADGE SUCCESS - Badge hijau untuk status aktif atau berhasil */
+        /* Badge hijau untuk status aktif */
         .badge-success {
             background: #dcfce7;
             color: #15803d;
         }
 
-        /* BADGE DANGER - Badge merah untuk status tidak aktif atau error */
+        /* Badge merah untuk status tidak aktif */
         .badge-danger {
             background: #fee2e2;
             color: #b91c1c;
         }
 
-        /* BADGE NUMBER - Badge angka untuk menampilkan jumlah item, background abu terang dengan teks gelap */
+        /* Badge angka dengan background abu terang */
         .badge-number {
             display: inline-flex;
             align-items: center;
@@ -714,74 +747,266 @@
             color: #475569;
         }
 
-        /* BTN GROUP - Wrapper flex untuk kelompok tombol aksi dalam satu baris */
+        /* Wrapper flex untuk kelompok tombol aksi dalam satu baris */
         .btn-group {
             display: flex;
             gap: 6px;
             flex-wrap: wrap;
         }
 
-        /* ACTION BUTTONS - Wrapper tombol aksi yang disusun vertikal untuk layout kolom yang sempit */
+        /* Wrapper tombol aksi edit dan hapus secara horizontal */
         .action-buttons {
             display: flex;
-            flex-direction: column;
-            gap: 6px;
-            width: fit-content;
+            align-items: center;
+            gap: 8px;
         }
 
-        /* BTN EDIT / BTN WARNING - Tombol edit berwarna kuning, lebar tetap 82px agar seragam dengan tombol delete */
-        .btn-edit, .btn-warning {
-            background: linear-gradient(135deg, #f59e0b, #d97706);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.73rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.2s ease;
+        /* Tombol edit berwarna biru muda */
+        .btn-edit {
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            width: 82px;
-            border: none;
+            padding: 6px 12px;
+            background: #eff6ff;
+            color: #003366;
+            border-radius: 8px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            border: 1px solid #bfdbfe;
+            white-space: nowrap;
             cursor: pointer;
-            box-shadow: 0 1px 4px rgba(245, 158, 11, 0.2);
         }
 
-        /* BTN EDIT HOVER / BTN WARNING HOVER - Shadow diperdalam dan warna lebih gelap saat hover */
-        .btn-edit:hover, .btn-warning:hover {
-            background: linear-gradient(135deg, #d97706, #b45309);
-            color: white;
-            box-shadow: 0 3px 8px rgba(217, 119, 6, 0.3);
+        /* Biru lebih gelap saat hover tombol edit */
+        .btn-edit:hover {
+            background: #dbeafe;
+            text-decoration: none;
+            color: #003366;
         }
 
-        /* BTN DELETE / BTN DANGER - Tombol hapus berwarna merah sebagai sinyal aksi destructive, lebar sama dengan tombol edit */
+        /* Tombol hapus berwarna merah muda sebagai sinyal aksi destructive */
         .btn-delete, .btn-danger {
-            background: linear-gradient(135deg, #ef4444, #dc2626);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 8px;
-            font-size: 0.73rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
             gap: 5px;
-            width: 82px;
+            padding: 6px 12px;
+            background: #fff1f2;
+            color: #be123c;
+            border-radius: 8px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            border: 1px solid #fecdd3;
+            cursor: pointer;
+            transition: background 0.2s ease;
+            white-space: nowrap;
             text-decoration: none;
-            box-shadow: 0 1px 4px rgba(239, 68, 68, 0.2);
         }
 
-        /* BTN DELETE HOVER / BTN DANGER HOVER - Shadow diperdalam saat hover untuk feedback visual tombol hapus */
+        /* Merah lebih gelap saat hover tombol hapus */
         .btn-delete:hover, .btn-danger:hover {
-            background: linear-gradient(135deg, #dc2626, #b91c1c);
-            color: white;
-            box-shadow: 0 3px 8px rgba(220, 38, 38, 0.3);
+            background: #ffe4e6;
+            color: #be123c;
         }
 
-        /* IMG PREVIEW - Thumbnail gambar di dalam tabel, ukuran kotak kecil dengan object-fit cover agar gambar tidak gepeng */
+        /* Tombol warning alias btn-edit */
+        .btn-warning {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 6px 12px;
+            background: #eff6ff;
+            color: #003366;
+            border-radius: 8px;
+            font-size: 0.76rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            border: 1px solid #bfdbfe;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+        /* Biru lebih gelap saat hover tombol warning */
+        .btn-warning:hover {
+            background: #dbeafe;
+            text-decoration: none;
+            color: #003366;
+        }
+
+        /* Header banner biru gradient di setiap halaman index admin */
+        .page-banner {
+            background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
+            border-radius: 16px;
+            padding: 28px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Dekorasi lingkaran besar di pojok kanan banner */
+        .page-banner::before {
+            content: '';
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 160px;
+            height: 160px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        /* Dekorasi lingkaran kecil di pojok kiri bawah banner */
+        .page-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -30px;
+            left: 120px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255,255,255,0.04);
+            border-radius: 50%;
+        }
+
+        /* Wrapper ikon dan teks di sisi kiri banner */
+        .page-banner-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+            min-width: 0;
+        }
+
+        /* Kotak ikon di sisi kiri banner */
+        .page-banner-icon {
+            width: 52px;
+            height: 52px;
+            background: rgba(255,255,255,0.12);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* Ikon font awesome di dalam kotak banner */
+        .page-banner-icon i {
+            color: #ffffff;
+            font-size: 1.3rem;
+        }
+
+        /* Teks judul utama banner */
+        .page-banner-text h1 {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 5px;
+            letter-spacing: -0.2px;
+        }
+
+        /* Teks deskripsi di bawah judul banner */
+        .page-banner-text p {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+
+        /* Tombol tambah di dalam banner berwarna putih transparan */
+        .btn-tambah {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: rgba(255,255,255,0.15);
+            color: #ffffff;
+            padding: 9px 18px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s ease, transform 0.2s ease;
+            border: 1px solid rgba(255,255,255,0.25);
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        /* Background sedikit lebih terang saat hover tombol tambah */
+        .btn-tambah:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-1px);
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        /* Alert sukses setelah aksi berhasil */
+        .alert-sukses {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #15803d;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        /* Ikon centang di dalam alert sukses */
+        .alert-sukses i {
+            font-size: 0.95rem;
+            color: #22c55e;
+            flex-shrink: 0;
+        }
+
+        /* Wrapper tabel agar bisa scroll horizontal di layar kecil */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        /* Badge nomor urut di kolom pertama tabel */
+        .row-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: #f1f5f9;
+            color: #64748b;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Badge lokasi geosite berwarna biru muda */
+        .badge-geosite {
+            display: inline-block;
+            background: rgba(0, 51, 102, 0.07);
+            color: #003366;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Wrapper pagination di bawah tabel */
+        .pagination-wrapper {
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Thumbnail gambar di dalam tabel */
         .img-preview {
             width: 44px;
             height: 44px;
@@ -790,7 +1015,7 @@
             border: 2px solid #f1f5f9;
         }
 
-        /* IMG PLACEHOLDER - Placeholder gambar saat tidak ada foto, background abu terang dengan teks sangat kecil */
+        /* Placeholder gambar saat tidak ada foto */
         .img-placeholder {
             width: 44px;
             height: 44px;
@@ -805,7 +1030,7 @@
             border: 2px solid #e2e8f0;
         }
 
-        /* ALERT SUCCESS - Notifikasi berhasil dengan background hijau terang dan teks hijau gelap, border kiri tebal sebagai aksen */
+        /* Notifikasi berhasil dengan background hijau terang dan border kiri tebal */
         .alert-success {
             background: #f0fdf4;
             color: #15803d;
@@ -821,14 +1046,14 @@
             gap: 10px;
         }
 
-        /* EMPTY STATE - Area kosong saat tidak ada data, teks centered berwarna abu */
+        /* Area kosong saat tidak ada data dengan teks centered */
         .empty-state {
             text-align: center;
             padding: 48px 20px;
             color: #94a3b8;
         }
 
-        /* EMPTY STATE I - Ikon di dalam empty state, ukuran besar dan warna abu terang */
+        /* Ikon dalam empty state dengan ukuran besar */
         .empty-state i {
             font-size: 2.5rem;
             margin-bottom: 12px;
@@ -836,13 +1061,13 @@
             color: #cbd5e1;
         }
 
-        /* EMPTY STATE P - Teks keterangan kosong di bawah ikon */
+        /* Teks keterangan kosong di bawah ikon */
         .empty-state p {
             font-size: 0.85rem;
             font-weight: 500;
         }
 
-        /* PAGINATION - Wrapper tombol pagination, diposisikan di kanan bawah tabel */
+        /* Wrapper tombol pagination di kanan bawah tabel */
         .pagination {
             margin-top: 20px;
             display: flex;
@@ -851,17 +1076,19 @@
             gap: 6px;
         }
 
-        /* RESPONSIVE 1200px - Pada layar tablet landscape, grid statistik berubah dari 6 kolom menjadi 3 kolom agar tidak terlalu sempit */
+        /* RESPONSIVE 1200px - Grid statistik dari 6 menjadi 3 kolom */
         @media (max-width: 1200px) {
             .stats-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
 
-        /* RESPONSIVE 768px - Pada layar mobile, sidebar disembunyikan dan top-bar menggunakan padding lebih kecil */
+        /* RESPONSIVE 768px - Sidebar disembunyikan dan top-bar menggunakan satu baris konsisten */
         @media (max-width: 768px) {
             .menu-toggle {
-                display: block;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             .sidebar {
@@ -876,15 +1103,68 @@
                 margin-left: 0;
             }
 
+            /* Top bar tetap satu baris dengan padding yang dikurangi */
             .top-bar {
-                padding: 0 16px;
-                height: auto;
-                padding-top: 12px;
-                padding-bottom: 12px;
+                padding: 0 14px;
+                height: 56px;
+                flex-wrap: nowrap;
+                gap: 10px;
+            }
+
+            /* Sisi kiri top bar dengan min-width nol agar bisa menyusut */
+            .top-bar-left {
+                gap: 10px;
+                flex: 1;
+                min-width: 0;
+            }
+
+            /* Judul halaman diperkecil agar muat di satu baris */
+            .page-title {
+                font-size: 0.9rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            /* Sisi kanan top bar tidak boleh menyusut */
+            .top-bar-right {
+                flex-shrink: 0;
+            }
+
+            /* User menu dikompakkan dengan padding lebih kecil */
+            .user-menu {
+                padding: 4px 4px 4px 10px;
+                gap: 6px;
+            }
+
+            /* Nama user disembunyikan di mobile untuk menghemat ruang */
+            .user-name span.user-name-text {
+                display: none;
+            }
+
+            .user-name {
+                font-size: 0;
+                gap: 0;
+            }
+
+            /* Ikon user tetap tampil meskipun teks nama disembunyikan */
+            .user-name i {
+                font-size: 1.1rem;
+            }
+
+            /* Tombol keluar hanya tampilkan ikon tanpa teks di mobile */
+            .logout-btn {
+                padding: 6px 10px;
+                font-size: 0;
+                gap: 0;
+            }
+
+            .logout-btn i {
+                font-size: 0.85rem;
             }
 
             .content-wrapper {
-                padding: 20px 16px;
+                padding: 16px 14px;
             }
 
             .stats-grid {
@@ -910,38 +1190,47 @@
                 flex-direction: row;
             }
 
-            .page-title {
-                font-size: 1.05rem;
+            /* Banner menyusun konten secara vertikal di mobile */
+            .page-banner {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+                padding: 18px 20px;
             }
 
-            .top-bar {
-                flex-direction: row;
-                flex-wrap: wrap;
+            .page-banner-text h1 {
+                font-size: 1.1rem;
             }
 
-            .user-menu {
-                padding: 4px 4px 4px 12px;
-            }
-
-            .user-name {
+            .page-banner-text p {
                 font-size: 0.75rem;
+            }
+
+            /* Tombol tambah melebar penuh di mobile */
+            .btn-tambah {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .table-wrapper table {
+                min-width: 800px;
+            }
+
+            .pagination-wrapper {
+                justify-content: center;
+                flex-wrap: wrap;
             }
         }
 
-        /* RESPONSIVE 576px - Pada HP kecil, grid statistik menjadi satu kolom dan beberapa elemen disederhanakan */
+        /* RESPONSIVE 576px - Penyesuaian lebih lanjut untuk HP kecil */
         @media (max-width: 576px) {
             .stats-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
             .top-bar {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 10px;
-            }
-
-            .user-menu {
-                justify-content: space-between;
+                padding: 0 12px;
+                height: 52px;
             }
 
             th, td {
@@ -949,10 +1238,9 @@
                 padding: 8px 8px;
             }
 
-            .btn-edit, .btn-delete {
+            .btn-edit, .btn-delete, .btn-warning, .btn-danger {
                 padding: 4px 8px;
                 font-size: 0.62rem;
-                width: 72px;
             }
 
             .stat-card {
@@ -976,7 +1264,7 @@
             }
         }
 
-        /* RESPONSIVE 480px - HP sangat kecil, tombol aksi disusun vertikal agar tidak overflow dari kolom tabel */
+        /* RESPONSIVE 480px - Tombol aksi disusun vertikal agar tidak overflow */
         @media (max-width: 480px) {
             .btn-group {
                 flex-direction: column;
@@ -993,7 +1281,7 @@
 </head>
 <body>
 
-<!-- SIDEBAR - Panel navigasi tetap di sisi kiri, berisi brand dan seluruh link menu admin -->
+<!-- SIDEBAR - Panel navigasi tetap di sisi kiri berisi brand dan seluruh link menu admin -->
 <div class="sidebar" id="sidebar">
     <div class="sidebar-header">
         <div class="sidebar-header-icon">
@@ -1042,63 +1330,256 @@
 <!-- MAIN CONTENT - Area konten utama di sebelah kanan sidebar -->
 <div class="main-content" id="mainContent">
 
-    <!-- TOP BAR - Bar atas sticky yang menampilkan tombol hamburger, judul halaman, dan info user -->
+    <!-- TOP BAR - Bar atas sticky dalam satu baris konsisten di semua ukuran layar -->
     <div class="top-bar">
-        <div style="display: flex; align-items: center; gap: 14px;">
+        <!-- Sisi kiri berisi tombol hamburger dan judul halaman -->
+        <div class="top-bar-left">
             <button class="menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="page-title">@yield('title', 'Dashboard')</div>
         </div>
-        <div class="user-menu">
-            <span class="user-name">
-                <i class="fas fa-user-circle"></i>
-                {{ Auth::user()->name ?? 'Admin' }}
-            </span>
-            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                @csrf
-                <button type="submit" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i> Keluar
-                </button>
-            </form>
+
+        <!-- Sisi kanan berisi info user dan tombol keluar -->
+        <div class="top-bar-right">
+            <div class="user-menu">
+                <span class="user-name">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="user-name-text">{{ Auth::user()->name ?? 'Admin' }}</span>
+                </span>
+                <form action="{{ route('logout') }}" method="POST" style="display:inline; margin:0; padding:0;">
+                    @csrf
+                    <button type="submit" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span class="logout-text"> Keluar</span>
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
-    <!-- CONTENT WRAPPER - Padding wrapper untuk seluruh konten yield dari child view -->
+    <!-- CONTENT WRAPPER - Padding wrapper untuk seluruh konten dari child view -->
     <div class="content-wrapper">
         @yield('content')
     </div>
 </div>
 
+<!-- Overlay gelap yang muncul di belakang sidebar saat terbuka di mobile -->
+<div id="sidebarOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:999;"></div>
+
 <script>
-    // Toggle sidebar - Menambahkan atau menghapus class 'open' pada sidebar saat tombol hamburger diklik di mode mobile
+    /* Toggle sidebar menambahkan atau menghapus class open saat tombol hamburger diklik */
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
-    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('sidebarOverlay');
+
+    /* Fungsi membuka sidebar dan menampilkan overlay gelap di belakangnya */
+    function openSidebar() {
+        sidebar.classList.add('open');
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    /* Fungsi menutup sidebar dan menyembunyikan overlay */
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+    }
 
     if (menuToggle) {
-        menuToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('open');
+        menuToggle.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if (sidebar.classList.contains('open')) {
+                closeSidebar();
+            } else {
+                openSidebar();
+            }
         });
     }
 
-    // Tutup sidebar saat klik di luar - Mendeteksi klik di luar area sidebar dan menutupnya secara otomatis khusus di mode mobile
-    document.addEventListener('click', function(event) {
-        const isMobile = window.innerWidth <= 768;
-        if (isMobile && sidebar && !sidebar.contains(event.target) && !menuToggle.contains(event.target)) {
-            sidebar.classList.remove('open');
-        }
+    /* Menutup sidebar saat overlay di belakangnya diklik */
+    overlay.addEventListener('click', function() {
+        closeSidebar();
     });
 
-    // Handle resize window - Menutup sidebar saat ukuran window berubah ke desktop agar tidak ada state sidebar terbuka yang tersisa
+    /* Menutup sidebar saat ukuran window berubah ke desktop */
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
-            sidebar.classList.remove('open');
+            closeSidebar();
         }
     });
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style>
+    /* Popup utama SweetAlert disesuaikan dengan desain admin GeoToba */
+    .swal-popup-geotoba {
+        border-radius: 16px !important;
+        padding: 32px 28px 24px !important;
+        border: 1px solid #e2e8f0 !important;
+        font-family: 'Inter', sans-serif !important;
+    }
+
+    /* Wrapper tombol aksi agar sejajar penuh dan rapi */
+    .swal-actions-geotoba {
+        gap: 10px !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin-top: 8px !important;
+    }
+
+    /* Tombol konfirmasi hapus berwarna biru gelap sesuai brand GeoToba */
+    .swal-btn-hapus {
+        flex: 1;
+        padding: 10px 16px !important;
+        background: linear-gradient(135deg, #1e3a8a, #172554) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 10px !important;
+        font-size: 0.82rem !important;
+        font-weight: 600 !important;
+        cursor: pointer !important;
+        font-family: 'Inter', sans-serif !important;
+        transition: all 0.2s ease !important;
+    }
+
+    /* Efek hover tombol hapus sedikit lebih gelap dan naik */
+    .swal-btn-hapus:hover {
+        background: linear-gradient(135deg, #172554, #0f172a) !important;
+        transform: translateY(-1px) !important;
+    }
+
+    /* Tombol batal berwarna merah muda sebagai sinyal pembatalan */
+    .swal-btn-batal {
+        flex: 1;
+        padding: 10px 16px !important;
+        background: #fee2e2 !important;
+        color: #dc2626 !important;
+        border: 1px solid #fecaca !important;
+        border-radius: 10px !important;
+        font-size: 0.82rem !important;
+        font-weight: 600 !important;
+        cursor: pointer !important;
+        font-family: 'Inter', sans-serif !important;
+        transition: all 0.2s ease !important;
+    }
+
+    /* Efek hover tombol batal sedikit lebih gelap */
+    .swal-btn-batal:hover {
+        background: #fecaca !important;
+    }
+
+    /* Tombol OK pada notifikasi sukses menggunakan warna biru gelap */
+    .swal-btn-ok {
+        width: 100%;
+        padding: 10px 16px !important;
+        background: linear-gradient(135deg, #1e3a8a, #172554) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 10px !important;
+        font-size: 0.82rem !important;
+        font-weight: 600 !important;
+        cursor: pointer !important;
+        font-family: 'Inter', sans-serif !important;
+        transition: all 0.2s ease !important;
+    }
+
+    /* Efek hover tombol OK sedikit lebih gelap */
+    .swal-btn-ok:hover {
+        background: linear-gradient(135deg, #172554, #0f172a) !important;
+        transform: translateY(-1px) !important;
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        /* Ambil semua tombol hapus yang ada di halaman */
+        const deleteButtons = document.querySelectorAll('.btn-delete');
+
+        deleteButtons.forEach(button => {
+
+            /* Cari form induk dari tombol hapus yang ditemukan */
+            const form = button.closest('form');
+
+            if (form) {
+
+                /* Hapus atribut onsubmit bawaan agar tidak muncul konfirmasi browser default */
+                form.removeAttribute('onsubmit');
+
+                /* Tangkap event submit form dan tampilkan dialog konfirmasi terlebih dahulu */
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    /* Tampilkan dialog konfirmasi hapus dengan ikon tempat sampah */
+                    Swal.fire({
+                        html: `
+                            <div style="display:flex;flex-direction:column;align-items:center;padding:8px 0 4px;">
+                                <div style="width:60px;height:60px;background:#fff1f2;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+                                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#be123c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                        <path d="M19 6l-1 14H6L5 6"></path>
+                                        <path d="M10 11v6M14 11v6"></path>
+                                        <path d="M9 6V4h6v2"></path>
+                                    </svg>
+                                </div>
+                                <div style="font-size:1.05rem;font-weight:700;color:#0f172a;margin-bottom:8px;">Hapus Data?</div>
+                                <div style="font-size:0.82rem;color:#64748b;line-height:1.55;">Data yang dihapus tidak dapat dikembalikan. Pastikan Anda yakin sebelum melanjutkan.</div>
+                            </div>
+                        `,
+                        showCancelButton: true,
+                        confirmButtonText: 'Ya, Hapus',
+                        cancelButtonText: 'Batal',
+                        reverseButtons: true,
+                        focusCancel: true,
+                        background: '#ffffff',
+                        buttonsStyling: false,
+                        customClass: {
+                            popup:         'swal-popup-geotoba',
+                            confirmButton: 'swal-btn-hapus',
+                            cancelButton:  'swal-btn-batal',
+                            actions:       'swal-actions-geotoba',
+                        },
+
+                    }).then((result) => {
+
+                        /* Jika pengguna menekan tombol Ya Hapus, tampilkan notifikasi sukses dulu */
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                html: `
+                                    <div style="display:flex;flex-direction:column;align-items:center;padding:8px 0 4px;">
+                                        <div style="width:60px;height:60px;background:#dcfce7;border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:16px;">
+                                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#15803d" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                            </svg>
+                                        </div>
+                                        <div style="font-size:1.05rem;font-weight:700;color:#0f172a;margin-bottom:8px;">Berhasil Dihapus</div>
+                                        <div style="font-size:0.82rem;color:#64748b;line-height:1.55;">Data telah dihapus dari sistem.</div>
+                                    </div>
+                                `,
+                                confirmButtonText: 'OK',
+                                background: '#ffffff',
+                                buttonsStyling: false,
+                                customClass: {
+                                    popup:         'swal-popup-geotoba',
+                                    confirmButton: 'swal-btn-ok',
+                                    actions:       'swal-actions-geotoba',
+                                },
+
+                            }).then(() => {
+
+                                /* Setelah pengguna menutup notifikasi sukses, baru form di-submit ke server */
+                                form.submit();
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    });
+</script>
 @stack('scripts')
 </body>
 </html>

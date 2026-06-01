@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Galeri;
+use App\Models\ProfilGeosite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -34,35 +35,28 @@ class GaleriController extends Controller
 
     public function store(Request $request)
     {
+        $validGeosites = implode(',', array_keys($this->geositeList));
         $request->validate([
-            'judul'       => 'required|string|max:255',
-            'deskripsi'   => 'nullable|string',
-            'gambar'      => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
-            'lokasi'      => 'nullable|string',
-            'tanggal_foto'=> 'nullable|date',
-            'geosite'     => 'required|string',
-        ], [
-            'judul.required'    => 'Judul galeri wajib diisi.',
-            'judul.max'         => 'Judul galeri tidak boleh melebihi 255 karakter.',
-            'gambar.required'   => 'Gambar galeri wajib diunggah.',
-            'gambar.image'      => 'File yang diunggah harus berupa gambar (bukan PDF, Word, atau file lainnya).',
-            'gambar.mimes'      => 'Format gambar tidak didukung. Gunakan format JPG, PNG, atau WEBP.',
-            'gambar.max'        => 'Ukuran gambar terlalu besar. Maksimal yang diizinkan adalah 4MB.',
-            'geosite.required'  => 'Lokasi geosite wajib dipilih.',
-            'tanggal_foto.date' => 'Format tanggal foto tidak valid.',
+            'judul'        => 'required|string|max:255',
+            'deskripsi'    => 'nullable|string',
+            'gambar'       => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'lokasi'       => 'nullable|string|max:255',
+            'tanggal_foto' => 'nullable|date',
+            'geosite'      => "required|string|in:{$validGeosites}",
         ]);
 
-        // Penjelasan: Menyimpan sebagai single file.
+        // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
+        ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
+
         $path = $request->file('gambar')->store('galeri', 'public');
-        $paths = [$path];
 
         Galeri::create([
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => json_encode($paths),
-            'lokasi' => $request->lokasi,
+            'judul'        => $request->judul,
+            'deskripsi'    => $request->deskripsi,
+            'gambar'       => json_encode([$path]),
+            'lokasi'       => $request->lokasi,
             'tanggal_foto' => $request->tanggal_foto,
-            'geosite' => $request->geosite,
+            'geosite'      => $request->geosite,
         ]);
 
         return redirect()->route('admin.galeri.index')
@@ -71,7 +65,7 @@ class GaleriController extends Controller
 
     public function edit($id)
     {
-        $galeri = Galeri::findOrFail($id);
+        $galeri      = Galeri::findOrFail($id);
         $geositeList = $this->geositeList;
         return view('admin.galeri.edit', compact('galeri', 'geositeList'));
     }
@@ -80,33 +74,29 @@ class GaleriController extends Controller
     {
         $galeri = Galeri::findOrFail($id);
 
+        $validGeosites = implode(',', array_keys($this->geositeList));
         $request->validate([
-            'judul'       => 'required|string|max:255',
-            'deskripsi'   => 'nullable|string',
-            'gambar'      => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
-            'lokasi'      => 'nullable|string',
-            'tanggal_foto'=> 'nullable|date',
-            'geosite'     => 'required|string',
-        ], [
-            'judul.required'    => 'Judul galeri wajib diisi.',
-            'judul.max'         => 'Judul galeri tidak boleh melebihi 255 karakter.',
-            'gambar.image'      => 'File yang diunggah harus berupa gambar (bukan PDF, Word, atau file lainnya).',
-            'gambar.mimes'      => 'Format gambar tidak didukung. Gunakan format JPG, PNG, atau WEBP.',
-            'gambar.max'        => 'Ukuran gambar terlalu besar. Maksimal yang diizinkan adalah 4MB.',
-            'geosite.required'  => 'Lokasi geosite wajib dipilih.',
-            'tanggal_foto.date' => 'Format tanggal foto tidak valid.',
+            'judul'        => 'required|string|max:255',
+            'deskripsi'    => 'nullable|string',
+            'gambar'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'lokasi'       => 'nullable|string|max:255',
+            'tanggal_foto' => 'nullable|date',
+            'geosite'      => "required|string|in:{$validGeosites}",
         ]);
 
+        // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
+        ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
+
         $data = [
-            'judul' => $request->judul,
-            'deskripsi' => $request->deskripsi,
-            'lokasi' => $request->lokasi,
+            'judul'        => $request->judul,
+            'deskripsi'    => $request->deskripsi,
+            'lokasi'       => $request->lokasi,
             'tanggal_foto' => $request->tanggal_foto,
-            'geosite' => $request->geosite,
+            'geosite'      => $request->geosite,
         ];
 
         if ($request->hasFile('gambar')) {
-            // Delete old files from storage
+            // Hapus gambar lama dari storage
             $oldGambar = json_decode($galeri->gambar, true);
             if (is_array($oldGambar)) {
                 foreach ($oldGambar as $oldPath) {
@@ -116,7 +106,6 @@ class GaleriController extends Controller
                 }
             }
 
-            // Penjelasan: Menyimpan sebagai single file.
             $path = $request->file('gambar')->store('galeri', 'public');
             $data['gambar'] = json_encode([$path]);
         }
@@ -131,7 +120,7 @@ class GaleriController extends Controller
     {
         $galeri = Galeri::findOrFail($id);
 
-        // Delete all image files from storage
+        // Hapus semua file gambar dari storage
         $oldGambar = json_decode($galeri->gambar, true);
         if (is_array($oldGambar)) {
             foreach ($oldGambar as $oldPath) {
@@ -146,10 +135,4 @@ class GaleriController extends Controller
         return redirect()->route('admin.galeri.index')
             ->with('success', 'Galeri berhasil dihapus!');
     }
-
-    
 }
-
-
-
-
