@@ -184,59 +184,8 @@
         color: #003366;
     }
     
-    .stats-section {
-        background: linear-gradient(135deg, #003366, #0a2a4a);
-        padding: 70px 0;
-        position: relative;
-    }
-    
-    .stats-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #c6a43b, #e8c45a, #c6a43b);
-    }
-    
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 30px;
-    }
-    
-    .stat-item {
-        text-align: center;
-        padding: 25px;
-        background: rgba(255,255,255,0.08);
-        border-radius: 20px;
-        transition: all 0.3s ease;
-    }
-    
-    .stat-item:hover {
-        background: rgba(255,255,255,0.15);
-        transform: translateY(-8px);
-    }
-    
-    .stat-number {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #c6a43b;
-        margin-bottom: 10px;
-        font-family: 'Cormorant Garamond', serif;
-    }
-    
-    .stat-label {
-        font-size: 0.7rem;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: rgba(255,255,255,0.8);
-    }
-    
     @media (max-width: 992px) {
         .category-grid { grid-template-columns: repeat(2, 1fr); gap: 25px; }
-        .stats-grid { grid-template-columns: repeat(2, 1fr); }
     }
     
     @media (max-width: 768px) {
@@ -245,7 +194,6 @@
         .category-section { padding: 50px 0; }
         .section-header h2 { font-size: 1.6rem; }
         .category-grid { grid-template-columns: 1fr; }
-        .stats-grid { grid-template-columns: 1fr; gap: 15px; }
     }
 </style>
 
@@ -308,28 +256,6 @@
     </div>
 </section>
 
-<section class="stats-section">
-    <div class="container">
-        <div class="stats-grid">
-            <div class="stat-item" data-aos="fade-up" data-aos-delay="0">
-                <div class="stat-number">74.000+</div>
-                <div class="stat-label">TAHUN SEJARAH</div>
-            </div>
-            <div class="stat-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="stat-number">3</div>
-                <div class="stat-label">GEOSITE UNGGULAN</div>
-            </div>
-            <div class="stat-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="stat-number">15+</div>
-                <div class="stat-label">WARISAN BUDAYA</div>
-            </div>
-            <div class="stat-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="stat-number">100+</div>
-                <div class="stat-label">UMKM LOKAL</div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

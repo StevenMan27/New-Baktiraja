@@ -237,9 +237,9 @@
 <div class="navbar">
     <div class="nav-container">
         <div class="nav-logo">
-            <img src="{{ asset('image/Logo/bendera.png') }}" alt="Bendera" class="flag-img">
+            <img src="{{ asset('image/Logo/logobankindonesia.jpg') }}" alt="Bank Indonesia" class="flag-img">
             <div class="logo-divider"></div>
-            <img src="{{ asset('image/Logo/del.png') }}" alt="Del" class="del-img">
+            <img src="{{ asset('image/Logo/del.jpg') }}" alt="Logo Del" class="del-img">
             <div class="logo-divider"></div>
             <div class="logo-text"><h4>GEOTOBA</h4><p>Geopark Danau Toba</p></div>
         </div>
@@ -611,7 +611,7 @@
 
 <section id="maps" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Lokasi Kami</h2><div class="divider"></div></div>
 <div class="maps-container" data-aos="zoom-in">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255193.1325813422!2d98.69644291915316!3d2.470043988424604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0057d16c05ff%3A0xee8ecfd05118386e!2sBakara%2C%20Kec.%20Baktiraja%2C%20Kabupaten%20Humbang%20Hasundutan%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+    <iframe src="{{ $profil->maps_link ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255193.1325813422!2d98.69644291915316!3d2.470043988424604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0057d16c05ff%3A0xee8ecfd05118386e!2sBakara%2C%20Kec.%20Baktiraja%2C%20Kabupaten%20Humbang%20Hasundutan%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid' }}" allowfullscreen="" loading="lazy"></iframe>
     <div class="maps-info"><p><i class="fas fa-map-marker-alt"></i> Aek Sipangolu, Baktiraja, Kabupaten Humbang Hasundutan, Sumatera Utara</p></div>
 </div></div></section>
 

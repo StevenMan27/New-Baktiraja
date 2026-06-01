@@ -5,6 +5,7 @@
 @section('content')
 
 <style>
+    /* Hero banner atas halaman galeri */
     .gallery-hero {
         background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
         padding: 80px 0 50px;
@@ -13,6 +14,8 @@
         position: relative;
         overflow: hidden;
     }
+
+    /* Dekorasi animasi lingkaran putar di latar hero */
     .gallery-hero::before {
         content: '';
         position: absolute;
@@ -23,11 +26,14 @@
         background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
         animation: slowRotate 20s linear infinite;
     }
+
     @keyframes slowRotate {
         from { transform: rotate(0deg); }
         to { transform: rotate(360deg); }
     }
+
     .gallery-hero-content { position: relative; z-index: 2; }
+
     .gallery-hero h1 {
         font-size: 2.8rem;
         font-weight: 700;
@@ -36,69 +42,121 @@
         margin-bottom: 10px;
         letter-spacing: 2px;
     }
+
     .gallery-hero p {
         font-size: 0.85rem;
         letter-spacing: 3px;
         text-transform: uppercase;
         color: rgba(255,255,255,0.8);
     }
+
+    /* Section utama galeri */
     .gallery-section {
         padding: 60px 0 100px;
         background: linear-gradient(135deg, #f8fafc 0%, #eef2f8 100%);
         min-height: 100vh;
     }
-    .container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
-    .stack-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0;
-        padding: 20px 0;
-        position: relative;
+
+    .container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 24px;
     }
+
+    /* Wrapper semua baris stack, baris disusun vertikal dengan gap */
+    .stack-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        padding: 20px 0;
+    }
+
+    /* Setiap baris berisi N kartu yang saling menimpa secara horizontal */
+    /* overflow: visible agar kartu yang hover bisa naik tanpa terpotong */
+    .stack-row {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: center;
+        overflow: visible;
+        padding: 20px 0 10px;
+    }
+
+    /* Kartu individual di dalam baris stack */
     .slip-card {
         position: relative;
         width: 280px;
+        flex-shrink: 0;
         background: white;
         border-radius: 16px;
         overflow: hidden;
         cursor: pointer;
+        /* Transisi halus saat hover */
         transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1);
-        margin-left: -60px;
+        box-shadow: 0 10px 20px -5px rgba(0,0,0,0.12);
+        /* Margin negatif menyebabkan kartu saling menimpa, dikontrol via JS */
+        margin-left: -70px;
+        z-index: 1;
     }
-    .slip-card:first-child { margin-left: 0; }
+
+    /* Kartu pertama di setiap baris tidak membutuhkan margin negatif */
+    .slip-card:first-child {
+        margin-left: 0;
+    }
+
+    /* Saat hover kartu naik ke atas dan z-index nya tertinggi */
     .slip-card:hover {
-        transform: translateY(-20px) scale(1.02);
+        transform: translateY(-22px) scale(1.03);
         z-index: 100;
-        box-shadow: 0 25px 40px -10px rgba(0,0,0,0.25);
+        box-shadow: 0 28px 44px -10px rgba(0,0,0,0.28);
     }
-    .slip-card:hover ~ .slip-card { transform: translateX(20px); }
+
+    /* Kartu setelah kartu yang di-hover bergeser ke kanan */
+    .slip-card:hover ~ .slip-card {
+        transform: translateX(18px);
+    }
+
+    /* Wrapper gambar dengan tinggi tetap agar semua kartu konsisten */
     .slip-image {
         position: relative;
         width: 100%;
-        height: 320px;
+        height: 300px;
         overflow: hidden;
         background: linear-gradient(135deg, #1e293b, #0f172a);
     }
+
+    /* Gambar mengisi penuh area dengan object-fit cover */
     .slip-image img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
+        display: block;
     }
-    .slip-card:hover .slip-image img { transform: scale(1.05); }
+
+    /* Zoom gambar saat hover kartu */
+    .slip-card:hover .slip-image img {
+        transform: scale(1.06);
+    }
+
+    /* Overlay gelap gradient dari bawah muncul saat hover */
     .slip-overlay {
         position: absolute;
         bottom: 0;
         left: 0;
         right: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-        padding: 30px 16px 16px;
+        background: linear-gradient(to top, rgba(0,0,0,0.72), transparent);
+        padding: 32px 16px 16px;
         opacity: 0;
         transition: opacity 0.3s ease;
     }
-    .slip-card:hover .slip-overlay { opacity: 1; }
+
+    /* Overlay terlihat saat hover */
+    .slip-card:hover .slip-overlay {
+        opacity: 1;
+    }
+
+    /* Badge kategori di dalam overlay berwarna gold */
     .slip-category {
         display: inline-block;
         background: #c6a43b;
@@ -110,6 +168,8 @@
         text-transform: uppercase;
         letter-spacing: 1px;
     }
+
+    /* Judul di atas overlay dalam teks putih */
     .slip-title-overlay {
         color: white;
         font-size: 0.85rem;
@@ -117,12 +177,16 @@
         margin-top: 8px;
         line-height: 1.3;
     }
+
+    /* Area info bawah kartu */
     .slip-info {
-        padding: 16px;
+        padding: 14px 16px 16px;
         background: white;
         position: relative;
         border-top: 1px solid #f0f0f0;
     }
+
+    /* Garis gold yang muncul dari kiri ke kanan saat hover */
     .slip-line {
         position: absolute;
         top: 0;
@@ -131,16 +195,25 @@
         height: 3px;
         background: linear-gradient(90deg, #c6a43b, #e8c45a, #c6a43b);
         transform: scaleX(0);
+        transform-origin: left;
         transition: transform 0.3s ease;
     }
-    .slip-card:hover .slip-line { transform: scaleX(1); }
+
+    /* Garis gold melebar penuh saat hover */
+    .slip-card:hover .slip-line {
+        transform: scaleX(1);
+    }
+
+    /* Judul foto di info bawah */
     .slip-title {
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         font-weight: 600;
         color: #1e293b;
         margin-bottom: 6px;
         line-height: 1.4;
     }
+
+    /* Baris lokasi dengan ikon pin */
     .slip-location {
         font-size: 0.7rem;
         color: #94a3b8;
@@ -148,7 +221,14 @@
         align-items: center;
         gap: 5px;
     }
-    .slip-location i { font-size: 0.65rem; color: #c6a43b; }
+
+    /* Ikon lokasi berwarna gold */
+    .slip-location i {
+        font-size: 0.65rem;
+        color: #c6a43b;
+    }
+
+    /* Nomor urut di pojok kanan bawah */
     .slip-number {
         position: absolute;
         bottom: 12px;
@@ -158,7 +238,27 @@
         font-family: monospace;
     }
 
-    /* MODAL STYLE */
+    /* Tampilan kosong jika tidak ada foto */
+    .empty-gallery {
+        text-align: center;
+        padding: 80px;
+        background: white;
+        border-radius: 16px;
+    }
+
+    .empty-gallery i {
+        font-size: 3rem;
+        color: #cbd5e1;
+        margin-bottom: 15px;
+        display: block;
+    }
+
+    .empty-gallery p {
+        color: #94a3b8;
+        font-size: 0.9rem;
+    }
+
+    /* MODAL overlay penuh layar */
     .modal-overlay {
         position: fixed;
         inset: 0;
@@ -169,6 +269,8 @@
         justify-content: center;
         backdrop-filter: blur(12px);
     }
+
+    /* Kotak modal dua kolom */
     .modal-box {
         background: #1a1a1a;
         width: 90%;
@@ -177,12 +279,16 @@
         grid-template-columns: 1.2fr 1fr;
         border-radius: 20px;
         overflow: hidden;
-        animation: modalFadeIn 0.4s ease;
+        animation: modalFadeIn 0.35s ease;
+        position: relative;
     }
+
     @keyframes modalFadeIn {
         from { opacity: 0; transform: scale(0.96); }
         to { opacity: 1; transform: scale(1); }
     }
+
+    /* Sisi kiri modal berisi gambar */
     .modal-img-part {
         background: #0a0a0a;
         display: flex;
@@ -190,51 +296,71 @@
         justify-content: center;
         padding: 20px;
     }
-    .modal-img-part img { width: 100%; max-height: 70vh; object-fit: contain; }
+
+    .modal-img-part img {
+        width: 100%;
+        max-height: 70vh;
+        object-fit: contain;
+    }
+
+    /* Sisi kanan modal berisi info */
     .modal-text-part {
         padding: 35px;
         color: white;
-        text-align: left;
         background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+        display: flex;
+        flex-direction: column;
     }
+
+    /* Tombol tutup modal */
     .close-btn {
         position: absolute;
-        top: 20px;
-        right: 20px;
+        top: 16px;
+        right: 16px;
         color: white;
-        font-size: 1.5rem;
+        font-size: 1.3rem;
         cursor: pointer;
         transition: all 0.3s ease;
         z-index: 10000;
-        width: 40px;
-        height: 40px;
-        background: rgba(0,0,0,0.5);
+        width: 38px;
+        height: 38px;
+        background: rgba(255,255,255,0.1);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
     }
+
     .close-btn:hover {
         background: #c6a43b;
         color: #003366;
         transform: rotate(90deg);
     }
+
     .modal-text-part small {
         color: #c6a43b;
         letter-spacing: 2px;
         font-size: 0.7rem;
         text-transform: uppercase;
     }
-    .modal-text-part h2 {
-        font-size: 1.5rem;
-        margin: 12px 0;
-        font-family: 'Playfair Display', serif;
-    }
-    .modal-text-part p { color: #bbb; line-height: 1.7; font-size: 0.85rem; }
 
-    /* MUSIC PLAYER IN MODAL */
+    .modal-text-part h2 {
+        font-size: 1.4rem;
+        margin: 10px 0 8px;
+        font-family: 'Playfair Display', serif;
+        line-height: 1.3;
+    }
+
+    .modal-text-part p {
+        color: #bbb;
+        line-height: 1.7;
+        font-size: 0.85rem;
+        margin: 0 0 8px;
+    }
+
+    /* Music player di dalam modal selalu di bagian bawah */
     .modal-music-player {
-        margin-top: 25px;
+        margin-top: auto;
         padding: 12px 16px;
         background: rgba(0,0,0,0.5);
         border-radius: 50px;
@@ -242,8 +368,9 @@
         align-items: center;
         gap: 12px;
         border: 1px solid rgba(198,164,59,0.4);
-        backdrop-filter: blur(5px);
     }
+
+    /* Avatar musik dengan animasi berdenyut */
     .modal-music-avatar {
         width: 40px;
         height: 40px;
@@ -253,19 +380,32 @@
         align-items: center;
         justify-content: center;
         animation: pulse 2s infinite;
+        flex-shrink: 0;
     }
+
     @keyframes pulse {
         0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
+        50% { transform: scale(1.06); }
     }
+
     .modal-music-avatar i {
         color: #003366;
         font-size: 1.1rem;
     }
-    .modal-music-info { flex: 1; }
-    .modal-music-title { font-size: 0.8rem; font-weight: 700; color: white; }
-    .modal-music-artist { font-size: 0.65rem; color: #c6a43b; }
-    .modal-music-credit { font-size: 0.55rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+
+    .modal-music-info { flex: 1; min-width: 0; }
+
+    .modal-music-title {
+        font-size: 0.78rem;
+        font-weight: 700;
+        color: white;
+    }
+
+    .modal-music-artist {
+        font-size: 0.65rem;
+        color: #c6a43b;
+    }
+
     .modal-music-controls button {
         background: rgba(255,255,255,0.15);
         border: none;
@@ -276,39 +416,55 @@
         height: 32px;
         border-radius: 50%;
         transition: all 0.2s;
+        flex-shrink: 0;
     }
+
     .modal-music-controls button:hover {
         background: #c6a43b;
         color: #003366;
         transform: scale(1.1);
     }
 
-    .empty-gallery { text-align: center; padding: 80px; background: white; border-radius: 16px; }
-    .empty-gallery i { font-size: 3rem; color: #cbd5e1; margin-bottom: 15px; }
-
+    /* Responsive 1200px: lebar kartu dikecilkan */
     @media (max-width: 1200px) {
         .slip-card { width: 240px; }
-        .slip-image { height: 280px; }
-    }
-    @media (max-width: 992px) {
-        .stack-container { justify-content: center; flex-wrap: wrap; gap: 20px; }
-        .slip-card { margin-left: 0 !important; width: 260px; }
-        .slip-card:hover ~ .slip-card { transform: none; }
-        .slip-card:hover { transform: translateY(-10px); }
-    }
-    @media (max-width: 768px) {
-        .modal-box { grid-template-columns: 1fr; max-height: 85vh; overflow-y: auto; }
-        .gallery-hero h1 { font-size: 2rem; }
-        .stack-container { gap: 16px; }
-        .slip-card { width: calc(50% - 8px); }
         .slip-image { height: 260px; }
-        .modal-music-player { padding: 10px 12px; }
-        .modal-music-avatar { width: 35px; height: 35px; }
-        .modal-music-title { font-size: 0.7rem; }
     }
-    @media (max-width: 560px) {
-        .slip-card { width: 100%; }
-        .slip-image { height: 280px; }
+
+    /* Responsive 992px: kartu lebih kecil dan overlap dikurangi */
+    @media (max-width: 992px) {
+        .slip-card {
+            width: 200px;
+            margin-left: -50px;
+        }
+        .slip-image { height: 230px; }
+    }
+
+    /* Responsive 768px: modal satu kolom dan kartu lebih kecil */
+    @media (max-width: 768px) {
+        .modal-box {
+            grid-template-columns: 1fr;
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+        .gallery-hero h1 { font-size: 2rem; }
+        .slip-card {
+            width: 160px;
+            margin-left: -40px;
+        }
+        .slip-image { height: 190px; }
+        .slip-title { font-size: 0.75rem; }
+        .slip-location { font-size: 0.62rem; }
+    }
+
+    /* Responsive 480px: kartu sangat kecil dengan overlap minimal */
+    @media (max-width: 480px) {
+        .slip-card {
+            width: 130px;
+            margin-left: -32px;
+        }
+        .slip-image { height: 160px; }
+        .stack-wrapper { gap: 28px; }
     }
 </style>
 
@@ -321,68 +477,98 @@
 
 <section class="gallery-section">
     <div class="container">
-        <div class="stack-container">
-            @php $counter = 1; @endphp
-            @php $hasItems = false; @endphp
-            @foreach($galeriByKategori as $kategori => $items)
-                @foreach($items as $item)
-                    @php
-                        $hasItems = true;
-                        $images = \App\Helpers\ImageHelper::getAllImages($item->gambar);
-                    @endphp
-                    @foreach($images as $img)
-                        <div class="slip-card" onclick="openPhoto('{{ $img }}', '{{ addslashes($item->judul) }}', '{{ addslashes($item->deskripsi ?? 'Tidak ada deskripsi') }}', '{{ strtoupper($kategori) }}', '{{ addslashes($item->lokasi ?? 'Danau Toba') }}')">
-                            <div class="slip-image">
-                                <img src="{{ $img }}" alt="{{ $item->judul }}" loading="lazy" onerror="this.src='{{ asset('image/default.jpg') }}'">
-                                <div class="slip-overlay">
-                                    <span class="slip-category">{{ strtoupper($kategori) }}</span>
-                                    <div class="slip-title-overlay">{{ Str::limit($item->judul, 35) }}</div>
+
+        {{-- Kumpulkan semua foto ke dalam satu array flat terlebih dahulu --}}
+        @php
+            $allPhotos = [];
+            foreach($galeriByKategori as $kategori => $items) {
+                foreach($items as $item) {
+                    $images = \App\Helpers\ImageHelper::getAllImages($item->gambar);
+                    foreach($images as $img) {
+                        $allPhotos[] = [
+                            'src'      => $img,
+                            'judul'    => $item->judul,
+                            'deskripsi'=> $item->deskripsi ?? 'Tidak ada deskripsi',
+                            'kategori' => strtoupper($kategori),
+                            'lokasi'   => $item->lokasi ?? 'Danau Toba',
+                        ];
+                    }
+                }
+            }
+            /* Jumlah kartu per baris dikunci di sini, ubah angka ini sesuai kebutuhan */
+            $perRow = 5;
+            $rows = array_chunk($allPhotos, $perRow);
+            $counter = 1;
+        @endphp
+
+        @if(count($allPhotos) > 0)
+            <div class="stack-wrapper">
+                @foreach($rows as $row)
+                    <div class="stack-row">
+                        @foreach($row as $photo)
+                            <div class="slip-card"
+                                 onclick="openPhoto(
+                                     '{{ $photo['src'] }}',
+                                     '{{ addslashes($photo['judul']) }}',
+                                     '{{ addslashes($photo['deskripsi']) }}',
+                                     '{{ $photo['kategori'] }}',
+                                     '{{ addslashes($photo['lokasi']) }}'
+                                 )">
+                                <div class="slip-image">
+                                    <img src="{{ $photo['src'] }}"
+                                         alt="{{ $photo['judul'] }}"
+                                         loading="lazy"
+                                         onerror="this.src='{{ asset('image/default.jpg') }}'">
+                                    <div class="slip-overlay">
+                                        <span class="slip-category">{{ $photo['kategori'] }}</span>
+                                        <div class="slip-title-overlay">{{ Str::limit($photo['judul'], 38) }}</div>
+                                    </div>
+                                </div>
+                                <div class="slip-info">
+                                    <div class="slip-line"></div>
+                                    <div class="slip-title">{{ Str::limit($photo['judul'], 30) }}</div>
+                                    <div class="slip-location">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <span>{{ $photo['lokasi'] }}</span>
+                                    </div>
+                                    <div class="slip-number">#{{ str_pad($counter, 3, '0', STR_PAD_LEFT) }}</div>
                                 </div>
                             </div>
-                            <div class="slip-info">
-                                <div class="slip-line"></div>
-                                <div class="slip-title">{{ Str::limit($item->judul, 30) }}</div>
-                                <div class="slip-location">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                    <span>{{ $item->lokasi ?? 'Danau Toba' }}</span>
-                                </div>
-                                <div class="slip-number">#{{ str_pad($counter, 3, '0', STR_PAD_LEFT) }}</div>
-                            </div>
-                        </div>
-                        @php $counter++; @endphp
-                    @endforeach
+                            @php $counter++; @endphp
+                        @endforeach
+                    </div>
                 @endforeach
-            @endforeach
-            @if(!$hasItems)
-                <div class="empty-gallery">
-                    <i class="fas fa-images"></i>
-                    <p>Belum ada foto galeri</p>
-                </div>
-            @endif
-        </div>
+            </div>
+        @else
+            <div class="empty-gallery">
+                <i class="fas fa-images"></i>
+                <p>Belum ada foto galeri</p>
+            </div>
+        @endif
+
     </div>
 </section>
 
-<!-- MODAL DENGAN MUSIC PLAYER -->
+<!-- MODAL FOTO DENGAN MUSIC PLAYER -->
 <div id="pModal" class="modal-overlay" onclick="closePhoto()">
     <div class="close-btn" onclick="closePhoto()">&times;</div>
     <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-img-part"><img src="" id="mImg"></div>
+        <div class="modal-img-part">
+            <img src="" id="mImg" alt="">
+        </div>
         <div class="modal-text-part">
             <small id="mTag"></small>
             <h2 id="mTitle"></h2>
-            <p><i class="fas fa-map-marker-alt"></i> <span id="mLocation"></span></p>
+            <p><i class="fas fa-map-marker-alt" style="color:#c6a43b; margin-right:6px;"></i><span id="mLocation"></span></p>
             <p id="mDesc"></p>
 
-            <!-- MUSIC PLAYER DI DALAM MODAL -->
             <div class="modal-music-player">
                 <div class="modal-music-avatar">
                     <i class="fas fa-music"></i>
                 </div>
                 <div class="modal-music-info">
-                    <div class="modal-music-title">🎵 Gondang Batak</div>
-                    <div class="modal-music-artist">🎤 Musik Instrumental Batak</div>
-                    <div class="modal-music-credit">🎶 Lagu Daerah Batak Toba - Gondang</div>
+                    <div class="modal-music-title">Gondang Batak</div>
+                    <div class="modal-music-artist">Musik Instrumental Batak</div>
                 </div>
                 <div class="modal-music-controls">
                     <button id="modalPlayPauseBtn" onclick="toggleModalMusic(event)">
@@ -395,18 +581,15 @@
 </div>
 
 <script>
-    // ==================== LAGU GONDANG BATAK ====================
+    /* Inisialisasi audio lagu yang diputar otomatis saat modal foto terbuka */
     const songUrl = "{{ asset('audio/GONDANG.weba') }}";
-
-    let modalAudio = new Audio();
+    let modalAudio = new Audio(songUrl);
     let isModalPlaying = false;
-
-    modalAudio.src = songUrl;
     modalAudio.loop = true;
 
+    /* Fungsi toggle play dan pause musik di dalam modal */
     function toggleModalMusic(event) {
         if (event) event.stopPropagation();
-
         if (isModalPlaying) {
             modalAudio.pause();
             document.getElementById('modalPlayPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
@@ -417,51 +600,51 @@
         isModalPlaying = !isModalPlaying;
     }
 
+    /* Fungsi menghentikan musik dan mereset posisi ke awal */
     function stopModalMusic() {
-        if (modalAudio) {
-            modalAudio.pause();
-            modalAudio.currentTime = 0;
-            isModalPlaying = false;
-            document.getElementById('modalPlayPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
-        }
+        modalAudio.pause();
+        modalAudio.currentTime = 0;
+        isModalPlaying = false;
+        document.getElementById('modalPlayPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
     }
 
+    /* Fungsi memutar musik otomatis saat modal pertama kali dibuka */
     function startModalMusic() {
-        if (!isModalPlaying && modalAudio.paused) {
+        if (!isModalPlaying) {
             modalAudio.play().catch(e => console.log('Play error:', e));
             document.getElementById('modalPlayPauseBtn').innerHTML = '<i class="fas fa-pause"></i>';
             isModalPlaying = true;
         }
     }
 
-    // ==================== FUNGSI GALERI ====================
+    /* Fungsi membuka modal dan mengisi semua konten foto yang diklik */
     function openPhoto(src, title, desc, tag, location) {
         document.getElementById('mImg').src = src;
+        document.getElementById('mImg').alt = title;
         document.getElementById('mTitle').innerText = title;
         document.getElementById('mTag').innerText = tag;
         document.getElementById('mDesc').innerHTML = desc || 'Tidak ada deskripsi.';
         document.getElementById('mLocation').innerText = location || 'Danau Toba';
         document.getElementById('pModal').style.display = 'flex';
         document.body.style.overflow = 'hidden';
-
-        // PUTAR LAGU OTOMATIS SAAT MODAL TERBUKA
         startModalMusic();
     }
 
+    /* Fungsi menutup modal dan menghentikan musik */
     function closePhoto() {
         document.getElementById('pModal').style.display = 'none';
         document.body.style.overflow = 'auto';
-
-        // HENTIKAN LAGU SAAT MODAL DITUTUP
         stopModalMusic();
     }
 
+    /* Tutup modal saat tombol Escape ditekan */
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') closePhoto();
     });
 
+    /* Hentikan audio saat halaman di-refresh atau ditutup */
     window.addEventListener('beforeunload', function() {
-        if (modalAudio) modalAudio.pause();
+        modalAudio.pause();
     });
 </script>
 

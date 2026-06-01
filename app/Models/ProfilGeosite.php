@@ -31,6 +31,8 @@ class ProfilGeosite extends Model
         'info_jam',
         'info_harga',
         'tags',
+        // Kolom link embed Google Maps untuk ditampilkan di halaman publik geosite
+        'maps_link',
     ];
 
     protected $casts = [

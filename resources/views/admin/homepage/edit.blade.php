@@ -506,7 +506,165 @@
             </div>
         </div>
 
-        <!-- ════════ 5. 8 DESTINASI ════════ -->
+        <!-- ════════ 5. PETA LOKASI GOOGLE MAPS ════════ -->
+        <div class="hp-section">
+            <div class="hp-section-header">
+                <div class="section-icon" style="background:#ecfdf5;color:#059669;"><i class="fas fa-map-marked-alt"></i></div>
+                <div>
+                    <h6>Peta Lokasi Google Maps</h6>
+                    <p>Link peta yang akan ditampilkan di bagian Maps pada halaman utama website</p>
+                </div>
+            </div>
+            <div class="hp-section-body">
+
+                {{-- Panduan singkat cara menyalin link dari Google Maps --}}
+                <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #3b82f6;border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:0.82rem;color:#1d4ed8;">
+                    <div style="font-weight:700;margin-bottom:6px;"><i class="fas fa-lightbulb" style="margin-right:6px;"></i>Cara mendapatkan link Maps:</div>
+                    <ol style="margin:0;padding-left:18px;line-height:1.8;">
+                        <li>Buka <strong>Google Maps</strong> di browser atau HP</li>
+                        <li>Cari dan buka lokasi yang ingin ditampilkan</li>
+                        <li>Klik tombol <strong>Bagikan</strong> (ikon share)</li>
+                        <li>Salin link yang muncul (contoh: <code>https://maps.app.goo.gl/...</code>)</li>
+                        <li>Tempel link tersebut di kolom di bawah ini, lalu klik <strong>Simpan</strong></li>
+                    </ol>
+                    <div style="margin-top:8px;padding-top:8px;border-top:1px solid #bfdbfe;font-size:0.78rem;color:#2563eb;">
+                        <i class="fas fa-info-circle" style="margin-right:4px;"></i>
+                        Sistem akan otomatis mengubah link apapun menjadi format embed yang benar. Preview peta akan muncul setelah Anda menekan Simpan.
+                    </div>
+                </div>
+
+                {{-- Field input link Google Maps — menerima semua format URL --}}
+                <div style="margin-bottom:16px;">
+                    <label class="hp-label">Link Google Maps</label>
+                    <input type="text" name="maps_link" class="hp-input"
+                        value="{{ old('maps_link', $homepage->maps_link ?? '') }}"
+                        placeholder="Tempel link Google Maps Anda di sini, contoh: https://maps.app.goo.gl/..."
+                        style="font-size:0.84rem;"
+                    >
+                    @error('maps_link')
+                        <div style="font-size:0.78rem;color:#ef4444;margin-top:5px;display:flex;align-items:center;gap:5px;">
+                            <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                        </div>
+                    @enderror
+                    <small style="color:var(--text-muted);font-size:0.75rem;margin-top:5px;display:block;">
+                        Mendukung semua format: link pendek (maps.app.goo.gl), link share panjang, atau URL embed langsung.
+                    </small>
+                </div>
+
+                @if(!empty($homepage->maps_link))
+                <div style="margin-top:4px;">
+                    <label class="hp-label" style="margin-bottom:8px;">Preview Peta Tersimpan</label>
+                    <div style="border-radius:10px;overflow:hidden;border:1.5px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
+                        <iframe
+                            src="{{ $homepage->maps_link }}"
+                            width="100%"
+                            height="340"
+                            style="border:none;display:block;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                    <small style="color:var(--text-muted);font-size:0.74rem;margin-top:6px;display:block;">
+                        <i class="fas fa-check-circle" style="color:#22c55e;"></i>
+                        Peta di atas sedang ditampilkan di halaman publik. Untuk menggantinya, masukkan link baru di kolom input dan simpan kembali.
+                    </small>
+                </div>
+                @endif
+
+                {{-- ─── CRUD TOMBOL LOKASI DI BAWAH PETA ─── --}}
+                <div style="margin-top:28px;border-top:1.5px dashed #e2e8f0;padding-top:24px;">
+                    <label class="hp-label" style="font-size:0.9rem;margin-bottom:4px;">
+                        <i class="fas fa-map-pin" style="color:#c6a43b;margin-right:6px;"></i>
+                        Tombol Lokasi di Bawah Peta
+                    </label>
+                    <p style="font-size:0.78rem;color:var(--text-muted);margin-bottom:14px;">
+                        Tombol-tombol ini tampil di bawah peta di halaman publik dan mengarahkan pengunjung ke Google Maps. Klik <strong>+ Tambah Tombol</strong> untuk menambah tombol baru (maksimal 5).
+                    </p>
+
+                    {{-- Panduan cara mendapatkan link tombol --}}
+                    <div style="background:#fefce8;border:1px solid #fde68a;border-left:4px solid #f59e0b;border-radius:8px;padding:11px 14px;margin-bottom:18px;font-size:0.78rem;color:#92400e;">
+                        <i class="fas fa-lightbulb" style="margin-right:5px;"></i>
+                        <strong>Cara mendapatkan link tombol:</strong> Buka Google Maps, cari lokasi, klik <strong>Bagikan</strong>, salin link pendek (contoh: <code>https://maps.app.goo.gl/...</code>), tempel di kolom Link di bawah ini.
+                    </div>
+
+                    {{-- Container daftar tombol yang bisa ditambah/hapus secara dinamis --}}
+                    <div id="mapsBtnList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
+
+                        @php
+                            // Baca data tombol yang sudah tersimpan dari database untuk ditampilkan di form
+                            $savedButtons = [];
+                            if (!empty($homepage->maps_buttons)) {
+                                $decoded = json_decode($homepage->maps_buttons, true);
+                                if (is_array($decoded)) {
+                                    $savedButtons = $decoded;
+                                }
+                            }
+                            // Jika belum ada data tersimpan, tampilkan 3 baris kosong sebagai template awal
+                            if (empty($savedButtons)) {
+                                $savedButtons = [
+                                    ['nama' => 'Bakara',    'link' => 'https://www.google.com/maps/search/?api=1&query=Bakara+Humbang+Hasundutan'],
+                                    ['nama' => 'Tipang',    'link' => 'https://www.google.com/maps/search/?api=1&query=Tipang+Baktiraja'],
+                                    ['nama' => 'Baktiraja', 'link' => 'https://www.google.com/maps/search/?api=1&query=Baktiraja+Humbang+Hasundutan'],
+                                ];
+                            }
+                        @endphp
+
+                        @foreach($savedButtons as $idx => $btn)
+                        {{-- Setiap baris mewakili satu tombol dengan input Nama dan input Link --}}
+                        <div class="maps-btn-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:10px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;">
+                            <div>
+                                <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:4px;">Nama Tombol</label>
+                                <input
+                                    type="text"
+                                    name="maps_buttons[{{ $idx }}][nama]"
+                                    class="hp-input"
+                                    value="{{ old('maps_buttons.'.$idx.'.nama', $btn['nama']) }}"
+                                    placeholder="cth: Bakara"
+                                    style="margin-bottom:0;"
+                                >
+                            </div>
+                            <div>
+                                <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:4px;">Link Google Maps (URL apa saja)</label>
+                                <input
+                                    type="text"
+                                    name="maps_buttons[{{ $idx }}][link]"
+                                    class="hp-input"
+                                    value="{{ old('maps_buttons.'.$idx.'.link', $btn['link']) }}"
+                                    placeholder="https://maps.app.goo.gl/..."
+                                    style="margin-bottom:0;font-size:0.8rem;"
+                                >
+                            </div>
+                            <div style="padding-top:18px;">
+                                {{-- Tombol hapus: menghapus baris tombol dari tampilan (tidak dari DB sampai disimpan) --}}
+                                <button type="button"
+                                    onclick="this.closest('.maps-btn-row').remove(); reindexMapsButtons();"
+                                    style="background:#fee2e2;color:#dc2626;border:none;border-radius:6px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;"
+                                    title="Hapus tombol ini">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        @endforeach
+
+                    </div>
+
+                    {{-- Tombol untuk menambah baris tombol baru secara dinamis --}}
+                    <button type="button" id="addMapsBtn"
+                        onclick="addMapsBtnRow()"
+                        style="display:inline-flex;align-items:center;gap:7px;background:#eff6ff;color:#1d4ed8;border:1.5px dashed #93c5fd;border-radius:8px;padding:9px 16px;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;">
+                        <i class="fas fa-plus"></i> Tambah Tombol Lokasi
+                    </button>
+                    <small style="display:block;margin-top:8px;color:var(--text-muted);font-size:0.74rem;">
+                        <i class="fas fa-info-circle"></i> Maksimal 5 tombol. Nama yang kosong tidak akan disimpan.
+                    </small>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- ════════ 6. 8 DESTINASI ════════ -->
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-dest"><i class="fas fa-map-marker-alt"></i></div>
@@ -624,6 +782,75 @@
             }
         });
     });
+
+    /**
+     * Fungsi untuk menambah baris tombol lokasi baru ke dalam form secara dinamis.
+     * Baris baru dibuat dengan membuat elemen HTML secara programatik menggunakan JavaScript,
+     * lalu ditambahkan ke dalam container #mapsBtnList.
+     * Atribut name diatur dengan indeks yang benar menggunakan reindexMapsButtons().
+     */
+    function addMapsBtnRow() {
+        const list  = document.getElementById('mapsBtnList');
+        const count = list.querySelectorAll('.maps-btn-row').length;
+
+        // Batasi tambah tombol jika sudah mencapai 5 agar sesuai validasi controller
+        if (count >= 5) {
+            alert('Maksimal 5 tombol lokasi yang dapat ditambahkan.');
+            return;
+        }
+
+        // Membuat elemen div baris baru dengan struktur grid 3 kolom (nama, link, tombol hapus)
+        const row = document.createElement('div');
+        row.className = 'maps-btn-row';
+        row.style.cssText = 'display:grid;grid-template-columns:1fr 2fr auto;gap:10px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;';
+
+        row.innerHTML = `
+            <div>
+                <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:4px;">Nama Tombol</label>
+                <input type="text" name="maps_buttons[${count}][nama]" class="hp-input"
+                    placeholder="cth: Bakara" style="margin-bottom:0;">
+            </div>
+            <div>
+                <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:4px;">Link Google Maps (URL apa saja)</label>
+                <input type="text" name="maps_buttons[${count}][link]" class="hp-input"
+                    placeholder="https://maps.app.goo.gl/..." style="margin-bottom:0;font-size:0.8rem;">
+            </div>
+            <div style="padding-top:18px;">
+                <button type="button"
+                    onclick="this.closest('.maps-btn-row').remove(); reindexMapsButtons();"
+                    style="background:#fee2e2;color:#dc2626;border:none;border-radius:6px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;"
+                    title="Hapus tombol ini">
+                    <i class="fas fa-trash-alt"></i>
+                </button>
+            </div>
+        `;
+
+        // Menambahkan baris baru ke paling bawah daftar
+        list.appendChild(row);
+
+        // Fokus otomatis ke input nama di baris yang baru dibuat
+        row.querySelector('input[type="text"]').focus();
+    }
+
+    /**
+     * Fungsi untuk memperbarui atribut name semua baris tombol agar indeksnya berurutan.
+     * Ini penting karena ketika sebuah baris dihapus dari tengah, indeks array menjadi tidak
+     * berurutan dan PHP akan salah membaca data form. Fungsi ini memastikan indeks selalu
+     * dimulai dari 0 dan berurutan ke atas tanpa celah.
+     */
+    function reindexMapsButtons() {
+        const rows = document.querySelectorAll('#mapsBtnList .maps-btn-row');
+        rows.forEach(function(row, idx) {
+            // Perbarui name untuk input nama tombol
+            const namaInput = row.querySelector('input[name*="[nama]"]');
+            if (namaInput) namaInput.name = `maps_buttons[${idx}][nama]`;
+
+            // Perbarui name untuk input link tombol
+            const linkInput = row.querySelector('input[name*="[link]"]');
+            if (linkInput) linkInput.name = `maps_buttons[${idx}][link]`;
+        });
+    }
+
 </script>
 
 @endsection

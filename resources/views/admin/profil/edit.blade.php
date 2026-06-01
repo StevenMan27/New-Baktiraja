@@ -711,6 +711,66 @@
 
                 <div class="info-divider"></div>
 
+                {{-- Field input link Google Maps — menerima semua format URL dari Google Maps --}}
+                <div style="margin-bottom:20px;">
+                    <label class="hp-label">Link Google Maps</label>
+
+                    {{-- Panduan singkat cara menyalin link dari Google Maps --}}
+                    <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #3b82f6;border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:0.78rem;color:#1d4ed8;">
+                        <div style="font-weight:700;margin-bottom:5px;"><i class="fas fa-lightbulb" style="margin-right:5px;"></i>Cara mendapatkan link Maps:</div>
+                        <ol style="margin:0;padding-left:18px;line-height:1.8;">
+                            <li>Buka <strong>Google Maps</strong>, cari lokasi geosite ini</li>
+                            <li>Klik tombol <strong>Bagikan</strong> (ikon share)</li>
+                            <li>Salin link yang muncul (contoh: <code>https://maps.app.goo.gl/...</code>)</li>
+                            <li>Tempel link di kolom bawah, lalu klik <strong>Simpan Semua Perubahan</strong></li>
+                        </ol>
+                        <div style="margin-top:7px;padding-top:7px;border-top:1px solid #bfdbfe;font-size:0.75rem;">
+                            <i class="fas fa-info-circle" style="margin-right:3px;"></i>
+                            Sistem otomatis mengubah link apapun ke format embed. Preview muncul setelah Anda menyimpan.
+                        </div>
+                    </div>
+
+                    <input type="text" name="maps_link" class="hp-input"
+                        value="{{ old('maps_link', $profil->maps_link ?? '') }}"
+                        placeholder="Tempel link Google Maps di sini, contoh: https://maps.app.goo.gl/..."
+                        style="font-size:0.84rem;"
+                    >
+
+                    @error('maps_link')
+                        <div style="font-size:0.78rem;color:#ef4444;margin-top:5px;display:flex;align-items:center;gap:5px;">
+                            <i class="fas fa-exclamation-circle"></i> {{ $message }}
+                        </div>
+                    @enderror
+
+                    <small style="color:var(--text-muted);font-size:0.75rem;margin-top:4px;display:block;">
+                        Mendukung semua format: link pendek (maps.app.goo.gl), link share panjang, atau URL embed langsung.
+                    </small>
+
+                    {{-- Preview peta yang sudah dikonversi dan tersimpan di database --}}
+                    @if(!empty($profil->maps_link))
+                    <div style="margin-top:12px;">
+                        <label class="hp-label" style="margin-bottom:6px;">Preview Peta Tersimpan</label>
+                        <div style="border-radius:10px;overflow:hidden;border:1.5px solid #e2e8f0;box-shadow:0 2px 12px rgba(0,0,0,0.07);">
+                            <iframe
+                                src="{{ $profil->maps_link }}"
+                                width="100%"
+                                height="300"
+                                style="border:none;display:block;"
+                                allowfullscreen=""
+                                loading="lazy"
+                                referrerpolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                        <small style="color:var(--text-muted);font-size:0.74rem;margin-top:6px;display:block;">
+                            <i class="fas fa-check-circle" style="color:#22c55e;"></i>
+                            Peta ini sedang ditampilkan di halaman publik geosite. Masukkan link baru dan simpan untuk menggantinya.
+                        </small>
+                    </div>
+                    @endif
+                </div>
+
+                <div class="info-divider"></div>
+
                 <div>
                     <label class="hp-label">Tags Pencarian</label>
                     <input type="text" name="tags" class="hp-input"
@@ -766,6 +826,8 @@ document.querySelectorAll('.image-input').forEach(input => {
         }
     });
 });
+
+
 </script>
 
 @endsection

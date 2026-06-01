@@ -998,25 +998,43 @@
         
         <div class="maps-container" data-aos="zoom-in" data-aos-duration="1000">
             <iframe 
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255193.1325813422!2d98.69644291915316!3d2.470043988424604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0057d16c05ff%3A0xee8ecfd05118386e!2sBakara%2C%20Kec.%20Baktiraja%2C%20Kabupaten%20Humbang%20Hasundutan%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid" 
+                src="{{ $homepage->maps_link ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d255193.1325813422!2d98.69644291915316!3d2.470043988424604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x302e0057d16c05ff%3A0xee8ecfd05118386e!2sBakara%2C%20Kec.%20Baktiraja%2C%20Kabupaten%20Humbang%20Hasundutan%2C%20Sumatera%20Utara!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid' }}" 
                 allowfullscreen="" 
                 loading="lazy" 
                 referrerpolicy="no-referrer-when-downgrade">
             </iframe>
             <div class="maps-info">
                 <div class="maps-locations">
-                    <div class="maps-location-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=Bakara+Humbang+Hasundutan', '_blank')">
+                    @php
+                        // Membaca data tombol lokasi dari database. Jika kolom maps_buttons berisi JSON
+                        // yang valid, decode menjadi array PHP. Jika kosong atau null, gunakan 3 tombol
+                        // default sebagai fallback agar halaman tidak kosong saat pertama kali dipasang.
+                        $mapsButtonsRaw = $homepage->maps_buttons ?? null;
+                        $mapsButtons = [];
+                        if (!empty($mapsButtonsRaw)) {
+                            $decoded = json_decode($mapsButtonsRaw, true);
+                            if (is_array($decoded) && count($decoded) > 0) {
+                                $mapsButtons = $decoded;
+                            }
+                        }
+                        // Fallback ke 3 tombol default jika database belum diisi admin
+                        if (empty($mapsButtons)) {
+                            $mapsButtons = [
+                                ['nama' => 'Bakara',    'link' => 'https://www.google.com/maps/search/?api=1&query=Bakara+Humbang+Hasundutan'],
+                                ['nama' => 'Tipang',    'link' => 'https://www.google.com/maps/search/?api=1&query=Tipang+Baktiraja'],
+                                ['nama' => 'Baktiraja', 'link' => 'https://www.google.com/maps/search/?api=1&query=Baktiraja+Humbang+Hasundutan'],
+                            ];
+                        }
+                    @endphp
+                    {{-- Menampilkan tombol lokasi secara dinamis berdasarkan data dari database --}}
+                    @foreach($mapsButtons as $btn)
+                    <div class="maps-location-item"
+                         onclick="window.open('{{ $btn['link'] }}', '_blank')"
+                         title="Buka {{ $btn['nama'] }} di Google Maps">
                         <i class="fas fa-location-dot"></i>
-                        <span>Bakara</span>
+                        <span>{{ $btn['nama'] }}</span>
                     </div>
-                    <div class="maps-location-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=Tipang+Baktiraja', '_blank')">
-                        <i class="fas fa-location-dot"></i>
-                        <span>Tipang</span>
-                    </div>
-                    <div class="maps-location-item" onclick="window.open('https://www.google.com/maps/search/?api=1&query=Baktiraja+Humbang+Hasundutan', '_blank')">
-                        <i class="fas fa-location-dot"></i>
-                        <span>Baktiraja</span>
-                    </div>
+                    @endforeach
                 </div>
                 <div class="maps-note">
                     <i class="fas fa-map-marker-alt"></i>
