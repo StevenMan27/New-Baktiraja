@@ -19,7 +19,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #001f40 0%, #003366 50%, #0a4a7a 100%);
-            min-height: 100vh;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -58,6 +58,9 @@
             padding: 20px;
             position: relative;
             z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         /* LOGIN CARD - Kartu utama dengan background putih, border-radius besar, dan shadow dalam agar timbul di atas background gelap */
@@ -66,7 +69,7 @@
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
-            max-height: 90vh;
+            width: 100%;
             display: flex;
             flex-direction: column;
         }
@@ -140,8 +143,7 @@
         /* LOGIN BODY - Area konten form dengan padding yang cukup agar form tidak terasa sempit */
         .login-body {
             padding: 32px;
-            overflow-y: auto;
-        }
+                    }
 
         /* STEP INDICATOR WRAPPER - Flex container untuk tiga langkah proses reset password, diposisikan di tengah */
         .step-indicator {
@@ -432,7 +434,10 @@
 
         /* RESPONSIVE 480px - Pada HP kecil, padding dikurangi agar form tidak terasa sempit */
         @media (max-width: 480px) {
-            .login-container { padding: 16px; }
+            .login-container { padding: 16px;     display: flex;
+            align-items: center;
+            justify-content: center;
+        }
             .login-header { padding: 28px 24px 24px; }
             .login-body { padding: 24px; }
             .login-footer { padding: 14px 24px; }

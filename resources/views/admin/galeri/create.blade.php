@@ -513,7 +513,7 @@
                         required id="inputGambar" multiple>
                     <div class="uz-icon"><i class="fas fa-images"></i></div>
                     <div class="uz-label">Klik atau Seret Gambar ke Sini</div>
-                    <div class="uz-hint">Format: JPG, PNG, WEBP &nbsp;|&nbsp; Maks. 4MB per gambar &nbsp;|&nbsp; Maksimal 10 gambar</div>
+                    <div class="uz-hint">Format: JPG, PNG, WEBP &nbsp;|&nbsp; Maks. 10MB per gambar &nbsp;|&nbsp; Maksimal 10 gambar</div>
                     <div class="preview-grid" id="previewGrid"></div>
                 </div>
                 @error('gambar')
@@ -584,21 +584,8 @@
         grid.innerHTML = '';
         const files = e.target.files;
 
-        /* Validasi jumlah file tidak melebihi 10 */
-        if (files.length > 10) {
-            alert('Maksimal 10 gambar!');
-            this.value = '';
-            return;
-        }
-
         /* Iterasi setiap file dan tampilkan thumbnail preview */
         Array.from(files).forEach((file) => {
-
-            /* Validasi ukuran tiap file tidak melebihi 4MB */
-            if (file.size > 4 * 1024 * 1024) {
-                alert('Gambar "' + file.name + '" melebihi 4MB!');
-                return;
-            }
 
             /* Baca file sebagai URL data lalu tampilkan sebagai thumbnail */
             const reader = new FileReader();

@@ -28,8 +28,8 @@
     }
 
     .hp-wrapper {
-        max-width: 960px;
-        margin: 0 auto;
+        max-width: 100%;
+        margin: 0;
         padding: 0 0 60px;
     }
 
@@ -251,6 +251,3 @@
     </form>
 </div>
 @endsection
-
-
-

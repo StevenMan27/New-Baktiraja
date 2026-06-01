@@ -39,21 +39,35 @@ class GaleriController extends Controller
         $request->validate([
             'judul'        => 'required|string|max:255',
             'deskripsi'    => 'nullable|string',
-            'gambar'       => 'required|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'gambar'       => 'required|array|max:10',
+            'gambar.*'     => 'image|mimes:jpeg,png,jpg,webp|max:10240',
             'lokasi'       => 'nullable|string|max:255',
             'tanggal_foto' => 'nullable|date',
             'geosite'      => "required|string|in:{$validGeosites}",
+        ], [
+            'gambar.required' => 'Minimal satu gambar wajib diunggah.',
+            'gambar.max'      => 'Maksimal gambar yang dapat diunggah adalah 10 gambar sekaligus.',
+            'gambar.*.image'  => 'Format file yang diunggah harus berupa gambar.',
+            'gambar.*.mimes'  => 'Gambar harus memiliki format: jpeg, png, jpg, webp.',
+            'gambar.*.max'    => 'Ukuran gambar maksimal adalah 10MB.',
+            'required'        => 'Kolom :attribute wajib diisi.',
+            'geosite.in'      => 'Geosite yang dipilih tidak valid.'
         ]);
 
         // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
         ProfilGeosite::firstOrCreate(['geosite' => $request->geosite]);
 
-        $path = $request->file('gambar')->store('galeri', 'public');
+        $paths = [];
+        if ($request->hasFile('gambar')) {
+            foreach ($request->file('gambar') as $file) {
+                $paths[] = $file->store('galeri', 'public');
+            }
+        }
 
         Galeri::create([
             'judul'        => $request->judul,
             'deskripsi'    => $request->deskripsi,
-            'gambar'       => json_encode([$path]),
+            'gambar'       => json_encode($paths),
             'lokasi'       => $request->lokasi,
             'tanggal_foto' => $request->tanggal_foto,
             'geosite'      => $request->geosite,
@@ -78,10 +92,18 @@ class GaleriController extends Controller
         $request->validate([
             'judul'        => 'required|string|max:255',
             'deskripsi'    => 'nullable|string',
-            'gambar'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'gambar'       => 'nullable|array|max:10',
+            'gambar.*'     => 'image|mimes:jpeg,png,jpg,webp|max:10240',
             'lokasi'       => 'nullable|string|max:255',
             'tanggal_foto' => 'nullable|date',
             'geosite'      => "required|string|in:{$validGeosites}",
+        ], [
+            'gambar.max'     => 'Maksimal gambar yang dapat diunggah adalah 10 gambar sekaligus.',
+            'gambar.*.image' => 'Format file yang diunggah harus berupa gambar.',
+            'gambar.*.mimes' => 'Gambar harus memiliki format: jpeg, png, jpg, webp.',
+            'gambar.*.max'   => 'Ukuran gambar maksimal adalah 10MB.',
+            'required'       => 'Kolom :attribute wajib diisi.',
+            'geosite.in'     => 'Geosite yang dipilih tidak valid.'
         ]);
 
         // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
@@ -106,8 +128,11 @@ class GaleriController extends Controller
                 }
             }
 
-            $path = $request->file('gambar')->store('galeri', 'public');
-            $data['gambar'] = json_encode([$path]);
+            $paths = [];
+            foreach ($request->file('gambar') as $file) {
+                $paths[] = $file->store('galeri', 'public');
+            }
+            $data['gambar'] = json_encode($paths);
         }
 
         $galeri->update($data);

@@ -35,6 +35,22 @@ class HomepageController extends Controller
         // Mengambil data homepage pertama atau membuat row kosong jika belum ada — mencegah null error
         $homepage = Homepage::firstOrCreate([]);
         
+        // Tambahkan validasi file yang masuk
+        $request->validate([
+            'hero_slides'   => 'nullable|array|max:6',
+            'hero_slides.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
+            'about_video'   => 'nullable|mimetypes:video/mp4,video/webm|max:204800',
+            'destinasi_gambar.*' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240'
+        ], [
+            'hero_slides.max'   => 'Maksimal gambar slide yang dapat diunggah adalah 6.',
+            'hero_slides.*.max' => 'Ukuran gambar slide maksimal adalah 10MB.',
+            'hero_slides.*.image' => 'Format file slide harus berupa gambar.',
+            'about_video.max'   => 'Ukuran video maksimal adalah 200MB.',
+            'about_video.mimetypes' => 'Format video harus berupa MP4 atau WEBM.',
+            'destinasi_gambar.*.max' => 'Ukuran gambar destinasi maksimal adalah 10MB.',
+            'destinasi_gambar.*.image' => 'Format file destinasi harus berupa gambar.',
+        ]);
+
         // Memisahkan data file dan destinasi dari data teks agar bisa diproses terpisah
         $data = $request->except(['_token', '_method', 'hero_slides', 'about_video', 'destinasi', 'destinasi_gambar']);
 

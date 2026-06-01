@@ -506,7 +506,7 @@
                         id="inputGambar">
                     <div class="uz-icon"><i class="fas fa-image"></i></div>
                     <div class="uz-label">Klik atau Seret Gambar ke Sini</div>
-                    <div class="uz-hint">Format: JPG, PNG, WEBP &nbsp;|&nbsp; Maks. 4MB</div>
+                    <div class="uz-hint">Format: JPG, PNG, WEBP &nbsp;|&nbsp; Maks. 10MB</div>
                     <div class="preview-grid" id="previewGrid"></div>
                 </div>
                 @error('gambar')
@@ -564,9 +564,9 @@
         /* Hentikan proses jika tidak ada file yang dipilih */
         if (!file) return;
 
-        /* Validasi ukuran file tidak melebihi 4MB */
-        if (file.size > 4 * 1024 * 1024) {
-            alert('Gambar "' + file.name + '" melebihi batas maksimal 4MB!');
+        /* Validasi ukuran file tidak melebihi 10MB */
+        if (file.size > 10 * 1024 * 1024) {
+            alert('Gambar "' + file.name + '" melebihi batas maksimal 10MB!');
             this.value = '';
             return;
         }

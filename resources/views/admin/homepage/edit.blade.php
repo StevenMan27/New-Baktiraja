@@ -32,8 +32,8 @@
 
     /* ── Page Wrapper ── */
     .hp-wrapper {
-        max-width: 960px;
-        margin: 0 auto;
+        max-width: 100%;
+        margin: 0;
         padding: 0 0 60px;
     }
 
@@ -506,9 +506,7 @@
             </div>
         </div>
 
-
-
-        <!-- ════════ 6. 8 DESTINASI ════════ -->
+        <!-- ════════ 5. 8 DESTINASI ════════ -->
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-dest"><i class="fas fa-map-marker-alt"></i></div>
@@ -629,5 +627,3 @@
 </script>
 
 @endsection
-
-

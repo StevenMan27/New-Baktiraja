@@ -43,9 +43,15 @@ class FasilitasController extends Controller
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
             // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
-            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
             'harga'     => 'nullable|string|max:100',
             'geosite'   => "required|string|in:{$validGeosites}",
+        ], [
+            'gambar.image' => 'Format file yang diunggah harus berupa gambar.',
+            'gambar.mimes' => 'Gambar harus memiliki format: jpeg, png, jpg, webp.',
+            'gambar.max'   => 'Ukuran gambar maksimal adalah 10MB.',
+            'required'     => 'Kolom :attribute wajib diisi.',
+            'geosite.in'   => 'Geosite yang dipilih tidak valid.'
         ]);
 
         // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
@@ -89,9 +95,15 @@ class FasilitasController extends Controller
             'nama'      => 'required|string|max:255',
             'deskripsi' => 'required|string',
             // Penjelasan: Validasi diubah dari array ke single file karena form hanya mengirimkan satu file.
-            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:4096',
+            'gambar'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:10240',
             'harga'     => 'nullable|string|max:100',
             'geosite'   => "required|string|in:{$validGeosites}",
+        ], [
+            'gambar.image' => 'Format file yang diunggah harus berupa gambar.',
+            'gambar.mimes' => 'Gambar harus memiliki format: jpeg, png, jpg, webp.',
+            'gambar.max'   => 'Ukuran gambar maksimal adalah 10MB.',
+            'required'     => 'Kolom :attribute wajib diisi.',
+            'geosite.in'   => 'Geosite yang dipilih tidak valid.'
         ]);
 
         // Pastikan geosite ada di database profil_geosites untuk mencegah foreign key error
