@@ -49,6 +49,10 @@ return new class extends Migration
             $table->text('cta_text')->nullable();
             $table->string('button_link')->nullable();
 
+            // Maps Section
+            $table->text('maps_link')->nullable();
+            $table->longText('maps_buttons')->nullable();
+
             $table->timestamps();
         });
 

@@ -15,11 +15,21 @@
             box-sizing: border-box;
         }
 
-        /* Body - Background gradient biru gelap ke biru sedang sebagai latar login, min-height 100vh agar mengisi seluruh layar, flex center untuk memusatkan card */
+        /* HTML dan BODY dikunci bersamaan agar tidak ada satu pun lapisan yang bisa melampaui tinggi layar. overflow:hidden di html mencegah scroll di level dokumen paling atas */
+        html {
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+        }
+
+        /* Body - Background gradient biru gelap ke biru sedang sebagai latar login. height:100dvh mengunci tinggi tepat satu layar, overflow:hidden memastikan tidak ada scroll pada latar belakang */
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #001f40 0%, #003366 50%, #0a4a7a 100%);
-            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -51,13 +61,19 @@
             border-radius: 50%;
         }
 
-        /* CONTAINER LOGIN - Wrapper utama yang membatasi lebar form login agar tidak terlalu lebar di layar besar */
+        /* CONTAINER LOGIN - Wrapper pembatas lebar form login. height:100dvh mengunci tingginya setara layar, overflow:hidden memastikan card tidak bisa keluar batas */
         .login-container {
             width: 100%;
             max-width: 420px;
+            height: 100vh;
+            height: 100dvh;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             position: relative;
             z-index: 1;
+            overflow: hidden;
         }
 
         /* LOGIN CARD - Kartu form login dengan background putih, border-radius besar, dan shadow dalam untuk kesan timbul di atas background gelap */
@@ -66,7 +82,7 @@
             border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 32px 64px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
-            max-height: 90vh;
+            max-height: 100%;
             display: flex;
             flex-direction: column;
         }
@@ -92,26 +108,7 @@
             border-radius: 50%;
         }
 
-        /* LOGIN ICON - Kotak ikon gembok di bagian atas header, background gold transparan agar kontras dengan header biru */
-        .login-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(198, 164, 59, 0.2);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            position: relative;
-            z-index: 1;
-            border: 1px solid rgba(198, 164, 59, 0.3);
-        }
 
-        /* LOGIN ICON I - Ikon gembok berwarna gold sebagai simbol keamanan halaman login */
-        .login-icon i {
-            font-size: 1.6rem;
-            color: #c6a43b;
-        }
 
         /* LOGIN HEADER H1 - Judul halaman login berwarna putih, ukuran sedang dan bold agar terbaca jelas di atas background biru */
         .login-header h1 {
@@ -137,10 +134,11 @@
             z-index: 1;
         }
 
-        /* LOGIN BODY - Area form login dengan padding yang cukup besar agar form tidak terasa sempit */
+        /* LOGIN BODY - Area form login. flex:1 membuatnya mengisi sisa ruang di antara header dan footer. overflow-y:auto memungkinkan hanya bagian dalam kartu yang bisa di-scroll jika layar terlalu pendek, sementara latar belakang tetap diam */
         .login-body {
             padding: 32px;
             overflow-y: auto;
+            flex: 1;
         }
 
         /* ALERT SUCCESS - Notifikasi berhasil dengan background hijau sangat terang dan border kiri hijau sebagai aksen */
@@ -336,7 +334,7 @@
             font-weight: 600;
         }
 
-        /* RESPONSIVE 480px - Pada HP kecil, padding dikurangi agar form tidak terlalu sempit */
+        /* RESPONSIVE 480px - Pada HP kecil, padding kontainer dan header dikurangi agar kartu tidak terlalu berhimpit dengan tepi layar */
         @media (max-width: 480px) {
             .login-container {
                 padding: 16px;
@@ -361,9 +359,7 @@
 
             <!-- LOGIN HEADER - Bagian atas kartu dengan gradient biru, ikon gembok, judul, dan subjudul -->
             <div class="login-header">
-                <div class="login-icon">
-                    <i class="fas fa-shield-halved"></i>
-                </div>
+
                 <h1>Admin <span>GeoToba</span></h1>
                 <p>Masukkan kredensial Anda untuk melanjutkan</p>
             </div>

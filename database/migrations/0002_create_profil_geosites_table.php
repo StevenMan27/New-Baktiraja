@@ -47,6 +47,7 @@ return new class extends Migration
             $table->string('info_jam')->nullable();
             $table->string('info_harga')->nullable();
             $table->json('tags')->nullable(); // Array tag seperti ["Sunrise", "Sunset"]
+            $table->text('maps_link')->nullable(); // Kolom untuk URL/Iframe Google Maps
 
             $table->timestamps();
         });

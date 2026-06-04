@@ -50,6 +50,28 @@
         color: rgba(255,255,255,0.8);
     }
 
+    .hero-badge {
+        display: inline-block;
+        background: rgba(198, 164, 59, 0.12);
+        border: 1px solid rgba(198, 164, 59, 0.3);
+        color: #f1d26b; /* gold-light */
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    .hero-divider {
+        width: 50px;
+        height: 3px;
+        background: #c6a43b; /* gold */
+        margin: 20px auto 0;
+        border-radius: 4px;
+    }
+
     /* Section utama galeri */
     .gallery-section {
         padding: 60px 0 100px;
@@ -470,8 +492,10 @@
 
 <div class="gallery-hero">
     <div class="gallery-hero-content">
-        <h1>GALERI</h1>
-        <p>Koleksi Foto Terbaik</p>
+        <div class="hero-badge">UPDATE TERBARU</div>
+        <h1>Galeri</h1>
+        <p>Koleksi Foto Terbaik Geopark Danau Toba</p>
+        <div class="hero-divider"></div>
     </div>
 </div>
 

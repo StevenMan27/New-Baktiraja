@@ -139,16 +139,7 @@
         transform: scale(1);
     }
     
-    .slide::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(135deg, rgba(0,51,102,0.4) 0%, rgba(0,102,153,0.2) 100%);
-        animation: shimmer 3s infinite;
-    }
+
     
     .slide-1 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_1) ? asset("storage/" . $homepage->hero_slide_1) : "/image/bakara/bakara-slide1.jpg" }}'); }
     .slide-2 { background-image: linear-gradient(rgba(0, 51, 102, 0.5), rgba(0, 102, 153, 0.3)), url('{{ !empty($homepage->hero_slide_2) ? asset("storage/" . $homepage->hero_slide_2) : "/image/bakara/bakara-slide2.jpg" }}'); }

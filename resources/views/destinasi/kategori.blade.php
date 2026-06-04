@@ -183,11 +183,11 @@
 
 @php
     $bgImages = [
-        'Alam' => 'image/meat/meat-hero.jpg',
-        'Buatan' => 'image/meat/slide2.jpg',
-        'Budaya' => 'image/meat/gallery1.jpg'
+        'Alam' => 'image/bakara/kategori-alam.jpg',
+        'Buatan' => 'image/bakara/kategori-buatan.jpg',
+        'Budaya' => 'image/bakara/kategori-budaya.jpg'
     ];
-    $bgImage = asset($bgImages[$kategori] ?? 'image/meat/meat-hero.jpg');
+    $bgImage = asset($bgImages[$kategori] ?? 'image/bakara/kategori-alam.jpg');
 @endphp
 
 <section class="kategori-hero" style="background-image: linear-gradient(135deg, rgba(0,51,102,0.8), rgba(0,51,102,0.6)), url('{{ $bgImage }}');">

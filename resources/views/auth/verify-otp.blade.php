@@ -15,11 +15,21 @@
             box-sizing: border-box;
         }
 
-        /* Body - Background gradient biru gelap konsisten dengan halaman login dan lupa password */
+        /* HTML dan BODY dikunci bersamaan agar tidak ada satu pun lapisan yang bisa melampaui tinggi layar. overflow:hidden di html mencegah scroll di level dokumen paling atas */
+        html {
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+        }
+
+        /* Body - Background gradient biru gelap konsisten dengan halaman login dan lupa password. height:100dvh mengunci tinggi tepat satu layar, overflow:hidden memastikan tidak ada scroll pada latar belakang */
         body {
             font-family: 'Inter', sans-serif;
             background: linear-gradient(135deg, #001f40 0%, #003366 50%, #0a4a7a 100%);
+            margin: 0;
+            padding: 0;
             height: 100vh;
+            height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -51,15 +61,19 @@
             border-radius: 50%;
         }
 
+        /* LOGIN CONTAINER - Wrapper pembatas lebar card. height:100dvh mengunci tingginya setara layar, overflow:hidden memastikan card tidak bisa keluar batas */
         .login-container {
             width: 100%;
             max-width: 460px;
+            height: 100vh;
+            height: 100dvh;
             padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             position: relative;
             z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow: hidden;
         }
 
         /* LOGIN CARD - Kartu utama dengan background putih, border-radius besar, dan shadow dalam */
@@ -73,10 +87,10 @@
             flex-direction: column;
         }
 
-        /* LOGIN HEADER - Bagian atas card dengan gradient biru gelap, konsisten di semua halaman auth */
+        /* LOGIN HEADER - Bagian atas card dengan gradient biru gelap, konsisten di semua halaman auth. Padding diperbesar karena ikon dihapus agar header tidak terlihat terlalu sempit */
         .login-header {
             background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
-            padding: 36px 32px 32px;
+            padding: 48px 32px 40px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -92,27 +106,6 @@
             height: 120px;
             background: rgba(255, 255, 255, 0.06);
             border-radius: 50%;
-        }
-
-        /* LOGIN ICON - Kotak ikon di atas judul, background gold transparan dengan border gold tipis */
-        .login-icon {
-            width: 64px;
-            height: 64px;
-            background: rgba(198, 164, 59, 0.2);
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 16px;
-            position: relative;
-            z-index: 1;
-            border: 1px solid rgba(198, 164, 59, 0.3);
-        }
-
-        /* LOGIN ICON I - Ikon perisai berwarna gold sebagai simbol verifikasi keamanan OTP */
-        .login-icon i {
-            font-size: 1.6rem;
-            color: #c6a43b;
         }
 
         /* LOGIN HEADER H1 - Judul halaman berwarna putih dengan font weight tebal */
@@ -139,9 +132,10 @@
             z-index: 1;
         }
 
-        /* LOGIN BODY - Area konten form dengan padding yang cukup agar tidak terasa sempit */
+        /* LOGIN BODY - Area konten form. flex:1 mengisi sisa ruang di antara header dan footer agar kartu memanfaatkan seluruh tinggi layar. overflow-y:auto memungkinkan hanya konten di dalam kartu yang bisa di-scroll jika layar terlalu pendek, sementara latar belakang tetap diam */
         .login-body {
             padding: 32px;
+            overflow-y: auto;
             flex: 1;
         }
 
@@ -500,10 +494,7 @@
 
         /* RESPONSIVE 480px - Pada HP kecil, padding dikurangi dan kotak OTP sedikit diperkecil */
         @media (max-width: 480px) {
-            .login-container { padding: 16px;     display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            .login-container { padding: 16px; }
             .login-header { padding: 28px 24px 24px; }
             .login-body { padding: 24px; }
             .login-footer { padding: 14px 24px; }
@@ -529,8 +520,6 @@
         /* RESPONSIVE HEIGHT - Jika layar monitor kurang tinggi, kecilkan padding/margin agar card muat tanpa scroll */
         @media (max-height: 850px) {
             .login-header { padding: 20px 24px 16px; }
-            .login-icon { width: 48px; height: 48px; margin-bottom: 10px; }
-            .login-icon i { font-size: 1.2rem; }
             .login-header h1 { font-size: 1.2rem; }
             .login-body { padding: 20px 24px; }
             .step-indicator { margin-bottom: 16px; padding: 12px; }
@@ -548,7 +537,6 @@
         
         @media (max-height: 650px) {
             .login-header::before { display: none; }
-            .login-icon { display: none; }
             .step-indicator { display: none; } /* Hilangkan step indicator jika layar benar-benar sangat pendek */
         }
     </style>
@@ -559,11 +547,7 @@
     <div class="login-container">
         <div class="login-card">
 
-            <!-- LOGIN HEADER - Bagian atas card dengan gradient biru, ikon perisai, judul, dan deskripsi -->
             <div class="login-header">
-                <div class="login-icon">
-                    <i class="fas fa-shield-halved"></i>
-                </div>
                 <h1>Verifikasi <span>OTP</span></h1>
                 <p>Masukkan kode 6 digit yang dikirim ke email Anda</p>
             </div>

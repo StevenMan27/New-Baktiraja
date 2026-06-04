@@ -10,7 +10,7 @@
     .destinasi-hero {
         height: 50vh;
         min-height: 400px;
-        background: linear-gradient(135deg, rgba(0,51,102,0.8), rgba(0,51,102,0.6)), url('{{ asset("image/meat/meat-hero.jpg") }}');
+        background: linear-gradient(135deg, rgba(0,51,102,0.8), rgba(0,51,102,0.6)), url('{{ asset("image/bakara/kategori-alam.jpg") }}');
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
@@ -216,7 +216,7 @@
         <div class="category-grid">
             <a href="{{ url('/destinasi/alam') }}" class="category-card" data-aos="fade-up" data-aos-delay="0">
                 <div class="card-image">
-                    <img src="{{ asset('image/meat/meat-hero.jpg') }}" alt="Destinasi Alam">
+                    <img src="{{ asset('image/bakara/kategori-alam.jpg') }}" alt="Destinasi Alam">
                     <div class="card-overlay"></div>
                 </div>
                 <div class="card-content">
@@ -229,7 +229,7 @@
             
             <a href="{{ url('/destinasi/buatan') }}" class="category-card" data-aos="fade-up" data-aos-delay="100">
                 <div class="card-image">
-                    <img src="{{ asset('image/meat/slide2.jpg') }}" alt="Destinasi Buatan">
+                    <img src="{{ asset('image/bakara/kategori-buatan.jpg') }}" alt="Destinasi Buatan">
                     <div class="card-overlay"></div>
                 </div>
                 <div class="card-content">
@@ -242,7 +242,7 @@
             
             <a href="{{ url('/destinasi/budaya') }}" class="category-card" data-aos="fade-up" data-aos-delay="200">
                 <div class="card-image">
-                    <img src="{{ asset('image/meat/gallery1.jpg') }}" alt="Destinasi Budaya">
+                    <img src="{{ asset('image/bakara/kategori-budaya.jpg') }}" alt="Destinasi Budaya">
                     <div class="card-overlay"></div>
                 </div>
                 <div class="card-content">

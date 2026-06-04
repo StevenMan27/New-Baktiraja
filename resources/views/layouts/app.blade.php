@@ -40,7 +40,8 @@
         /* NAVBAR - Kontainer navigasi utama dengan background putih dan shadow halus */
         .navbar {
             transition: all 0.4s ease;
-            padding: 0.8rem 0;
+            height: 72px;
+            padding: 0;
             background: #ffffff;
             border-bottom: 1px solid rgba(0, 0, 0, 0.07);
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
@@ -49,7 +50,8 @@
         /* NAVBAR SCROLLED - Shadow diperdalam saat halaman di-scroll lebih dari 50px */
         .navbar.scrolled {
             background: #ffffff;
-            padding: 0.4rem 0;
+            height: 72px;
+            padding: 0;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
         }
 
@@ -270,6 +272,8 @@
 
         /* RESPONSIVE 991px - Breakpoint tablet dan HP landscape */
         @media (max-width: 991px) {
+            .navbar { height: 64px; }
+            .navbar.scrolled { height: 64px; }
             .navbar .container {
                 padding: 0 20px;
             }
@@ -350,9 +354,8 @@
 
         /* RESPONSIVE 768px - HP portrait ukuran sedang */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 0.6rem 0;
-            }
+            .navbar { height: 60px; padding: 0; }
+            .navbar.scrolled { height: 60px; padding: 0; }
 
             .navbar .container {
                 padding: 0 14px;
@@ -366,9 +369,8 @@
 
         /* RESPONSIVE 576px - HP kecil, semua elemen logo diperkecil */
         @media (max-width: 576px) {
-            .navbar {
-                padding: 0.55rem 0;
-            }
+            .navbar { height: 56px; padding: 0; }
+            .navbar.scrolled { height: 56px; padding: 0; }
 
             .navbar .container {
                 padding: 0 12px;

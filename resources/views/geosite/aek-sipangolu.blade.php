@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -72,44 +72,36 @@
             margin: 4px 0; 
         }
         .mobile-overlay { 
+            display: none; 
             position: fixed; 
-            top: 0; 
-            right: -100%; 
-            width: 280px; 
-            height: 100vh; 
-            background: var(--bi-blue); 
+            top: 70px; 
+            left: 16px; 
+            right: 16px; 
+            background: white; 
             z-index: 1001; 
-            transition: right 0.3s; 
-            padding: 80px 30px; 
+            padding: 15px 0; 
+            border-radius: 20px; 
+            box-shadow: 0 16px 40px rgba(0,0,0,0.1); 
+            border: 1px solid rgba(0,0,0,0.08); 
         }
-        .mobile-overlay.active { right: 0; }
-        .mobile-close { 
-            position: absolute; 
-            top: 20px; 
-            right: 20px; 
-            font-size: 28px; 
-            cursor: pointer; 
-            color: white; 
-        }
+        .mobile-overlay.active { display: block; animation: zoomIn 0.3s ease; }
+        .mobile-close { display: none; }
         .mobile-link { 
             display: block; 
-            font-size: 0.8rem; 
-            text-transform: uppercase; 
+            font-size: 0.95rem; 
             text-decoration: none; 
-            color: rgba(255,255,255,0.8); 
-            padding: 15px 0; 
-            border-bottom: 1px solid rgba(255,255,255,0.1); 
+            color: #2c2c2c; 
+            padding: 12px 24px; 
             text-align: center; 
+            font-weight: 500; 
+            transition: all 0.25s ease;
+            margin: 4px 16px;
+            border-radius: 14px;
         }
-        .mobile-link:hover { color: var(--bi-gold); }
-        .mobile-home { 
-            background: var(--bi-gold); 
-            color: var(--bi-blue) !important; 
-            border-radius: 40px; 
-            margin-bottom: 10px; 
-        }
+        .mobile-link:hover { color: var(--bi-gold); background: #f5f5f5; }
+        .mobile-link.active { color: var(--bi-gold); font-weight: 700; background: rgba(198, 164, 59, 0.05); }
         
-        .hero { height: 55vh; min-height: 450px; background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ asset('image/bakara/aek-sipangolu.jpg') }}'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-top: 65px; }
+        .hero { height: 55vh; min-height: 450px; background-color: var(--bi-blue); background-image: linear-gradient(rgba(0,51,102,0.45), rgba(0,51,102,0.55)), url('{{ asset('image/bakara/aek-sipangolu.jpg') }}'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-top: 65px; }
         .hero-title { font-size: 2.8rem; font-family: 'Cormorant Garamond', serif; margin-bottom: 12px; }
         .hero-subtitle { font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; }
         
@@ -129,8 +121,8 @@
         .sejarah-image img { width: 100%; height: 280px; object-fit: cover; transition: 0.3s; }
         .sejarah-image:hover img { transform: scale(1.02); }
         
-        .galeri-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
-        .galeri-item { aspect-ratio: 1/1; overflow: hidden; border-radius: 14px; cursor: pointer; background: #e8e8e8; }
+        .galeri-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
+        .galeri-item { width: 250px; max-width: 100%; display: block; aspect-ratio: 1/1; overflow: hidden; border-radius: 14px; cursor: pointer; background: #e8e8e8; }
         .galeri-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
         .galeri-item:hover img { transform: scale(1.03); }
         
@@ -141,8 +133,8 @@
         .tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px; }
         .tag { background: rgba(0,51,102,0.1); padding: 5px 15px; border-radius: 30px; font-size: 0.7rem; color: var(--bi-blue); }
         
-        .umkm-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .umkm-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .umkm-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+        .umkm-card { width: 340px; max-width: 100%; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
         .umkm-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         .umkm-img { height: 180px; overflow: hidden; }
         .umkm-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
@@ -152,8 +144,8 @@
         .umkm-content p { font-size: 0.7rem; color: var(--bi-gold); margin-bottom: 10px; }
         .umkm-content .desc { font-size: 0.75rem; color: #666; line-height: 1.5; }
         
-        .penginapan-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
-        .penginapan-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .penginapan-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+        .penginapan-card { width: 340px; max-width: 100%; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
         .penginapan-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         .penginapan-img { height: 180px; overflow: hidden; }
         .penginapan-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
@@ -170,18 +162,18 @@
         .card-price { font-size: 0.75rem; color: var(--bi-gold); font-weight: 600; margin-top: 6px; }
 
         /* Fasilitas (CRUD-driven) */
-        .fasilitas-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
-        .fasilitas-item { display: flex; gap: 18px; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .fasilitas-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; }
+        .fasilitas-item { width: 340px; max-width: 100%; display: flex; flex-direction: column; gap: 0; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
         .fasilitas-item:hover { transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.12); }
-        .fasilitas-img { width: 130px; height: 130px; object-fit: cover; flex-shrink: 0; }
-        .fasilitas-content { padding: 18px 18px 18px 0; display: flex; flex-direction: column; justify-content: center; }
+        .fasilitas-img { width: 100%; height: 200px; object-fit: cover; flex-shrink: 0; }
+        .fasilitas-content { padding: 20px; display: flex; flex-direction: column; justify-content: center; }
         .fasilitas-content h4 { font-size: 0.95rem; color: var(--bi-blue); margin-bottom: 6px; }
         .fasilitas-content p { font-size: 0.75rem; color: #666; line-height: 1.5; }
         .fasilitas-price { font-size: 0.72rem; color: var(--bi-gold); font-weight: 600; margin-top: 6px; }
 
         /* Berita Cards (CRUD-driven) */
-        .berita-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .berita-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .berita-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .berita-card { width: 265px; max-width: 100%; background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.08); transition: all 0.3s; }
         .berita-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         .berita-img { height: 160px; overflow: hidden; }
         .berita-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
@@ -191,8 +183,8 @@
         .berita-content .berita-meta { font-size: 0.65rem; color: var(--bi-gold); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px; }
         .berita-content .berita-excerpt { font-size: 0.75rem; color: #666; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 
-        .rekomendasi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-        .rekomendasi-card { background: white; border-radius: 16px; overflow: hidden; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
+        .rekomendasi-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .rekomendasi-card { width: 265px; max-width: 100%; background: white; border-radius: 16px; overflow: hidden; cursor: pointer; transition: all 0.3s; box-shadow: 0 5px 15px rgba(0,0,0,0.08); }
         .rekomendasi-card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.15); }
         .rekomendasi-img { height: 150px; overflow: hidden; }
         .rekomendasi-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
@@ -230,7 +222,12 @@
             .maps-container iframe { height: 280px; }
         }
         @media (max-width: 576px) { .hero-title { font-size: 1.6rem; } .galeri-grid { grid-template-columns: 1fr; } .hero { min-height: 300px; } }
-    </style>
+
+    
+        /* Section title scroll highlight animation */
+        .section-title h2 { transition: color 0.5s ease; }
+        .section-title.in-view h2 { color: var(--bi-gold) !important; }
+        </style>
 </head>
 <body>
 
@@ -257,8 +254,6 @@
 </div>
 
 <div class="mobile-overlay" id="mobileOverlay">
-    <div class="mobile-close" id="mobileClose">Ã—</div>
-    <a href="{{ url('/') }}" class="mobile-link mobile-home">Home</a>
     <a href="#sejarah" class="mobile-link">Sejarah</a>
     <a href="#informasi" class="mobile-link">Informasi</a>
     <a href="#galeri" class="mobile-link">Galeri</a>
@@ -273,7 +268,7 @@
         ? asset('storage/' . $profil->bg_hero[0]) 
         : asset('image/default-hero.jpg');
 @endphp
-<section class="hero" style="background: linear-gradient(rgba(0,51,102,0.6), rgba(0,51,102,0.7)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
+<section class="hero" style="background-color: #003366; background-image: linear-gradient(rgba(0,51,102,0.45), rgba(0,51,102,0.55)), url('{{ $bgHero }}'); background-size: cover; background-position: center;">
     <div data-aos="fade-up">
         <h1 class="hero-title">{{ $profil->judul_utama ?? 'JUDUL UTAMA' }}</h1>
         <p class="hero-subtitle">{{ $profil->sub_judul ?? 'SUB JUDUL' }}</p>
@@ -396,7 +391,7 @@
     @endforelse
 </div></div></section>
 
-<!-- UMKM — CRUD Read dari database via $umkm -->
+<!-- UMKM � CRUD Read dari database via $umkm -->
 <section id="umkm" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>UMKM Lokal</h2><div class="divider"></div></div>
 <div class="umkm-grid">
     @forelse($umkm as $item)
@@ -444,7 +439,7 @@
     @endforelse
 </div></div></section>
 
-<!-- PENGINAPAN — CRUD Read dari database via $penginapan -->
+<!-- PENGINAPAN � CRUD Read dari database via $penginapan -->
 <section id="penginapan" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Penginapan &amp; Homestay</h2><div class="divider"></div></div>
 <div class="penginapan-grid">
     @forelse($penginapan as $item)
@@ -492,7 +487,7 @@
     @endforelse
 </div></div></section>
 
-<!-- FASILITAS — CRUD Read dari database via $fasilitas -->
+<!-- FASILITAS � CRUD Read dari database via $fasilitas -->
 <section id="fasilitas" class="section bg-light"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Fasilitas &amp; Layanan</h2><div class="divider"></div></div>
 <div class="fasilitas-grid">
     @forelse($fasilitas as $item)
@@ -531,7 +526,7 @@
     @endforelse
 </div></div></section>
 
-<!-- BERITA — CRUD Read dari database via $berita -->
+<!-- BERITA � CRUD Read dari database via $berita -->
 <section id="berita" class="section"><div class="container"><div class="section-title" data-aos="fade-up"><h2>Berita &amp; Informasi Terkini</h2><div class="divider"></div></div>
 @if($berita->count() == 0 && $informasi_dinamis->count() == 0)
     <div style="text-align:center;padding:2rem;color:#888;">
@@ -549,7 +544,7 @@
             <img src="{{ $img }}" alt="{{ $item->judul }}">
         </div>
         <div class="berita-content">
-            <div class="berita-meta">{{ $item->penulis }} · {{ $item->created_at->format('d M Y') }}</div>
+            
             <h4>{{ $item->judul }}</h4>
             <p class="berita-excerpt">{{ strip_tags($item->konten) }}</p>
         </div>
@@ -559,7 +554,7 @@
             <div class="berita-card" data-aos="zoom-in">
         
         <div class="berita-content">
-            <div class="berita-meta">{{ $item->penulis }} · {{ $item->created_at->format('d M Y') }}</div>
+            
             <h4>{{ $item->judul }}</h4>
             <p class="berita-excerpt">{{ strip_tags($item->konten) }}</p>
         </div>
@@ -625,7 +620,7 @@
     </div>
 </section>
 
-<div class="lightbox" id="lightbox" onclick="closeLightbox()"><div class="lightbox-close">Ã—</div><img id="lightboxImg"></div>
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><div class="lightbox-close">×</div><img id="lightboxImg"></div>
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -633,18 +628,32 @@
     AOS.init({ duration: 700, once: true, offset: 50 });
     const hamburger = document.getElementById('hamburger');
     const mobileOverlay = document.getElementById('mobileOverlay');
-    const mobileClose = document.getElementById('mobileClose');
-    hamburger.addEventListener('click', () => { mobileOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; });
+    hamburger.addEventListener('click', () => { mobileOverlay.classList.toggle('active'); });
     const closeMenu = () => { mobileOverlay.classList.remove('active'); document.body.style.overflow = ''; };
-    mobileClose.addEventListener('click', closeMenu);
     document.querySelectorAll('.mobile-link').forEach(link => { link.addEventListener('click', closeMenu); });
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link:not(.home-btn), .mobile-link:not(.mobile-home)');
+    const sectionTitles = document.querySelectorAll('.section-title');
+    
+    // Scroll observer for nav link active state
     window.addEventListener('scroll', () => {
+        if (mobileOverlay.classList.contains('active')) { closeMenu(); }
         let current = '';
-        sections.forEach(section => { const top = section.offsetTop - 100; if (scrollY >= top) current = section.getAttribute('id'); });
+        sections.forEach(section => { const top = section.offsetTop - 150; if (scrollY >= top) current = section.getAttribute('id'); });
         navLinks.forEach(link => { link.classList.remove('active'); if (link.getAttribute('href') === `#${current}`) link.classList.add('active'); });
     });
+    
+    // IntersectionObserver for section title color animation
+    const titleObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                setTimeout(() => { entry.target.classList.remove('in-view'); }, 1200);
+            }
+        });
+    }, { threshold: 0.5, rootMargin: '0px 0px -80px 0px' });
+    
+    sectionTitles.forEach(title => titleObserver.observe(title));
     const lightbox = document.getElementById('lightbox');
     function openLightbox(src) { lightbox.classList.add('active'); document.getElementById('lightboxImg').src = src; }
     function closeLightbox() { lightbox.classList.remove('active'); }
@@ -655,6 +664,7 @@
 </script>
 </body>
 </html>
+
 
 
 

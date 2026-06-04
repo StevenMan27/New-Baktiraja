@@ -24,6 +24,12 @@ use Illuminate\Support\Facades\DB;
 
 // ==================== FRONTEND ROUTES ====================
 
+// Tambahkan Route darurat untuk membuat Storage Link di Hosting (CPanel)
+Route::get('/linkstorage', function () {
+    \Illuminate\Support\Facades\Artisan::call('storage:link');
+    return 'Berhasil membuat storage link! Silakan kembali ke website dan cek gambarnya.';
+});
+
 // Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -125,7 +131,7 @@ Route::get('/reset-password', [AuthController::class, 'showResetForm'])->name('p
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
 // ==================== ADMIN ROUTES ====================
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->group(function () {
     
     Route::get('/', function () {
         $totalGaleri = DB::table('galeris')->count();

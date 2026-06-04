@@ -198,10 +198,11 @@
             color: #003366;
         }
 
-        /* Area konten utama di sebelah kanan sidebar dengan margin kiri sebesar lebar sidebar */
+        /* Area konten utama di sebelah kanan sidebar dengan margin kiri sebesar lebar sidebar. padding-top setara tinggi top-bar agar konten tidak tertindih header yang fixed */
         .main-content {
             margin-left: 260px;
             padding: 0;
+            padding-top: 64px;
             min-height: 100vh;
             transition: margin-left 0.3s ease;
         }
@@ -211,7 +212,7 @@
             margin-left: 0;
         }
 
-        /* TOP BAR - Bar navigasi atas sticky dengan layout satu baris yang konsisten */
+        /* TOP BAR - Bar navigasi atas fixed agar selalu terlihat saat scroll. left:260px mengikuti lebar sidebar, right:0 menutup sisa lebar layar */
         .top-bar {
             display: flex;
             align-items: center;
@@ -221,11 +222,14 @@
             background: #ffffff;
             border-bottom: 1px solid #e2e8f0;
             box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 260px;
+            right: 0;
+            z-index: 500;
             gap: 12px;
             flex-wrap: nowrap;
+            transition: left 0.3s ease;
         }
 
         /* Sisi kiri top bar berisi tombol hamburger dan judul halaman */
@@ -1101,14 +1105,16 @@
 
             .main-content {
                 margin-left: 0;
+                padding-top: 56px;
             }
 
-            /* Top bar tetap satu baris dengan padding yang dikurangi */
+            /* Top bar fixed dari kiri 0 di mobile karena sidebar disembunyikan, padding dikurangi */
             .top-bar {
                 padding: 0 14px;
                 height: 56px;
                 flex-wrap: nowrap;
                 gap: 10px;
+                left: 0;
             }
 
             /* Sisi kiri top bar dengan min-width nol agar bisa menyusut */
@@ -1231,6 +1237,11 @@
             .top-bar {
                 padding: 0 12px;
                 height: 52px;
+                left: 0;
+            }
+
+            .main-content {
+                padding-top: 52px;
             }
 
             th, td {

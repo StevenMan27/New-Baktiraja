@@ -44,6 +44,15 @@
         border-radius: 50%;
     }
 
+    /* Wrapper kiri banner yang membungkus ikon dan teks bersama */
+    .page-banner-left {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+        z-index: 1;
+    }
+
     /* Kotak ikon di sisi kiri banner */
     .page-banner-icon {
         width: 52px;
@@ -54,20 +63,12 @@
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        position: relative;
-        z-index: 1;
     }
 
     /* Ikon font awesome di dalam kotak banner */
     .page-banner-icon i {
         color: #ffffff;
         font-size: 1.3rem;
-    }
-
-    /* Wrapper teks judul dan subjudul banner */
-    .page-banner-text {
-        position: relative;
-        z-index: 1;
     }
 
     /* Teks judul utama banner */
@@ -293,12 +294,14 @@
 
 {{-- Banner header halaman dengan ikon dan deskripsi --}}
 <div class="page-banner">
-    <div class="page-banner-icon">
-        <i class="fas fa-mountain"></i>
-    </div>
-    <div class="page-banner-text">
-        <h1>Kelola Profil Geosite</h1>
-        <p>Kelola dan lengkapi profil setiap geosite yang ada di kawasan GeoToba Baktiraja.</p>
+    <div class="page-banner-left">
+        <div class="page-banner-icon">
+            <i class="fas fa-mountain"></i>
+        </div>
+        <div class="page-banner-text">
+            <h1>Kelola Profil Geosite</h1>
+            <p>Kelola dan lengkapi profil setiap geosite yang ada di kawasan GeoToba Baktiraja.</p>
+        </div>
     </div>
 </div>
 

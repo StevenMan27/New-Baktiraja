@@ -66,6 +66,28 @@
         color: rgba(255,255,255,0.8);
     }
 
+    .hero-badge {
+        display: inline-block;
+        background: rgba(198, 164, 59, 0.12);
+        border: 1px solid rgba(198, 164, 59, 0.3);
+        color: #f1d26b; /* gold-light */
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+    }
+
+    .hero-divider {
+        width: 50px;
+        height: 3px;
+        background: #c6a43b; /* gold */
+        margin: 20px auto 0;
+        border-radius: 4px;
+    }
+
     /* NEWS SECTION */
     .news-section {
         padding: 60px 0 100px;
@@ -580,8 +602,10 @@
 <!-- HERO SECTION - SAME AS GALERI -->
 <div class="news-hero">
     <div class="news-hero-content">
-        <h1>INFORMASI TERKINI</h1>
-        <p>Informasi Lengkap Geopark</p>
+        <div class="hero-badge">UPDATE TERBARU</div>
+        <h1>Informasi Terkini</h1>
+        <p>Informasi Lengkap Geopark Danau Toba</p>
+        <div class="hero-divider"></div>
     </div>
 </div>
 
