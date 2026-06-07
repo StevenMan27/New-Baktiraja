@@ -5,7 +5,6 @@
    File ini bertugas memasukkan data awal (dummy/default) ke dalam tabel database secara otomatis saat perintah seed dijalankan.
 */
 
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -17,9 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdminSeeder::class,
             InformasiSeeder::class,
-            // KategoriSeeder::class,  // Hapus atau komentari
-            // GaleriSeeder::class,
-            // BeritaSeeder::class,
         ]);
     }
 }

@@ -2,26 +2,6 @@
 
 @section('content')
 
-{{--
-   ======================================================================================
-   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/pages/home.blade.php]
-
-   1. BAGAIMANA CODE INI BEKERJA:
-      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
-
-   2. UNTUK APA CODE INI:
-      File komponen view pendukung untuk bagian a:.
-
-   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
-      - Mewarisi Desain (Layout): layouts/app.blade.php
-
-   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
-      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
-   ======================================================================================
---}}
-
-
-
 <style>
     /*
        [STYLE ANIMASI GLOBAL]
@@ -909,12 +889,6 @@
     }
 </style>
 
-{{--
-   [TAMPILAN HERO SLIDER]
-   Bagian ini bertugas untuk merender area paling atas web (Hero/Banner).
-   Menampilkan gambar slide dinamis dan menyambut pengunjung dengan judul besar (contoh: BAKARA TIPANG).
-   Tabel Database yang digunakan: 'homepages'
---}}
 <!-- ==================== HERO SLIDER ==================== -->
 <section class="hero-section" id="home">
     <div class="slides-container">
@@ -940,12 +914,6 @@
 
 </section>
 
-{{--
-   [TAMPILAN STATISTIK]
-   Bagian ini bertugas menampilkan data angka pencapaian (Destinasi, Kategori, Sejarah).
-   Data dipanggil secara dinamis menggunakan variabel $homepage (contoh: $homepage->stat_1_num).
-   Tabel Database yang digunakan: 'homepages'
---}}
 <!-- ==================== STATISTICS ==================== -->
 <section class="section section-white">
     <div class="container">
@@ -970,12 +938,6 @@
     </div>
 </section>
 
-{{--
-   [TAMPILAN PENJELASAN SINGKAT & VIDEO (ABOUT)]
-   Bagian ini bertugas menceritakan sejarah singkat kawasan wisata.
-   Di sebelah kanannya disematkan pemutar video (.mp4) yang dipanggil dari sistem 'storage' Laravel.
-   Tabel Database yang digunakan: 'homepages'
---}}
 <!-- ==================== ABOUT WITH VIDEO ==================== -->
 <section class="section section-light" id="about">
     <div class="container">
@@ -999,12 +961,6 @@
     </div>
 </section>
 
-{{--
-   [TAMPILAN LIST DESTINASI]
-   Bagian ini bertugas melakukan perulangan (Foreach) untuk mencetak 8 destinasi utama wisata.
-   Data dipanggil dari relasi antara 'homepages' dan 'homepage_destinasis'.
-   Tabel Database yang digunakan: 'homepage_destinasis'
---}}
 <!-- ==================== DESTINASI ==================== -->
 <section id="destinasi" class="section section-white">
     <div class="container">
@@ -1045,12 +1001,6 @@
     </div>
 </section>
 
-{{--
-   [TAMPILAN PETA GOOGLE MAPS]
-   Bagian ini bertugas untuk menyisipkan IFrame dari Google Maps agar interaktif.
-   Selain itu, ada logika (PHP) kecil untuk membaca data JSON dari database guna merender tombol navigasi arah (Rute Maps).
-   Tabel Database yang digunakan: 'homepages'
---}}
 <!-- ==================== PETA LOKASI 3 DESA ==================== -->
 <section class="section section-light">
     <div class="container">
@@ -1090,7 +1040,7 @@
                             ];
                         }
                     @endphp
-                    {{-- Menampilkan tombol lokasi secara dinamis berdasarkan data dari database --}}
+                    
                     @foreach($mapsButtons as $btn)
                     <div class="maps-location-item"
                          onclick="window.open('{{ $btn['link'] }}', '_blank')"

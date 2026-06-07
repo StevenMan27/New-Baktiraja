@@ -6,13 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Kontak;
 use Illuminate\Http\Request;
 
+// Kontroler Admin Kontak
+// Mengatur operasi modifikasi data Kontak di panel admin.
 class KontakController extends Controller {
-    /*
-       [CONTROLLER ADMIN KontakController]
-       File ini bertugas mengontrol logika untuk bagian admin dari KontakController.
-       Berfungsi mengatur operasi CRUD (Create, Read, Update, Delete) pada database.
-       Tabel Database yang digunakan: berhubungan erat dengan entitas KontakController.
-    */
+
+    // Menampilkan Form Edit Kontak
+    // Mengambil data kontak pertama dari database atau membuat instance baru jika kosong, untuk ditampilkan.
     public function edit()
     {
         $kontak = Kontak::first();
@@ -22,6 +21,8 @@ class KontakController extends Controller {
         return view('admin.kontak.edit', compact('kontak'));
     }
 
+    // Memperbarui Data Kontak
+    // Memvalidasi input dan menyimpan pembaruan kontak ke database.
     public function update(Request $request)
     {
         $request->validate([
@@ -61,7 +62,3 @@ class KontakController extends Controller {
         return redirect()->back()->with('success', 'Pengaturan Kontak berhasil diperbarui!');
     }
 }
-
-
-
-

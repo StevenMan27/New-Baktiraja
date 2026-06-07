@@ -65,4 +65,3 @@ class GaleriController extends Controller {
     }
 }
 
-

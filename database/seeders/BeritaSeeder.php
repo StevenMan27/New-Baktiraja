@@ -5,7 +5,6 @@
    File ini bertugas memasukkan data awal (dummy/default) ke dalam tabel database secara otomatis saat perintah seed dijalankan.
 */
 
-
 namespace Database\Seeders;
 
 use App\Models\Berita;

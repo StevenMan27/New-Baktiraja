@@ -4,26 +4,6 @@
 
 @section('content')
 
-{{--
-   ======================================================================================
-   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/pages/kontak.blade.php]
-
-   1. BAGAIMANA CODE INI BEKERJA:
-      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
-
-   2. UNTUK APA CODE INI:
-      File komponen view pendukung untuk bagian a:.
-
-   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
-      - Mewarisi Desain (Layout): layouts/app.blade.php
-
-   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
-      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
-   ======================================================================================
---}}
-
-
-
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -280,8 +260,6 @@
         display: inline-block;
     }
 
-
-
     /* SOSIAL MEDIA */
     .social-section {
         margin: 25px 0;
@@ -342,10 +320,6 @@
         margin: 10px auto;
     }
 
-
-
-
-
     /* RESPONSIVE */
     {{ '@media' }} (max-width: 900px) {
         .contact-grid {
@@ -403,8 +377,6 @@
             height: 220px;
         }
     }
-
-
 
 </style>
 
@@ -546,7 +518,6 @@
     <div class="container">
         <div class="info-grid">
 
-
             <!-- SOSIAL & JAM OPERASIONAL -->
             <div class="info-card" data-aos="fade-left">
                 <h3 class="info-title">Ikuti Kami</h3>
@@ -588,8 +559,6 @@
         </div>
     </div>
 </section>
-
-
 
 <!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">

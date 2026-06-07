@@ -5,7 +5,6 @@
    File ini bertugas memasukkan data awal (dummy/default) ke dalam tabel database secara otomatis saat perintah seed dijalankan.
 */
 
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -16,7 +15,6 @@ class DestinasiSeeder extends Seeder
     public function run()
     {
         Destinasi::insert([
-            // ==================== DESTINASI ALAM ====================
             [
                 'nama' => 'Air Terjun Janji',
                 'slug' => 'air-terjun-janji',
@@ -36,7 +34,6 @@ class DestinasiSeeder extends Seeder
                 'deskripsi' => 'Desa wisata yang menawarkan pengalaman hidup bersama masyarakat Batak dengan pemandangan Danau Toba yang indah.'
             ],
             
-            // ==================== DESTINASI BUATAN ====================
             [
                 'nama' => 'Panatapan Bakara',
                 'slug' => 'panatapan-bakara',
@@ -50,7 +47,6 @@ class DestinasiSeeder extends Seeder
                 'deskripsi' => 'Bukit dengan jalur trekking yang dilengkapi fasilitas pendukung, melewati kebun kopi dan hutan pinus.'
             ],
             
-            // ==================== DESTINASI BUDAYA ====================
             [
                 'nama' => 'Istana Sisingamangaraja',
                 'slug' => 'istana-sisingamangaraja',

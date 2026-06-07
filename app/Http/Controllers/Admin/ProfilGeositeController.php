@@ -7,13 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\ProfilGeosite;
 use Illuminate\Support\Facades\Storage;
 
+// Kontroler Admin Profil Geosite
+// Mengelola operasi CRUD profil dan konfigurasi khusus dari setiap geosite di panel admin.
 class ProfilGeositeController extends Controller {
-    /*
-       [CONTROLLER ADMIN ProfilGeositeController]
-       File ini bertugas mengontrol logika untuk bagian admin dari ProfilGeositeController.
-       Berfungsi mengatur operasi CRUD (Create, Read, Update, Delete) pada database.
-       Tabel Database yang digunakan: berhubungan erat dengan entitas ProfilGeositeController.
-    */
     private $geosites = [
         'air-terjun-janji' => 'Air Terjun Janji',
         'aek-sitio-tio' => 'Aek Sitio-tio',
@@ -25,6 +21,8 @@ class ProfilGeositeController extends Controller {
         'aek-sipangolu' => 'Aek Sipangolu'
     ];
 
+    // Menampilkan Daftar Profil Geosite
+    // Memuat seluruh daftar profil geosite dan menampilkannya pada halaman index profil.
     public function index()
     {
         $profiles = ProfilGeosite::all()->keyBy('geosite');
@@ -34,6 +32,8 @@ class ProfilGeositeController extends Controller {
         ]);
     }
 
+    // Menampilkan Form Edit Profil Geosite
+    // Mengambil data profil geosite berdasarkan slug dan merender form edit. Membuat objek baru jika profil belum ada.
     public function edit($geosite)
     {
         if (!array_key_exists($geosite, $this->geosites)) {
@@ -51,6 +51,8 @@ class ProfilGeositeController extends Controller {
         ]);
     }
 
+    // Memperbarui Profil Geosite
+    // Memvalidasi parameter yang diberikan, memproses unggahan file hero & deskripsi gambar, kemudian memperbarui record profil di database.
     public function update(Request $request, $geosite)
     {
         if (!array_key_exists($geosite, $this->geosites)) {
@@ -79,36 +81,27 @@ class ProfilGeositeController extends Controller {
             'info_jam'            => 'nullable|string|max:255',
             'info_harga'          => 'nullable|string|max:255',
             'tags'                => 'nullable|string',
-            // Menerima URL Google Maps dalam format apapun: link pendek (maps.app.goo.gl),
-            // link share panjang, maupun URL embed yang sudah jadi
             'maps_link'           => 'nullable|string|max:2000',
         ]);
 
-        // Mengambil semua field teks dari request kecuali token CSRF, method override, dan field file
-        // karena file gambar diproses secara terpisah di bawah menggunakan Storage::disk
         $data = $request->except(['_token', '_method', 'bg_hero', 'deskripsi_2_gambar', 'deskripsi_3_gambar', 'deskripsi_4_gambar', 'deskripsi_5_gambar', 'tags']);
 
-        // Konversi URL Google Maps yang dimasukkan admin menjadi URL embed yang siap ditampilkan
-        // di dalam iframe. Admin cukup menempel link Google Maps apapun tanpa perlu tahu format embed.
         if ($request->filled('maps_link')) {
             $data['maps_link'] = $this->convertGoogleMapsToEmbed(trim($request->input('maps_link')));
         } else {
             $data['maps_link'] = null;
         }
 
-        // Handle Tags (Convert comma separated to array)
         if ($request->filled('tags')) {
             $tagsArray = array_map('trim', explode(',', $request->tags));
-            $data['tags'] = $tagsArray; // Model will cast to array/json
+            $data['tags'] = $tagsArray;
         } else {
             $data['tags'] = [];
         }
 
         $profil = ProfilGeosite::where('geosite', $geosite)->first();
 
-        // Handle Background Hero Upload
         if ($request->hasFile('bg_hero')) {
-            // Delete old file
             if ($profil && $profil->bg_hero) {
                 $oldBg = is_array($profil->bg_hero) ? ($profil->bg_hero[0] ?? null) : null;
                 if ($oldBg && !str_starts_with($oldBg, 'data:')) {
@@ -116,10 +109,9 @@ class ProfilGeositeController extends Controller {
                 }
             }
             $path = $request->file('bg_hero')->store('profil', 'public');
-            $data['bg_hero'] = [$path]; // Store as JSON array for consistency with ImageHelper
+            $data['bg_hero'] = [$path];
         }
 
-        // Handle Deskripsi 2 Gambar Upload
         if ($request->hasFile('deskripsi_2_gambar')) {
             if ($profil && is_array($profil->deskripsi_2_gambar)) {
                 foreach ($profil->deskripsi_2_gambar as $oldPath) {
@@ -175,30 +167,18 @@ class ProfilGeositeController extends Controller {
             ->with('success', "Profil {$this->geosites[$geosite]} berhasil diupdate!");
     }
 
-    /**
-     * Mengubah URL Google Maps dalam format apapun menjadi URL embed yang dapat ditampilkan
-     * di dalam tag iframe di halaman publik.
-     *
-     * Fungsi ini menangani tiga jenis URL yang mungkin dimasukkan admin:
-     * 1. URL pendek (maps.app.goo.gl atau goo.gl) — diselesaikan dulu via cURL lalu dikonversi
-     * 2. URL share panjang (google.com/maps/place/...) — diambil koordinat atau nama tempatnya
-     * 3. URL embed (sudah mengandung /maps/embed atau output=embed) — dikembalikan apa adanya
-     *
-     * Jika semua pola gagal, URL asli dikembalikan sebagai fallback tanpa modifikasi.
-     */
+    // Konversi Link Maps
+    // Mengubah berbagai format tautan Google Maps menjadi format embed yang valid untuk digunakan pada frame peta.
     private function convertGoogleMapsToEmbed(?string $url): ?string
     {
         if (empty($url)) {
             return null;
         }
 
-        // Jika URL sudah berformat embed yang siap pakai, langsung kembalikan tanpa perubahan
         if (str_contains($url, '/maps/embed') || str_contains($url, 'output=embed')) {
             return $url;
         }
 
-        // Selesaikan URL pendek seperti maps.app.goo.gl dengan mengikuti redirect menggunakan cURL.
-        // cURL akan mengikuti semua redirect hingga mendapat URL akhir yang lengkap dari Google Maps.
         if (str_contains($url, 'goo.gl') || str_contains($url, 'maps.app')) {
             $ch = curl_init($url);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
@@ -210,41 +190,29 @@ class ProfilGeositeController extends Controller {
             $resolvedUrl = curl_getinfo($ch, CURLINFO_EFFECTIVE_URL);
             curl_close($ch);
 
-            // Gunakan URL yang sudah diselesaikan jika hasilnya berbeda dari URL awal
             if (!empty($resolvedUrl) && $resolvedUrl !== $url) {
                 $url = $resolvedUrl;
             }
         }
 
-        // Coba ambil koordinat latitude, longitude, dan zoom dari URL Google Maps lengkap.
-        // Pola @lat,lng,zoomz adalah standar yang ada di URL Google Maps saat melihat lokasi.
         if (preg_match('/@([-\d.]+),([-\d.]+),([\d.]+)z/', $url, $matches)) {
             $lat  = $matches[1];
             $lng  = $matches[2];
             $zoom = intval($matches[3]);
-            // Pastikan minimal zoom 18 agar tampilannya langsung memperbesar titik lokasi
             $zoom = max($zoom, 18);
             return "https://maps.google.com/maps?q={$lat},{$lng}&z={$zoom}&output=embed";
         }
 
-        // Jika koordinat tidak ditemukan, coba ambil nama tempat dari segmen URL /place/NAMA/
-        // lalu jadikan sebagai query pencarian dalam URL embed dengan zoom default 18
         if (preg_match('/place\/([^\/@?&#]+)/', $url, $matches)) {
             $placeName = rawurldecode(str_replace('+', ' ', $matches[1]));
             return 'https://maps.google.com/maps?q=' . rawurlencode($placeName) . '&z=18&output=embed';
         }
 
-        // Jika URL adalah Google Maps namun tidak memiliki parameter output=embed, tambahkan
         if (str_contains($url, 'google.com/maps') || str_contains($url, 'maps.google.com')) {
             $separator = str_contains($url, '?') ? '&' : '?';
             return $url . $separator . 'output=embed';
         }
 
-        // Fallback: kembalikan URL asli jika tidak ada pola yang cocok
         return $url;
     }
 }
-
-
-
-

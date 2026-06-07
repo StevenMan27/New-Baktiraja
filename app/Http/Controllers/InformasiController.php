@@ -29,5 +29,3 @@ class InformasiController extends Controller {
     }
 }
 
-
-

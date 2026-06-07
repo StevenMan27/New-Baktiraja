@@ -4,26 +4,6 @@
 
 @section('content')
 
-{{--
-   ======================================================================================
-   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/pages/informasi.blade.php]
-
-   1. BAGAIMANA CODE INI BEKERJA:
-      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
-
-   2. UNTUK APA CODE INI:
-      File komponen view pendukung untuk bagian a:.
-
-   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
-      - Mewarisi Desain (Layout): layouts/app.blade.php
-
-   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
-      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
-   ======================================================================================
---}}
-
-
-
 <style>
     /* ========== STACKED SLIP CARDS STYLE - SAME AS GALERI ========== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap');
@@ -555,10 +535,6 @@
     }
 </style>
 
-{{--
-   [TAMPILAN HERO BANNER INFORMASI]
-   Bagian ini menampilkan banner visual berwarna biru di halaman Informasi Terkini.
---}}
 <!-- HERO SECTION - SAME AS GALERI -->
 <div class="news-hero">
     <div class="news-hero-content">
@@ -569,12 +545,6 @@
     </div>
 </div>
 
-{{--
-   [TAMPILAN DAFTAR PENGUMUMAN]
-   Bagian ini bertugas mengambil seluruh variabel $informasiList dari Controller,
-   lalu membongkarnya (di-loop) menjadi kartu-kartu kecil yang bisa diklik.
-   Tabel Database yang digunakan: 'informasi'
---}}
 <!-- STACKED SLIP CARDS SECTION - SAME VISUAL AS GALERI -->
 <section class="news-section">
     <div class="container">
@@ -622,12 +592,6 @@
     </div>
 </section>
 
-{{--
-   [TAMPILAN PEMBACA INFORMASI LAYAR PENUH]
-   Ini adalah fitur "Baca Cepat Tanpa Loading". 
-   Kotak ini aslinya disembunyikan. Jika judul pengumuman diklik, Javascript akan mengisi kotak ini 
-   dengan teks lengkap dari database dan menampilkannya menutupi layar.
---}}
 <!-- READER MODAL -->
 <div id="fullReader">
     <div class="progress-container">

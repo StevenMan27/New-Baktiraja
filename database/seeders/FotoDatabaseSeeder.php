@@ -5,7 +5,6 @@
    File ini bertugas memasukkan data awal (dummy/default) ke dalam tabel database secara otomatis saat perintah seed dijalankan.
 */
 
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -16,16 +15,12 @@ class FotoDatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Path utama folder image kamu
         $path = public_path('image');
 
         if (File::exists($path)) {
-            // allFiles akan mengambil SEMUA file di dalam folder image 
-            // termasuk di dalam sub-folder (meat, galerihome, logo, dll)
             $files = File::allFiles($path);
 
             foreach ($files as $file) {
-                // Kita hanya ambil file gambar saja
                 $extension = strtolower($file->getExtension());
                 if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
                     

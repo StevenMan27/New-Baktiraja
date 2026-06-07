@@ -4,26 +4,6 @@
 
 @section('content')
 
-{{--
-   ======================================================================================
-   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/pages/galeri.blade.php]
-
-   1. BAGAIMANA CODE INI BEKERJA:
-      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
-
-   2. UNTUK APA CODE INI:
-      File komponen view pendukung untuk bagian a:.
-
-   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
-      - Mewarisi Desain (Layout): layouts/app.blade.php
-
-   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
-      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
-   ======================================================================================
---}}
-
-
-
 <style>
     /*
        [STYLE HERO BANNER GALERI]
@@ -453,10 +433,6 @@
     }
 </style>
 
-{{--
-   [TAMPILAN HERO BANNER GALERI]
-   Bagian ini bertugas mencetak elemen visual bagian paling atas halaman Galeri (yang ada tulisan "Koleksi Foto Terbaik").
---}}
 <div class="gallery-hero">
     <div class="gallery-hero-content">
         <div class="hero-badge">UPDATE TERBARU</div>
@@ -466,12 +442,6 @@
     </div>
 </div>
 
-{{--
-   [TAMPILAN PERULANGAN GRID FOTO]
-   Bagian ini bertugas menerima data $galeriByKategori dari Controller, lalu membongkarnya menjadi foto-foto satuan.
-   Foto dicetak satu per satu ke dalam layar. Jika tidak ada foto sama sekali, maka akan menampilkan pesan "Belum ada foto galeri".
-   Tabel Database yang digunakan: 'galeris'
---}}
 <section class="gallery-section">
     <div class="container">
 
@@ -546,12 +516,6 @@
     </div>
 </section>
 
-{{--
-   [TAMPILAN MODAL POPUP (KOTAK HITAM)]
-   Bagian ini adalah struktur HTML yang DISEMBUNYIKAN secara default.
-   Baru akan MUNCUL MELAYANG di layar apabila pengguna mengklik salah satu gambar dari Grid foto di atas.
-   Isinya akan diganti secara dinamis oleh JavaScript sesuai dengan foto apa yang diklik.
---}}
 <!-- MODAL FOTO DENGAN MUSIC PLAYER -->
 <div id="pModal" class="modal-overlay" onclick="closePhoto()">
     <div class="close-btn" onclick="closePhoto()">&times;</div>

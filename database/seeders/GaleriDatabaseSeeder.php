@@ -5,7 +5,6 @@
    File ini bertugas memasukkan data awal (dummy/default) ke dalam tabel database secara otomatis saat perintah seed dijalankan.
 */
 
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -23,12 +22,10 @@ class GaleriDatabaseSeeder extends Seeder
             return;
         }
         
-        // Kosongkan tabel dulu (opsional)
         DB::table('galeris')->truncate();
         
         $allData = [];
         
-        // ==================== 1. FOTO DI FOLDER UTAMA (Kawasan Bakara-Tipang-Baktiraja) ====================
         $mainFiles = [
             ['file' => 'about-bakara.jpg', 'judul' => 'About Kawasan Bakara', 'kategori' => 'about'],
             ['file' => 'panatapan-bakara-hero.jpg', 'judul' => 'Panatapan Bakara Hero', 'kategori' => 'panatapan-bakara'],
@@ -54,7 +51,6 @@ class GaleriDatabaseSeeder extends Seeder
             }
         }
         
-        // ==================== 2. FOTO DI FOLDER galerihome (Hero Slider Home) ====================
         $galeriHomePath = $basePath . '/galerihome';
         if (File::exists($galeriHomePath)) {
             $galeriHomeFiles = File::files($galeriHomePath);
@@ -71,22 +67,17 @@ class GaleriDatabaseSeeder extends Seeder
             }
         }
         
-        // ==================== 3. FOTO DI FOLDER bakara (Destinasi Unggulan) ====================
         $bakaraPath = $basePath . '/bakara';
         if (File::exists($bakaraPath)) {
             $destinasiFiles = [
-                // Alam
                 ['file' => 'air-terjun-janji.jpg', 'judul' => 'Air Terjun Janji', 'kategori' => 'air-terjun-janji'],
                 ['file' => 'aek-sitio-tio.jpg', 'judul' => 'Aek Sitio-tio', 'kategori' => 'aek-sitio-tio'],
                 ['file' => 'desa-tipang.jpg', 'judul' => 'Desa Wisata Tipang', 'kategori' => 'desa-tipang'],
-                // Buatan
                 ['file' => 'panatapan-bakara.jpg', 'judul' => 'Panatapan Bakara', 'kategori' => 'panatapan-bakara'],
                 ['file' => 'gonting.jpg', 'judul' => 'Bukit Gonting', 'kategori' => 'gonting'],
-                // Budaya
                 ['file' => 'istana-sisingamangaraja.jpg', 'judul' => 'Istana Sisingamangaraja', 'kategori' => 'istana-sisingamangaraja'],
                 ['file' => 'tombak-sulu-sulu.jpg', 'judul' => 'Tombak Sulu-sulu', 'kategori' => 'tombak-sulu-sulu'],
                 ['file' => 'aek-sipangolu.jpg', 'judul' => 'Aek Sipangolu', 'kategori' => 'aek-sipangolu'],
-                // Detail & Tambahan
                 ['file' => 'air-terjun-janji-detail.jpg', 'judul' => 'Detail Air Terjun Janji', 'kategori' => 'air-terjun-janji'],
                 ['file' => 'aek-sitio-tio-detail.jpg', 'judul' => 'Detail Aek Sitio-tio', 'kategori' => 'aek-sitio-tio'],
                 ['file' => 'panatapan-bakara-sunset.jpg', 'judul' => 'Sunset Panatapan Bakara', 'kategori' => 'panatapan-bakara'],
@@ -94,7 +85,6 @@ class GaleriDatabaseSeeder extends Seeder
                 ['file' => 'istana-sisingamangaraja-detail.jpg', 'judul' => 'Detail Istana Sisingamangaraja', 'kategori' => 'istana-sisingamangaraja'],
                 ['file' => 'tombak-sulu-sulu-forest.jpg', 'judul' => 'Hutan Sakral Tombak Sulu-sulu', 'kategori' => 'tombak-sulu-sulu'],
                 ['file' => 'aek-sipangolu-detail.jpg', 'judul' => 'Detail Aek Sipangolu', 'kategori' => 'aek-sipangolu'],
-                // Hero Slides
                 ['file' => 'bakara-slide1.jpg', 'judul' => 'Slide Bakara 1', 'kategori' => 'hero_slider'],
                 ['file' => 'bakara-slide2.jpg', 'judul' => 'Slide Bakara 2', 'kategori' => 'hero_slider'],
                 ['file' => 'bakara-slide3.jpg', 'judul' => 'Slide Bakara 3', 'kategori' => 'hero_slider'],
@@ -118,7 +108,6 @@ class GaleriDatabaseSeeder extends Seeder
             }
         }
         
-        // ==================== 4. FOTO DI FOLDER bakara/galeri (Galeri Tambahan) ====================
         $galeriBakaraPath = $basePath . '/bakara/galeri';
         if (File::exists($galeriBakaraPath)) {
             $galeriBakaraFiles = File::files($galeriBakaraPath);
@@ -135,7 +124,6 @@ class GaleriDatabaseSeeder extends Seeder
             }
         }
         
-        // ==================== 5. FOTO DI FOLDER bakara/penginapan (Homestay & Penginapan) ====================
         $penginapanPath = $basePath . '/bakara/penginapan';
         if (File::exists($penginapanPath)) {
             $penginapanFiles = File::files($penginapanPath);
@@ -152,7 +140,6 @@ class GaleriDatabaseSeeder extends Seeder
             }
         }
         
-        // ==================== 6. LOGO (Tetap Sama) ====================
         $logoPath = $basePath . '/Logo';
         if (File::exists($logoPath)) {
             $logoFiles = File::files($logoPath);
@@ -169,7 +156,6 @@ class GaleriDatabaseSeeder extends Seeder
             }
         }
         
-        // Masukkan semua data ke database
         foreach ($allData as $data) {
             DB::table('galeris')->insert($data);
         }
@@ -180,7 +166,6 @@ class GaleriDatabaseSeeder extends Seeder
         $this->command->info("");
         $this->command->info("✅ SELESAI! Galeri untuk kawasan BAKARA – TIPANG – BAKTIRAJA berhasil diimport.");
         
-        // Tampilkan rincian per kategori
         $this->command->info("");
         $this->command->info("📁 RINCIAN PER KATEGORI:");
         

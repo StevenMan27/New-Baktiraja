@@ -4,31 +4,6 @@
 
 @section('content')
 
-{{--
-   ======================================================================================
-   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/admin/informasi/index.blade.php]
-
-   1. BAGAIMANA CODE INI BEKERJA:
-      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/admin.blade.php.
-
-   2. UNTUK APA CODE INI:
-      File komponen view pendukung untuk bagian a:.
-
-   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
-      - Mewarisi Desain (Layout): layouts/admin.blade.php
-
-   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
-      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
-   ======================================================================================
---}}
-
-
-
-{{--
-   [STYLE KHUSUS HALAMAN ADMIN INFORMASI]
-   Bagian ini mengatur desain tabel informasi termasuk thumbnail gambar dan format penanggalan yang unik di baris judul.
-   Terkoneksi dengan desain master di layouts/admin.blade.php.
---}}
 <style>
 
     /* ======================================
@@ -136,12 +111,6 @@
 
 </style>
 
-
-{{--
-   [TAMPILAN HEADER BANNER ADMIN]
-   Menampilkan area visual navigasi atas dengan judul "Manajemen Informasi"
-   beserta link rute menuju halaman "Tambah Informasi".
---}}
 <div class="page-banner">
     <div class="page-banner-left">
         <div class="page-banner-icon">
@@ -158,12 +127,6 @@
     </a>
 </div>
 
-{{--
-   [TAMPILAN TABEL DAFTAR INFORMASI]
-   Ini adalah kerangka dasar (wrapper) tabel yang melooping data dari variabel $informasi
-   yang dikirimkan lewat InformasiController.
-   Tabel Database yang digunakan: 'informasi'
---}}
 <div class="informasi-card">
     <div class="informasi-card-body">
 
@@ -188,11 +151,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{--
-                       [PERULANGAN DATA INFORMASI (FOREACH)]
-                       Mencetak daftar informasi ke dalam kolom tabel. 
-                       Bila tidak ada data (@empty), akan merender baris pesan khusus.
-                    --}}
+                    
                     @forelse($informasi as $item)
                     <tr>
                         {{-- Nomor urut baris --}}
@@ -224,11 +183,7 @@
                             </span>
                         </td>
 
-                        {{--
-                           [TOMBOL AKSI: EDIT & HAPUS]
-                           Menu navigasi menuju rute ubah (edit) atau hapus (destroy).
-                           Konfirmasi penghapusan dikelola oleh JS SweetAlert secara global.
-                        --}}
+                        
                         <td>
                             <div class="action-buttons">
                                 {{-- Tombol menuju halaman edit informasi --}}

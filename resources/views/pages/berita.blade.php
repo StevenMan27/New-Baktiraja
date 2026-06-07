@@ -4,26 +4,6 @@
 
 @section('content')
 
-{{--
-   ======================================================================================
-   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/pages/berita.blade.php]
-
-   1. BAGAIMANA CODE INI BEKERJA:
-      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
-
-   2. UNTUK APA CODE INI:
-      File komponen view pendukung untuk bagian a:.
-
-   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
-      - Mewarisi Desain (Layout): layouts/app.blade.php
-
-   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
-      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
-   ======================================================================================
---}}
-
-
-
 <style>
     /* ========== VARIABEL WARNA DAN FONT GLOBAL ========== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
@@ -641,10 +621,6 @@
     }
 </style>
 
-{{--
-   [TAMPILAN HERO BANNER BERITA]
-   Bagian ini bertugas menampilkan kop surat (Header visual) berwarna biru untuk halaman Berita.
---}}
 {{-- ========== HERO SECTION ========== --}}
 <div class="news-hero">
     <div class="news-hero-content">
@@ -655,12 +631,6 @@
     </div>
 </div>
 
-{{--
-   [TAMPILAN DAFTAR KARTU BERITA]
-   Bagian ini bertugas me-looping (Foreach) seluruh data berita dari database untuk dijadikan kartu kotak.
-   Menampilkan potongan gambar pertama, ringkasan isi (excerpt), tanggal, dan jumlah *views*.
-   Tabel Database yang digunakan: 'berita'
---}}
 {{-- ========== SECTION DAFTAR KARTU BERITA ========== --}}
 <section class="news-section">
     <div class="container">
@@ -714,12 +684,6 @@
     </div>
 </section>
 
-{{--
-   [TAMPILAN PEMBACA BERITA LAYAR PENUH (MODAL READER)]
-   Ini adalah fitur "Baca Tanpa Pindah Halaman". 
-   Alih-alih loading halaman baru, isi berita dari database akan disuntikkan ke dalam kotak #fullReader ini menggunakan Javascript (AJAX).
-   Sistem ini membuat web terasa jauh lebih cepat seperti aplikasi ponsel pintar (SPA).
---}}
 {{-- ========== MODAL READER PREMIUM (TAMPILAN DETAIL BERITA) ========== --}}
 <div id="fullReader">
     {{-- Progress bar menunjukkan seberapa jauh artikel sudah digulir --}}
@@ -748,7 +712,7 @@
         {{-- Gambar utama artikel --}}
         <img id="r-img" src="" class="reader-hero-img" alt="">
 
-        {{-- Isi konten artikel lengkap yang diambil dari database --}}
+        
         <div id="r-content" class="reader-article-body"></div>
 
         {{-- Footer modal berisi tombol kembali dan tombol bagikan --}}

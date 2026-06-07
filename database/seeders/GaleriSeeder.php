@@ -5,8 +5,6 @@
    File ini bertugas memasukkan data awal (dummy/default) ke dalam tabel database secara otomatis saat perintah seed dijalankan.
 */
 
-// database/seeders/GaleriSeeder.php
-
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -16,9 +14,7 @@ class GaleriSeeder extends Seeder
 {
     public function run(): void
     {
-        // ==================== DESTINASI ALAM ====================
         
-        // 1. Air Terjun Janji
         Galeri::create([
             'judul' => 'Air Terjun Janji',
             'kategori' => 'Air Terjun Janji',
@@ -39,7 +35,6 @@ class GaleriSeeder extends Seeder
             'status' => true,
         ]);
         
-        // 2. Aek Sitio-tio
         Galeri::create([
             'judul' => 'Aek Sitio-tio',
             'kategori' => 'Aek Sitio-tio',
@@ -60,7 +55,6 @@ class GaleriSeeder extends Seeder
             'status' => true,
         ]);
         
-        // 3. Desa Wisata Tipang
         Galeri::create([
             'judul' => 'Desa Wisata Tipang',
             'kategori' => 'Desa Wisata Tipang',
@@ -81,9 +75,7 @@ class GaleriSeeder extends Seeder
             'status' => true,
         ]);
         
-        // ==================== DESTINASI BUATAN ====================
         
-        // 4. Panatapan Bakara
         Galeri::create([
             'judul' => 'Panatapan Bakara',
             'kategori' => 'Panatapan Bakara',
@@ -104,7 +96,6 @@ class GaleriSeeder extends Seeder
             'status' => true,
         ]);
         
-        // 5. Gonting
         Galeri::create([
             'judul' => 'Bukit Gonting',
             'kategori' => 'Gonting',
@@ -125,9 +116,7 @@ class GaleriSeeder extends Seeder
             'status' => true,
         ]);
         
-        // ==================== DESTINASI BUDAYA ====================
         
-        // 6. Istana Sisingamangaraja
         Galeri::create([
             'judul' => 'Istana Sisingamangaraja',
             'kategori' => 'Istana Sisingamangaraja',
@@ -148,7 +137,6 @@ class GaleriSeeder extends Seeder
             'status' => true,
         ]);
         
-        // 7. Tombak Sulu-sulu
         Galeri::create([
             'judul' => 'Hutan Sakral Tombak Sulu-sulu',
             'kategori' => 'Tombak Sulu-sulu',
@@ -169,7 +157,6 @@ class GaleriSeeder extends Seeder
             'status' => true,
         ]);
         
-        // 8. Aek Sipangolu
         Galeri::create([
             'judul' => 'Aek Sipangolu',
             'kategori' => 'Aek Sipangolu',
