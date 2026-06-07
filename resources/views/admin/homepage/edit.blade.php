@@ -4,6 +4,26 @@
 
 @section('content')
 
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/admin/homepage/edit.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/admin.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/admin.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
+
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
@@ -276,6 +296,17 @@
         font-size: 0.82rem;
     }
     .dest-card-body { padding: 20px; }
+    .dest-body-grid {
+        display: grid;
+        grid-template-columns: 180px 1fr;
+        gap: 20px;
+        align-items: start;
+    }
+    @media (max-width: 768px) {
+        .dest-body-grid {
+            grid-template-columns: 1fr;
+        }
+    }
     .dest-upload-col { }
     .dest-fields-col { }
 
@@ -682,7 +713,7 @@
                         <span class="dest-name">{{ $dest->judul ?? '—' }}</span>
                     </div>
                     <div class="dest-card-body">
-                        <div style="display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:start;">
+                        <div class="dest-body-grid">
 
                             <!-- Kolom Gambar -->
                             <div class="dest-upload-col">

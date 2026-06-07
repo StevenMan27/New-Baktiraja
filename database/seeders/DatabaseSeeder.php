@@ -1,5 +1,11 @@
 <?php
 
+/*
+   [SEEDER DatabaseSeeder.php]
+   File ini bertugas memasukkan data awal (dummy/default) ke dalam tabel database secara otomatis saat perintah seed dijalankan.
+*/
+
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;

@@ -4,7 +4,32 @@
 
 @section('content')
 
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/pages/galeri.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/app.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
+
+
 <style>
+    /*
+       [STYLE HERO BANNER GALERI]
+       Bagian ini bertugas untuk menghias bagian atas halaman Galeri (Banner biru gelap).
+       Memiliki latar belakang warna gradien dan mengatur agar teks judul berada di tengah.
+    */
     /* Hero banner atas halaman galeri */
     .gallery-hero {
         background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
@@ -85,179 +110,123 @@
         padding: 0 24px;
     }
 
-    /* Wrapper semua baris stack, baris disusun vertikal dengan gap */
-    .stack-wrapper {
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
+    /*
+       [STYLE GRID FOTO GALERI]
+       Bagian ini bertugas menata ratusan foto agar tampil sejajar berdampingan dalam bentuk kotak-kotak rapi (Grid).
+       Mengatur agar ada 3 foto dalam satu baris (grid-template-columns: repeat(3, 1fr)).
+       Digunakan di: div class="gallery-grid"
+    */
+    /* Layout Grid untuk Galeri (Tampil satu per satu, tidak ditimpa) */
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
         padding: 20px 0;
     }
 
-    /* Setiap baris berisi N kartu yang saling menimpa secara horizontal */
-    /* overflow: visible agar kartu yang hover bisa naik tanpa terpotong */
-    .stack-row {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        justify-content: center;
-        overflow: visible;
-        padding: 20px 0 10px;
-    }
-
-    /* Kartu individual di dalam baris stack */
-    .slip-card {
-        position: relative;
-        width: 280px;
-        flex-shrink: 0;
+    .gallery-card {
         background: white;
         border-radius: 16px;
         overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
         cursor: pointer;
-        /* Transisi halus saat hover */
-        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        box-shadow: 0 10px 20px -5px rgba(0,0,0,0.12);
-        /* Margin negatif menyebabkan kartu saling menimpa, dikontrol via JS */
-        margin-left: -70px;
-        z-index: 1;
     }
 
-    /* Kartu pertama di setiap baris tidak membutuhkan margin negatif */
-    .slip-card:first-child {
-        margin-left: 0;
+    .gallery-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     }
 
-    /* Saat hover kartu naik ke atas dan z-index nya tertinggi */
-    .slip-card:hover {
-        transform: translateY(-22px) scale(1.03);
-        z-index: 100;
-        box-shadow: 0 28px 44px -10px rgba(0,0,0,0.28);
-    }
-
-    /* Kartu setelah kartu yang di-hover bergeser ke kanan */
-    .slip-card:hover ~ .slip-card {
-        transform: translateX(18px);
-    }
-
-    /* Wrapper gambar dengan tinggi tetap agar semua kartu konsisten */
-    .slip-image {
-        position: relative;
+    .gallery-card-img {
         width: 100%;
-        height: 300px;
+        height: 220px;
         overflow: hidden;
-        background: linear-gradient(135deg, #1e293b, #0f172a);
+        position: relative;
     }
 
-    /* Gambar mengisi penuh area dengan object-fit cover */
-    .slip-image img {
+    .gallery-card-img img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
-        display: block;
     }
 
-    /* Zoom gambar saat hover kartu */
-    .slip-card:hover .slip-image img {
-        transform: scale(1.06);
+    .gallery-card:hover .gallery-card-img img {
+        transform: scale(1.08);
     }
 
-    /* Overlay gelap gradient dari bawah muncul saat hover */
-    .slip-overlay {
+    .gallery-card-overlay {
         position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.72), transparent);
-        padding: 32px 16px 16px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
+        top: 15px;
+        left: 15px;
     }
 
-    /* Overlay terlihat saat hover */
-    .slip-card:hover .slip-overlay {
-        opacity: 1;
-    }
-
-    /* Badge kategori di dalam overlay berwarna gold */
-    .slip-category {
-        display: inline-block;
+    .gallery-category {
         background: #c6a43b;
         color: #003366;
-        padding: 3px 10px;
+        padding: 4px 12px;
         border-radius: 20px;
-        font-size: 0.6rem;
+        font-size: 0.65rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
     }
 
-    /* Judul di atas overlay dalam teks putih */
-    .slip-title-overlay {
-        color: white;
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-top: 8px;
-        line-height: 1.3;
+    .gallery-card-body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
     }
 
-    /* Area info bawah kartu */
-    .slip-info {
-        padding: 14px 16px 16px;
-        background: white;
-        position: relative;
-        border-top: 1px solid #f0f0f0;
-    }
-
-    /* Garis gold yang muncul dari kiri ke kanan saat hover */
-    .slip-line {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #c6a43b, #e8c45a, #c6a43b);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.3s ease;
-    }
-
-    /* Garis gold melebar penuh saat hover */
-    .slip-card:hover .slip-line {
-        transform: scaleX(1);
-    }
-
-    /* Judul foto di info bawah */
-    .slip-title {
-        font-size: 0.88rem;
-        font-weight: 600;
-        color: #1e293b;
-        margin-bottom: 6px;
+    .gallery-card-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #003366;
+        margin-bottom: 8px;
         line-height: 1.4;
     }
 
-    /* Baris lokasi dengan ikon pin */
-    .slip-location {
-        font-size: 0.7rem;
-        color: #94a3b8;
+    .gallery-card-location {
+        font-size: 0.8rem;
+        color: #64748b;
         display: flex;
         align-items: center;
-        gap: 5px;
+        gap: 6px;
+        margin-bottom: 12px;
     }
 
-    /* Ikon lokasi berwarna gold */
-    .slip-location i {
-        font-size: 0.65rem;
-        color: #c6a43b;
+    .gallery-card-location i { color: #c6a43b; }
+
+    .gallery-card-desc {
+        font-size: 0.85rem;
+        color: #475569;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
     }
 
-    /* Nomor urut di pojok kanan bawah */
-    .slip-number {
-        position: absolute;
-        bottom: 12px;
-        right: 16px;
-        font-size: 0.6rem;
-        color: #cbd5e1;
-        font-family: monospace;
+    .gallery-card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: auto;
+    }
+
+    .gallery-tag {
+        background: rgba(0,51,102,0.06);
+        color: #003366;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 0.67rem;
+        font-weight: 600;
     }
 
     /* Tampilan kosong jika tidak ada foto */
@@ -266,6 +235,7 @@
         padding: 80px;
         background: white;
         border-radius: 16px;
+        grid-column: 1 / -1;
     }
 
     .empty-gallery i {
@@ -280,6 +250,12 @@
         font-size: 0.9rem;
     }
 
+    /*
+       [STYLE MODAL POPUP (KOTAK HITAM DETAIL FOTO)]
+       Bagian ini mengatur desain Kotak Hitam (Modal) yang muncul melayang di layar penuh saat foto diklik.
+       Menggunakan warna dasar hitam gelap transparan (rgba(0,0,0,0.96)) agar foto terlihat sinematik dan elegan.
+       Digunakan di: div id="pModal"
+    */
     /* MODAL overlay penuh layar */
     .modal-overlay {
         position: fixed;
@@ -380,6 +356,11 @@
         margin: 0 0 8px;
     }
 
+    /*
+       [STYLE PEMUTAR MUSIK MODAL]
+       Bagian ini mengatur letak dan desain elemen pemutar musik (tombol play/pause) 
+       yang menempel di bagian paling bawah teks penjelasan pada kotak Modal hitam.
+    */
     /* Music player di dalam modal selalu di bagian bawah */
     .modal-music-player {
         margin-top: auto;
@@ -447,22 +428,12 @@
         transform: scale(1.1);
     }
 
-    /* Responsive 1200px: lebar kartu dikecilkan */
-    @media (max-width: 1200px) {
-        .slip-card { width: 240px; }
-        .slip-image { height: 260px; }
+    /* Responsive Tablet */
+    @media (max-width: 1024px) {
+        .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
     }
 
-    /* Responsive 992px: kartu lebih kecil dan overlap dikurangi */
-    @media (max-width: 992px) {
-        .slip-card {
-            width: 200px;
-            margin-left: -50px;
-        }
-        .slip-image { height: 230px; }
-    }
-
-    /* Responsive 768px: modal satu kolom dan kartu lebih kecil */
+    /* Responsive Mobile */
     @media (max-width: 768px) {
         .modal-box {
             grid-template-columns: 1fr;
@@ -470,26 +441,22 @@
             overflow-y: auto;
         }
         .gallery-hero h1 { font-size: 2rem; }
-        .slip-card {
-            width: 160px;
-            margin-left: -40px;
-        }
-        .slip-image { height: 190px; }
-        .slip-title { font-size: 0.75rem; }
-        .slip-location { font-size: 0.62rem; }
+        .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .gallery-card-img { height: 180px; }
+        .gallery-card-title { font-size: 0.9rem; }
     }
 
-    /* Responsive 480px: kartu sangat kecil dengan overlap minimal */
+    /* Responsive Mobile Kecil */
     @media (max-width: 480px) {
-        .slip-card {
-            width: 130px;
-            margin-left: -32px;
-        }
-        .slip-image { height: 160px; }
-        .stack-wrapper { gap: 28px; }
+        .gallery-grid { grid-template-columns: repeat(1, 1fr); gap: 16px; }
+        .gallery-card-img { height: 200px; }
     }
 </style>
 
+{{--
+   [TAMPILAN HERO BANNER GALERI]
+   Bagian ini bertugas mencetak elemen visual bagian paling atas halaman Galeri (yang ada tulisan "Koleksi Foto Terbaik").
+--}}
 <div class="gallery-hero">
     <div class="gallery-hero-content">
         <div class="hero-badge">UPDATE TERBARU</div>
@@ -499,6 +466,12 @@
     </div>
 </div>
 
+{{--
+   [TAMPILAN PERULANGAN GRID FOTO]
+   Bagian ini bertugas menerima data $galeriByKategori dari Controller, lalu membongkarnya menjadi foto-foto satuan.
+   Foto dicetak satu per satu ke dalam layar. Jika tidak ada foto sama sekali, maka akan menampilkan pesan "Belum ada foto galeri".
+   Tabel Database yang digunakan: 'galeris'
+--}}
 <section class="gallery-section">
     <div class="container">
 
@@ -526,40 +499,40 @@
         @endphp
 
         @if(count($allPhotos) > 0)
-            <div class="stack-wrapper">
-                @foreach($rows as $row)
-                    <div class="stack-row">
-                        @foreach($row as $photo)
-                            <div class="slip-card"
-                                 onclick="openPhoto(
-                                     '{{ $photo['src'] }}',
-                                     '{{ addslashes($photo['judul']) }}',
-                                     '{{ addslashes($photo['deskripsi']) }}',
-                                     '{{ $photo['kategori'] }}',
-                                     '{{ addslashes($photo['lokasi']) }}'
-                                 )">
-                                <div class="slip-image">
-                                    <img src="{{ $photo['src'] }}"
-                                         alt="{{ $photo['judul'] }}"
-                                         loading="lazy"
-                                         onerror="this.src='{{ asset('image/default.jpg') }}'">
-                                    <div class="slip-overlay">
-                                        <span class="slip-category">{{ $photo['kategori'] }}</span>
-                                        <div class="slip-title-overlay">{{ Str::limit($photo['judul'], 38) }}</div>
-                                    </div>
-                                </div>
-                                <div class="slip-info">
-                                    <div class="slip-line"></div>
-                                    <div class="slip-title">{{ Str::limit($photo['judul'], 30) }}</div>
-                                    <div class="slip-location">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        <span>{{ $photo['lokasi'] }}</span>
-                                    </div>
-                                    <div class="slip-number">#{{ str_pad($counter, 3, '0', STR_PAD_LEFT) }}</div>
-                                </div>
+            <div class="gallery-grid">
+                @foreach($allPhotos as $photo)
+                    @php
+                        // Coba ambil tags jika ada (meskipun struktur $allPhotos mungkin tidak ada tags)
+                        // Untuk saat ini kita gunakan kategori sebagai tag
+                        $tags = [$photo['kategori']];
+                    @endphp
+                    <div class="gallery-card"
+                         onclick="openPhoto(
+                             '{{ $photo['src'] }}',
+                             '{{ addslashes($photo['judul']) }}',
+                             '{{ addslashes($photo['deskripsi']) }}',
+                             '{{ $photo['kategori'] }}',
+                             '{{ addslashes($photo['lokasi']) }}'
+                         )">
+                        <div class="gallery-card-img">
+                            <img src="{{ $photo['src'] }}"
+                                 alt="{{ $photo['judul'] }}"
+                                 loading="lazy"
+                                 onerror="this.src='{{ asset('image/default.jpg') }}'">
+                            <div class="gallery-card-overlay">
+                                <span class="gallery-category">{{ $photo['kategori'] }}</span>
                             </div>
-                            @php $counter++; @endphp
-                        @endforeach
+                        </div>
+                        <div class="gallery-card-body">
+                            <div class="gallery-card-title">{{ Str::limit($photo['judul'], 40) }}</div>
+                            <div class="gallery-card-location">
+                                <i class="fas fa-map-marker-alt"></i>
+                                {{ $photo['lokasi'] }}
+                            </div>
+                            @if(!empty($photo['deskripsi']))
+                                <div class="gallery-card-desc">{{ Str::limit($photo['deskripsi'], 60) }}</div>
+                            @endif
+                        </div>
                     </div>
                 @endforeach
             </div>
@@ -573,6 +546,12 @@
     </div>
 </section>
 
+{{--
+   [TAMPILAN MODAL POPUP (KOTAK HITAM)]
+   Bagian ini adalah struktur HTML yang DISEMBUNYIKAN secara default.
+   Baru akan MUNCUL MELAYANG di layar apabila pengguna mengklik salah satu gambar dari Grid foto di atas.
+   Isinya akan diganti secara dinamis oleh JavaScript sesuai dengan foto apa yang diklik.
+--}}
 <!-- MODAL FOTO DENGAN MUSIC PLAYER -->
 <div id="pModal" class="modal-overlay" onclick="closePhoto()">
     <div class="close-btn" onclick="closePhoto()">&times;</div>
@@ -605,6 +584,14 @@
 </div>
 
 <script>
+    /*
+       [FUNGSI JAVASCRIPT: LOGIKA MODAL POPUP GALERI]
+       Bagian skrip ini bertugas:
+       1. Menyiapkan musik latar (GONDANG.weba).
+       2. Menerima data foto (gambar, judul, deskripsi, lokasi) dari HTML saat gambar diklik.
+       3. Menembakkan data tersebut ke dalam Kotak Hitam (Modal) dan mengubah layarnya menjadi mode baca penuh (munculkan modal).
+       4. Mengontrol tombol Play, Pause, dan Stop untuk musik batak tersebut.
+    */
     /* Inisialisasi audio lagu yang diputar otomatis saat modal foto terbuka */
     const songUrl = "{{ asset('audio/GONDANG.weba') }}";
     let modalAudio = new Audio(songUrl);

@@ -8,8 +8,13 @@ use App\Models\ProfilGeosite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class PenginapanController extends Controller
-{
+class PenginapanController extends Controller {
+    /*
+       [CONTROLLER ADMIN PenginapanController]
+       File ini bertugas mengontrol logika untuk bagian admin dari PenginapanController.
+       Berfungsi mengatur operasi CRUD (Create, Read, Update, Delete) pada database.
+       Tabel Database yang digunakan: berhubungan erat dengan entitas PenginapanController.
+    */
     // Daftar geosite yang valid
     private array $geositeList = [
         'aek-sipangolu' => 'Aek Sipangolu',

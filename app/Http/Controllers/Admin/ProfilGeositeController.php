@@ -7,8 +7,13 @@ use Illuminate\Http\Request;
 use App\Models\ProfilGeosite;
 use Illuminate\Support\Facades\Storage;
 
-class ProfilGeositeController extends Controller
-{
+class ProfilGeositeController extends Controller {
+    /*
+       [CONTROLLER ADMIN ProfilGeositeController]
+       File ini bertugas mengontrol logika untuk bagian admin dari ProfilGeositeController.
+       Berfungsi mengatur operasi CRUD (Create, Read, Update, Delete) pada database.
+       Tabel Database yang digunakan: berhubungan erat dengan entitas ProfilGeositeController.
+    */
     private $geosites = [
         'air-terjun-janji' => 'Air Terjun Janji',
         'aek-sitio-tio' => 'Aek Sitio-tio',

@@ -6,8 +6,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Kontak;
 use Illuminate\Http\Request;
 
-class KontakController extends Controller
-{
+class KontakController extends Controller {
+    /*
+       [CONTROLLER ADMIN KontakController]
+       File ini bertugas mengontrol logika untuk bagian admin dari KontakController.
+       Berfungsi mengatur operasi CRUD (Create, Read, Update, Delete) pada database.
+       Tabel Database yang digunakan: berhubungan erat dengan entitas KontakController.
+    */
     public function edit()
     {
         $kontak = Kontak::first();

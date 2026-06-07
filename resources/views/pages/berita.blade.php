@@ -4,6 +4,26 @@
 
 @section('content')
 
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/pages/berita.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/app.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
+
+
 <style>
     /* ========== VARIABEL WARNA DAN FONT GLOBAL ========== */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
@@ -45,6 +65,11 @@
         -webkit-font-smoothing: antialiased;
     }
 
+    /*
+       [STYLE HERO BANNER BERITA]
+       Bagian ini bertugas untuk menghias latar belakang biru pada bagian atas halaman daftar Berita.
+       Menggunakan gradasi warna (linear-gradient) dan animasi efek cahaya putar (slowRotate).
+    */
     /* ========== HERO SECTION ========== */
     .news-hero {
         background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-light) 100%);
@@ -130,88 +155,66 @@
         padding: 0 24px;
     }
 
-    /* ========== SLIP CARD STYLE (KARTU BERITA TUMPUKAN) ========== */
-    .stack-container {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0;
-        padding: 40px 0;
-        position: relative;
+    /*
+       [STYLE GRID KARTU BERITA]
+       Bagian ini mengatur desain kartu kotak untuk setiap berita yang ditampilkan.
+       Layout diset Grid 3 kolom (grid-template-columns: repeat(3, 1fr)).
+       Digunakan di: div class="news-grid"
+    */
+    /* ========== GRID KARTU BERITA ========== */
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        padding: 10px 0 20px;
     }
 
-    /* Kartu berita yang saling tumpang tindih seperti slip/struk */
-    .slip-card {
-        position: relative;
-        width: 280px;
+    /* Kartu berita individual */
+    .news-card {
         background: white;
-        border-radius: 16px;
+        border-radius: 20px;
         overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.07);
         cursor: pointer;
-        transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
-        box-shadow: 0 10px 20px -5px rgba(0,0,0,0.1), 0 0 0 1px rgba(0,0,0,0.02);
-        margin-left: -60px;
+        display: flex;
+        flex-direction: column;
+        transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    .slip-card:first-child {
-        margin-left: 0;
+    .news-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 50px rgba(0,0,0,0.15);
     }
 
-    /* Saat hover, kartu naik ke atas dan membesar sedikit */
-    .slip-card:hover {
-        transform: translateY(-20px) scale(1.02);
-        z-index: 100;
-        box-shadow: 0 25px 40px -10px rgba(0,0,0,0.25);
-    }
-
-    /* Kartu di sebelah kanan juga bergeser saat card kiri di-hover */
-    .slip-card:hover ~ .slip-card {
-        transform: translateX(20px);
-    }
-
-    /* Area gambar di bagian atas kartu */
-    .slip-image {
-        position: relative;
+    /* Area gambar */
+    .news-card-img {
         width: 100%;
-        height: 320px;
+        height: 220px;
         overflow: hidden;
+        position: relative;
         background: linear-gradient(135deg, #1e293b, #0f172a);
     }
 
-    .slip-image img {
+    .news-card-img img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         transition: transform 0.5s ease;
+        display: block;
     }
 
-    /* Gambar sedikit membesar saat card di-hover */
-    .slip-card:hover .slip-image img {
-        transform: scale(1.05);
+    .news-card:hover .news-card-img img {
+        transform: scale(1.07);
     }
 
-    /* Lapisan gelap semi-transparan di atas gambar, muncul saat hover */
-    .slip-overlay {
+    /* Badge kategori di atas gambar */
+    .news-card-badge {
         position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-        padding: 30px 16px 16px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .slip-card:hover .slip-overlay {
-        opacity: 1;
-    }
-
-    /* Label kategori kecil berwarna emas */
-    .slip-category {
-        display: inline-block;
+        top: 14px;
+        left: 14px;
         background: #c6a43b;
         color: #003366;
-        padding: 3px 10px;
+        padding: 4px 12px;
         border-radius: 20px;
         font-size: 0.6rem;
         font-weight: 700;
@@ -219,104 +222,83 @@
         letter-spacing: 1px;
     }
 
-    .slip-title-overlay {
-        color: white;
-        font-size: 0.85rem;
-        font-weight: 600;
-        margin-top: 8px;
-        line-height: 1.3;
+    /* Area teks bawah kartu */
+    .news-card-body {
+        padding: 20px 22px 22px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border-top: 3px solid transparent;
+        transition: border-color 0.3s ease;
     }
 
-    /* Area informasi di bawah gambar */
-    .slip-info {
-        padding: 16px;
-        background: white;
-        position: relative;
-        border-top: 1px solid #f0f0f0;
+    .news-card:hover .news-card-body {
+        border-color: #c6a43b;
     }
 
-    /* Garis emas di atas info card yang muncul saat hover */
-    .slip-line {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, #c6a43b, #e8c45a, #c6a43b);
-        transform: scaleX(0);
-        transition: transform 0.3s ease;
-    }
-
-    .slip-card:hover .slip-line {
-        transform: scaleX(1);
-    }
-
-    .slip-title {
-        font-size: 0.9rem;
-        font-weight: 600;
-        color: #1e293b;
-        margin-bottom: 6px;
-        line-height: 1.4;
+    .news-card-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #003366;
+        font-family: 'Playfair Display', serif;
+        line-height: 1.35;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
-    /* Cuplikan isi berita singkat di bawah judul */
-    .slip-excerpt {
-        font-size: 0.7rem;
+    .news-card-excerpt {
+        font-size: 0.82rem;
         color: #64748b;
-        line-height: 1.4;
-        margin-bottom: 8px;
+        line-height: 1.6;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         overflow: hidden;
     }
 
-    /* Tanggal publikasi berita */
-    .slip-date {
-        font-size: 0.7rem;
+    .news-card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 4px;
+    }
+
+    .news-card-date {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 0.72rem;
         color: #94a3b8;
+    }
+
+    .news-card-date i { color: #c6a43b; font-size: 0.65rem; }
+
+    .news-card-views {
         display: flex;
         align-items: center;
         gap: 5px;
-        margin-bottom: 4px;
+        font-size: 0.7rem;
+        color: #94a3b8;
     }
 
-    .slip-date i {
-        font-size: 0.65rem;
-        color: #c6a43b;
-    }
+    .news-card-views i { color: #c6a43b; font-size: 0.65rem; }
 
-    /* Counter tampilan/views di sudut kiri bawah kartu */
-    .slip-views {
-        position: absolute;
-        bottom: 12px;
-        left: 16px;
-        font-size: 0.6rem;
-        color: #cbd5e1;
-        display: flex;
+    .news-card-read {
+        display: inline-flex;
         align-items: center;
-        gap: 4px;
+        gap: 6px;
+        margin-top: 6px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: #003366;
+        letter-spacing: 0.3px;
+        transition: color 0.2s;
     }
 
-    .slip-views i {
-        font-size: 0.55rem;
-        color: #c6a43b;
-    }
-
-    /* Nomor urut berita di sudut kanan bawah kartu */
-    .slip-number {
-        position: absolute;
-        bottom: 12px;
-        right: 16px;
-        font-size: 0.6rem;
-        color: #cbd5e1;
-        font-family: monospace;
-        letter-spacing: 1px;
-    }
+    .news-card:hover .news-card-read { color: #c6a43b; }
 
     /* ========== EMPTY STATE (Jika belum ada berita) ========== */
     .empty-news {
@@ -332,6 +314,13 @@
         margin-bottom: 15px;
     }
 
+    /*
+       [STYLE MODAL READER PREMIUM (BACA BERITA LAYAR PENUH)]
+       Bagian ini adalah CSS paling penting di halaman berita.
+       Fungsinya mengubah kotak Modal pembaca berita agar muncul dari bawah (bottom) 
+       dan menutupi layar sepenuhnya dengan efek transisi mulus seperti aplikasi pembaca berita profesional.
+       Digunakan di: div id="fullReader"
+    */
     /* ========== FULL SCREEN MODAL READER ========== */
     /* Modal membuka dari bawah layar ke atas */
     #fullReader {
@@ -352,6 +341,12 @@
         visibility: visible;
     }
 
+    /*
+       [STYLE PROGRESS BAR BACA]
+       Ini adalah garis tipis berwarna emas di bagian paling atas layar modal.
+       Skrip JavaScript akan menggeser panjang garis ini dari 0% ke 100% 
+       seiring dengan seberapa jauh pengunjung men-scroll (membaca) ke bawah.
+    */
     /* Progress bar di bagian paling atas saat membaca */
     .progress-container {
         position: fixed;
@@ -626,37 +621,30 @@
     }
 
     /* ========== RESPONSIVE DESIGN ========== */
-    @media (max-width: 1200px) {
-        .slip-card { width: 240px; }
-        .slip-image { height: 280px; }
-    }
-
-    @media (max-width: 992px) {
-        .stack-container {
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .slip-card { margin-left: 0 !important; width: 260px; }
-        .slip-card:hover ~ .slip-card { transform: none; }
-        .slip-card:hover { transform: translateY(-10px); }
+    @media (max-width: 1024px) {
+        .news-grid { grid-template-columns: repeat(2, 1fr); gap: 22px; }
     }
 
     @media (max-width: 768px) {
-        .slip-card { width: calc(50% - 8px); }
-        .slip-image { height: 260px; }
+        .news-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .news-card-img { height: 180px; }
+        .news-card-title { font-size: 0.9rem; }
         .news-hero h1 { font-size: 2rem; }
         .reader-title-display { font-size: 1.6rem; }
         .reader-content-wrap { padding: 20px; }
         .reader-meta { gap: 14px; }
     }
 
-    @media (max-width: 560px) {
-        .slip-card { width: 100%; }
-        .slip-image { height: 280px; }
+    @media (max-width: 480px) {
+        .news-grid { grid-template-columns: 1fr; gap: 16px; }
+        .news-card-img { height: 200px; }
     }
 </style>
 
+{{--
+   [TAMPILAN HERO BANNER BERITA]
+   Bagian ini bertugas menampilkan kop surat (Header visual) berwarna biru untuk halaman Berita.
+--}}
 {{-- ========== HERO SECTION ========== --}}
 <div class="news-hero">
     <div class="news-hero-content">
@@ -667,58 +655,53 @@
     </div>
 </div>
 
+{{--
+   [TAMPILAN DAFTAR KARTU BERITA]
+   Bagian ini bertugas me-looping (Foreach) seluruh data berita dari database untuk dijadikan kartu kotak.
+   Menampilkan potongan gambar pertama, ringkasan isi (excerpt), tanggal, dan jumlah *views*.
+   Tabel Database yang digunakan: 'berita'
+--}}
 {{-- ========== SECTION DAFTAR KARTU BERITA ========== --}}
 <section class="news-section">
     <div class="container">
-        <div class="stack-container">
-            @php $counter = 1; @endphp
+        <div class="news-grid">
             @forelse($berita as $item)
                 @php
-                    // Menentukan sumber gambar berita: base64, URL eksternal, atau dari storage lokal
                     $imageSrc = \App\Helpers\ImageHelper::getFirstImage($item->gambar);
-                    if (!$imageSrc) {
-                        $imageSrc = asset('image/default.jpg');
-                    }
-
-                    // Membuat cuplikan teks pendek dari isi konten untuk pratinjau di kartu
+                    if (!$imageSrc) { $imageSrc = asset('image/default.jpg'); }
                     $excerpt = strip_tags($item->konten);
-                    $excerpt = \Illuminate\Support\Str::limit($excerpt, 80);
+                    $excerpt = \Illuminate\Support\Str::limit($excerpt, 100);
                 @endphp
 
-                {{-- Setiap kartu berita, saat diklik akan memanggil fungsi openReader --}}
-                <div class="slip-card" onclick="openReader({{ $item->id }})">
-                    <div class="slip-image">
+                <div class="news-card" onclick="openReader({{ $item->id }})">
+                    <div class="news-card-img">
                         <img src="{{ $imageSrc }}"
                              alt="{{ $item->judul }}"
                              loading="lazy"
                              onerror="this.onerror=null;this.src='{{ asset('image/default.jpg') }}'">
-                        <div class="slip-overlay">
-                            <span class="slip-category">BERITA</span>
-                            <div class="slip-title-overlay">{{ Str::limit($item->judul, 35) }}</div>
-                        </div>
+                        <span class="news-card-badge">BERITA</span>
                     </div>
-                    <div class="slip-info">
-                        <div class="slip-line"></div>
-                        <div class="slip-title">{{ Str::limit($item->judul, 30) }}</div>
-                        <div class="slip-excerpt">{{ $excerpt }}</div>
-                        <div class="slip-date">
-                            <i class="fas fa-calendar-alt"></i>
-                            <span>{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d M Y') }}</span>
+                    <div class="news-card-body">
+                        <div class="news-card-title">{{ $item->judul }}</div>
+                        <div class="news-card-excerpt">{{ $excerpt }}</div>
+                        <div class="news-card-meta">
+                            <div class="news-card-date">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span>{{ \Carbon\Carbon::parse($item->created_at)->translatedFormat('d M Y') }}</span>
+                            </div>
+                            <div class="news-card-views" id="views-{{ $item->id }}">
+                                <i class="fas fa-eye"></i>
+                                <span>{{ number_format($item->views ?? 0) }}</span>
+                            </div>
                         </div>
-                        {{-- Counter views ditampilkan dan akan diperbarui secara langsung setelah modal dibuka --}}
-                        <div class="slip-views" id="views-{{ $item->id }}">
-                            <i class="fas fa-eye"></i>
-                            <span>{{ number_format($item->views ?? 0) }}</span>
-                        </div>
-                        <div class="slip-number">#{{ str_pad($counter, 3, '0', STR_PAD_LEFT) }}</div>
+                        <span class="news-card-read">Baca Selengkapnya <i class="fas fa-arrow-right"></i></span>
                     </div>
                 </div>
-                @php $counter++; @endphp
             @empty
-                <div class="empty-news">
+                <div class="empty-news" style="grid-column:1/-1;">
                     <i class="fas fa-newspaper"></i>
                     <h3>Belum Ada Berita</h3>
-                    <p style="color: #999; margin-top: 10px;">Silakan tambah berita melalui panel admin.</p>
+                    <p style="color:#999;margin-top:10px;">Silakan tambah berita melalui panel admin.</p>
                 </div>
             @endforelse
         </div>
@@ -731,6 +714,12 @@
     </div>
 </section>
 
+{{--
+   [TAMPILAN PEMBACA BERITA LAYAR PENUH (MODAL READER)]
+   Ini adalah fitur "Baca Tanpa Pindah Halaman". 
+   Alih-alih loading halaman baru, isi berita dari database akan disuntikkan ke dalam kotak #fullReader ini menggunakan Javascript (AJAX).
+   Sistem ini membuat web terasa jauh lebih cepat seperti aplikasi ponsel pintar (SPA).
+--}}
 {{-- ========== MODAL READER PREMIUM (TAMPILAN DETAIL BERITA) ========== --}}
 <div id="fullReader">
     {{-- Progress bar menunjukkan seberapa jauh artikel sudah digulir --}}
@@ -779,6 +768,14 @@
     // sehingga modal bisa diisi konten tanpa perlu reload halaman
     const newsData = @json($berita->items());
 
+    /*
+       [FUNGSI JAVASCRIPT: LOGIKA MODAL PEMBACA BERITA (AJAX)]
+       Bagian skrip ini bertugas:
+       1. Mencari data berita di memori browser berdasarkan ID yang diklik pengunjung.
+       2. Menyesuaikan gambar, teks, dan tanggal ke dalam struktur HTML #fullReader secara langsung (real-time).
+       3. Setelah modal terbuka, sistem diam-diam menembak API (POST /api/berita/id/view) ke backend 
+          guna menambah +1 jumlah pembaca (View Counter) langsung di database tanpa butuh *refresh* halaman.
+    */
     /**
      * Fungsi openReader: membuka modal reader dan menampilkan detail berita
      * yang dipilih berdasarkan id, sekaligus mengirim permintaan ke server

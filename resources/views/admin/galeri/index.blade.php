@@ -4,7 +4,31 @@
 
 @section('content')
 
-{{-- Style khusus halaman Data Galeri, selaras dengan design system GeoToba --}}
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/admin/galeri/index.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/admin.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/admin.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
+
+
+{{--
+   [STYLE KHUSUS HALAMAN ADMIN GALERI]
+   Bagian ini mengatur desain tabel dan thumbnail gambar agar tampil rapi di dasbor Admin Galeri.
+   Style umum lainnya (sidebar, topbar) ditarik dari layouts/admin.blade.php.
+--}}
 <style>
 
     /* ======================================
@@ -95,7 +119,10 @@
 
 </style>
 
-{{-- Banner header halaman dengan ikon, deskripsi, dan tombol tambah --}}
+{{--
+   [TAMPILAN HEADER BANNER ADMIN]
+   Mencetak banner biru berisi ikon, judul "Data Galeri", dan tombol "Tambah Galeri".
+--}}
 <div class="page-banner">
     <div class="page-banner-left">
         <div class="page-banner-icon">
@@ -112,7 +139,12 @@
     </a>
 </div>
 
-{{-- Card pembungkus tabel --}}
+{{--
+   [TAMPILAN TABEL DAFTAR GALERI]
+   Bagian ini membungkus struktur tabel data. Di dalamnya terjadi perulangan (foreach) 
+   yang menarik data dari variabel $galeris yang dikirim dari GaleriController.
+   Tabel Database yang digunakan: 'galeris'
+--}}
 <div class="galeri-card">
     <div class="galeri-card-body">
 
@@ -136,7 +168,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- Iterasi setiap item galeri dari database --}}
+                    {{--
+                       [PERULANGAN DATA GALERI (FOREACH)]
+                       Menampilkan daftar foto, judul, dan tombol aksi per baris tabel.
+                    --}}
                     @foreach($galeris as $i => $g)
                     <tr>
                         {{-- Nomor urut baris --}}
@@ -156,7 +191,11 @@
                         {{-- Kolom judul galeri --}}
                         <td><span class="judul-text">{{ $g->judul }}</span></td>
 
-                        {{-- Kolom tombol aksi edit dan hapus --}}
+                        {{--
+                           [TOMBOL AKSI: EDIT & HAPUS]
+                           Kolom ini memuat navigasi ke halaman ubah foto (edit) dan form penghapusan (delete).
+                           Konfirmasi hapus dicegat oleh SweetAlert di file layout.
+                        --}}
                         <td>
                             <div class="action-buttons">
                                 {{-- Tombol menuju halaman edit galeri --}}

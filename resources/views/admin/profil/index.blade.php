@@ -4,7 +4,31 @@
 
 @section('content')
 
-{{-- Style khusus halaman Profil Geosite, selaras dengan design system GeoToba --}}
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/admin/profil/index.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/admin.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/admin.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
+
+
+{{--
+   [STYLE KHUSUS HALAMAN ADMIN PROFIL GEOSITE]
+   Bagian CSS ini mengatur desain visual spesifik pada halaman pengelolaan Profil Geosite,
+   seperti layout tabel khusus, tombol aksi kustom, dan lencana (badge) status profil.
+--}}
 <style>
 
     /* Banner header halaman dengan gradient biru gelap seperti pada referensi */
@@ -292,7 +316,11 @@
 
 </style>
 
-{{-- Banner header halaman dengan ikon dan deskripsi --}}
+{{--
+   [TAMPILAN HEADER BANNER ADMIN]
+   Menampilkan area visual navigasi atas dengan judul "Kelola Profil Geosite"
+   tanpa tombol tambah, karena geosite sudah didefinisikan secara statis.
+--}}
 <div class="page-banner">
     <div class="page-banner-left">
         <div class="page-banner-icon">
@@ -305,7 +333,12 @@
     </div>
 </div>
 
-{{-- Card pembungkus tabel --}}
+{{--
+   [TAMPILAN TABEL DAFTAR PROFIL]
+   Ini adalah wrapper utama untuk tabel yang akan me-looping daftar geosite 
+   yang didaftarkan di dalam Controller (array $geosites).
+   Tabel Database yang digunakan: 'profil_geosites'
+--}}
 <div class="profil-card">
     <div class="profil-card-body">
 
@@ -332,7 +365,12 @@
                     {{-- Inisialisasi counter nomor urut baris --}}
                     @php $i = 1; @endphp
 
-                    {{-- Iterasi setiap geosite beserta status ketersediaan profilnya --}}
+                    {{--
+                       [PERULANGAN DAFTAR GEOSITE (FOREACH)]
+                       Melakukan pengecekan terhadap setiap geosite.
+                       Jika geosite tersebut memiliki profil di database, muncul tombol Edit dan label Tersedia.
+                       Jika tidak, muncul tombol Buat Profil dan label Belum Diisi.
+                    --}}
                     @foreach($geosites as $slug => $nama)
                     @php
                         $profil = $profiles->get($slug);
@@ -354,7 +392,10 @@
                             @endif
                         </td>
 
-                        {{-- Kolom tombol aksi, tampilkan edit bila profil ada atau buat bila belum --}}
+                        {{--
+                           [TOMBOL AKSI: EDIT / BUAT PROFIL]
+                           Tombol dinamis tergantung ketersediaan data profil di DB.
+                        --}}
                         <td>
                             <div class="action-buttons">
                                 @if($hasProfile)

@@ -8,8 +8,13 @@ use App\Models\ProfilGeosite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class UmkmController extends Controller
-{
+class UmkmController extends Controller {
+    /*
+       [CONTROLLER ADMIN UmkmController]
+       File ini bertugas mengontrol logika untuk bagian admin dari UmkmController.
+       Berfungsi mengatur operasi CRUD (Create, Read, Update, Delete) pada database.
+       Tabel Database yang digunakan: berhubungan erat dengan entitas UmkmController.
+    */
     // Daftar geosite yang valid
     private array $geositeList = [
         'aek-sipangolu' => 'Aek Sipangolu',

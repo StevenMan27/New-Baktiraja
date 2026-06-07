@@ -4,7 +4,31 @@
 
 @section('content')
 
-{{-- Style khusus halaman Manajemen Berita, selaras dengan design system GeoToba --}}
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/admin/berita/index.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/admin.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/admin.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
+
+
+{{--
+   [STYLE KHUSUS HALAMAN ADMIN BERITA]
+   Bagian ini mengatur desain khusus (CSS) untuk tabel dan layout kartu daftar berita di panel Admin.
+   Style umum lainnya sudah ditangani oleh layouts/admin.blade.php.
+--}}
 <style>
 
     /* ======================================
@@ -109,7 +133,11 @@
 
 </style>
 
-{{-- Banner header halaman dengan ikon, deskripsi, dan tombol tambah --}}
+{{--
+   [TAMPILAN HEADER BANNER ADMIN]
+   Bagian ini bertugas mencetak kotak biru (banner) di atas tabel yang berisi judul halaman
+   sekaligus sebuah tombol untuk diarahkan ke form "Tambah Berita" baru.
+--}}
 <div class="page-banner">
     <div class="page-banner-left">
         <div class="page-banner-icon">
@@ -126,7 +154,12 @@
     </a>
 </div>
 
-{{-- Card pembungkus tabel --}}
+{{--
+   [TAMPILAN TABEL DAFTAR BERITA]
+   Bagian ini adalah kontainer utama yang membungkus struktur tabel (<thead> dan <tbody>).
+   Tabel ini me-looping variabel $berita yang dikirimkan oleh AdminController.
+   Tabel Database yang digunakan: 'berita'
+--}}
 <div class="berita-card">
     <div class="berita-card-body">
 
@@ -152,7 +185,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- Iterasi setiap item berita, tampilkan pesan kosong bila tidak ada data --}}
+                    {{--
+                       [PERULANGAN DATA BERITA (FOREACH)]
+                       Bagian ini membongkar array data berita. Jika data kosong (@empty), 
+                       maka akan menampilkan pesan "Belum ada berita" di baris bawah.
+                    --}}
                     @forelse($berita as $item)
                     <tr>
                         {{-- Nomor urut baris --}}
@@ -182,7 +219,12 @@
                         {{-- Kolom nama penulis berita --}}
                         <td><span class="penulis-text">{{ $item->penulis ?? '-' }}</span></td>
 
-                        {{-- Kolom tombol aksi edit dan hapus --}}
+                        {{--
+                           [TOMBOL AKSI: EDIT & HAPUS]
+                           Kolom ini berisi navigasi untuk mengubah data (mengarah ke route edit)
+                           atau menghapus data (menembak route destroy dengan method DELETE).
+                           Penghapusan akan dicegat oleh SweetAlert di layout utama.
+                        --}}
                         <td>
                             <div class="action-buttons">
                                 {{-- Tombol menuju halaman edit berita --}}

@@ -1,3 +1,21 @@
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/geosite/air-terjun-janji.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/app.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -496,7 +514,7 @@
             <h4>{{ $item->nama }}</h4>
             <p class="desc">{{ $item->deskripsi }}</p>
             @if($item->harga)
-            <div class="card-price">💰 {{ $item->harga }}</div>
+            <div class="card-price">Rp. {{ $item->harga }}</div>
             @endif
             @if($item->kontak)
             <div class="card-contact">📞 {{ $item->kontak }}</div>
@@ -511,7 +529,7 @@
             <h4>{{ $item->nama }}</h4>
             <p class="desc">{{ $item->deskripsi }}</p>
             @if($item->harga)
-            <div class="card-price">💰 {{ $item->harga }}</div>
+            <div class="card-price">Rp. {{ $item->harga }}</div>
             @endif
              
             @if($item->kontak)
@@ -581,7 +599,7 @@
         @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
         @if(count($images) > 0)
             @foreach($images as $img)
-            <div class="berita-card" data-aos="zoom-in">
+            <div class="berita-card" data-aos="zoom-in" onclick="openReader({{ $item->id }}, 'berita')" style="cursor:pointer;">
         <div class="berita-img">
             <img src="{{ $img }}" alt="{{ $item->judul }}">
         </div>
@@ -593,7 +611,7 @@
     </div>
             @endforeach
         @else
-            <div class="berita-card" data-aos="zoom-in">
+            <div class="berita-card" data-aos="zoom-in" onclick="openReader({{ $item->id }}, 'berita')" style="cursor:pointer;">
         
         <div class="berita-content">
             
@@ -612,7 +630,7 @@
     @php $images = \App\Helpers\ImageHelper::getAllImages($item->gambar); @endphp
     @if(count($images) > 0)
         @foreach($images as $img)
-        <div class="berita-card" data-aos="zoom-in">
+        <div class="berita-card" data-aos="zoom-in" onclick="openReader({{ $item->id }}, 'informasi')" style="cursor:pointer;">
         <div class="berita-img">
             <img src="{{ $img }}" alt="{{ $item->judul }}">
         </div>
@@ -623,7 +641,7 @@
     </div>
         @endforeach
     @else
-        <div class="berita-card" data-aos="zoom-in">
+        <div class="berita-card" data-aos="zoom-in" onclick="openReader({{ $item->id }}, 'informasi')" style="cursor:pointer;">
         
         <div class="berita-content">
             <h4>{{ $item->judul }}</h4>
@@ -776,6 +794,7 @@
     }, { threshold: 0.5 });
     sectionTitles.forEach(title => titleObserver.observe(title));
 </script>
+@include('geosite.reader-modal')
 </body>
 </html>
 

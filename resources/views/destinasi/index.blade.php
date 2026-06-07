@@ -4,6 +4,26 @@
 
 @section('content')
 
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/destinasi/index.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/app.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
+
+
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
     
@@ -197,10 +217,18 @@
     }
 </style>
 
-<section class="destinasi-hero">
+@php
+    $homepage = \App\Models\Homepage::first();
+    $bgImage = !empty($homepage->hero_slide_1) ? asset("storage/" . $homepage->hero_slide_1) : asset("image/bakara/bakara-slide1.jpg");
+    $heroSubtitle = $homepage->hero_subtitle ?? 'KAWASAN WISATA GEOPARK DANAU TOBA';
+    $heroTitle = $homepage->hero_title ?? 'BAKARA &middot; TIPANG<br>BAKTIRAJA';
+@endphp
+
+<section class="destinasi-hero" style="background-image: linear-gradient(135deg, rgba(0,51,102,0.5), rgba(0,102,153,0.3)), url('{{ $bgImage }}');">
     <div data-aos="fade-up">
-        <h1>Destinasi Geosite</h1>
-        <p>Jelajahi Pesona Caldera Danau Toba</p>
+        <div style="font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 20px; font-weight: 300; opacity: 0.9; margin-right: -0.35em;">{{ $heroSubtitle }}</div>
+        <h1 style="font-size: 3.8rem; font-weight: 700; font-family: 'Cormorant Garamond', serif; line-height: 1.2; margin-bottom: 10px; color: white; text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);">{!! $heroTitle !!}</h1>
+        <div style="font-size: 1rem; opacity: 0.9; margin-top: 15px;">Keajaiban Alam, Jejak Sejarah, dan Pesona Budaya di Tepian Danau Toba</div>
     </div>
 </section>
 

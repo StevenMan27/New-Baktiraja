@@ -1,3 +1,21 @@
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/layouts/admin.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/app.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -1379,7 +1397,11 @@
 <div id="sidebarOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:999;"></div>
 
 <script>
-    /* Toggle sidebar menambahkan atau menghapus class open saat tombol hamburger diklik */
+    /*
+       [FUNGSI JAVASCRIPT: TOGGLE MENU SIDEBAR]
+       Fungsi ini bertugas mengontrol buka-tutup panel navigasi kiri (sidebar) pada layar HP/Mobile.
+       Logikanya: Memanipulasi penambahan/penghapusan class 'open' pada elemen HTML sidebar.
+    */
     const menuToggle = document.getElementById('menuToggle');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
@@ -1507,24 +1529,22 @@
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
-        /* Ambil semua tombol hapus yang ada di halaman */
+        /*
+           [FUNGSI JAVASCRIPT: SWEETALERT KONFIRMASI HAPUS]
+           Fungsi ini bertugas mencegat (intercept) semua tombol hapus data (btn-delete) di halaman admin.
+           Alih-alih langsung menghapus, ia akan menampilkan popup peringatan (SweetAlert) terlebih dahulu.
+           Jika user menekan 'Ya, Hapus', ia akan menampilkan popup sukses kedua, lalu men-submit form aslinya.
+        */
         const deleteButtons = document.querySelectorAll('.btn-delete');
 
         deleteButtons.forEach(button => {
-
-            /* Cari form induk dari tombol hapus yang ditemukan */
             const form = button.closest('form');
 
             if (form) {
-
-                /* Hapus atribut onsubmit bawaan agar tidak muncul konfirmasi browser default */
                 form.removeAttribute('onsubmit');
-
-                /* Tangkap event submit form dan tampilkan dialog konfirmasi terlebih dahulu */
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
 
-                    /* Tampilkan dialog konfirmasi hapus dengan ikon tempat sampah */
                     Swal.fire({
                         html: `
                             <div style="display:flex;flex-direction:column;align-items:center;padding:8px 0 4px;">

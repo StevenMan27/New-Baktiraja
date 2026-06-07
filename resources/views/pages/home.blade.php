@@ -2,7 +2,32 @@
 
 @section('content')
 
+{{--
+   ======================================================================================
+   [PENJELASAN LENGKAP FILE: a:/PA111/real/New folder/Proyek akhir 1 Real/resources/views/pages/home.blade.php]
+
+   1. BAGAIMANA CODE INI BEKERJA:
+      Ini adalah file Blade Template (HTML yang dicampur kode PHP ala Laravel). Kode ini merender tampilan visual (UI) dengan menggunakan tata letak dasar dari layouts/app.blade.php.
+
+   2. UNTUK APA CODE INI:
+      File komponen view pendukung untuk bagian a:.
+
+   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
+      - Mewarisi Desain (Layout): layouts/app.blade.php
+
+   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
+      Dipanggil oleh controller terkait atau di-include oleh file blade lainnya.
+   ======================================================================================
+--}}
+
+
+
 <style>
+    /*
+       [STYLE ANIMASI GLOBAL]
+       Bagian ini bertugas untuk mengatur efek animasi transisi (fade in, zoom, pulse) agar tampilan website terasa hidup saat pengunjung men-scroll layar.
+       Digunakan di: Seluruh komponen HTML yang dipasangi class animasi.
+    */
     /* ==================== ANIMASI GLOBAL ==================== */
     @keyframes fadeInUp {
         from {
@@ -104,6 +129,11 @@
         }
     }
     
+    /*
+       [STYLE HERO SLIDER]
+       Bagian ini bertugas mengatur tampilan gambar latar belakang utama yang dapat berganti secara otomatis.
+       Termasuk mengatur teks melayang di atas gambar, bayangan (shadow), dan tombol "Jelajahi".
+    */
     /* ==================== HERO SLIDER ==================== */
     .hero-section {
         height: 100vh;
@@ -245,6 +275,11 @@
     
 
     
+    /*
+       [STYLE STRUKTUR UMUM HALAMAN]
+       Bagian ini mengatur pola warna dasar (background-gradient), batasan lebar konten (container maksimal 1200px), dan jarak antar bagian (padding 90px).
+       Ini memastikan desain konsisten dan rapi.
+    */
     /* ==================== SECTION UMUM ==================== */
     .section { padding: 90px 0; position: relative; overflow: hidden; }
     .section-white { background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fa 100%); }
@@ -342,17 +377,26 @@
     }
     
 
+    /*
+       [STYLE BAGIAN STATISTIK]
+       Bagian ini mengatur desain dari 4 kotak angka pencapaian (misal: 8 Destinasi, 15+ Budaya).
+       Mengatur efek hover menyala (Glow), rotasi, dan pembesaran teks (Scale).
+    */
     /* ==================== STATS ==================== */
     .stats-grid {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
         text-align: center;
-        flex-wrap: wrap;
-        gap: 40px;
+        gap: 20px;
     }
     .stat-item { 
         flex: 1; 
-        min-width: 100px; 
+        min-width: 100px;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         padding: 20px;
         background: rgba(0, 51, 102, 0.05);
@@ -409,6 +453,11 @@
         letter-spacing: 0.3em;
     }
     
+    /*
+       [STYLE TENTANG BAKTIRAJA (ABOUT)]
+       Bagian ini mengatur tata letak teks penjelasan singkat di sebelah kiri dan video profil di sebelah kanan.
+       Menggunakan Flexbox (display: flex) agar teks dan video sejajar rapi.
+    */
     /* ==================== ABOUT ==================== */
     .about-grid {
         display: flex;
@@ -499,6 +548,11 @@
         transform: scale(1.05);
     }
     
+    /*
+       [STYLE DAFTAR DESTINASI]
+       Bagian ini mengatur baris kartu destinasi. Foto diletakkan di satu sisi, dan teks di sisi lainnya secara selang-seling (reverse).
+       Desain ini digunakan untuk menampilkan isi dari database 'homepage_destinasis'.
+    */
     /* ==================== DESTINASI ==================== */
     .destinasi-list { display: flex; flex-direction: column; gap: 80px; }
     .destinasi-item {
@@ -516,45 +570,29 @@
         border-radius: 12px;
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(0, 51, 102, 0.15);
-        transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
         position: relative;
-    }
-    
-    .destinasi-image::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: radial-gradient(circle, rgba(198,164,59,0.4), transparent);
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-        transition: width 0.6s, height 0.6s;
-        z-index: 1;
-    }
-    
-    .destinasi-image:hover::before {
-        width: 300px;
-        height: 300px;
-    }
-    
-    .destinasi-image:hover { 
-        transform: scale(1.05) translateY(-10px);
-        box-shadow: 0 20px 40px rgba(0, 51, 102, 0.25);
-        animation: pulse 0.5s ease;
+        cursor: pointer;
     }
     
     .destinasi-image img { 
         width: 100%; 
         height: auto; 
         display: block; 
-        transition: transform 0.5s ease;
     }
     
-    .destinasi-image:hover img {
-        transform: scale(1.08);
-    }
+    /* MODAL LAYAR PENUH UNTUK DESTINASI */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 9999; display: none; align-items: center; justify-content: center; backdrop-filter: blur(12px); }
+    .modal-box { background: #1a1a1a; width: 90%; max-width: 1000px; display: grid; grid-template-columns: 1.2fr 1fr; border-radius: 20px; overflow: hidden; animation: modalFadeIn 0.35s ease; position: relative; }
+    @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+    .modal-img-part { background: #0a0a0a; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .modal-img-part img { width: 100%; max-height: 70vh; object-fit: contain; }
+    .modal-text-part { padding: 35px; color: white; background: linear-gradient(135deg, #1a1a1a, #0d0d0d); display: flex; flex-direction: column; }
+    .close-btn { position: absolute; top: 16px; right: 16px; color: white; font-size: 1.3rem; cursor: pointer; transition: all 0.3s ease; z-index: 10000; width: 38px; height: 38px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .close-btn:hover { background: #c6a43b; color: #003366; transform: rotate(90deg); }
+    .modal-text-part small { color: #c6a43b; letter-spacing: 2px; font-size: 0.7rem; text-transform: uppercase; }
+    .modal-text-part h2 { font-size: 1.4rem; margin: 10px 0 8px; font-family: 'Playfair Display', serif; line-height: 1.3; }
+    .modal-text-part p { color: #bbb; line-height: 1.7; font-size: 0.85rem; margin: 0 0 8px; }
+    @media (max-width: 768px) { .modal-box { grid-template-columns: 1fr; max-height: 88vh; overflow-y: auto; } }
     
     .destinasi-content { 
         flex: 1; 
@@ -713,6 +751,11 @@
         box-shadow: 0 8px 20px rgba(198,164,59,0.3);
     }
     
+    /*
+       [STYLE PETA LOKASI (MAPS)]
+       Bagian ini membungkus kode Embed Google Maps (iframe).
+       Juga mengatur tombol-tombol kecil di bawah peta yang berfungsi mengarahkan user ke aplikasi maps eksternal.
+    */
     /* ==================== PETA LOKASI ==================== */
     .maps-container {
         background: white;
@@ -850,8 +893,8 @@
         .section { padding: 60px 0; }
         .section-title h2 { font-size: 1.6rem; }
         .destinasi-content h3 { font-size: 1.6rem; }
-        .stats-grid { flex-direction: column; align-items: center; gap: 25px; }
-        .stat-number { font-size: 2rem; }
+        .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .stat-item { min-height: 110px; }
         .about-content h3 { font-size: 1.6rem; }
 
         .maps-container iframe { height: 280px; }
@@ -866,6 +909,12 @@
     }
 </style>
 
+{{--
+   [TAMPILAN HERO SLIDER]
+   Bagian ini bertugas untuk merender area paling atas web (Hero/Banner).
+   Menampilkan gambar slide dinamis dan menyambut pengunjung dengan judul besar (contoh: BAKARA TIPANG).
+   Tabel Database yang digunakan: 'homepages'
+--}}
 <!-- ==================== HERO SLIDER ==================== -->
 <section class="hero-section" id="home">
     <div class="slides-container">
@@ -891,6 +940,12 @@
 
 </section>
 
+{{--
+   [TAMPILAN STATISTIK]
+   Bagian ini bertugas menampilkan data angka pencapaian (Destinasi, Kategori, Sejarah).
+   Data dipanggil secara dinamis menggunakan variabel $homepage (contoh: $homepage->stat_1_num).
+   Tabel Database yang digunakan: 'homepages'
+--}}
 <!-- ==================== STATISTICS ==================== -->
 <section class="section section-white">
     <div class="container">
@@ -915,6 +970,12 @@
     </div>
 </section>
 
+{{--
+   [TAMPILAN PENJELASAN SINGKAT & VIDEO (ABOUT)]
+   Bagian ini bertugas menceritakan sejarah singkat kawasan wisata.
+   Di sebelah kanannya disematkan pemutar video (.mp4) yang dipanggil dari sistem 'storage' Laravel.
+   Tabel Database yang digunakan: 'homepages'
+--}}
 <!-- ==================== ABOUT WITH VIDEO ==================== -->
 <section class="section section-light" id="about">
     <div class="container">
@@ -938,6 +999,12 @@
     </div>
 </section>
 
+{{--
+   [TAMPILAN LIST DESTINASI]
+   Bagian ini bertugas melakukan perulangan (Foreach) untuk mencetak 8 destinasi utama wisata.
+   Data dipanggil dari relasi antara 'homepages' dan 'homepage_destinasis'.
+   Tabel Database yang digunakan: 'homepage_destinasis'
+--}}
 <!-- ==================== DESTINASI ==================== -->
 <section id="destinasi" class="section section-white">
     <div class="container">
@@ -951,7 +1018,7 @@
             @if(isset($homepage->destinasis) && count($homepage->destinasis) > 0)
                 @foreach($homepage->destinasis as $index => $dest)
                 <div class="destinasi-item {{ $index % 2 != 0 ? 'reverse' : '' }}" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="{{ $index * 200 }}">
-                    <div class="destinasi-image">
+                    <div class="destinasi-image" onclick="openPhoto('{{ $dest->gambar ? asset('storage/' . $dest->gambar) : '/image/bakara/panatapan-bakara.jpg' }}', '{{ addslashes($dest->judul) }}', '{{ addslashes($dest->deskripsi) }}', '{{ addslashes($dest->nomor_teks) }}', '{{ addslashes($dest->lokasi) }}')">
                         <img src="{{ $dest->gambar ? asset('storage/' . $dest->gambar) : '/image/bakara/panatapan-bakara.jpg' }}" alt="{{ $dest->judul }}">
                     </div>
                     <div class="destinasi-content">
@@ -978,6 +1045,12 @@
     </div>
 </section>
 
+{{--
+   [TAMPILAN PETA GOOGLE MAPS]
+   Bagian ini bertugas untuk menyisipkan IFrame dari Google Maps agar interaktif.
+   Selain itu, ada logika (PHP) kecil untuk membaca data JSON dari database guna merender tombol navigasi arah (Rute Maps).
+   Tabel Database yang digunakan: 'homepages'
+--}}
 <!-- ==================== PETA LOKASI 3 DESA ==================== -->
 <section class="section section-light">
     <div class="container">
@@ -1036,9 +1109,43 @@
     </div>
 </section>
 
-
+<!-- MODAL FOTO LAYAR PENUH -->
+<div id="pModal" class="modal-overlay" onclick="closePhoto()">
+    <div class="close-btn" onclick="closePhoto()">&times;</div>
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-img-part">
+            <img src="" id="mImg" alt="">
+        </div>
+        <div class="modal-text-part">
+            <small id="mTag"></small>
+            <h2 id="mTitle"></h2>
+            <p><i class="fas fa-map-marker-alt" style="color:#c6a43b; margin-right:6px;"></i><span id="mLocation"></span></p>
+            <p id="mDesc"></p>
+        </div>
+    </div>
+</div>
 
 <script>
+    function openPhoto(src, title, desc, tag, location) {
+        document.getElementById('mImg').src = src;
+        document.getElementById('mTitle').innerText = title || '';
+        document.getElementById('mDesc').innerText = desc || '';
+        document.getElementById('mTag').innerText = tag || '';
+        document.getElementById('mLocation').innerText = location || '';
+        
+        document.getElementById('pModal').style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closePhoto() {
+        document.getElementById('pModal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+    /*
+       [FUNGSI JAVASCRIPT: PENGGERAK HERO SLIDER]
+       Fungsi ini bertugas menjalankan pergantian gambar secara otomatis setiap 5 detik (5000ms).
+       Logikanya: Memanipulasi nama Class ('active') pada elemen gambar agar muncul dan hilang bergantian.
+    */
     // ==================== HERO SLIDER ====================
     let currentSlide = 0;
     const slides = document.querySelectorAll('.slide');
