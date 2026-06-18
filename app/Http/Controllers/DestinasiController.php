@@ -4,25 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-/*
-   [CONTROLLER DestinasiController]
-   File ini bertugas mengontrol logika untuk menampilkan halaman kategori destinasi dan daftar destinasi wisata.
-*/
+// Menangani logika tampilan untuk halaman daftar destinasi wisata berdasarkan kategori.
+// Data destinasi didefinisikan secara statis di controller dan dikirim ke view 'destinasi.kategori'.
 class DestinasiController extends Controller {
 
-    /*
-       [FUNGSI INDEX DESTINASI]
-       Method ini memuat halaman utama yang menampilkan pilihan kategori destinasi.
-    */
+    // Menampilkan halaman indeks pilihan kategori destinasi wisata.
+    // Tidak ada input; mengembalikan view 'destinasi.index'.
     public function index()
     {
         return view('destinasi.index');
     }
     
-    /*
-       [FUNGSI DESTINASI ALAM]
-       Method ini memuat daftar seluruh destinasi wisata dengan kategori alam beserta deskripsinya.
-    */
+    // Menampilkan daftar destinasi wisata berkategori alam beserta detail masing-masing.
+    // Data destinasi alam didefinisikan statis; output ke view 'destinasi.kategori' dengan variabel $kategori, $deskripsi, $destinasi.
     public function alam()
     {
         $kategori = 'Alam';
@@ -67,10 +61,8 @@ class DestinasiController extends Controller {
         return view('destinasi.kategori', compact('kategori', 'deskripsi', 'destinasi'));
     }
     
-    /*
-       [FUNGSI DESTINASI BUATAN]
-       Method ini memuat daftar seluruh destinasi wisata dengan kategori buatan beserta deskripsinya.
-    */
+    // Menampilkan daftar destinasi wisata berkategori buatan beserta detail masing-masing.
+    // Data destinasi buatan didefinisikan statis; output ke view 'destinasi.kategori' dengan variabel $kategori, $deskripsi, $destinasi.
     public function buatan()
     {
         $kategori = 'Buatan';
@@ -104,10 +96,8 @@ class DestinasiController extends Controller {
         return view('destinasi.kategori', compact('kategori', 'deskripsi', 'destinasi'));
     }
     
-    /*
-       [FUNGSI DESTINASI BUDAYA]
-       Method ini memuat daftar seluruh destinasi wisata dengan kategori budaya beserta deskripsinya.
-    */
+    // Menampilkan daftar destinasi wisata berkategori budaya beserta detail masing-masing.
+    // Data destinasi budaya didefinisikan statis; output ke view 'destinasi.kategori' dengan variabel $kategori, $deskripsi, $destinasi.
     public function budaya()
     {
         $kategori = 'Budaya';
@@ -152,10 +142,8 @@ class DestinasiController extends Controller {
         return view('destinasi.kategori', compact('kategori', 'deskripsi', 'destinasi'));
     }
     
-    /*
-       [FUNGSI DETAIL DESTINASI REDIRECT]
-       Method ini mengatur pengalihan (redirect) dari URL detail kategori menuju rute spesifik geosite.
-    */
+    // Mengalihkan permintaan detail destinasi dari URL kategori ke rute spesifik geosite yang sesuai.
+    // Input $kategori dan $slug dari URL; output redirect ke named route geosite atau abort 404.
     public function detail($kategori, $slug)
     {
         $geositeRoutes = [

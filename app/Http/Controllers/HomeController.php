@@ -4,16 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Galeri;
 
-/*
-   [CONTROLLER HomeController]
-   File ini bertugas mengontrol logika untuk menampilkan halaman beranda (home) publik.
-*/
+// Menangani logika tampilan halaman beranda publik website.
+// Data galeri terbaru dan konfigurasi homepage diambil dari database, lalu dikirim ke view 'pages.home'.
 class HomeController extends Controller {
 
-    /*
-       [FUNGSI INDEX HOME]
-       Method ini memuat data galeri terbaru dan pengaturan homepage untuk ditampilkan di halaman beranda.
-    */
+    // Mengambil 6 foto galeri terbaru dan data homepage beserta relasi destinasi untuk ditampilkan di beranda.
+    // Data berasal dari model Galeri dan Homepage; output ke view 'pages.home' via compact.
     public function index()
     {
         $galeri = Galeri::orderBy('created_at', 'desc')

@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+{{-- Halaman Utama Destinasi --}}
+{{-- Menampilkan daftar pilihan kategori wisata (alam, buatan, budaya) di kawasan Geopark. --}}
+
 @section('title', 'Destinasi - Geosite Danau Toba')
 
 @section('content')
@@ -204,6 +207,8 @@
     $heroTitle = $homepage->hero_title ?? 'BAKARA &middot; TIPANG<br>BAKTIRAJA';
 @endphp
 
+{{-- Hero Banner Destinasi --}}
+{{-- Menampilkan gambar latar dengan judul dan deskripsi singkat untuk menarik perhatian pengunjung. --}}
 <section class="destinasi-hero" style="background-image: linear-gradient(135deg, rgba(0,51,102,0.5), rgba(0,102,153,0.3)), url('{{ $bgImage }}');">
     <div data-aos="fade-up">
         <div style="font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 20px; font-weight: 300; opacity: 0.9; margin-right: -0.35em;">{{ $heroSubtitle }}</div>
@@ -212,6 +217,8 @@
     </div>
 </section>
 
+{{-- Daftar Kategori Wisata --}}
+{{-- Berisi kartu-kartu yang menampilkan kategori destinasi beserta ikon dan tautan menuju detailnya. --}}
 <section class="category-section">
     <div class="container">
         <div class="section-header" data-aos="fade-up">

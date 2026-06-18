@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+{{-- Halaman Detail Kategori Destinasi --}}
+{{-- Menampilkan daftar destinasi spesifik berdasarkan kategori yang dipilih oleh pengunjung. --}}
+
 @section('title', 'Destinasi ' . $kategori . ' - Geosite Danau Toba')
 
 @section('content')
@@ -188,6 +191,8 @@
     $heroTitle = $homepage->hero_title ?? 'BAKARA &middot; TIPANG<br>BAKTIRAJA';
 @endphp
 
+{{-- Hero Banner Kategori --}}
+{{-- Menampilkan informasi visual utama untuk kategori wisata yang sedang dilihat oleh pengunjung. --}}
 <section class="kategori-hero" style="background-image: linear-gradient(135deg, rgba(0,51,102,0.5), rgba(0,102,153,0.3)), url('{{ $bgImage }}');">
     <div data-aos="fade-up">
         <div style="font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; margin-bottom: 20px; font-weight: 300; opacity: 0.9; margin-right: -0.35em;">{{ $heroSubtitle }}</div>
@@ -196,6 +201,8 @@
     </div>
 </section>
 
+{{-- Daftar Destinasi --}}
+{{-- Menampilkan grid berisi kartu destinasi wisata sesuai dengan kategori yang dipilih. --}}
 <section class="destinasi-section">
     <div class="container">
         <div class="destinasi-grid">

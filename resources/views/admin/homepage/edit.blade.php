@@ -1,5 +1,8 @@
 @extends('layouts.admin')
 
+{{-- Halaman Edit Homepage Admin --}}
+{{-- Digunakan untuk mengonfigurasi dan mengubah tampilan serta konten halaman utama website. --}}
+
 @section('title', 'Konfigurasi Homepage')
 
 @section('content')
@@ -30,14 +33,12 @@
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    /* ── Page Wrapper ── */
     .hp-wrapper {
         max-width: 100%;
         margin: 0;
         padding: 0 0 60px;
     }
 
-    /* ── Page Header ── */
     .hp-page-header {
         background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
         border-radius: var(--radius);
@@ -58,7 +59,6 @@
     .hp-page-header h4 { color: #fff; margin: 0; font-weight: 700; font-size: 1.2rem; }
     .hp-page-header p  { color: rgba(255,255,255,0.65); margin: 0; font-size: 0.85rem; }
 
-    /* ── Alert ── */
     .hp-alert {
         background: #f0fdf4;
         border: 1px solid #bbf7d0;
@@ -71,7 +71,6 @@
         display: flex; align-items: center; gap: 10px;
     }
 
-    /* ── Section Card ── */
     .hp-section {
         background: var(--surface);
         border-radius: var(--radius);
@@ -107,7 +106,6 @@
     }
     .hp-section-body { padding: 24px; }
 
-    /* Icon colors per section */
     .icon-hero    { background: #eff6ff; color: #2563eb; }
     .icon-stats   { background: #fef3c7; color: #d97706; }
     .icon-about   { background: #f0fdf4; color: #16a34a; }
@@ -115,7 +113,6 @@
     .icon-cta     { background: #fff1f2; color: #e11d48; }
     .icon-dest    { background: #ecfdf5; color: #059669; }
 
-    /* ── Form Controls ── */
     .hp-label {
         font-size: 0.8rem;
         font-weight: 600;
@@ -144,7 +141,6 @@
     textarea.hp-input { resize: vertical; min-height: 90px; }
     select.hp-input { cursor: pointer; }
 
-    /* ── Grid helpers ── */
     .hp-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .hp-grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
     .hp-grid-3 { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; }
@@ -152,7 +148,6 @@
         .hp-grid-2, .hp-grid-4, .hp-grid-3 { grid-template-columns: 1fr; }
     }
 
-    /* ── Stat card ── */
     .stat-card {
         background: var(--surface-2);
         border: 1.5px solid var(--border);
@@ -169,7 +164,6 @@
     }
     .stat-card-label { font-size: 0.75rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 12px; }
 
-    /* ── Upload Zone ── */
     .upload-zone {
         border: 2px dashed var(--border);
         border-radius: var(--radius-sm);
@@ -213,7 +207,6 @@
         margin-top: 6px;
     }
 
-    /* ── Current media strip ── */
     .media-strip {
         display: flex; flex-wrap: wrap; gap: 10px;
         margin-bottom: 10px;
@@ -234,7 +227,6 @@
         margin-bottom: 6px;
     }
 
-    /* ── Preview grid ── */
     .preview-grid {
         display: flex; flex-wrap: wrap; gap: 8px;
         margin-top: 10px;
@@ -245,7 +237,6 @@
     .preview-item { pointer-events: auto; }
     .preview-item img { width: 70px; height: 70px; object-fit: cover; border-radius: 6px; border: 2px solid #fff; box-shadow: 0 2px 6px rgba(0,0,0,0.12); }
 
-    /* ── Destinasi card ── */
     .dest-card {
         border: 1.5px solid var(--border);
         border-radius: var(--radius);
@@ -290,7 +281,6 @@
     .dest-upload-col { }
     .dest-fields-col { }
 
-    /* ── Save Button ── */
     .hp-save-bar {
         background: var(--surface);
         border-top: 1px solid var(--border);
@@ -317,7 +307,6 @@
     .hp-btn-save:active { transform: translateY(0); }
     .hp-save-hint { font-size: 0.78rem; color: var(--text-muted); }
 
-    /* section numbering pill */
     .step-pill {
         display: inline-flex; align-items: center; justify-content: center;
         width: 22px; height: 22px;
@@ -329,7 +318,6 @@
         flex-shrink: 0;
     }
 
-    /* inline small-grid row for destinasi fields */
     .dest-fields-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -348,7 +336,7 @@
     </div>
     @endif
 
-    <!-- Page Header -->
+    {{-- Header halaman konfigurasi homepage dengan ikon dan judul --}}
     <div class="hp-page-header">
         <div class="icon-wrap"><i class="fas fa-home"></i></div>
         <div>
@@ -357,11 +345,16 @@
         </div>
     </div>
 
+    {{-- Form konfigurasi homepage: hero, statistik, about, judul seksi, peta, destinasi --}}
+    {{-- Menggunakan method PUT dengan enctype multipart untuk upload gambar dan video --}}
+    {{-- Form Konfigurasi Homepage --}}
+    {{-- Membungkus seluruh isian data untuk dikirim dan disimpan ke server sebagai pembaruan halaman utama. --}}
     <form action="{{ route('admin.homepage.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
-        <!-- ════════ 1. HERO ════════ -->
+        {{-- Section 1: Hero / Banner Utama --}}
+        {{-- Judul, sub-judul, dan foto slideshow (maks 6) di bagian teratas halaman --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-hero"><i class="fas fa-star"></i></div>
@@ -413,7 +406,7 @@
             </div>
         </div>
 
-        <!-- ════════ 2. STATISTIK ════════ -->
+        {{-- Section 2: Statistik — 4 angka yang tampil di bawah banner --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-stats"><i class="fas fa-chart-bar"></i></div>
@@ -443,7 +436,7 @@
             </div>
         </div>
 
-        <!-- ════════ 3. ABOUT ════════ -->
+        {{-- Section 3: About — judul, dua paragraf, dan video latar bagian pengenalan --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-about"><i class="fas fa-info-circle"></i></div>
@@ -484,12 +477,12 @@
             </div>
         </div>
 
-        <!-- ════════ 4. JUDUL SEKSI ════════ -->
+        {{-- Section 4: Judul & Sub-judul Seksi — teks untuk bagian Destinasi dan Peta --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-titles"><i class="fas fa-heading"></i></div>
                 <div>
-                    <h6>Judul & Sub-judul Seksi</h6>
+                    <h6>Judul &amp; Sub-judul Seksi</h6>
                     <p>Teks judul untuk bagian Destinasi dan Peta Lokasi</p>
                 </div>
             </div>
@@ -517,7 +510,8 @@
             </div>
         </div>
 
-        <!-- ════════ 5. PETA LOKASI GOOGLE MAPS ════════ -->
+        {{-- Section 5: Peta Google Maps dan tombol lokasi dinamis (maks 5) --}}
+        {{-- Panduan cara mendapatkan link embed, field input URL, preview iframe tersimpan --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon" style="background:#ecfdf5;color:#059669;"><i class="fas fa-map-marked-alt"></i></div>
@@ -528,7 +522,6 @@
             </div>
             <div class="hp-section-body">
 
-                {{-- Panduan singkat cara menyalin link dari Google Maps --}}
                 <div style="background:#eff6ff;border:1px solid #bfdbfe;border-left:4px solid #3b82f6;border-radius:8px;padding:14px 16px;margin-bottom:20px;font-size:0.82rem;color:#1d4ed8;">
                     <div style="font-weight:700;margin-bottom:6px;"><i class="fas fa-lightbulb" style="margin-right:6px;"></i>Cara mendapatkan link Maps:</div>
                     <ol style="margin:0;padding-left:18px;line-height:1.8;">
@@ -544,7 +537,6 @@
                     </div>
                 </div>
 
-                {{-- Field input link Google Maps — menerima semua format URL --}}
                 <div style="margin-bottom:16px;">
                     <label class="hp-label">Link Google Maps</label>
                     <input type="text" name="maps_link" class="hp-input"
@@ -583,7 +575,8 @@
                 </div>
                 @endif
 
-                {{-- ─── CRUD TOMBOL LOKASI DI BAWAH PETA ─── --}}
+                {{-- Daftar tombol lokasi di bawah peta yang bisa ditambah/hapus secara dinamis --}}
+                {{-- Data tombol dibaca dari JSON maps_buttons; default 3 baris jika kosong --}}
                 <div style="margin-top:28px;border-top:1.5px dashed #e2e8f0;padding-top:24px;">
                     <label class="hp-label" style="font-size:0.9rem;margin-bottom:4px;">
                         <i class="fas fa-map-pin" style="color:#c6a43b;margin-right:6px;"></i>
@@ -593,17 +586,15 @@
                         Tombol-tombol ini tampil di bawah peta di halaman publik dan mengarahkan pengunjung ke Google Maps. Klik <strong>+ Tambah Tombol</strong> untuk menambah tombol baru (maksimal 5).
                     </p>
 
-                    {{-- Panduan cara mendapatkan link tombol --}}
                     <div style="background:#fefce8;border:1px solid #fde68a;border-left:4px solid #f59e0b;border-radius:8px;padding:11px 14px;margin-bottom:18px;font-size:0.78rem;color:#92400e;">
                         <i class="fas fa-lightbulb" style="margin-right:5px;"></i>
                         <strong>Cara mendapatkan link tombol:</strong> Buka Google Maps, cari lokasi, klik <strong>Bagikan</strong>, salin link pendek (contoh: <code>https://maps.app.goo.gl/...</code>), tempel di kolom Link di bawah ini.
                     </div>
 
-                    {{-- Container daftar tombol yang bisa ditambah/hapus secara dinamis --}}
                     <div id="mapsBtnList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px;">
 
                         @php
-                            // Baca data tombol yang sudah tersimpan dari database untuk ditampilkan di form
+                            /* Ambil data tombol tersimpan dari JSON; gunakan 3 tombol default jika kosong */
                             $savedButtons = [];
                             if (!empty($homepage->maps_buttons)) {
                                 $decoded = json_decode($homepage->maps_buttons, true);
@@ -611,7 +602,6 @@
                                     $savedButtons = $decoded;
                                 }
                             }
-                            // Jika belum ada data tersimpan, tampilkan 3 baris kosong sebagai template awal
                             if (empty($savedButtons)) {
                                 $savedButtons = [
                                     ['nama' => 'Bakara',    'link' => 'https://www.google.com/maps/search/?api=1&query=Bakara+Humbang+Hasundutan'],
@@ -622,7 +612,6 @@
                         @endphp
 
                         @foreach($savedButtons as $idx => $btn)
-                        {{-- Setiap baris mewakili satu tombol dengan input Nama dan input Link --}}
                         <div class="maps-btn-row" style="display:grid;grid-template-columns:1fr 2fr auto;gap:10px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;">
                             <div>
                                 <label style="font-size:0.72rem;color:var(--text-muted);display:block;margin-bottom:4px;">Nama Tombol</label>
@@ -647,7 +636,6 @@
                                 >
                             </div>
                             <div style="padding-top:18px;">
-                                {{-- Tombol hapus: menghapus baris tombol dari tampilan (tidak dari DB sampai disimpan) --}}
                                 <button type="button"
                                     onclick="this.closest('.maps-btn-row').remove(); reindexMapsButtons();"
                                     style="background:#fee2e2;color:#dc2626;border:none;border-radius:6px;width:34px;height:34px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.85rem;"
@@ -660,7 +648,6 @@
 
                     </div>
 
-                    {{-- Tombol untuk menambah baris tombol baru secara dinamis --}}
                     <button type="button" id="addMapsBtn"
                         onclick="addMapsBtnRow()"
                         style="display:inline-flex;align-items:center;gap:7px;background:#eff6ff;color:#1d4ed8;border:1.5px dashed #93c5fd;border-radius:8px;padding:9px 16px;font-size:0.8rem;font-weight:600;cursor:pointer;transition:all 0.2s;">
@@ -674,7 +661,8 @@
             </div>
         </div>
 
-        <!-- ════════ 6. 8 DESTINASI ════════ -->
+        {{-- Section 6: 8 Destinasi Unggulan — foto, judul, deskripsi, tags, link per destinasi --}}
+        {{-- Iterasi dari $homepage->destinasis; setiap card punya upload zona gambar dan field teks --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-dest"><i class="fas fa-map-marker-alt"></i></div>
@@ -694,7 +682,6 @@
                     <div class="dest-card-body">
                         <div class="dest-body-grid">
 
-                            <!-- Kolom Gambar -->
                             <div class="dest-upload-col">
                                 <label class="hp-label">Foto Destinasi</label>
                                 @if($dest->gambar)
@@ -710,7 +697,6 @@
                                 </div>
                             </div>
 
-                            <!-- Kolom Fields -->
                             <div class="dest-fields-col">
                                 <div class="dest-fields-grid">
                                     <div>
@@ -757,7 +743,6 @@
 
             </div>
 
-            <!-- Save bar di bawah section terakhir -->
             <div class="hp-save-bar">
                 <span class="hp-save-hint"><i class="fas fa-lock me-1"></i>Semua perubahan akan langsung diterapkan ke halaman publik</span>
                 <button type="submit" class="hp-btn-save">
@@ -769,7 +754,10 @@
     </form>
 </div>
 
+{{-- Script preview gambar hero slides dan gambar destinasi sebelum diupload --}}
+{{-- Script tambah baris tombol lokasi Maps secara dinamis dengan reindex indeks array --}}
 <script>
+    // Pasang event listener pada semua input file bergambar, tampilkan preview thumbnail
     document.querySelectorAll('.image-input').forEach(input => {
         input.addEventListener('change', function(e) {
             const containerId = this.getAttribute('data-preview-container');
@@ -793,23 +781,16 @@
         });
     });
 
-    /**
-     * Fungsi untuk menambah baris tombol lokasi baru ke dalam form secara dinamis.
-     * Baris baru dibuat dengan membuat elemen HTML secara programatik menggunakan JavaScript,
-     * lalu ditambahkan ke dalam container #mapsBtnList.
-     * Atribut name diatur dengan indeks yang benar menggunakan reindexMapsButtons().
-     */
+    // Tambah baris tombol lokasi baru ke #mapsBtnList; batasi maksimal 5 baris
     function addMapsBtnRow() {
         const list  = document.getElementById('mapsBtnList');
         const count = list.querySelectorAll('.maps-btn-row').length;
 
-        // Batasi tambah tombol jika sudah mencapai 5 agar sesuai validasi controller
         if (count >= 5) {
             alert('Maksimal 5 tombol lokasi yang dapat ditambahkan.');
             return;
         }
 
-        // Membuat elemen div baris baru dengan struktur grid 3 kolom (nama, link, tombol hapus)
         const row = document.createElement('div');
         row.className = 'maps-btn-row';
         row.style.cssText = 'display:grid;grid-template-columns:1fr 2fr auto;gap:10px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:10px 12px;';
@@ -835,27 +816,17 @@
             </div>
         `;
 
-        // Menambahkan baris baru ke paling bawah daftar
         list.appendChild(row);
-
-        // Fokus otomatis ke input nama di baris yang baru dibuat
         row.querySelector('input[type="text"]').focus();
     }
 
-    /**
-     * Fungsi untuk memperbarui atribut name semua baris tombol agar indeksnya berurutan.
-     * Ini penting karena ketika sebuah baris dihapus dari tengah, indeks array menjadi tidak
-     * berurutan dan PHP akan salah membaca data form. Fungsi ini memastikan indeks selalu
-     * dimulai dari 0 dan berurutan ke atas tanpa celah.
-     */
+    // Perbarui atribut name semua baris tombol agar indeks array berurutan setelah hapus baris
     function reindexMapsButtons() {
         const rows = document.querySelectorAll('#mapsBtnList .maps-btn-row');
         rows.forEach(function(row, idx) {
-            // Perbarui name untuk input nama tombol
             const namaInput = row.querySelector('input[name*="[nama]"]');
             if (namaInput) namaInput.name = `maps_buttons[${idx}][nama]`;
 
-            // Perbarui name untuk input link tombol
             const linkInput = row.querySelector('input[name*="[link]"]');
             if (linkInput) linkInput.name = `maps_buttons[${idx}][link]`;
         });

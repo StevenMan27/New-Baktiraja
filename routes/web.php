@@ -1,26 +1,5 @@
 <?php
 
-/*
-   ======================================================================================
-   [PENJELASAN LENGKAP FILE: routes/web.php]
-   
-   1. BAGAIMANA CODE INI BEKERJA:
-      File ini adalah "Resepsionis" atau "Papan Petunjuk Jalan" utama dari framework Laravel. 
-      Setiap kali ada pengunjung yang mengetik alamat URL di browser (misal: geotoba.com/galeri), Laravel akan membuka file ini pertama kali untuk mengecek apakah alamat tersebut terdaftar.
-      
-   2. UNTUK APA CODE INI:
-      Mendefinisikan seluruh jalur URL (Routes) yang ada di aplikasi, baik untuk halaman publik, proses autentikasi (Login/OTP), maupun area Dasbor Admin.
-      
-   3. HUBUNGAN DENGAN CODE LAIN (RELASI):
-      - Dikendalikan oleh: Framework Laravel Routing.
-      - Terkait dengan Model/Tabel: Tidak berinteraksi langsung dengan database.
-      - Mewarisi Desain: Tidak ada.
-      
-   4. KEMANA ARAHNYA JIKA CODE INI MEMANGGIL:
-      Setiap Route mengarahkan (meneruskan) permintaan URL ke sebuah fungsi spesifik di dalam Controller (misal: [GaleriController::class, 'index']).
-   ======================================================================================
-*/
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\GaleriController;
@@ -39,11 +18,15 @@ use App\Http\Controllers\InformasiController as PublicInformasiController;
 use App\Http\Controllers\KontakController;
 use Illuminate\Support\Facades\DB;
 
+// Utility: membuat storage link via browser
+// Menjalankan artisan storage:link agar file upload dapat diakses publik
 Route::get('/linkstorage', function () {
     \Illuminate\Support\Facades\Artisan::call('storage:link');
     return 'Berhasil membuat storage link! Silakan kembali ke website dan cek gambarnya.';
 });
 
+// Route halaman publik utama
+// Mengarahkan URL publik ke controller masing-masing halaman
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/destinasi', [DestinasiController::class, 'index'])->name('destinasi');
@@ -60,6 +43,8 @@ Route::get('/berita', function () {
     return view('pages.berita', compact('berita'));
 })->name('berita');
 
+// Route API penambah views
+// Menerima POST request dan menginkremen kolom views pada berita atau informasi
 Route::post('/api/berita/{id}/view', function ($id) {
     $berita = App\Models\Berita::findOrFail($id);
     $berita->increment('views');
@@ -81,6 +66,8 @@ Route::post('/api/informasi/{id}/view', function ($id) {
 Route::get('/kontak', [KontakController::class, 'index'])->name('kontak');
 Route::post('/kontak/kirim', [KontakController::class, 'kirim'])->name('kontak.kirim');
 
+// Route halaman detail geosite
+// Mengarahkan URL tiap geosite ke method spesifik di GeositeController
 Route::get('/geosite/air-terjun-janji', [GeositeController::class, 'airTerjunJanji'])->name('geosite.air-terjun-janji');
 Route::get('/geosite/aek-sitio-tio', [GeositeController::class, 'aekSitioTio'])->name('geosite.aek-sitio-tio');
 Route::get('/geosite/desa-wisata-tipang', [GeositeController::class, 'desaWisataTipang'])->name('geosite.desa-wisata-tipang');
@@ -92,6 +79,8 @@ Route::get('/geosite/istana-sisingamangaraja', [GeositeController::class, 'istan
 Route::get('/geosite/tombak-sulu-sulu', [GeositeController::class, 'tombakSuluSulu'])->name('geosite.tombak-sulu-sulu');
 Route::get('/geosite/aek-sipangolu', [GeositeController::class, 'aekSipangolu'])->name('geosite.aek-sipangolu');
 
+// Route autentikasi admin
+// Menangani login, logout, dan alur reset password via OTP
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -105,6 +94,8 @@ Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 Route::get('/reset-password', [AuthController::class, 'showResetForm'])->name('password.reset-form');
 Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
+// Route area admin (dilindungi middleware auth)
+// Mengelola dasbor, konten homepage, kontak, dan resource CRUD semua entitas
 Route::prefix('admin')->middleware('auth')->group(function () {
     
     Route::get('/', function () {

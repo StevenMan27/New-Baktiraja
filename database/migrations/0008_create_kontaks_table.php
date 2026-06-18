@@ -1,10 +1,5 @@
 <?php
 
-/*
-   [MIGRATION 0008_create_kontaks_table.php]
-   File ini bertugas mendefinisikan struktur, kolom, dan tipe data dari tabel database sebelum dieksekusi (migrate) ke server database sesungguhnya.
-*/
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
-    // Menjalankan migrasi untuk tabel kontak.
-    // Penjelasan detail: Menyiapkan struktur tabel dan menyisipkan data default untuk informasi kontak global.
+    // Membuat tabel kontaks dan menyisipkan data default
+    // Mendefinisikan kolom kontak global (alamat, telepon, email, peta, sosial media) beserta seed awal
     public function up(): void
     {
-        // Membuat tabel kontaks.
-        // Penjelasan detail: Mendefinisikan kolom untuk alamat, telepon, email, peta, dan media sosial.
+        // Membuat tabel kontaks
+        // Menyimpan alamat, telepon, email, embed peta, jam operasional, dan tautan media sosial
         Schema::create('kontaks', function (Blueprint $table) {
             $table->id();
             $table->text('alamat')->nullable();
@@ -53,8 +48,8 @@ return new class extends Migration
         ]);
     }
 
-    // Membatalkan migrasi kontak.
-    // Penjelasan detail: Menghapus tabel kontaks secara penuh jika rollback dilakukan.
+    // Membatalkan migrasi kontak
+    // Menghapus tabel kontaks secara penuh dari database
     public function down(): void
     {
         Schema::dropIfExists('kontaks');

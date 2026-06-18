@@ -473,6 +473,7 @@
     }
     
     .about-content p {
+        text-align: justify;
         color: #2c5f8a;
         line-height: 1.8;
         margin-bottom: 20px;
@@ -562,17 +563,12 @@
     
     /* MODAL LAYAR PENUH UNTUK DESTINASI */
     .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.96); z-index: 9999; display: none; align-items: center; justify-content: center; backdrop-filter: blur(12px); }
-    .modal-box { background: #1a1a1a; width: 90%; max-width: 1000px; display: grid; grid-template-columns: 1.2fr 1fr; border-radius: 20px; overflow: hidden; animation: modalFadeIn 0.35s ease; position: relative; }
+    .modal-box { width: auto; max-width: 90vw; background: transparent; border-radius: 12px; animation: modalFadeIn 0.35s ease; position: relative; display: flex; align-items: center; justify-content: center; }
     @keyframes modalFadeIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
-    .modal-img-part { background: #0a0a0a; display: flex; align-items: center; justify-content: center; padding: 20px; }
-    .modal-img-part img { width: 100%; max-height: 70vh; object-fit: contain; }
-    .modal-text-part { padding: 35px; color: white; background: linear-gradient(135deg, #1a1a1a, #0d0d0d); display: flex; flex-direction: column; }
-    .close-btn { position: absolute; top: 16px; right: 16px; color: white; font-size: 1.3rem; cursor: pointer; transition: all 0.3s ease; z-index: 10000; width: 38px; height: 38px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-    .close-btn:hover { background: #c6a43b; color: #003366; transform: rotate(90deg); }
-    .modal-text-part small { color: #c6a43b; letter-spacing: 2px; font-size: 0.7rem; text-transform: uppercase; }
-    .modal-text-part h2 { font-size: 1.4rem; margin: 10px 0 8px; font-family: 'Playfair Display', serif; line-height: 1.3; }
-    .modal-text-part p { color: #bbb; line-height: 1.7; font-size: 0.85rem; margin: 0 0 8px; }
-    @media (max-width: 768px) { .modal-box { grid-template-columns: 1fr; max-height: 88vh; overflow-y: auto; } }
+    .modal-img-part { background: transparent; display: flex; align-items: center; justify-content: center; padding: 0; width: 100%; }
+    .modal-img-part img { max-width: 100%; max-height: 90vh; object-fit: contain; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+    .close-btn { position: absolute; top: 20px; right: 25px; color: white; font-size: 2rem; cursor: pointer; transition: all 0.3s ease; z-index: 10000; width: 45px; height: 45px; background: rgba(0,0,0,0.5); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+    .close-btn:hover { background: rgba(200,200,200,0.3); transform: scale(1.1); }
     
     .destinasi-content { 
         flex: 1; 
@@ -638,6 +634,7 @@
     }
     
     .destinasi-desc {
+        text-align: justify;
         color: #2c5f8a;
         line-height: 1.8;
         margin-bottom: 25px;
@@ -646,6 +643,7 @@
     }
     
     .destinasi-item:hover .destinasi-desc {
+        text-align: justify;
         transform: translateX(10px);
     }
     
@@ -1066,22 +1064,12 @@
         <div class="modal-img-part">
             <img src="" id="mImg" alt="">
         </div>
-        <div class="modal-text-part">
-            <small id="mTag"></small>
-            <h2 id="mTitle"></h2>
-            <p><i class="fas fa-map-marker-alt" style="color:#c6a43b; margin-right:6px;"></i><span id="mLocation"></span></p>
-            <p id="mDesc"></p>
-        </div>
     </div>
 </div>
 
 <script>
     function openPhoto(src, title, desc, tag, location) {
         document.getElementById('mImg').src = src;
-        document.getElementById('mTitle').innerText = title || '';
-        document.getElementById('mDesc').innerText = desc || '';
-        document.getElementById('mTag').innerText = tag || '';
-        document.getElementById('mLocation').innerText = location || '';
         
         document.getElementById('pModal').style.display = 'flex';
         document.body.style.overflow = 'hidden';

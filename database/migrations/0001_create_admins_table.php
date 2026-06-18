@@ -1,22 +1,17 @@
 <?php
 
-/*
-   [MIGRATION 0001_create_admins_table.php]
-   File ini bertugas mendefinisikan struktur, kolom, dan tipe data dari tabel database sebelum dieksekusi (migrate) ke server database sesungguhnya.
-*/
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    // Menjalankan migrasi untuk tabel autentikasi.
-    // Penjelasan detail: Membuat tabel admins, sessions, dan password_resets untuk keperluan login dan sesi.
+    // Membuat tabel autentikasi admin, sesi, dan reset password
+    // Menyiapkan infrastruktur login dan manajemen sesi pengguna
     public function up(): void
     {
-        // Membuat tabel admins.
-        // Penjelasan detail: Menyimpan kredensial login admin seperti nama, email, dan password.
+        // Membuat tabel admins
+        // Menyimpan kredensial login admin: nama, email, dan password
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
@@ -27,8 +22,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Membuat tabel sessions.
-        // Penjelasan detail: Menyimpan data sesi login pengguna beserta informasi IP dan browser.
+        // Membuat tabel sessions
+        // Menyimpan data sesi login beserta informasi IP dan browser pengguna
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
             $table->foreignId('user_id')->nullable()->index();
@@ -38,8 +33,8 @@ return new class extends Migration
             $table->integer('last_activity')->index();
         });
 
-        // Membuat tabel password_resets.
-        // Penjelasan detail: Menyimpan token keamanan sementara untuk fitur lupa kata sandi.
+        // Membuat tabel password_resets
+        // Menyimpan token sementara untuk fitur lupa kata sandi
         Schema::create('password_resets', function (Blueprint $table) {
             $table->string('email')->index();
             $table->string('token');
@@ -47,8 +42,8 @@ return new class extends Migration
         });
     }
 
-    // Membatalkan migrasi autentikasi.
-    // Penjelasan detail: Menghapus tabel password_resets, sessions, dan admins dari database.
+    // Membatalkan migrasi autentikasi
+    // Menghapus tabel password_resets, sessions, dan admins dari database
     public function down(): void
     {
         Schema::dropIfExists('password_resets');

@@ -6,16 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\KontakMail;
 
-/*
-   [CONTROLLER KontakController]
-   File ini bertugas mengontrol logika aplikasi untuk bagian halaman kontak dan pengiriman pesan email.
-*/
+// Menangani tampilan halaman kontak dan pengiriman pesan dari pengunjung ke admin via email.
+// Data kontak diambil dari model Kontak; pesan pengunjung dikirim menggunakan KontakMail.
 class KontakController extends Controller {
 
-    /*
-       [FUNGSI INDEX KONTAK]
-       Method ini berfungsi untuk menangani permintaan dan menampilkan halaman kontak.
-    */
+    // Menampilkan halaman kontak beserta informasi kontak yang tersimpan di database.
+    // Data diambil dari model Kontak; output ke view 'pages.kontak' via compact.
     public function index()
     {
         $kontak = \App\Models\Kontak::first();
@@ -25,10 +21,8 @@ class KontakController extends Controller {
         return view('pages.kontak', compact('kontak'));
     }
 
-    /*
-       [FUNGSI KIRIM PESAN KONTAK]
-       Method ini memproses data dari form kontak dan mengirimkannya via email ke admin.
-    */
+    // Memvalidasi dan mengirimkan pesan dari form kontak ke email admin via Mail.
+    // Input nama, email, subjek, pesan, telepon dari $request; output redirect kembali dengan pesan sukses.
     public function kirim(Request $request)
     {
         $request->validate([

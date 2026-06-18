@@ -1,22 +1,15 @@
 <?php
 
-/*
-   [MIGRATION 0005_create_informasi_table.php]
-   File ini bertugas mendefinisikan struktur, kolom, dan tipe data dari tabel database sebelum dieksekusi (migrate) ke server database sesungguhnya.
-*/
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    // Menjalankan migrasi untuk tabel informasi.
-    // Penjelasan detail: Menyiapkan tabel untuk pengumuman atau info penting layanan publik terkait geosite.
+    // Membuat tabel informasi
+    // Menyimpan konten informasi/pengumuman layanan publik yang terhubung ke geosite
     public function up(): void
     {
-        // Membuat tabel informasi.
-        // Penjelasan detail: Mendefinisikan kolom judul, konten, dan gambar untuk informasi layanan.
         Schema::create('informasi', function (Blueprint $table) {
             $table->id();
             $table->string('judul', 255);
@@ -34,8 +27,8 @@ return new class extends Migration
         });
     }
 
-    // Membatalkan migrasi informasi.
-    // Penjelasan detail: Menghapus tabel informasi dari database.
+    // Membatalkan migrasi informasi
+    // Menghapus tabel informasi dari database
     public function down(): void
     {
         Schema::dropIfExists('informasi');

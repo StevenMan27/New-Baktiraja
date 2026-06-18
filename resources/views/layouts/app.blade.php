@@ -8,24 +8,15 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Geosite Danau Toba')</title>
 
-    <!-- Bootstrap CSS - Framework utama untuk grid system dan komponen UI -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Font Awesome - Library ikon untuk seluruh ikon yang digunakan di navbar, footer, dan konten -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
-    <!-- Google Fonts Inter - Font utama seluruh halaman -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <!-- AOS Animation - Library animasi scroll -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
 
-        /* Font global seluruh elemen menggunakan Inter */
         * { font-family: 'Inter', sans-serif; }
 
-        /* Variabel warna global yang digunakan di seluruh stylesheet */
         :root {
             --blue-dark: #003366;
             --blue-medium: #1a4a7a;
@@ -33,13 +24,11 @@
             --white: #ffffff;
         }
 
-        /* Mencegah overflow horizontal di seluruh halaman pada layar kecil */
         html, body {
             overflow-x: hidden;
             max-width: 100%;
         }
 
-        /* NAVBAR - Kontainer navigasi utama dengan background putih dan shadow halus */
         .navbar {
             transition: all 0.4s ease;
             height: 72px;
@@ -49,7 +38,6 @@
             box-shadow: 0 2px 20px rgba(0, 0, 0, 0.06);
         }
 
-        /* NAVBAR SCROLLED - Shadow diperdalam saat halaman di-scroll lebih dari 50px */
         .navbar.scrolled {
             background: #ffffff;
             height: 72px;
@@ -57,7 +45,6 @@
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.10);
         }
 
-        /* NAVBAR CONTAINER - Wrapper flex untuk logo dan menu dengan padding responsif */
         .navbar .container {
             max-width: 100%;
             margin: 0 auto;
@@ -69,7 +56,6 @@
             box-sizing: border-box;
         }
 
-        /* LOGO WRAPPER - Flex container untuk dua logo dan teks brand */
         .logo-wrapper {
             display: flex;
             align-items: center;
@@ -81,7 +67,6 @@
             overflow: hidden;
         }
 
-        /* LOGO IMG - Ukuran logo dijaga proporsional dengan object-fit contain */
         .logo-img {
             height: 44px;
             width: auto;
@@ -93,13 +78,11 @@
             flex-shrink: 0;
         }
 
-        /* LOGO IMG HOVER - Efek scale naik halus saat cursor masuk */
         .logo-img:hover {
             transform: scale(1.02) translateY(-2px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
         }
 
-        /* LOGO DIVIDER - Garis pemisah vertikal tipis antar logo */
         .logo-divider {
             width: 1.5px;
             height: 28px;
@@ -108,7 +91,6 @@
             flex-shrink: 0;
         }
 
-        /* NAVBAR BRAND - Teks GeoToba dengan warna biru gelap */
         .navbar-brand {
             font-size: 1.65rem;
             font-weight: 800;
@@ -122,13 +104,11 @@
             flex-shrink: 0;
         }
 
-        /* NAVBAR BRAND SPAN - Kata "Toba" berwarna gold sesuai identitas visual brand */
         .navbar-brand span {
             color: var(--gold);
             font-weight: 800;
         }
 
-        /* NAV LINK - Teks menu default berwarna hitam gelap */
         .nav-link {
             color: #1a1a1a !important;
             font-weight: 500;
@@ -139,20 +119,17 @@
             border-radius: 40px;
         }
 
-        /* NAV LINK HOVER - Berubah ke gold dengan background abu terang */
         .nav-link:hover {
             color: var(--gold) !important;
             background: rgba(0, 0, 0, 0.04);
             transform: translateY(-2px);
         }
 
-        /* NAV LINK ACTIVE - Warna gold dengan background kuning transparan */
         .nav-link.active {
             color: var(--gold) !important;
             background: rgba(198, 164, 59, 0.12);
         }
 
-        /* DROPDOWN MENU - Background putih bersih dengan shadow premium */
         .dropdown-menu {
             background: #ffffff;
             backdrop-filter: none;
@@ -163,7 +140,6 @@
             box-shadow: 0 16px 40px rgba(0, 0, 0, 0.10);
         }
 
-        /* DROPDOWN ITEM - Teks abu gelap dengan padding yang nyaman */
         .dropdown-item {
             color: #2c2c2c;
             padding: 10px 24px;
@@ -176,21 +152,18 @@
             background: transparent;
         }
 
-        /* DROPDOWN ITEM HOVER - Background abu terang dengan teks gold */
         .dropdown-item:hover {
             background: #f5f5f5;
             color: var(--gold);
             transform: translateX(5px);
         }
 
-        /* DROPDOWN ITEM ACTIVE - State aktif dengan gold transparan */
         .dropdown-item.active,
         .dropdown-item:active {
             background: rgba(198, 164, 59, 0.10);
             color: var(--gold);
         }
 
-        /* DROPDOWN HEADER - Label kategori berwarna gold */
         .dropdown-header {
             color: var(--gold);
             padding: 8px 24px;
@@ -199,7 +172,6 @@
             letter-spacing: 1px;
         }
 
-        /* NAVBAR TOGGLER - Tombol hamburger untuk mobile dengan border abu tipis */
         .navbar-toggler {
             border: 1px solid rgba(0, 0, 0, 0.12);
             background: rgba(0, 0, 0, 0.03);
@@ -210,23 +182,19 @@
             margin-left: 8px;
         }
 
-        /* NAVBAR TOGGLER HOVER - Background sedikit lebih gelap */
         .navbar-toggler:hover {
             background: rgba(0, 0, 0, 0.07);
         }
 
-        /* NAVBAR TOGGLER FOCUS - Menghilangkan outline bawaan browser */
         .navbar-toggler:focus {
             box-shadow: none;
             outline: none;
         }
 
-        /* NAVBAR TOGGLER ICON - Ikon hamburger berwarna biru gelap */
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(0, 51, 102, 0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
         }
 
-        /* LANG BTN - Tombol pilihan bahasa dengan border gold tipis */
         .lang-btn {
             background: rgba(0, 0, 0, 0.03);
             border: 1.5px solid rgba(198, 164, 59, 0.35);
@@ -241,38 +209,32 @@
             font-weight: 600;
         }
 
-        /* LANG BTN HOVER - Background gold transparan saat hover */
         .lang-btn:hover {
             background: rgba(198, 164, 59, 0.10);
             border-color: var(--gold);
             transform: translateY(-2px);
         }
 
-        /* LANG DROPDOWN - Lebar minimum dropdown bahasa */
         .lang-dropdown {
             min-width: 150px;
         }
 
-        /* LANG DROPDOWN ITEM - Flex row agar ikon bendera dan teks sejajar */
         .lang-dropdown .dropdown-item {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* LANG DROPDOWN ITEM ICON - Lebar tetap untuk ikon agar teks selalu sejajar */
         .lang-dropdown .dropdown-item i {
             width: 20px;
         }
 
-        /* RESPONSIVE 1200px - Kurangi padding container sedikit */
         @media (max-width: 1200px) {
             .navbar .container {
                 padding: 0 32px;
             }
         }
 
-        /* RESPONSIVE 991px - Breakpoint tablet dan HP landscape */
         @media (max-width: 991px) {
             .navbar { height: 64px; }
             .navbar.scrolled { height: 64px; }
@@ -284,7 +246,6 @@
             .logo-divider { height: 24px; }
             .navbar-brand { font-size: 1.3rem; }
 
-            /* NAVBAR COLLAPSE MOBILE - Panel menu mobile dengan background putih */
             .navbar-collapse {
                 background: #ffffff;
                 border: 1px solid rgba(0, 0, 0, 0.08);
@@ -294,12 +255,10 @@
                 box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
             }
 
-            /* NAVBAR NAV MOBILE - Hilangkan gap antar item */
             .navbar-nav {
                 gap: 0;
             }
 
-            /* NAV LINK MOBILE - Teks hitam gelap, text-align center */
             .nav-link {
                 color: #1a1a1a !important;
                 text-align: center;
@@ -309,19 +268,16 @@
                 border-radius: 12px;
             }
 
-            /* NAV LINK HOVER MOBILE - Hilangkan translateY di layar kecil */
             .nav-link:hover {
                 transform: none;
                 background: rgba(0, 0, 0, 0.04);
             }
 
-            /* NAV LINK ACTIVE MOBILE - Tetap gold sesuai desain asli */
             .nav-link.active {
                 color: var(--gold) !important;
                 background: rgba(198, 164, 59, 0.10);
             }
 
-            /* DROPDOWN MENU MOBILE - Background abu sangat terang tanpa shadow */
             .dropdown-menu {
                 position: static !important;
                 float: none;
@@ -333,7 +289,6 @@
                 padding: 4px 0;
             }
 
-            /* DROPDOWN ITEM MOBILE - Text center dan hilangkan translateX */
             .dropdown-item {
                 text-align: center;
                 margin: 2px 8px;
@@ -341,20 +296,17 @@
                 color: #2c2c2c;
             }
 
-            /* DROPDOWN ITEM HOVER MOBILE - Hilangkan translateX di mobile */
             .dropdown-item:hover {
                 transform: none;
                 background: rgba(198, 164, 59, 0.08);
             }
 
-            /* LANG BTN MOBILE - Tombol bahasa center dengan margin atas */
             .lang-btn {
                 margin: 6px auto 2px;
                 width: fit-content;
             }
         }
 
-        /* RESPONSIVE 768px - HP portrait ukuran sedang */
         @media (max-width: 768px) {
             .navbar { height: 60px; padding: 0; }
             .navbar.scrolled { height: 60px; padding: 0; }
@@ -369,7 +321,6 @@
             .navbar-brand { font-size: 1.2rem; padding-left: 2px; }
         }
 
-        /* RESPONSIVE 576px - HP kecil, semua elemen logo diperkecil */
         @media (max-width: 576px) {
             .navbar { height: 56px; padding: 0; }
             .navbar.scrolled { height: 56px; padding: 0; }
@@ -384,7 +335,6 @@
             .navbar-brand { font-size: 1.1rem; }
         }
 
-        /* RESPONSIVE 400px - HP sangat kecil, logo diperkecil lebih jauh */
         @media (max-width: 400px) {
             .navbar .container {
                 padding: 0 10px;
@@ -396,14 +346,12 @@
             .navbar-brand { font-size: 1rem; }
         }
 
-        /* RESPONSIVE 360px - HP ukuran minimum yang umum */
         @media (max-width: 360px) {
             .logo-img { height: 24px; }
             .navbar-brand { font-size: 0.95rem; }
             .logo-wrapper { gap: 5px; }
         }
 
-        /* FOOTER - Background gradient biru gelap */
         .footer {
             background: linear-gradient(135deg, #003366 0%, #0a2a4a 100%);
             color: white;
@@ -412,7 +360,6 @@
             position: relative;
         }
 
-        /* FOOTER BEFORE - Garis dekoratif gold di bagian paling atas footer */
         .footer::before {
             content: '';
             position: absolute;
@@ -423,7 +370,6 @@
             background: linear-gradient(90deg, #c6a43b, #e8c45a, #c6a43b);
         }
 
-        /* FOOTER TITLE - Judul setiap kolom footer dengan underline gold */
         .footer-title {
             font-size: 1.1rem;
             font-weight: 700;
@@ -433,7 +379,6 @@
             padding-bottom: 8px;
         }
 
-        /* FOOTER TITLE AFTER - Garis bawah gold pada judul kolom footer */
         .footer-title::after {
             content: '';
             position: absolute;
@@ -446,24 +391,20 @@
             transition: width 0.3s ease;
         }
 
-        /* FOOTER COL HOVER TITLE AFTER - Garis bawah gold melebar saat di-hover */
         .footer-col:hover .footer-title::after {
             width: 60px;
         }
 
-        /* FOOTER LINKS - List tautan navigasi di footer */
         .footer-links {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        /* FOOTER LINKS LI - Jarak bawah antar item link */
         .footer-links li {
             margin-bottom: 10px;
         }
 
-        /* FOOTER LINKS A - Tautan berwarna putih transparan dengan flex row */
         .footer-links a {
             color: rgba(255, 255, 255, 0.7);
             text-decoration: none;
@@ -474,33 +415,28 @@
             gap: 8px;
         }
 
-        /* FOOTER LINKS A ICON - Ikon chevron tersembunyi dan muncul saat hover */
         .footer-links a i {
             font-size: 0.7rem;
             opacity: 0;
             transition: all 0.3s ease;
         }
 
-        /* FOOTER LINKS A HOVER - Warna gold dan bergerak ke kanan */
         .footer-links a:hover {
             color: #c6a43b;
             transform: translateX(5px);
         }
 
-        /* FOOTER LINKS A HOVER ICON - Ikon chevron muncul saat link di-hover */
         .footer-links a:hover i {
             opacity: 1;
             transform: translateX(3px);
         }
 
-        /* FOOTER CONTACT - List informasi kontak di footer */
         .footer-contact {
             list-style: none;
             padding: 0;
             margin: 0;
         }
 
-        /* FOOTER CONTACT LI - Setiap item kontak menggunakan flex row */
         .footer-contact li {
             display: flex;
             align-items: center;
@@ -511,20 +447,17 @@
             transition: all 0.3s ease;
         }
 
-        /* FOOTER CONTACT LI HOVER - Bergerak ke kanan dan berubah ke gold */
         .footer-contact li:hover {
             transform: translateX(5px);
             color: #c6a43b;
         }
 
-        /* FOOTER CONTACT LI ICON - Ikon kontak berwarna gold dengan lebar tetap */
         .footer-contact li i {
             color: #c6a43b;
             width: 20px;
             flex-shrink: 0;
         }
 
-        /* SOCIAL ICONS WRAPPER - Flex container untuk ikon sosial media */
         .social-icons {
             display: flex;
             gap: 12px;
@@ -532,7 +465,6 @@
             flex-wrap: wrap;
         }
 
-        /* SOCIAL ICON - Ikon sosial berbentuk lingkaran dengan border gold tipis */
         .social-icon {
             display: inline-flex;
             align-items: center;
@@ -547,7 +479,6 @@
             border: 1px solid rgba(198, 164, 59, 0.2);
         }
 
-        /* SOCIAL ICON HOVER - Background gold, warna biru gelap, dan rotasi penuh */
         .social-icon:hover {
             background: linear-gradient(135deg, #c6a43b, #a8892e);
             color: #003366;
@@ -555,7 +486,6 @@
             border-color: transparent;
         }
 
-        /* COPYRIGHT - Area copyright paling bawah footer */
         .copyright {
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             padding-top: 20px;
@@ -565,7 +495,6 @@
             color: rgba(255, 255, 255, 0.5);
         }
 
-        /* FOOTER RESPONSIVE 991px hingga 577px - Layout kolom pertama full lebar */
         @media (max-width: 991px) and (min-width: 577px) {
             .footer .row {
                 display: flex;
@@ -582,7 +511,6 @@
             }
         }
 
-        /* FOOTER RESPONSIVE 576px - Grid dua kolom untuk HP kecil */
         @media (max-width: 576px) {
             .footer {
                 padding: 40px 0 20px;
@@ -604,14 +532,12 @@
             .copyright { font-size: 0.65rem; }
         }
 
-        /* FOOTER RESPONSIVE 380px - HP sangat kecil */
         @media (max-width: 380px) {
             .footer .row { gap: 20px; }
             .footer-title { font-size: 0.85rem; }
             .social-icon { width: 30px; height: 30px; font-size: 0.7rem; }
         }
 
-        /* BACK TO TOP - Tombol kembali ke atas halaman posisi fixed */
         .back-to-top {
             position: fixed;
             bottom: 25px;
@@ -632,19 +558,16 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* BACK TO TOP SHOW - Kelas yang ditambahkan saat scroll melebihi 300px */
         .back-to-top.show {
             opacity: 1;
             visibility: visible;
         }
 
-        /* BACK TO TOP HOVER - Background putih dan sedikit naik saat hover */
         .back-to-top:hover {
             background: white;
             transform: translateY(-4px) scale(1.05);
         }
 
-        /* BACK TO TOP RESPONSIVE 576px - Ukuran diperkecil di HP kecil */
         @media (max-width: 576px) {
             .back-to-top {
                 bottom: 15px;
@@ -660,11 +583,10 @@
 </head>
 <body>
 
-    <!-- NAVBAR - Fixed top dengan navbar-expand-lg untuk collapse di bawah 992px -->
+    {{-- [Summary] Navbar fixed-top dengan logo, menu utama, dan dropdown destinasi. --}}
     <nav class="navbar navbar-expand-lg fixed-top" id="navbar">
         <div class="container">
 
-            <!-- LOGO WRAPPER - Grup logo Bank Indonesia, logo Del, dan teks brand -->
             <div class="logo-wrapper">
                 <img src="{{ asset('image/Logo/logobankindonesia.jpg') }}" alt="Bank Indonesia" class="logo-img" loading="lazy">
                 <div class="logo-divider"></div>
@@ -673,30 +595,25 @@
                 <a class="navbar-brand" href="{{ url('/') }}">Geo<span>Toba</span></a>
             </div>
 
-            <!-- NAVBAR TOGGLER - Tombol hamburger yang muncul di bawah 992px -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!-- NAVBAR COLLAPSE - Grup menu yang collapse di mobile -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
 
-                    <!-- MENU BERANDA - Active class via Laravel route check -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ url('/') }}">
                             Beranda
                         </a>
                     </li>
 
-                    <!-- MENU INFORMASI - Active class jika route adalah 'informasi' -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('informasi') ? 'active' : '' }}" href="{{ url('/informasi') }}">
                             Informasi
                         </a>
                     </li>
 
-                    <!-- MENU DESTINASI - Dropdown dengan submenu kategori destinasi -->
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle {{ request()->routeIs('destinasi*') ? 'active' : '' }}" href="#" data-bs-toggle="dropdown">
                             Destinasi
@@ -716,21 +633,18 @@
                         </ul>
                     </li>
 
-                    <!-- MENU GALERI - Active class jika route adalah 'galeri' -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('galeri') ? 'active' : '' }}" href="{{ url('/galeri') }}">
                             Galeri
                         </a>
                     </li>
 
-                    <!-- MENU BERITA - Active class jika route adalah 'berita' -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('berita') ? 'active' : '' }}" href="{{ url('/berita') }}">
                             Berita
                         </a>
                     </li>
 
-                    <!-- MENU KONTAK - Active class jika route adalah 'kontak' -->
                     <li class="nav-item">
                         <a class="nav-link {{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ url('/kontak') }}">
                             Kontak
@@ -742,15 +656,13 @@
         </div>
     </nav>
 
-    <!-- MAIN CONTENT - Area yield untuk konten dari setiap child view -->
     <main>@yield('content')</main>
 
-    <!-- FOOTER PREMIUM - Footer dengan background biru gelap dan aksen gold -->
+    {{-- [Summary] Footer dengan kolom brand, tautan, destinasi, dan kontak dari DB. --}}
     <footer class="footer">
         <div class="container">
             <div class="row">
 
-                <!-- KOLOM BRAND - Deskripsi singkat GeoToba dan ikon sosial media -->
                 <div class="col-lg-4 col-md-12 mb-4 footer-col">
                     <h5 class="footer-title">Geo<span style="color: #c6a43b;">Toba</span></h5>
                     <p style="font-size: 0.85rem; color: rgba(255,255,255,0.7); line-height: 1.6;">
@@ -765,7 +677,6 @@
                     </div>
                 </div>
 
-                <!-- KOLOM TAUTAN - Daftar link navigasi cepat ke halaman utama -->
                 <div class="col-lg-2 col-md-4 col-sm-6 col-6 mb-4 footer-col">
                     <h5 class="footer-title">Tautan</h5>
                     <ul class="footer-links">
@@ -777,7 +688,6 @@
                     </ul>
                 </div>
 
-                <!-- KOLOM DESTINASI - Daftar link ke kategori destinasi wisata -->
                 <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-4 footer-col">
                     <h5 class="footer-title">Destinasi</h5>
                     <ul class="footer-links">
@@ -788,7 +698,6 @@
                     </ul>
                 </div>
 
-                <!-- KOLOM KONTAK - Informasi kontak termasuk alamat, telepon, email, dan jam operasional -->
                 <div class="col-lg-3 col-md-4 col-sm-12 mb-4 footer-col">
                     @php $globalKontak = \App\Models\Kontak::first(); @endphp
                     <h5 class="footer-title">Kontak</h5>
@@ -802,41 +711,33 @@
 
             </div>
 
-            <!-- COPYRIGHT - Teks hak cipta di bagian paling bawah footer -->
             <div class="copyright">
                 <p>&copy; 2026 GeoToba - Geopark Danau Toba. Hak Cipta dilindungi.</p>
             </div>
         </div>
     </footer>
 
-    <!-- BACK TO TOP - Tombol scroll ke atas, ditampilkan via JavaScript -->
     <div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
 
-    <!-- Bootstrap JS Bundle - Termasuk Popper.js untuk dropdown dan collapse navbar -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- AOS JS - Inisialisasi library animasi scroll -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script>
-        /* Inisialisasi AOS dengan durasi 1000ms dan animasi hanya dijalankan sekali */
+        // [Summary] Inisialisasi AOS, navbar scroll effect, dan tombol back-to-top.
         AOS.init({ duration: 1000, once: true });
 
-        /* Navbar scroll effect menambahkan class scrolled saat halaman di-scroll lebih dari 50px */
         const navbar = document.getElementById('navbar');
         window.addEventListener('scroll', function() {
             if (window.scrollY > 50) navbar.classList.add('scrolled');
             else navbar.classList.remove('scrolled');
         });
 
-        /* Back to top visibility menampilkan tombol saat scroll melebihi 300px */
         const backToTop = document.getElementById('backToTop');
         window.addEventListener('scroll', function() {
             if (window.scrollY > 300) backToTop.classList.add('show');
             else backToTop.classList.remove('show');
         });
 
-        /* Back to top click melakukan scroll halus ke posisi paling atas saat diklik */
         backToTop.addEventListener('click', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });

@@ -1,22 +1,15 @@
 <?php
 
-/*
-   [MIGRATION 0002_create_profil_geosites_table.php]
-   File ini bertugas mendefinisikan struktur, kolom, dan tipe data dari tabel database sebelum dieksekusi (migrate) ke server database sesungguhnya.
-*/
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    // Menjalankan migrasi untuk tabel profil geosites.
-    // Penjelasan detail: Menyiapkan struktur tabel yang menampung konten profil detail dari masing-masing geosite.
+    // Membuat tabel profil_geosites
+    // Menampung konten profil detail tiap geosite: hero, deskripsi, info praktis, dan peta
     public function up(): void
     {
-        // Membuat tabel profil_geosites.
-        // Penjelasan detail: Menyimpan hero section, deskripsi panjang, informasi praktis, dan tautan peta per geosite.
         Schema::create('profil_geosites', function (Blueprint $table) {
             $table->id();
             $table->string('geosite')->unique(); 
@@ -54,8 +47,8 @@ return new class extends Migration
         });
     }
 
-    // Membatalkan migrasi profil geosites.
-    // Penjelasan detail: Menghapus tabel profil_geosites beserta seluruh datanya dari database.
+    // Membatalkan migrasi profil geosites
+    // Menghapus tabel profil_geosites beserta seluruh datanya
     public function down(): void
     {
         Schema::dropIfExists('profil_geosites');

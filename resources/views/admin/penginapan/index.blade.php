@@ -4,10 +4,9 @@
 
 @section('content')
 
-{{-- Style khusus halaman Manajemen Penginapan, selaras dengan design system GeoToba --}}
+{{-- Style halaman Manajemen Penginapan --}}
 <style>
 
-    /* Banner header halaman dengan gradient biru gelap */
     .page-banner {
         background: linear-gradient(135deg, #003366 0%, #1a4a7a 100%);
         border-radius: 16px;
@@ -21,7 +20,6 @@
         overflow: hidden;
     }
 
-    /* Dekorasi lingkaran besar di pojok kanan banner */
     .page-banner::before {
         content: '';
         position: absolute;
@@ -33,7 +31,6 @@
         border-radius: 50%;
     }
 
-    /* Dekorasi lingkaran kecil di pojok kiri bawah banner */
     .page-banner::after {
         content: '';
         position: absolute;
@@ -45,7 +42,6 @@
         border-radius: 50%;
     }
 
-    /* Wrapper ikon dan teks di sisi kiri banner */
     .page-banner-left {
         display: flex;
         align-items: center;
@@ -54,7 +50,6 @@
         z-index: 1;
     }
 
-    /* Kotak ikon di sisi kiri banner */
     .page-banner-icon {
         width: 52px;
         height: 52px;
@@ -66,13 +61,11 @@
         flex-shrink: 0;
     }
 
-    /* Ikon font awesome di dalam kotak banner */
     .page-banner-icon i {
         color: #ffffff;
         font-size: 1.3rem;
     }
 
-    /* Teks judul utama banner */
     .page-banner-text h1 {
         font-size: 1.35rem;
         font-weight: 700;
@@ -81,14 +74,12 @@
         letter-spacing: -0.2px;
     }
 
-    /* Teks deskripsi di bawah judul banner */
     .page-banner-text p {
         font-size: 0.8rem;
         color: rgba(255,255,255,0.7);
         margin: 0;
     }
 
-    /* Tombol tambah di dalam banner, warna putih transparan */
     .btn-tambah {
         display: inline-flex;
         align-items: center;
@@ -109,7 +100,6 @@
         flex-shrink: 0;
     }
 
-    /* Efek hover tombol tambah di dalam banner */
     .btn-tambah:hover {
         background: rgba(255,255,255,0.25);
         transform: translateY(-1px);
@@ -117,7 +107,6 @@
         text-decoration: none;
     }
 
-    /* Card utama pembungkus tabel penginapan */
     .penginapan-card {
         background: #ffffff;
         border-radius: 16px;
@@ -125,12 +114,10 @@
         overflow: hidden;
     }
 
-    /* Padding konten di dalam card */
     .penginapan-card-body {
         padding: 24px;
     }
 
-    /* Alert sukses setelah aksi berhasil */
     .alert-sukses {
         display: flex;
         align-items: center;
@@ -145,26 +132,22 @@
         margin-bottom: 20px;
     }
 
-    /* Ikon centang di dalam alert sukses */
     .alert-sukses i {
         font-size: 0.95rem;
         color: #22c55e;
         flex-shrink: 0;
     }
 
-    /* Wrapper tabel agar bisa scroll horizontal di layar kecil */
     .table-wrapper {
         overflow-x: auto;
     }
 
-    /* Tabel utama data penginapan */
     .penginapan-table {
         width: 100%;
         border-collapse: collapse;
         font-size: 0.83rem;
     }
 
-    /* Sel header tabel */
     .penginapan-table thead th {
         background: #f8fafc;
         color: #64748b;
@@ -177,7 +160,6 @@
         white-space: nowrap;
     }
 
-    /* Sel data tabel */
     .penginapan-table tbody td {
         padding: 12px 14px;
         border-bottom: 1px solid #f1f5f9;
@@ -185,17 +167,14 @@
         vertical-align: middle;
     }
 
-    /* Baris terakhir tabel tidak memiliki border bawah */
     .penginapan-table tbody tr:last-child td {
         border-bottom: none;
     }
 
-    /* Efek hover baris tabel */
     .penginapan-table tbody tr:hover td {
         background: #f8fafc;
     }
 
-    /* Pesan kosong saat tidak ada data */
     .penginapan-table .empty-row td {
         text-align: center;
         color: #94a3b8;
@@ -203,7 +182,6 @@
         padding: 36px 14px;
     }
 
-    /* Badge nomor urut di kolom pertama */
     .row-number {
         display: inline-flex;
         align-items: center;
@@ -217,7 +195,6 @@
         font-weight: 600;
     }
 
-    /* Gambar thumbnail penginapan dengan object-fit cover agar proporsional */
     .penginapan-thumb {
         width: 56px;
         height: 44px;
@@ -227,7 +204,6 @@
         display: block;
     }
 
-    /* Placeholder gambar kosong bila tidak ada foto */
     .penginapan-thumb-empty {
         width: 56px;
         height: 44px;
@@ -241,13 +217,11 @@
         font-size: 1.1rem;
     }
 
-    /* Teks nama penginapan */
     .nama-text {
         font-weight: 600;
         color: #0f172a;
     }
 
-    /* Badge harga penginapan berwarna gold muda */
     .badge-harga {
         display: inline-block;
         background: rgba(198, 164, 59, 0.1);
@@ -260,7 +234,6 @@
         white-space: nowrap;
     }
 
-    /* Teks kontak penginapan */
     .kontak-text {
         color: #64748b;
         font-size: 0.8rem;
@@ -269,13 +242,11 @@
         gap: 5px;
     }
 
-    /* Ikon kontak di samping teks */
     .kontak-text i {
         color: #94a3b8;
         font-size: 0.75rem;
     }
 
-    /* Badge lokasi geosite berwarna biru muda */
     .badge-geosite {
         display: inline-block;
         background: rgba(0, 51, 102, 0.07);
@@ -287,14 +258,12 @@
         white-space: nowrap;
     }
 
-    /* Wrapper tombol aksi edit dan hapus */
     .action-buttons {
         display: flex;
         align-items: center;
         gap: 8px;
     }
 
-    /* Tombol edit berwarna biru muda */
     .btn-edit {
         display: inline-flex;
         align-items: center;
@@ -311,14 +280,12 @@
         white-space: nowrap;
     }
 
-    /* Efek hover tombol edit */
     .btn-edit:hover {
         background: #dbeafe;
         text-decoration: none;
         color: #003366;
     }
 
-    /* Tombol hapus berwarna merah muda */
     .btn-delete {
         display: inline-flex;
         align-items: center;
@@ -335,12 +302,10 @@
         white-space: nowrap;
     }
 
-    /* Efek hover tombol hapus */
     .btn-delete:hover {
         background: #ffe4e6;
     }
 
-    /* Wrapper pagination di bawah tabel */
     .pagination-wrapper {
         margin-top: 20px;
         display: flex;
@@ -349,7 +314,7 @@
 
 </style>
 
-{{-- Banner header halaman dengan ikon, deskripsi, dan tombol tambah --}}
+{{-- Banner header dengan ikon hotel, judul, dan tombol tambah penginapan --}}
 <div class="page-banner">
     <div class="page-banner-left">
         <div class="page-banner-icon">
@@ -360,17 +325,16 @@
             <p>Kelola semua data penginapan GeoToba Baktiraja</p>
         </div>
     </div>
-    {{-- Tombol navigasi ke halaman tambah penginapan --}}
     <a href="{{ route('admin.penginapan.create') }}" class="btn-tambah">
         <i class="fas fa-plus"></i> Tambah Penginapan
     </a>
 </div>
 
-{{-- Card pembungkus tabel --}}
+{{-- Card tabel penginapan dengan notifikasi sukses, tabel data, dan pagination --}}
+{{-- Iterasi $data dengan forelse; tampilkan baris kosong bila tidak ada penginapan --}}
 <div class="penginapan-card">
     <div class="penginapan-card-body">
 
-        {{-- Notifikasi sukses setelah operasi berhasil --}}
         @if(session('success'))
             <div class="alert-sukses">
                 <i class="fas fa-check-circle"></i>
@@ -378,7 +342,6 @@
             </div>
         @endif
 
-        {{-- Wrapper scroll horizontal untuk responsivitas tabel --}}
         <div class="table-wrapper">
             <table class="penginapan-table">
                 <thead>
@@ -393,13 +356,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- Iterasi setiap item penginapan, tampilkan pesan kosong bila tidak ada data --}}
                     @forelse($data as $item)
                     <tr>
-                        {{-- Nomor urut baris --}}
                         <td><span class="row-number">{{ $loop->iteration }}</span></td>
 
-                        {{-- Kolom thumbnail gambar penginapan --}}
                         <td>
                             @php $imgs = json_decode($item->gambar, true); $firstImg = is_array($imgs) ? ($imgs[0] ?? null) : $item->gambar; @endphp
                             @if($firstImg && str_starts_with($firstImg, 'data:'))
@@ -409,10 +369,8 @@
                             @endif
                         </td>
 
-                        {{-- Kolom nama penginapan --}}
                         <td><span class="nama-text">{{ $item->nama }}</span></td>
 
-                        {{-- Kolom harga penginapan dengan badge gold --}}
                         <td>
                             @if($item->harga)
                                 <span class="badge-harga">Rp. {{ $item->harga }}</span>
@@ -421,7 +379,6 @@
                             @endif
                         </td>
 
-                        {{-- Kolom kontak penginapan --}}
                         <td>
                             <span class="kontak-text">
                                 <i class="fas fa-phone"></i>
@@ -429,22 +386,18 @@
                             </span>
                         </td>
 
-                        {{-- Kolom lokasi geosite dengan format kata yang dirapikan --}}
                         <td>
                             <span class="badge-geosite">
                                 {{ ucwords(str_replace('-', ' ', $item->geosite)) ?? '-' }}
                             </span>
                         </td>
 
-                        {{-- Kolom tombol aksi edit dan hapus --}}
                         <td>
                             <div class="action-buttons">
-                                {{-- Tombol menuju halaman edit penginapan --}}
                                 <a href="{{ route('admin.penginapan.edit', $item->id) }}" class="btn-edit">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
 
-                                {{-- Form hapus penginapan dengan konfirmasi nama sebelum submit --}}
                                 <form action="{{ route('admin.penginapan.destroy', $item->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus penginapan {{ $item->nama }}?')">
                                     @csrf
                                     @method('DELETE')
@@ -456,7 +409,6 @@
                         </td>
                     </tr>
 
-                    {{-- Baris pengganti saat data penginapan kosong --}}
                     @empty
                     <tr class="empty-row">
                         <td colspan="7">
@@ -469,7 +421,6 @@
             </table>
         </div>
 
-        {{-- Pagination Laravel di bawah tabel --}}
         <div class="pagination-wrapper">
             {{ $data->links() }}
         </div>

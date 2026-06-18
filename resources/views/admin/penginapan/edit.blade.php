@@ -24,19 +24,16 @@
         --shadow-md: 0 4px 24px rgba(0,51,102,0.10);
     }
 
-    /* Mengatur font global seluruh halaman dan elemen form menggunakan Plus Jakarta Sans */
     body, input, textarea, select, button {
         font-family: 'Plus Jakarta Sans', sans-serif !important;
     }
 
-    /* Wrapper utama halaman tanpa batas lebar agar konten melebar penuh */
     .ep-wrapper {
         max-width: 100%;
         margin: 0;
         padding: 0 0 60px;
     }
 
-    /* Banner header halaman dengan latar gradient biru gelap */
     .hp-page-header {
         background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
         border-radius: var(--radius);
@@ -51,7 +48,6 @@
         overflow: hidden;
     }
 
-    /* Dekorasi lingkaran besar transparan di pojok kanan atas header */
     .hp-page-header::before {
         content: '';
         position: absolute;
@@ -63,7 +59,6 @@
         border-radius: 50%;
     }
 
-    /* Dekorasi lingkaran kecil transparan di pojok kiri bawah header */
     .hp-page-header::after {
         content: '';
         position: absolute;
@@ -75,7 +70,6 @@
         border-radius: 50%;
     }
 
-    /* Wrapper sisi kiri header yang menampung ikon dan teks judul */
     .hp-page-header-left {
         display: flex;
         align-items: center;
@@ -84,7 +78,6 @@
         z-index: 1;
     }
 
-    /* Kotak ikon persegi di sisi kiri header */
     .hp-page-header .icon-wrap {
         width: 52px;
         height: 52px;
@@ -98,7 +91,6 @@
         flex-shrink: 0;
     }
 
-    /* Judul utama halaman di dalam header */
     .hp-page-header h4 {
         color: #fff;
         margin: 0;
@@ -106,14 +98,12 @@
         font-size: 1.2rem;
     }
 
-    /* Subjudul kecil di bawah judul header */
     .hp-page-header p {
         color: rgba(255,255,255,0.65);
         margin: 0;
         font-size: 0.85rem;
     }
 
-    /* Tombol kembali di sisi kanan header dengan tampilan transparan */
     .hp-btn-back {
         background: rgba(255,255,255,0.13);
         color: #fff;
@@ -133,13 +123,11 @@
         z-index: 1;
     }
 
-    /* Efek hover tombol kembali memperterang latar belakang */
     .hp-btn-back:hover {
         background: rgba(255,255,255,0.22);
         color: #fff;
     }
 
-    /* Card section pembungkus kelompok input form */
     .hp-section {
         background: var(--surface);
         border-radius: var(--radius);
@@ -148,7 +136,6 @@
         overflow: hidden;
     }
 
-    /* Header bagian atas setiap section card */
     .hp-section-header {
         padding: 18px 24px;
         border-bottom: 1px solid var(--border);
@@ -158,7 +145,6 @@
         background: var(--surface-2);
     }
 
-    /* Kotak ikon kecil di kiri header section */
     .hp-section-header .section-icon {
         width: 36px;
         height: 36px;
@@ -170,7 +156,6 @@
         flex-shrink: 0;
     }
 
-    /* Judul section card */
     .hp-section-header h6 {
         margin: 0;
         font-size: 0.95rem;
@@ -178,31 +163,21 @@
         color: var(--text);
     }
 
-    /* Deskripsi kecil di bawah judul section */
     .hp-section-header p {
         margin: 0;
         font-size: 0.78rem;
         color: var(--text-muted);
     }
 
-    /* Padding konten di dalam body setiap section */
     .hp-section-body {
         padding: 24px;
     }
 
-    /* Warna ikon section informasi dasar berwarna biru */
     .icon-info   { background: #eff6ff; color: #2563eb; }
-
-    /* Warna ikon section deskripsi berwarna hijau */
     .icon-desc   { background: #f0fdf4; color: #16a34a; }
-
-    /* Warna ikon section harga dan kontak berwarna kuning */
     .icon-detail { background: #fef3c7; color: #d97706; }
-
-    /* Warna ikon section gambar berwarna ungu */
     .icon-media  { background: #fdf4ff; color: #9333ea; }
 
-    /* Label di atas setiap input field */
     .hp-label {
         font-size: 0.8rem;
         font-weight: 600;
@@ -213,7 +188,6 @@
         display: block;
     }
 
-    /* Input teks, textarea, dan select standar dengan transisi fokus */
     .hp-input {
         width: 100%;
         padding: 10px 14px;
@@ -227,19 +201,16 @@
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* Efek fokus input menampilkan border biru dan shadow tipis di sekitarnya */
     .hp-input:focus {
         border-color: var(--navy);
         box-shadow: 0 0 0 3px rgba(0,51,102,0.08);
     }
 
-    /* Textarea dengan tinggi minimum dan hanya bisa diubah secara vertikal */
     textarea.hp-input {
         resize: vertical;
         min-height: 110px;
     }
 
-    /* Teks error validasi merah di bawah input yang gagal */
     .hp-error {
         font-size: 0.78rem;
         color: var(--danger);
@@ -249,24 +220,20 @@
         gap: 5px;
     }
 
-    /* Border merah pada input yang memiliki kesalahan validasi */
     .hp-input.is-invalid {
         border-color: var(--danger);
     }
 
-    /* Grid dua kolom berdampingan untuk input sejajar */
     .hp-grid-2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px;
     }
 
-    /* Grid menjadi satu kolom penuh di layar kecil */
     @media(max-width: 768px) {
         .hp-grid-2 { grid-template-columns: 1fr; }
     }
 
-    /* Area upload gambar dengan border dashed dan latar abu muda */
     .upload-zone {
         border: 2px dashed var(--border);
         border-radius: var(--radius-sm);
@@ -278,13 +245,11 @@
         transition: border-color 0.2s, background 0.2s;
     }
 
-    /* Efek hover area upload memperlihatkan border biru dan latar lebih terang */
     .upload-zone:hover {
         border-color: var(--navy);
         background: #f0f6ff;
     }
 
-    /* Input file tersembunyi menutupi seluruh area upload zone */
     .upload-zone input[type="file"] {
         position: absolute;
         inset: 0;
@@ -295,7 +260,6 @@
         z-index: 2;
     }
 
-    /* Ikon besar di tengah area upload zone */
     .upload-zone .uz-icon {
         width: 48px;
         height: 48px;
@@ -309,7 +273,6 @@
         color: var(--navy);
     }
 
-    /* Teks label utama di dalam upload zone */
     .upload-zone .uz-label {
         font-size: 0.9rem;
         font-weight: 600;
@@ -317,13 +280,11 @@
         margin-bottom: 4px;
     }
 
-    /* Teks petunjuk format dan batas ukuran gambar */
     .upload-zone .uz-hint {
         font-size: 0.75rem;
         color: var(--text-muted);
     }
 
-    /* Grid flex wrap menampilkan gambar yang sudah tersimpan di database */
     .existing-preview-grid {
         display: flex;
         flex-wrap: wrap;
@@ -332,7 +293,6 @@
         margin-bottom: 24px;
     }
 
-    /* Gambar tersimpan ditampilkan sesuai proporsi aslinya dengan bayangan */
     .existing-preview-grid .preview-item img {
         display: block;
         max-width: 100%;
@@ -344,7 +304,6 @@
         box-shadow: 0 4px 14px rgba(0,0,0,0.14);
     }
 
-    /* Grid flex wrap menampilkan preview gambar baru yang dipilih sebelum disimpan */
     .new-preview-grid {
         display: flex;
         flex-wrap: wrap;
@@ -356,12 +315,10 @@
         pointer-events: none;
     }
 
-    /* Item preview gambar baru bisa diklik secara individual */
     .new-preview-grid .preview-item {
         pointer-events: auto;
     }
 
-    /* Gambar preview baru ditampilkan sesuai proporsi aslinya dengan batas tinggi */
     .new-preview-grid .preview-item img {
         display: block;
         width: auto;
@@ -373,7 +330,6 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.12);
     }
 
-    /* Bar simpan di bagian bawah form dengan border atas pemisah */
     .hp-save-bar {
         background: var(--surface);
         border-top: 1px solid var(--border);
@@ -385,13 +341,11 @@
         gap: 16px;
     }
 
-    /* Teks petunjuk kecil di sisi kiri save bar */
     .hp-save-hint {
         font-size: 0.78rem;
         color: var(--text-muted);
     }
 
-    /* Tombol simpan berwarna biru gradient dengan efek angkat saat hover */
     .hp-btn-save {
         background: linear-gradient(135deg, var(--navy) 0%, #0a4a8a 100%);
         color: #fff;
@@ -409,14 +363,12 @@
         text-decoration: none;
     }
 
-    /* Efek hover tombol simpan sedikit terangkat dan sedikit transparan */
     .hp-btn-save:hover {
         opacity: 0.9;
         transform: translateY(-1px);
         color: #fff;
     }
 
-    /* Tombol batal berwarna abu di samping tombol simpan */
     .hp-btn-cancel {
         background: var(--surface-2);
         color: var(--text-muted);
@@ -434,7 +386,6 @@
         font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* Efek hover tombol batal mempergelap warna border dan teks */
     .hp-btn-cancel:hover {
         border-color: var(--text-muted);
         color: var(--text);
@@ -443,7 +394,7 @@
 
 <div class="ep-wrapper">
 
-    {{-- Banner header halaman dengan tombol kembali ke daftar penginapan --}}
+    {{-- Header halaman edit penginapan dengan tombol kembali ke daftar --}}
     <div class="hp-page-header">
         <div class="hp-page-header-left">
             <div class="icon-wrap"><i class="fas fa-bed"></i></div>
@@ -452,18 +403,17 @@
                 <p>Perbarui informasi dan data penginapan di Geosite Danau Toba</p>
             </div>
         </div>
-        {{-- Tombol kembali menuju halaman daftar penginapan --}}
         <a href="{{ route('admin.penginapan.index') }}" class="hp-btn-back">
             <i class="fas fa-arrow-left"></i> Kembali
         </a>
     </div>
 
-    {{-- Form utama pengiriman data edit penginapan --}}
+    {{-- Form edit penginapan: informasi dasar, deskripsi, harga/kontak, gambar, save bar --}}
+    {{-- Menggunakan method PUT dengan enctype multipart untuk upload gambar --}}
     <form action="{{ route('admin.penginapan.update', $data->id) }}" method="POST" enctype="multipart/form-data" id="formPenginapan">
         @csrf
         @method('PUT')
 
-        {{-- Section informasi dasar penginapan berisi nama dan pilihan geosite --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-info"><i class="fas fa-info-circle"></i></div>
@@ -503,7 +453,6 @@
             </div>
         </div>
 
-        {{-- Section deskripsi penginapan berisi textarea penjelasan tempat menginap --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-desc"><i class="fas fa-align-left"></i></div>
@@ -526,7 +475,6 @@
             </div>
         </div>
 
-        {{-- Section detail harga dan kontak penginapan dalam dua kolom sejajar --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-detail"><i class="fas fa-tag"></i></div>
@@ -561,7 +509,8 @@
             </div>
         </div>
 
-        {{-- Section upload gambar penginapan berisi gambar lama dan area upload baru --}}
+        {{-- Section gambar penginapan: tampilkan gambar tersimpan dan area upload baru --}}
+        {{-- Gambar lama diambil dari JSON; gambar baru menggantikan gambar lama --}}
         <div class="hp-section">
             <div class="hp-section-header">
                 <div class="section-icon icon-media"><i class="fas fa-image"></i></div>
@@ -572,12 +521,11 @@
             </div>
             <div class="hp-section-body">
                 @php
-                    /* Mengambil data gambar dari JSON dan menyiapkan array gambar yang ada */
+                    /* Ambil dan normalisasi array gambar dari JSON */
                     $images = json_decode($data->gambar, true);
                     if (!is_array($images)) $images = $data->gambar ? [$data->gambar] : [];
                 @endphp
 
-                {{-- Tampilkan gambar yang sudah tersimpan sesuai proporsi aslinya --}}
                 @if(count($images) > 0)
                 <label class="hp-label">Gambar Saat Ini</label>
                 <div class="existing-preview-grid">
@@ -589,7 +537,6 @@
                 </div>
                 @endif
 
-                {{-- Area upload gambar baru sebagai pengganti gambar lama --}}
                 <label class="hp-label">Upload Gambar Baru (kosongkan jika tidak diubah)</label>
                 <div class="upload-zone">
                     <input type="file" name="gambar"
@@ -599,7 +546,7 @@
                     <div class="uz-icon"><i class="fas fa-image"></i></div>
                     <div class="uz-label">Klik atau Seret Gambar ke Sini</div>
                     <div class="uz-hint">Format: JPG, PNG, WEBP &nbsp;|&nbsp; Maks. 10MB per gambar</div>
-                    
+
                     <div class="new-preview-grid" id="previewGrid"></div>
                 </div>
                 @error('gambar')
@@ -610,15 +557,12 @@
                 @enderror
             </div>
 
-            {{-- Bar simpan di bagian bawah form dengan tombol batal dan update --}}
             <div class="hp-save-bar">
                 <span class="hp-save-hint"><i class="fas fa-lock me-1"></i> Perubahan penginapan akan langsung tersimpan ke sistem</span>
                 <div style="display:flex; gap:10px; align-items:center;">
-                    {{-- Tombol batal kembali ke halaman daftar penginapan --}}
                     <a href="{{ route('admin.penginapan.index') }}" class="hp-btn-cancel">
                         <i class="fas fa-times"></i> Batal
                     </a>
-                    {{-- Tombol submit menyimpan perubahan data penginapan --}}
                     <button type="submit" class="hp-btn-save">
                         <i class="fas fa-save"></i> Update Penginapan
                     </button>
@@ -631,23 +575,17 @@
 
 {{-- Script preview gambar baru yang dipilih sebelum form disubmit --}}
 <script>
-    /* Mendengarkan perubahan pada input file gambar */
+    // Validasi ukuran file dan tampilkan thumbnail saat input file berubah
     document.getElementById('inputGambar').addEventListener('change', function(e) {
         const grid = document.getElementById('previewGrid');
         grid.innerHTML = '';
         const file = e.target.files[0];
-
-        /* Keluar lebih awal jika tidak ada file yang dipilih */
         if (!file) return;
-
-        /* Validasi ukuran file tidak melebihi batas 10MB yang ditentukan */
         if (file.size > 10 * 1024 * 1024) {
             alert('Gambar "' + file.name + '" melebihi batas maksimal 10MB!');
             this.value = '';
             return;
         }
-
-        /* Membaca file sebagai URL data lalu menampilkan thumbnail preview gambar */
         const reader = new FileReader();
         reader.onload = function(ev) {
             const item = document.createElement('div');

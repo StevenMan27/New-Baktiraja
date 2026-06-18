@@ -1,22 +1,17 @@
 <?php
 
-/*
-   [MIGRATION 0007_create_homepages_table.php]
-   File ini bertugas mendefinisikan struktur, kolom, dan tipe data dari tabel database sebelum dieksekusi (migrate) ke server database sesungguhnya.
-*/
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    // Menjalankan migrasi untuk konten beranda.
-    // Penjelasan detail: Menyiapkan tabel homepages dan homepage_destinasis untuk mengatur tampilan halaman utama.
+    // Membuat tabel homepages dan homepage_destinasis
+    // Mengelola konten halaman utama: hero, statistik, tentang kami, destinasi, dan peta
     public function up(): void
     {
-        // Membuat tabel homepages.
-        // Penjelasan detail: Menyimpan konten hero section, statistik, tentang kami, dan peta untuk halaman utama.
+        // Membuat tabel homepages
+        // Menyimpan hero section, statistik, konten about, CTA, dan tautan peta beranda
         Schema::create('homepages', function (Blueprint $table) {
             $table->id();
 
@@ -58,8 +53,8 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // Membuat tabel homepage_destinasis.
-        // Penjelasan detail: Menyimpan kartu rekomendasi destinasi khusus yang akan muncul di halaman utama.
+        // Membuat tabel homepage_destinasis
+        // Menyimpan kartu rekomendasi destinasi yang tampil di halaman utama
         Schema::create('homepage_destinasis', function (Blueprint $table) {
             $table->id();
             $table->foreignId('homepage_id')->constrained()->onDelete('cascade');
@@ -75,8 +70,8 @@ return new class extends Migration
         });
     }
 
-    // Membatalkan migrasi konten beranda.
-    // Penjelasan detail: Menghapus tabel homepage_destinasis dan homepages dari database.
+    // Membatalkan migrasi konten beranda
+    // Menghapus tabel homepage_destinasis dan homepages dari database
     public function down(): void
     {
         Schema::dropIfExists('homepage_destinasis');

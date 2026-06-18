@@ -1,3 +1,5 @@
+{{-- Menampilkan halaman profil detail geosite --}}
+{{-- Memuat komponen UI interaktif seperti navbar, hero, galeri wisata, konten narasi, dan peta lokasi --}}
 
 
 <!DOCTYPE html>
@@ -252,7 +254,9 @@
         /* Section title scroll highlight animation */
         .section-title h2 { transition: color 0.5s ease; }
         .section-title.in-view h2 { color: var(--bi-gold) !important; }
-        </style>
+            .sejarah-intro { text-align: justify; }
+    .sejarah-text p { text-align: justify; }
+    </style>
 </head>
 <body>
 
@@ -264,10 +268,7 @@
             <div class="logo-divider"></div>
             <img src="{{ asset('image/Logo/del.jpg') }}" alt="Logo Del" class="del-img">
             <div class="logo-divider"></div>
-            <div class="logo-text">
-                <h4>GEOTOBA</h4>
-                <p>Geopark Danau Toba</p>
-            </div>
+            <a href="{{ url('/') }}" style="font-size: 1.65rem; font-weight: 800; color: var(--bi-blue); text-decoration: none; padding-left: 4px; letter-spacing: -0.3px;">Geo<span style="color: var(--bi-gold);">Toba</span></a>
         </div>
         <div class="nav-menu">
             <a href="#sejarah" class="nav-link">Tentang</a>

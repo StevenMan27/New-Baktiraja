@@ -1,3 +1,5 @@
+{{-- Menampilkan modal overlay pembaca --}}
+{{-- Digunakan untuk membaca konten naratif panjang secara fullscreen pada geosite --}}
 
 
 <style>

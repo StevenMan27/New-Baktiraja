@@ -12,25 +12,19 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Carbon\Carbon;
 
-/*
-   [CONTROLLER AuthController]
-   File ini bertugas mengontrol logika aplikasi untuk bagian autentikasi admin, termasuk login, logout, dan reset password.
-*/
+// Menangani seluruh alur autentikasi admin: login, logout, dan reset password via OTP.
+// Data masuk dari form request; data keluar ke session, redirect, atau email admin.
 class AuthController extends Controller {
     
-    /*
-       [FUNGSI SHOW LOGIN]
-       Method ini berfungsi untuk merender tampilan antarmuka login admin.
-    */
+    // Menampilkan halaman antarmuka login admin.
+    // Tidak ada input; mengembalikan view 'auth.login'.
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    /*
-       [FUNGSI PROSES LOGIN]
-       Method ini memproses data dari form login, memvalidasi kredensial, dan mengotentikasi admin.
-    */
+    // Memvalidasi kredensial dari form login dan mengotentikasi admin.
+    // Input dari $request (email, password); output redirect ke '/admin' atau kembali dengan error.
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -52,10 +46,8 @@ class AuthController extends Controller {
         ]);
     }
 
-    /*
-       [FUNGSI LOGOUT]
-       Method ini berfungsi untuk membersihkan sesi dan mencabut hak akses admin.
-    */
+    // Menghapus sesi aktif dan mencabut autentikasi admin yang sedang login.
+    // Input dari $request (session); output redirect ke halaman utama '/'.
     public function logout(Request $request)
     {
         Auth::logout();
@@ -64,19 +56,15 @@ class AuthController extends Controller {
         return redirect('/');
     }
 
-    /*
-       [FUNGSI SHOW FORGOT PASSWORD FORM]
-       Method ini berfungsi untuk merender antarmuka form lupa password.
-    */
+    // Menampilkan halaman form lupa password untuk memulai proses reset.
+    // Tidak ada input; mengembalikan view 'auth.forgot-password'.
     public function showForgotForm()
     {
         return view('auth.forgot-password');
     }
 
-    /*
-       [FUNGSI SEND OTP]
-       Method ini berfungsi untuk men-generate OTP dan mengirimkannya ke email admin yang terdaftar.
-    */
+    // Men-generate kode OTP 6 digit dan mengirimkannya ke email admin yang terdaftar.
+    // Input email dari $request; OTP disimpan ke tabel 'password_resets' dan dikirim via Mail.
     public function sendOtp(Request $request)
     {
         $request->validate([
@@ -114,10 +102,8 @@ class AuthController extends Controller {
         }
     }
 
-    /*
-       [FUNGSI SHOW VERIFY OTP FORM]
-       Method ini berfungsi untuk menampilkan halaman verifikasi input OTP.
-    */
+    // Menampilkan halaman input kode OTP setelah email dikirim.
+    // Mengecek keberadaan session 'otp_email'; mengembalikan view 'auth.verify-otp' atau redirect.
     public function showVerifyOtp()
     {
         if (!session('otp_email')) {
@@ -127,10 +113,8 @@ class AuthController extends Controller {
         return view('auth.verify-otp');
     }
 
-    /*
-       [FUNGSI VERIFY OTP]
-       Method ini menangani proses pengecekan kecocokan token OTP dengan yang ada di database.
-    */
+    // Memverifikasi kode OTP yang dimasukkan admin dengan token di database dan memeriksa masa berlakunya.
+    // Input OTP dari $request dan email dari session; output redirect ke form reset atau kembali dengan error.
     public function verifyOtp(Request $request)
     {
         $request->validate([
@@ -167,10 +151,8 @@ class AuthController extends Controller {
         return redirect()->route('password.reset-form');
     }
 
-    /*
-       [FUNGSI SHOW RESET PASSWORD FORM]
-       Method ini menampilkan antarmuka bagi admin untuk memasukkan password baru.
-    */
+    // Menampilkan form input password baru setelah OTP berhasil diverifikasi.
+    // Mengecek session 'otp_verified' dan 'otp_email'; mengembalikan view 'auth.reset-password' atau redirect.
     public function showResetForm()
     {
         if (!session('otp_verified') || !session('otp_email')) {
@@ -180,10 +162,8 @@ class AuthController extends Controller {
         return view('auth.reset-password');
     }
 
-    /*
-       [FUNGSI RESET PASSWORD]
-       Method ini mengatur pembaruan password admin di database dan membersihkan token OTP.
-    */
+    // Memperbarui password admin di database dan membersihkan token OTP serta session terkait.
+    // Input password baru dari $request dan email dari session; output redirect ke halaman login dengan pesan sukses.
     public function resetPassword(Request $request)
     {
         $request->validate([

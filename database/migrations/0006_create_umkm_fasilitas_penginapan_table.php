@@ -1,22 +1,17 @@
 <?php
 
-/*
-   [MIGRATION 0006_create_umkm_fasilitas_penginapan_table.php]
-   File ini bertugas mendefinisikan struktur, kolom, dan tipe data dari tabel database sebelum dieksekusi (migrate) ke server database sesungguhnya.
-*/
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    // Menjalankan migrasi untuk data penunjang wisata.
-    // Penjelasan detail: Membuat tabel umkm, fasilitas, dan penginapan yang berelasi dengan geosite terkait.
+    // Membuat tabel umkm, fasilitas, dan penginapan
+    // Menyimpan data penunjang wisata yang berelasi ke profil geosite
     public function up(): void
     {
-        // Membuat tabel umkm.
-        // Penjelasan detail: Menyimpan daftar usaha warga lokal beserta deskripsi dan kontaknya.
+        // Membuat tabel umkm
+        // Menyimpan daftar usaha lokal beserta deskripsi, lokasi, dan kontak
         Schema::create('umkm', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 255);
@@ -33,8 +28,8 @@ return new class extends Migration
                   ->onDelete('set null');
         });
 
-        // Membuat tabel fasilitas.
-        // Penjelasan detail: Menyimpan daftar fasilitas penunjang wisata beserta informasi tarifnya jika ada.
+        // Membuat tabel fasilitas
+        // Menyimpan daftar fasilitas wisata beserta informasi tarif jika ada
         Schema::create('fasilitas', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 255);
@@ -50,8 +45,8 @@ return new class extends Migration
                   ->onDelete('set null');
         });
 
-        // Membuat tabel penginapan.
-        // Penjelasan detail: Mengelola daftar tempat menginap, estimasi tarif, dan kontak pengelola.
+        // Membuat tabel penginapan
+        // Menyimpan daftar tempat menginap, estimasi tarif, dan kontak pengelola
         Schema::create('penginapan', function (Blueprint $table) {
             $table->id();
             $table->string('nama', 255);
@@ -69,8 +64,8 @@ return new class extends Migration
         });
     }
 
-    // Membatalkan migrasi tabel penunjang.
-    // Penjelasan detail: Menghapus tabel penginapan, fasilitas, dan umkm jika migrasi dibatalkan.
+    // Membatalkan migrasi tabel penunjang wisata
+    // Menghapus tabel penginapan, fasilitas, dan umkm secara berurutan
     public function down(): void
     {
         Schema::dropIfExists('penginapan');

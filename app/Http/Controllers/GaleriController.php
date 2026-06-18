@@ -5,22 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Galeri;
 use Illuminate\Http\Request;
 
+// Menangani logika tampilan galeri publik dan penyimpanan foto baru oleh admin.
+// Data foto diambil dari tabel 'galeris'; file gambar disimpan dalam format binary (LONGBLOB) ke database.
 class GaleriController extends Controller {
-    /*
-       [CONTROLLER GaleriController]
-       File ini bertugas mengontrol logika aplikasi untuk bagian publik dari GaleriController.
-       Berfungsi mengambil data dari Model dan melemparkannya ke file View yang sesuai.
-       Tabel Database yang digunakan: menyesuaikan dengan fungsi yang dipanggil.
-    */
-    /*
-       [FUNGSI MENAMPILKAN HALAMAN GALERI PUBLIK]
-       Fungsi ini bertugas untuk mengambil seluruh data foto dari database dan menampilkannya di halaman galeri depan pengunjung.
-       Logikanya adalah:
-       1. Mengambil semua data dari tabel galeris dan mengurutkannya dari yang paling baru diupload (descending).
-       2. Mengelompokkan (groupBy) kumpulan foto-foto tersebut berdasarkan kolom 'geosite'.
-       3. Mengirimkan data yang sudah dikelompokkan tersebut ke tampilan 'pages.galeri'.
-       Tabel Database yang digunakan: 'galeris'
-    */
+
+    // Mengambil semua foto dari database, mengelompokkannya berdasarkan geosite, lalu menampilkan di halaman galeri pengunjung.
+    // Data berasal dari model Galeri diurutkan terbaru; output ke view 'pages.galeri' via compact.
     public function index()
     {
         $allGaleri = Galeri::orderBy('created_at', 'desc')
@@ -31,15 +21,8 @@ class GaleriController extends Controller {
         return view('pages.galeri', compact('galeriByKategori'));
     }
 
-    /*
-       [FUNGSI MENYIMPAN FOTO BARU (STORE)]
-       Fungsi ini bertugas untuk memproses data dari form tambah foto yang diisi oleh Admin, lalu menyimpannya secara fisik (biner) ke database.
-       Logikanya adalah:
-       1. Memvalidasi (validate) inputan admin, memastikan judul diisi dan file berupa gambar (jpeg/png/jpg) max 2MB.
-       2. Jika ada file gambar, kode akan membaca wujud fisik file tersebut menggunakan file_get_contents().
-       3. Menyimpan data teks beserta data binary gambar (sebagai LONGBLOB) ke database.
-       Tabel Database yang digunakan: 'galeris'
-    */
+    // Memvalidasi input admin, membaca file gambar sebagai data binary, lalu menyimpannya ke tabel 'galeris'.
+    // Input judul, kategori, deskripsi, dan file gambar dari $request; output redirect kembali dengan pesan sukses.
     public function store(Request $request)
     {
         $request->validate([
@@ -64,4 +47,3 @@ class GaleriController extends Controller {
         return redirect()->back()->with('success', 'Foto Berhasil Ditambahkan!');
     }
 }
-
